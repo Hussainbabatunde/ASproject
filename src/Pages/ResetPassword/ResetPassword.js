@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react'
-import { Link, useNavigate, useParams } from 'react-router-dom'
-import './Signup.css'
+import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom'
+import '../SignUp/Signup.css'
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
 import { useForm } from "react-hook-form";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useDispatch, useSelector } from 'react-redux'
-import { RegisterAuth } from '../../Slice/auth/Login'
+import { RegisterAuth, ResetPasswordAuth } from '../../Slice/auth/Login'
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import Lottie from 'lottie-react';
@@ -26,9 +26,7 @@ const style = {
   };
 
 
-const CreateAccount = () => {
-    
-//   console.log('env file',process.env.REACT_APP_AFRISPORTURL)
+const ResetPassword = () => {
 
     const dispatch = useDispatch()
     const [show, setShow] = useState(false);
@@ -55,23 +53,15 @@ const CreateAccount = () => {
       const formOptions = { resolver: yupResolver(formSchema) }
     const { register, handleSubmit, formState: { errors } } = useForm(formOptions);
     
-    let {id} = useParams()
+  const [queryParameters] = useSearchParams()
     // console.log('id ', id)
-    const [phone, setPhone] = useState('')
-    const [phoneErr, setPhoneErr] = useState(false)
     
     
     const onSubmit = async (data) => {
-        data.user_type= id
-        data.phone = phone
-        if(phone?.length < 7){
-            setPhoneErr(true)
-        }else{
-            // console.log(data)
+        data.user = queryParameters.get('user');
             setShow(true)
-            await dispatch(RegisterAuth(data))
+            await dispatch(ResetPasswordAuth(data))
             setShow(false)
-        }
     };
 
   return (
@@ -79,37 +69,8 @@ const CreateAccount = () => {
          <ToastContainer />
         <p className='Loginpage_Companyname'><Link className='Loginpage_Companyname' to='/'>AfriSport-Pro</Link></p>
         <form  onSubmit={handleSubmit(onSubmit)} className='Loginpage_formSection'>
-            <p className='Loginpage_formTopic'>Create your account</p>
-            <div className='Loginpage_formInputfield'>
-                <p className='Loginpage_formEmailaddr'>First and Last name</p>
-                <input type='text' 
-                aria-invalid={errors.fullname ? 'true' : 'false'}
-                {...register("fullname", { required: true })} 
-                placeholder='First and Last name' 
-                className='Loginpage_formEmailInput' />
-                <p className='error_authentication'>{errors?.fullname?.message}</p>
-            </div>
-            <div className='CreateAccpage_formInputfield'>
-                <p className='Loginpage_formEmailaddr'>Phone number</p>
-                <div className='CreateAccpage_PhoneInputSec'>
-                <PhoneInput
-                    country={'us'}
-                    value={phone}
-                    inputStyle={{ width: '100%' }}
-                    onChange={phone => setPhone(phone)}
-                    />
-                    </div>
-                   {phoneErr && <p className='error_authentication'>Phone number is required</p>}
-            </div>
-            <div className='CreateAccpage_formInputfield'>
-                <p className='Loginpage_formEmailaddr'>Email</p>
-                <input type='text'
-                aria-invalid={errors.email ? 'true' : 'false'}
-                 {...register("email", { required: true })} 
-                 placeholder='abc@mail.com' 
-                 className='Loginpage_formEmailInput' />
-                <p className='error_authentication'>{errors?.email?.message}</p>
-            </div>
+            <p className='Loginpage_formTopic'>Reset Password</p>
+            
             <div className='Loginpage_formInputfield'>
                 <p className='Loginpage_formEmailaddr'>Password</p>
                 <input type='password'
@@ -129,9 +90,8 @@ const CreateAccount = () => {
                 className='Loginpage_formEmailInput' />
                 <p className='error_authentication'>{errors?.confirm_password?.message}</p>
             </div>
-            <p className='CreateAccpage_termsandPolicy'><input type='checkbox' /> <span className='CreateAccpage_TermsandPolicyText'> I agree to the AfriSport-Pro <span className='CreateAccpage_TermsofUse'>Terms of Use</span> and <span className='CreateAccpage_TermsofUse'>Privacy policy</span> </span></p>
             <button type='submit' className='Loginpage_formLoginButton'>Submit</button>
-            <p className='Loginpage_formSignup'>Already have an account?  <span className='Loginpage_SingupText'><Link className='Loginpage_enquireacc' to='/login'>Log in</Link></span></p>
+            <p className='Loginpage_formSignup'><span className='Loginpage_SingupText'><Link className='Loginpage_enquireacc' to='/login'>Log in</Link></span></p>
             <Modal
         open={show}
         // onClose={handleClose}
@@ -148,4 +108,4 @@ const CreateAccount = () => {
   )
 }
 
-export default CreateAccount
+export default ResetPassword

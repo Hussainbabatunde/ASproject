@@ -18,7 +18,7 @@
     padding: 10px;
     font-size: 15px;
     background-color: black;
-    color: white;
+    color: white !important;
     border-radius: 8px;
 }
 .Homepage_Menudisplay{
@@ -30,6 +30,25 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+.Admin_headerNotification{
+    font-size: 28px;
+    margin-right: 10px;
+}
+.Admin_wholeNavigationBar{
+    display: flex;
+}
+.Admin_HeaderNotification_div{
+    position: relative;
+}
+.Admin_NotificationSign{
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    position: absolute;
+    background-color: red;
+    top: 3px;
+    left: 16px;
 }
 @media screen and (max-width: 900px){
     .Homepage_header{

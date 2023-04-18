@@ -43,7 +43,7 @@ const Signup = () => {
                 }}
                 />
                 </div>
-            <p className='Loginpage_formSignup'>Already have an account  <span className='Loginpage_SingupText'><Link style={{color:'rgba(71, 177, 67, 1)'}} to='/login'>Log in</Link></span></p>
+            <p className='Loginpage_formSignup'>Already have an account?  <span className='Loginpage_SingupText'><Link className='Loginpage_enquireacc' to='/login'>Log in</Link></span></p>
         </form>
     </div>
   )

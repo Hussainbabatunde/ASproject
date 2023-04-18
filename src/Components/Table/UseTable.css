@@ -1,0 +1,21 @@
+.UseTable_tableheader{
+    background-color: rgba(222, 222, 222, 0.23) !important;
+    border: 1px solid #DDDDDD !important;
+    color: #5A6979;
+}
+.useTable_tableDetailsLink{
+    background-color: rgba(71, 177, 67, 1);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: none;
+}
+.useTable_tableDetails{    
+    border: 1px solid #DDDDDD !important;
+}
+.useTable_ImageRecipient{
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    margin-right: 15px;
+}

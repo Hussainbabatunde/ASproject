@@ -11,7 +11,7 @@
     font-size: 36px;
     font-weight: 500;
     margin-top: 20px;
-    color: white;
+    color: white !important;
 }
 .Loginpage_formSection{
     background-color: white;
@@ -31,19 +31,37 @@
     text-align: center;
 }
 .Loginpage_formInputfield{
-   margin-top: 35px;
+   margin-top: 20px;
 }
 .Loginpage_formEmailaddr{
     font-size: 16px;
     font-weight: 400;
+    margin-bottom: 0;
 }
 .Loginpage_formEmailInput{
     width: 400px;
     margin-top: 10px;
     border: 1px solid rgba(220, 220, 220, 1);
     border-radius: 5px;
-    padding: 7px 20px;
+    padding: 5px 20px;
+    /* width: 100%; */
     font-size: 16px;
+}
+.Loginpage_formPasswordInput{
+    width: 400px;
+    display: flex;
+    margin-top: 10px;
+    border: 1px solid rgba(220, 220, 220, 1);
+    border-radius: 5px;
+    padding: 5px 20px;
+    /* width: 100%; */
+    font-size: 16px;
+    align-items: center;
+}
+.Loginpage_PasswordInput{
+    font-size: 16px;
+    flex: 1;
+    border: none;
 }
 .Loginpage_formForgotPassword{
     color: #0D0D9C !important;
@@ -52,6 +70,7 @@
 }
 .Loginpage_formLoginButton{
     width: 100%;
+    cursor: pointer;
     color: white;
     background-color: rgba(71, 177, 67, 1);
     border: none;

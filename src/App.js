@@ -8,6 +8,13 @@ import { GoogleOAuthProvider } from '@react-oauth/google';
 import Signup from './Pages/SignUp/Signup';
 import CreateAccount from './Pages/SignUp/CreateAccount';
 import ForgotPassword from './Pages/ForgotPassword/ForgotPassword';
+import Scout from './Pages/Scout/Scout';
+import ScoutDeal from './Components/Scout/ScoutDeal';
+import 'react-toastify/dist/ReactToastify.css';
+import ResetPassword from './Pages/ResetPassword/ResetPassword';
+import PrivateRoute from './Pages/PrivateRoutes.js/PrivateRoute';
+import ScoutRoute from './Pages/Scout/ScoutRoute';
+import AdminRote from './Pages/Admin/AdminRote';
 
 function App() {
   return (
@@ -19,6 +26,17 @@ function App() {
         <Route path='/signup' element={<Signup />} />
         <Route path='/create-account/:id' element={<CreateAccount />} />
         <Route path='/forgotPassword' element={<ForgotPassword />} />
+        <Route path='/resetPassword' element={<ResetPassword />} />
+        <Route path='/admin/*' element={<AdminRote />} />
+        <Route path='/afrisport/*' element={
+        <PrivateRoute>
+          <ScoutRoute />
+          {/* <Routes>
+        <Route path='/scout/profile' element={<Scout />} />
+        <Route path='/scout/deal' element={<ScoutDeal />} />
+        </Routes> */}
+        </PrivateRoute>
+        } />
       </Routes>
     </BrowserRouter>
     </GoogleOAuthProvider>
