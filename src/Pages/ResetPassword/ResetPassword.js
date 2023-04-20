@@ -27,22 +27,14 @@ const style = {
 
 
 const ResetPassword = () => {
+    
 
     const dispatch = useDispatch()
     const [show, setShow] = useState(false);
-    const navigate = useNavigate();
-    const userData = useSelector((state)=> state.reducer.LoginSlice?.registerData )
-
-    // useEffect( ()=>{
-    //     if(userData?.message == 'Registration Successful. Email Verification Link sent to your email'){
-    //       navigate('/login')
-    //     }
-    //   }, [userData, navigate])
 
     
       const formSchema = Yup.object().shape({
-        fullname: Yup.string().required('First and last name is required'),
-        email: Yup.string().email().required(),
+        
         password: Yup.string()
           .required('Password is mandatory')
           .min(8, 'Password must be at 3 char long'),
@@ -52,13 +44,12 @@ const ResetPassword = () => {
       })
       const formOptions = { resolver: yupResolver(formSchema) }
     const { register, handleSubmit, formState: { errors } } = useForm(formOptions);
-    
-  const [queryParameters] = useSearchParams()
-    // console.log('id ', id)
+    const[queryParameter] = useSearchParams()
     
     
     const onSubmit = async (data) => {
-        data.user = queryParameters.get('user');
+        data.user= queryParameter.get("user")
+            // console.log(data)
             setShow(true)
             await dispatch(ResetPasswordAuth(data))
             setShow(false)

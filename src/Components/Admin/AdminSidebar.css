@@ -1,0 +1,38 @@
+.SuperAdmin_Sidebar{
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    width: 280px;
+    background-color: rgba(38, 38, 38, 1);
+    color: white;
+    min-height: 85vh;
+    justify-content: space-between;
+    
+}
+.SuperAdmin_Sidebarholder{
+    position: fixed;
+    padding: 20px 0;
+}
+.SuperAdmin_SidebarNavLink{
+    color: white !important;
+    display: flex;
+    flex-direction: row;
+    padding: 10px 30px;
+    align-items: center;
+    font-size: 18px;
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 0.15);
+}
+.SuperAdmin_SidebarInactiveNavLink{
+    border-top: 1px solid black;
+    color: white !important;
+    display: flex;
+    flex-direction: row;
+    padding: 10px 30px;
+    align-items: center;
+    font-size: 18px;
+    cursor: pointer;
+}
+.SuperAdmin_SidebarText{
+    margin-left: 10px;
+}

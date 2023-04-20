@@ -67,7 +67,7 @@ const CreateAccount = () => {
         if(phone?.length < 7){
             setPhoneErr(true)
         }else{
-            // console.log(data)
+            console.log(data)
             setShow(true)
             await dispatch(RegisterAuth(data))
             setShow(false)
