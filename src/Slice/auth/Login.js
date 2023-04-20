@@ -154,7 +154,7 @@ export const loginAuth = createAsyncThunk(
         },
       });
       return await instance
-        .post("email/set-new-password", details)
+        .post("set-new-password", details)
         .then(async (response) => {
             console.log(response.data)
           return response.data;

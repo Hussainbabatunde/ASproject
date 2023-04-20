@@ -15,8 +15,14 @@ import ResetPassword from './Pages/ResetPassword/ResetPassword';
 import PrivateRoute from './Pages/PrivateRoutes.js/PrivateRoute';
 import ScoutRoute from './Pages/Scout/ScoutRoute';
 import AdminRote from './Pages/Admin/AdminRote';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+import { useEffect } from 'react';
 
 function App() {
+  useEffect(() => {
+    AOS.init();
+  }, [])
   return (
     <GoogleOAuthProvider clientId="<your_client_id>">
     <BrowserRouter>
@@ -26,7 +32,7 @@ function App() {
         <Route path='/signup' element={<Signup />} />
         <Route path='/create-account/:id' element={<CreateAccount />} />
         <Route path='/forgotPassword' element={<ForgotPassword />} />
-        <Route path='/resetPassword' element={<ResetPassword />} />
+        <Route path='/setPassword' element={<ResetPassword />} />
         <Route path='/admin/*' element={<AdminRote />} />
         <Route path='/afrisport/*' element={
         <PrivateRoute>
