@@ -1,0 +1,59 @@
+
+.Scoutpage_ProfileforContent{
+    width: 100%;
+    margin-top: 20px;
+    background-color: white;
+    border-radius: 5px;
+    padding: 1rem 2rem;
+    font-family: sans-serif !important;
+    display: flex;
+    flex-direction: column;
+}
+.Scoutpage_Profile_Profiledetailstext{
+    font-size: 22px;
+    font-weight: 600;
+}
+.Scoutpage_Profile_filldetailstext{
+    font-size: 16px;
+    font-weight: 300;
+    color: #262626;
+    margin-top: 5px;
+}
+.Scoutpage_Profile_Profileformlabeltext{
+    font-size: 16px;
+    margin-top: 20px;
+    font-weight: 300;
+}
+.Scoutpage_Profile_Profileformlabelnexttext{
+    font-size: 16px;
+    margin-top: 15px;
+    font-weight: 300;
+}
+.Scoutpage_Profile_ProfileformlabelInput{
+    border: 1px solid #D4D4D4;
+    margin-top: 5px;
+    border-radius: 5px;
+    padding: 5px 10px;
+    display: flex;
+    font-size: 16px;
+    flex: 1;
+}
+.Scoutpage_Profile_Profileformlabeltextarea{
+    border: 1px solid #D4D4D4;
+    margin-top: 5px;
+    border-radius: 5px;
+    padding: 5px 10px;
+    display: flex;
+    font-size: 16px;
+    flex: 1;
+    min-height: 100px;
+}
+.Scoutpage_Profileform_savebutton{
+    width: 100px;
+    color: white;
+    background-color: #1B8550;
+    padding: 10px;
+    margin: 20px 0;
+    border-radius: 5px;
+    border: none;
+}

@@ -1,0 +1,99 @@
+.Scoutpage_PaymentContent{
+    background-color: white;
+    padding: 1rem 4rem;
+    border-top: 1px solid rgba(177, 177, 177, 1);
+}
+.Scoutpage_PaymentEarnings{
+    border: 1px solid rgba(154, 154, 154, 1);
+    background-color: white;
+    padding: 1rem 2rem;
+    border-radius: 5px;
+}
+.Scoutpage_PaymentEarnings_firstrow{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.Scoutpage_PaymentEarnings_earntext{
+    font-size: 20.95px;
+    font-weight: 700;
+}
+.Scoutpage_PaymentEarnings_earnfigure{
+    font-size: 36px;
+    font-weight: 700;
+    margin-right: 10px;
+}
+.Scoutpage_PaymentEarnings_datePayed{
+    margin-top: 30px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.Scoutpage_PaymentEarnings_dateIcon{
+    font-size: 20px;
+    color: #343434;
+}
+.Scoutpage_PaymentEarnings_monthandyear{
+    color: #142561;
+    margin-left: 20px;
+}
+.Scoutpage_Getpaid_monthandyear{
+    color: #142561;
+}
+.Scoutpage_TransGetpaid{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    margin-top: 10px;
+}
+.Scoutpage_transactionContent{
+    border-radius: 5px;
+    padding:2rem;
+    
+}
+.Scoutpage_transactionContent_holder{
+    border: 1px solid rgba(177, 177, 177, 1);
+    background-color: white;
+    width: 48%;
+    border-radius: 5px;
+}
+.Scoutpage_TransGetpaid_dateandamt{
+    margin-top: 20px;
+}
+.Scoutpage_Getpaid_acctandbank{
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+}
+.Scoutpage_Getpaid_dateSec{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+.Scoutpage_transaction_Linkotherpages{
+    /* width: 100%; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 13.97px;
+    background-color: #F3F6F8;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+.Scoutpage_Getpaid_bankiconholder{
+    background-color: #F3F6F8;
+    border: 1px solid #777777;
+    padding: 1rem;
+    border-radius: 5px;
+}
+.Scoutpage_Getpaid_bankicon{
+    color: #777777;
+    font-size: 40px;
+}
+.Scoutpage_Getpaid_acctnoandname{
+    margin-left: 20px;
+}
+.Scoutpage_Getpaid_accnumber{
+    font-size: 14px;
+}

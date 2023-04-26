@@ -1,0 +1,20 @@
+.Scoutpage_ViewContent{
+    border: 1px solid rgba(154, 154, 154, 1);
+    padding: 4rem 3rem;
+    border-radius: 10px;
+    width: 500px;
+}
+.Scoutpage_ViewDaysframe{
+    font-size: 24px;
+    font-weight: 700;
+}
+.Scoutpage_View_NoofScouts{
+    font-size: 20px;
+    margin-top: 15px;
+    font-weight: 500;
+}
+.Scoutpage_View_NoofEnquiry{
+    font-size: 20px;
+    margin-top: 5px;
+    font-weight: 500;
+}

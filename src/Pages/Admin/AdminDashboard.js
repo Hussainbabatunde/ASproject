@@ -99,6 +99,12 @@ const dataTable= [
       id: 1,dealname: '5 Season Deal', imgRecip: imgRecipient, scoutname: 'David Dada', InitialOffer:'$12,000', CurrentOffer: '$15,000',  surname: 'Not paid', chat: ChatCircle, number: "8"
   }
 ]
+
+const dataPlayers= [
+  {
+      id: 1,playerName: 'mayana', position:'striker', club:'chelsea', images: '4', nationality:'Nigerian', videos: '8'
+  }
+]
   return (<div className='AdminDashboard'>
     {/* <AdminHeader /> */}
     <div className='AdminDashBoard_title'>
@@ -174,7 +180,7 @@ const dataTable= [
                 <Lottie style={{width: '200px', height:'200px'}} animationData={empty} />
         </div>
         : 
-        <AdminUseTable header={Playerheader} data={dataTable} />
+        <AdminUseTable header={Playerheader} data={dataPlayers} />
         }
       </div>
 

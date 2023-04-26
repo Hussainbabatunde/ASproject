@@ -2,15 +2,11 @@
     display: flex;
     position: relative;
     flex-direction: column;
-    width: 280px;
+    width: 330px;
     background-color: rgba(38, 38, 38, 1);
     color: white;
     min-height: 85vh;
     justify-content: space-between;
-    
-}
-.SuperAdmin_Sidebarholder{
-    position: fixed;
     padding: 20px 0;
 }
 .SuperAdmin_SidebarNavLink{

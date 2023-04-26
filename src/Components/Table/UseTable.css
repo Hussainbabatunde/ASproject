@@ -23,7 +23,13 @@
 }
 .useTable_tableDetails{    
     border: 1px solid #DDDDDD !important;
-    padding: 5px 10px;
+    padding: 10px 10px;
+}
+.useTable_ViewEditSuspendDetails{    
+    border: 1px solid #DDDDDD !important;
+    padding: 10px 10px;
+    width: 250px;
+    text-align: center;
 }
 .AdminUse_TableComp{
     display: flex;
@@ -39,4 +45,31 @@
 .AdminUserTable{
     width: 100%;
     border-collapse: collapse;
+}
+.Admin_playersviewprofile{
+    border: 1px solid #1D7F33;
+    padding: 5px 10px;
+    background: #F2FEF9;
+    color: #1D7F33 !important;
+    font-weight: 700;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+.Admin_playersEditprofile{
+    border: 1px solid rgba(29, 33, 127, 1);
+    padding: 5px 10px;
+    background: #F2F3FE;
+    color: #1D217F !important;
+    font-weight: 700;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+.Admin_playersSuspendprofile{
+    border: 1px solid rgba(127, 53, 29, 1);
+    padding: 5px 10px;
+    background: #FEFDF2;
+    color: #7F351D !important;
+    font-weight: 700;
+    border-radius: 5px;
+    margin-right: 10px;
 }

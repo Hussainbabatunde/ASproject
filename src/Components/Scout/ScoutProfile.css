@@ -1,0 +1,50 @@
+.Scoutpage_ProfileContent{
+    display: flex;
+    padding-top: 30px;
+}
+.Scoutpage_ProfileContent_editformside{
+    width: 700px;
+}
+.Scoutpage_Profile_ImgVerificationSec{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+.Scoutpage_Profile_ImagePlaceInput{
+    display: none;
+}
+.Scoutpage_Profile_placeholder{
+    border-radius: 50%;
+}
+.Scoutpage_Profile_ImgNameSec{
+    display: flex;
+    align-items: center;
+}
+.Scoutpage_Profile_nameVerify{
+    margin-left: 30px;
+}
+.Scoutpage_Profile_Viewprofilebutton{
+    border: 1px solid rgba(27, 133, 80, 1);
+    padding: 10px 10px;
+    font-size: 14px;
+    border-radius: 5px;
+    height: 20px;
+    color: rgba(27, 133, 80, 1) !important;
+    font-weight: 600;
+}
+.Scoutpage_profile_Username{
+    font-size: 24px;
+    font-weight: 400;
+    color: #13293F;
+}
+.Scoutpage_Profile_Verificationstatus{
+    font-size: 16px;
+    font-weight: 400;
+}
+.Scoutpage_profile_Usertype{
+    font-size: 14px;
+    font-weight: 400;
+    color: #13293F;
+    margin-top: 10px;
+}
