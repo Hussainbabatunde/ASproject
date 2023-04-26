@@ -3,6 +3,12 @@
     background-color: #DBDBDB;
     padding: 1rem;
 }
+.AdminPage_FinanceDashboard{
+    min-height: 100vh;
+    background-color: #DBDBDB;
+    padding: 1rem;
+    padding-top: 3rem;
+}
 .AdminDashBoard_title{
     background-color: white;
     padding: 1rem;
@@ -90,6 +96,7 @@
     color: #1D7F33;
     align-items: center;
 }
+
 .AdminPage_TableInfoText{
     margin-left: 15px;
     font-size: 16px;

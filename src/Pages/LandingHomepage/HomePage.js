@@ -52,7 +52,7 @@ const HomePage = () => {
             <div className='Homepage_Sortfootballers'>
              {Sortdata.map((each, index)=>( <div  data-aos-easing='ease-in-out' 
              data-aos-duration="1000" 
-             data-aos="fade-right"
+             data-aos="flip-down"
              className='Homepage_foorballersBriefInfo' key={index}>
                 <img src={each?.image} className='Homepage_PlayersImage' />
                 <p className='Homepage_PlayerStatus'>{each?.amount}</p>

@@ -7,6 +7,7 @@ import {MdGroups} from 'react-icons/md'
 import {GiMeepleGroup, GiHouse} from 'react-icons/gi'
 import {BsPersonLinesFill, BsFillPeopleFill} from 'react-icons/bs'
 import {ImExit} from 'react-icons/im'
+import {AiFillBank} from 'react-icons/ai'
 
 
 const AdminSidebar = () => {
@@ -18,7 +19,7 @@ const AdminSidebar = () => {
     {id: 5, pathTo: '/admin/admin/fans', pathName: 'Fans', pathIcon: <BsPersonLinesFill />},
     {id: 6, pathTo: '/admin/admin/talentManager', pathName: 'Talent Manager', pathIcon: <BsFillPeopleFill />},
     {id: 7, pathTo: '/admin/admin/admins', pathName: 'Admins', pathIcon: <GiMeepleGroup />},
-    {id: 8, pathTo: '/admin/admin/finanace', pathName: 'Finance', pathIcon: <GiHouse />},
+    {id: 8, pathTo: '/admin/admin/finance', pathName: 'Finance', pathIcon: <AiFillBank />},
 ]
   return (
     <div className='SuperAdmin_Sidebar'>

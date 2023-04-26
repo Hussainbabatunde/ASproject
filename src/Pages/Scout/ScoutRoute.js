@@ -8,6 +8,8 @@ import Scout from './Scout';
 import ScoutProfile from '../../Components/Scout/ScoutProfile';
 import { LogoutAuth } from '../../Slice/auth/Login';
 import { useDispatch } from 'react-redux';
+import ScoutViews from '../../Components/Scout/ScoutViews';
+import ScoutPayment from '../../Components/Scout/ScoutPayment';
 
 const ScoutRoute = () => {
     const dispatch = useDispatch()
@@ -20,8 +22,8 @@ const ScoutRoute = () => {
     const data = [
         {id: 1, pathTo: '/afrisport/scout/profile', pathName: 'Profile'},
         {id: 2, pathTo: '/afrisport/scout/deal', pathName: 'Deals'},
-        {id: 3, pathTo: '/afrisport/scoutViews', pathName: 'Views'},
-        {id: 4, pathTo: '/afrisport/scoutPayment', pathName: 'Payment'}
+        {id: 3, pathTo: '/afrisport/scout/views', pathName: 'Views'},
+        {id: 4, pathTo: '/afrisport/scout/payment', pathName: 'Payment'}
     ]
   return (
     <div>
@@ -39,6 +41,8 @@ const ScoutRoute = () => {
         <Routes>
             <Route path='/scout/profile' element={<ScoutProfile />} />
             <Route path='/scout/deal' element={<ScoutDeal />} />
+            <Route path='/scout/views' element={<ScoutViews />} />
+            <Route path='/scout/payment' element={<ScoutPayment />} />
         </Routes>
         </div>
     </div>

@@ -15,7 +15,7 @@ const FootballerInfo = ({title, pathTitle, data}) => {
              {data.map((each, index)=>( <div className='Homepage_foorballersBriefInfo'
              data-aos-easing='ease-in-out' 
              data-aos-duration="1000" 
-             data-aos="fade-left" key={index}>
+             data-aos="flip-up" key={index}>
                 <img src={each?.image} className='Homepage_PlayersImage' />
                 <p className='Homepage_PlayerStatus'>{each?.amount}</p>
                 <p className='Homepage_PlayersName'>{each?.playername}</p>
