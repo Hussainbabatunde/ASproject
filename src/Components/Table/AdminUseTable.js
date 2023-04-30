@@ -12,7 +12,7 @@ const AdminUseTable = ({header, data, handleShowEdit}) => {
       <thead>
         <tr>
             {header?.map((item, index)=>(<>
-                <th key={index}  className="UseTable_tableheader">{item?.name == 'ViewEditSuspend' || item?.name == 'PlayersViewdetails' || item?.name == 'ViewEditUnSuspend' || item?.name == 'SuspendMessageView'? '' : item?.name}</th>
+                <th key={index}  className="UseTable_tableheader">{item?.name == 'ViewEditSuspend' || item?.name == 'PlayersViewdetails' || item?.name == 'EditResetPasswordEnableDisable' || item?.name == 'ViewEditUnSuspend' || item?.name == 'SuspendMessageView'? '' : item?.name}</th>
                 </>
             ))}
           {/* <th className="UseTable_tableheader">First Name</th>
@@ -36,6 +36,8 @@ const AdminUseTable = ({header, data, handleShowEdit}) => {
                         return (<td  className='useTable_tableDetails'>{each?.activeNegotiate}</td>);
                     case 'Closed Negotiate':
                         return (<td  className='useTable_tableDetails'>{each?.closedNegotiate}</td>);
+                    case 'Number of Player':
+                        return (<td  className='useTable_tableDetails'>{each?.closedNegotiate}</td>);
                     case 'Nationality':
                         return (<td  className='useTable_tableDetails'>{each?.nationality}</td>);
                     case 'Date':
@@ -54,14 +56,22 @@ const AdminUseTable = ({header, data, handleShowEdit}) => {
                         return (<td  className='useTable_tableDetails'><Link className='AdminPage_TableViewDetails'>View Details</Link></td>);
                     case 'Scout':
                           return (<td className='useTable_tableDetails'><p className='AdminUse_TableComp'><img src={each?.imgRecip} className='useTable_ImageRecipient' alt='Recipient image'/>{each?.scoutname}</p></td>);
+                    case 'Admin name':
+                        return (<td className='useTable_tableDetails'><p className='AdminUse_TableComp'><img src={each?.imgRecip} className='useTable_ImageRecipient' alt='Recipient image'/>{each?.scoutname}</p></td>);
                     case 'Initial Offer':
                         return (<td className='useTable_tableDetails'>{each?.InitialOffer}</td>);
                     case 'Current Offer':
                         return (<td className='useTable_tableDetails'>{each?.CurrentOffer}</td>);
+                    case 'Phone number':
+                        return (<td className='useTable_tableDetails'>{each?.phoneNumber}</td>);
                     case 'Active Negotiaties':
                           return (<td className='useTable_tableDetails'><p className='AdminUse_TableComp'><img src={each?.chat} style={{marginRight: '10px'}} width='25px' height='25px' alt='Recipient image'/>{each?.number}</p></td>);
                     case 'Payment':
                         return (<td className='useTable_tableDetails'>{each?.surname}</td>);
+                    case 'Role':
+                        return (<td className='useTable_tableDetails'>{each?.role}</td>);
+                    case 'Email':
+                        return (<td className='useTable_tableDetails'>{each?.email}</td>);
                     case 'Player Name':
                         return (<td className='useTable_tableDetails'>{each?.playerName}</td>);
                     case 'Recent Negotiate':
@@ -79,6 +89,12 @@ const AdminUseTable = ({header, data, handleShowEdit}) => {
                             <Link className='Admin_playersviewprofile'>View</Link>
                             <Link className='Admin_playersEditprofile'>Edit</Link>
                             <Link className='Admin_playersSuspendprofile'>Un-Suspend</Link>
+                            </td>);
+                    case 'EditResetPasswordEnableDisable':
+                        return (<td className='useTable_ViewEditSuspendDetails' style={{flex:1, width: '350px'}}>
+                            <Link className='Admin_playersviewprofile'>Edit</Link>
+                            <Link className='Admin_playersEditprofile'>Reset Password</Link>
+                            {each?.enable == 'enable'?<Link className='Admin_playersviewprofile'>Enable</Link> :<Link className='Admin_playersSuspendprofile'>Disable</Link>}
                             </td>);
                     case 'SuspendMessageView':
                         return (<td className='useTable_ViewEditSuspendDetails' style={{flex:1}}>

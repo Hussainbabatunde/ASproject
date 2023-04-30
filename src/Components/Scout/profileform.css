@@ -29,6 +29,12 @@
     margin-top: 15px;
     font-weight: 300;
 }
+.Scoutpage_Profile_Profileformradiolabel{
+    font-size: 16px;
+    margin-top: 15px;
+    font-weight: 600;
+    margin-right: 20px;
+}
 .Scoutpage_Profile_ProfileformlabelInput{
     border: 1px solid #D4D4D4;
     margin-top: 5px;
@@ -56,4 +62,31 @@
     margin: 20px 0;
     border-radius: 5px;
     border: none;
+}
+.Scoutpage_Profile_radiolabel{
+    margin-top: 5px;
+    display: flex;
+    flex-wrap: wrap;
+}
+.Scoutpage_Profile_fromtoBusiness{
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 10px;
+}
+.Scoutpage_Profile_fromBusiness{
+    display: flex;
+    margin-right: 10px;
+    flex-direction: column;
+}
+.Scoutprofile_frominput{
+    border: none;
+    font-size: 16px;
+    width: 120px;
+}
+.Scoutprofile_nairainput{
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    border: 1px solid #D4D4D4;
+    border-radius: 5px;
 }

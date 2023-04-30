@@ -4,6 +4,7 @@ import imgPlaceHolder from '../../assets/imageplaceholder.png'
 import { Link } from 'react-router-dom'
 import Profileform from './Profileform'
 import PhysicalStats from './PhysicalStats'
+import BusinessService from './BusinessService'
 
 const ScoutProfile = () => {
 
@@ -30,6 +31,7 @@ const ScoutProfile = () => {
         </div>
         <Profileform />
         <PhysicalStats />
+        <BusinessService />
       </div>
     </div>
   )

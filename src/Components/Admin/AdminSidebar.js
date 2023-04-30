@@ -4,6 +4,7 @@ import { NavLink } from 'react-router-dom'
 import {RxDashboard} from 'react-icons/rx'
 import {IoIosPaper} from 'react-icons/io'
 import {MdGroups} from 'react-icons/md'
+import {RiFileEditFill} from 'react-icons/ri'
 import {GiMeepleGroup, GiHouse} from 'react-icons/gi'
 import {BsPersonLinesFill, BsFillPeopleFill} from 'react-icons/bs'
 import {ImExit} from 'react-icons/im'
@@ -14,12 +15,13 @@ const AdminSidebar = () => {
   const data = [
     {id: 1, pathTo: '/admin/admin/dashboard', pathName: 'Dashboard', pathIcon: <RxDashboard />},
     {id: 2, pathTo: '/admin/admin/negotiate', pathName: 'Negotiate', pathIcon: <IoIosPaper />},
-    {id: 3, pathTo: '/admin/admin/players', pathName: 'Players', pathIcon: <MdGroups />},
-    {id: 4, pathTo: '/admin/admin/scouts', pathName: 'Scout', pathIcon: <BsPersonLinesFill />},
-    {id: 5, pathTo: '/admin/admin/fans', pathName: 'Fans', pathIcon: <BsPersonLinesFill />},
-    {id: 6, pathTo: '/admin/admin/talentManager', pathName: 'Talent Manager', pathIcon: <BsFillPeopleFill />},
-    {id: 7, pathTo: '/admin/admin/admins', pathName: 'Admins', pathIcon: <GiMeepleGroup />},
-    {id: 8, pathTo: '/admin/admin/finance', pathName: 'Finance', pathIcon: <AiFillBank />},
+    {id: 3, pathTo: '/admin/admin/ads', pathName: 'Ads', pathIcon: <RiFileEditFill />},
+    {id: 4, pathTo: '/admin/admin/players', pathName: 'Players', pathIcon: <MdGroups />},
+    {id: 5, pathTo: '/admin/admin/scouts', pathName: 'Scout', pathIcon: <BsPersonLinesFill />},
+    {id: 6, pathTo: '/admin/admin/fans', pathName: 'Fans', pathIcon: <BsPersonLinesFill />},
+    {id: 7, pathTo: '/admin/admin/talentManager', pathName: 'Talent Manager', pathIcon: <BsFillPeopleFill />},
+    {id: 8, pathTo: '/admin/admin/admins', pathName: 'Admins', pathIcon: <GiMeepleGroup />},
+    {id: 9, pathTo: '/admin/admin/finance', pathName: 'Finance', pathIcon: <AiFillBank />},
 ]
   return (
     <div className='SuperAdmin_Sidebar'>
