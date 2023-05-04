@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './AdminNegotiate.css'
 import {AiOutlineInfoCircle} from 'react-icons/ai'
 import { Link } from 'react-router-dom'
@@ -8,6 +8,7 @@ import Lottie from 'lottie-react';
 import empty from '../../../assets/lottie/emptyState.json'
 import imgRecipient from '../../../assets/imgRecipient.png'
 import ChatCircle from '../../../assets/ChatsCircle.png'
+import AdminCreateNegotiation from './AdminCreateNegotiation'
 
 
 const AdminNegotiateAllNegotiate = ({handleAllNegotiate, handleSuspended, handleClosed, handleTerminated}) => {
@@ -40,11 +41,28 @@ const AdminNegotiateAllNegotiate = ({handleAllNegotiate, handleSuspended, handle
     }
 ]
 
+const options = [
+  { value: "blues", label: "Blues" },
+  { value: "rock", label: "Rock" },
+  { value: "jazz", label: "Jazz" },
+  { value: "orchestra", label: "Orchestra" },
+];
+
 const dataTable= [
   {
       id: 1,dealname: '5 Season Deal', imgRecip: imgRecipient, scoutname: 'David Dada', InitialOffer:'$12,000', CurrentOffer: '$15,000',  surname: 'Not paid', chat: ChatCircle, number: "8"
   }
 ]
+
+const [show, setShow] = useState(false);
+const handleShow= ()=>{
+  setShow(true)
+}
+const handleHide = () => {
+  setShow(false)
+}
+
+
   return (
     <div className='AdminPage_NegotiateTab'>
       <div className='AdminPage_NegotiateTabTitle'>
@@ -59,7 +77,7 @@ const dataTable= [
         <span className='AdminPage_TableInfoText'>This is a table of recent communication on the platform</span>
       </div>
       <div className='AdminPage_TableTitleandLink'>
-          <button className='AdminPage_NegotiateCreateButton'>Create Negotiate</button>
+          <button className='AdminPage_NegotiateCreateButton' onClick={handleShow}>Create Negotiate</button>
           <div className='AdminDashboard_Search'>
         <input type='text' placeholder='Search name' className='AdminDashboard_SearchInput' />
         <RiSearchLine  className='AdminDashboard_SearchIcon'/>
@@ -74,6 +92,7 @@ const dataTable= [
         <AdminUseTable header={header} data={dataTable} />
         }
         </div>
+        <AdminCreateNegotiation show={show} handleShow={handleShow} handleHide={handleHide} options={options} />
     </div>
   )
 }

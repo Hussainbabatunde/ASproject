@@ -7,6 +7,7 @@ import ScoutDeal from '../../Components/Scout/ScoutDeal';
 import Scout from './Scout';
 import ScoutProfile from '../../Components/Scout/ScoutProfile';
 import { LogoutAuth } from '../../Slice/auth/Login';
+import Footer from '../../Components/Homepage/Footer'
 import { useDispatch } from 'react-redux';
 import ScoutViews from '../../Components/Scout/ScoutViews';
 import ScoutPayment from '../../Components/Scout/ScoutPayment';
@@ -45,6 +46,7 @@ const ScoutRoute = () => {
             <Route path='/scout/payment' element={<ScoutPayment />} />
         </Routes>
         </div>
+    <Footer />
     </div>
   )
 }

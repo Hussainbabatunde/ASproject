@@ -2,8 +2,12 @@ import React from 'react'
 import ScoutHeader from '../../Components/Header/ScoutHeader'
 import '../../Components/Scout/Scout.css'
 import {RxExit} from 'react-icons/rx'
-import { NavLink } from 'react-router-dom';
+import { NavLink, Route, Routes } from 'react-router-dom';
 import ScoutProfile from '../../Components/Scout/ScoutProfile';
+import { useDispatch } from 'react-redux';
+import { LogoutAuth } from '../../Slice/auth/Login';
+import ScoutViewProfile from './ScoutViewProfile';
+import Footer from '../../Components/Homepage/Footer';
 // import ScoutDashBoard from '../../Components/Scout/ScoutDashBoard'
 
 const Scout = () => {
@@ -13,21 +17,23 @@ const Scout = () => {
     {id: 3, pathTo: '/scoutViews', pathName: 'Views'},
     {id: 4, pathTo: '/scoutPayment', pathName: 'Payment'}
 ]
+
+const dispatch= useDispatch()
+
+const LogOut = async () => {
+  await dispatch(LogoutAuth())
+  localStorage.clear();
+  sessionStorage.clear();
+  window.location.reload();
+  // navigate('/login')
+};
   return (
     <div>
       <ScoutHeader />
-      <div  className='Scoutpage_contents'>
-        <div className='Scoutpage_AccountLogout_div'>
-            <p className='Scoutpage_AccountWord'>Account</p>
-            <p className='Scoutpage_AccountWord'>Logout <RxExit /></p>
-        </div>
-        <div className='Scoutpage_LinkPages'>
-           {data.map((each, index)=>(
-             <NavLink to={each?.pathTo} key={index} className={({isActive})=> (isActive ? 'Scoutpage_Profileactivepage':'Scoutpage_Profilepage')}>{each?.pathName}</NavLink>
-            ))}
-        </div>
-        <ScoutProfile />
-    </div>
+      <Routes>
+        <Route path='/scout/viewprofile' element={<ScoutViewProfile />} />
+      </Routes>
+      <Footer />
     </div>
   )
 }

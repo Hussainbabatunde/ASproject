@@ -1,9 +1,10 @@
 .Scoutpage_ProfileContent{
     display: flex;
     padding-top: 30px;
+    flex-wrap: wrap;
 }
 .Scoutpage_ProfileContent_editformside{
-    width: 700px;
+    width: 650px;  
 }
 .Scoutpage_Profile_ImgVerificationSec{
     display: flex;
@@ -47,4 +48,40 @@
     font-weight: 400;
     color: #13293F;
     margin-top: 10px;
+}
+.ScoutProfile_VerificationCol{
+    position: relative !important   ;
+}
+.ScoutProfile_VerificationDiv{
+    position: fixed;
+    bottom: 20px;
+    border-radius: 5px;
+    padding: 1rem;
+    right: 50px;
+    background-color: white;
+    width: 300px;
+}
+.ScoutProfile_VerifyAccountText{
+    font-size: 14px;
+    color: #868181;
+    margin-top: 20px;
+}
+.ScoutProfile_Profileform_SendRequest{
+    color: white;
+    border: none;
+    background-color: #7CCD79;
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 16px;
+    margin-top: 20px;
+}
+
+@media (max-width: 1100px){
+    .ScoutProfile_VerificationDiv{
+        position: static;
+    }
+    .Scoutpage_ProfileContent{
+        flex-direction: column-reverse;
+    }
 }

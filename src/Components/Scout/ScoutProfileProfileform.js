@@ -1,7 +1,7 @@
 import React from 'react'
 import './profileform.css'
 
-const Profileform = () => {
+const ScoutProfileProfileform = () => {
   return (
     <form className='Scoutpage_ProfileforContent'>
         <p className='Scoutpage_Profile_Profiledetailstext'>Profile Details</p>
@@ -30,4 +30,4 @@ const Profileform = () => {
   )
 }
 
-export default Profileform
+export default ScoutProfileProfileform

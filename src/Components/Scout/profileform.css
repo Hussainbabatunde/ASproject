@@ -63,6 +63,18 @@
     border-radius: 5px;
     border: none;
 }
+.Scoutpage_Profileform_uploadButton{
+    width: 150px;
+    color: black;
+    background-color: #D4D4D4;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px 0;
+    border-radius: 5px;
+    border: none;
+}
 .Scoutpage_Profile_radiolabel{
     margin-top: 5px;
     display: flex;
@@ -89,4 +101,23 @@
     padding: 5px;
     border: 1px solid #D4D4D4;
     border-radius: 5px;
+}
+.Scoutpage_Profileform_UploadIDImg{
+    display: flex;
+    align-items: center;
+}
+.Scoutpage_Profileform_ImgIploaded{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+.Scoutpage_Profileform_SelectImage{
+    border: 1px solid #D4D4D4;
+    padding: 10px;
+    border-radius: 5px;
+    color: white;
+    background-color: #1B8550;
+    width: 100px;
+    margin-top: 10px;
 }
