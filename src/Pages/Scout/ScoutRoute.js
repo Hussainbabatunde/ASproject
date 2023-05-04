@@ -11,6 +11,12 @@ import Footer from '../../Components/Homepage/Footer'
 import { useDispatch } from 'react-redux';
 import ScoutViews from '../../Components/Scout/ScoutViews';
 import ScoutPayment from '../../Components/Scout/ScoutPayment';
+import ScoutViewProfile from './ScoutViewProfile';
+import PlayerProfile from '../../Components/Player/PlayerProfile';
+import PlayerDeal from '../../Components/Player/PlayerDeal';
+import PlayerViews from '../../Components/Player/PlayerView';
+import PlayerPayment from '../../Components/Player/PlayerPayment';
+import PlayerViewProfile from '../../Components/Player/PlayerViewProfile';
 
 const ScoutRoute = () => {
     const dispatch = useDispatch()
@@ -29,7 +35,7 @@ const ScoutRoute = () => {
   return (
     <div>
         <ScoutHeader />
-        <div  className='Scoutpage_contents'>
+        {/* <div  className='Scoutpage_contents'>
         <div className='Scoutpage_AccountLogout_div'>
             <p className='Scoutpage_AccountWord'>Account</p>
             <p className='Scoutpage_AccountWord' style={{cursor:'pointer'}} onClick={handleLogout}>Logout <RxExit /></p>
@@ -38,14 +44,21 @@ const ScoutRoute = () => {
            {data.map((each, index)=>(
              <NavLink to={each?.pathTo} key={index} className={({isActive})=> (isActive ? 'Scoutpage_Profileactivepage':'Scoutpage_Profilepage')}>{each?.pathName}</NavLink>
             ))}
-        </div>
+        </div> */}
         <Routes>
             <Route path='/scout/profile' element={<ScoutProfile />} />
             <Route path='/scout/deal' element={<ScoutDeal />} />
             <Route path='/scout/views' element={<ScoutViews />} />
             <Route path='/scout/payment' element={<ScoutPayment />} />
+            <Route path='/scout/viewprofile' element={<ScoutViewProfile />} />
+            
+            <Route path='/player/profile' element={<PlayerProfile />} />
+            <Route path='/player/deal' element={<PlayerDeal />} />
+            <Route path='/player/views' element={<PlayerViews />} />
+            <Route path='/player/payment' element={<PlayerPayment />} />
+            <Route path='/player/viewprofile' element={<PlayerViewProfile />} />
         </Routes>
-        </div>
+        {/* </div> */}
     <Footer />
     </div>
   )

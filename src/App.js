@@ -40,11 +40,11 @@ function App() {
           <ScoutRoute />
         </PrivateRoute>
         } />
-        <Route path='/afrisports/*' element={
+        {/* <Route path='/afrisports/*' element={
         <PrivateRoute>
           <Scout />
         </PrivateRoute>
-        } />
+        } /> */}
       </Routes>
     </BrowserRouter>
     </GoogleOAuthProvider>
