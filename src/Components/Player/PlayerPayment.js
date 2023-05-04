@@ -1,5 +1,5 @@
 import React from 'react'
-import './ScoutPayment.css'
+import '../Scout/ScoutPayment.css' 
 import {BsFillCalendar2Fill} from 'react-icons/bs'
 import { Link } from 'react-router-dom'
 import {AiFillBank} from 'react-icons/ai'
@@ -8,7 +8,7 @@ import { LogoutAuth } from '../../Slice/auth/Login'
 import {RxExit} from 'react-icons/rx'
 import { NavLink, Route, Routes } from 'react-router-dom';
 
-const ScoutPayment = () => {
+const PlayerPayment = () => {
     const dispatch = useDispatch()
     const handleLogout = async () =>{
         await dispatch(LogoutAuth())
@@ -17,10 +17,10 @@ const ScoutPayment = () => {
         window.location.reload();
     }
     const data = [
-        {id: 1, pathTo: '/afrisport/scout/profile', pathName: 'Profile'},
-        {id: 2, pathTo: '/afrisport/scout/deal', pathName: 'Deals'},
-        {id: 3, pathTo: '/afrisport/scout/views', pathName: 'Views'},
-        {id: 4, pathTo: '/afrisport/scout/payment', pathName: 'Payment'}
+        {id: 1, pathTo: '/afrisport/player/profile', pathName: 'Profile'},
+        {id: 2, pathTo: '/afrisport/player/deal', pathName: 'Deals'},
+        {id: 3, pathTo: '/afrisport/player/views', pathName: 'Views'},
+        {id: 4, pathTo: '/afrisport/player/payment', pathName: 'Payment'}
     ]
     const dataInfo = [
         {id: 1, date: 'Feb 23, 2023', amt:'14,500'},
@@ -81,4 +81,4 @@ const ScoutPayment = () => {
   )
 }
 
-export default ScoutPayment
+export default PlayerPayment

@@ -1,5 +1,5 @@
 import React from 'react'
-import './Scout.css';
+import '../Scout/Scout.css';
 import {RxExit} from 'react-icons/rx'
 import { NavLink } from 'react-router-dom';
 import ScoutHeader from '../Header/ScoutHeader';
@@ -11,7 +11,7 @@ import empty from '../../assets/lottie/emptyState.json'
 import { LogoutAuth } from '../../Slice/auth/Login';
 import { useDispatch } from 'react-redux';
 
-const ScoutDeal = () => {
+const PlayerDeal = () => {
     const dispatch = useDispatch()
     const handleLogout = async () =>{
         await dispatch(LogoutAuth())
@@ -20,10 +20,10 @@ const ScoutDeal = () => {
         window.location.reload();
     }
     const data = [
-        {id: 1, pathTo: '/afrisport/scout/profile', pathName: 'Profile'},
-        {id: 2, pathTo: '/afrisport/scout/deal', pathName: 'Deals'},
-        {id: 3, pathTo: '/afrisport/scout/views', pathName: 'Views'},
-        {id: 4, pathTo: '/afrisport/scout/payment', pathName: 'Payment'}
+        {id: 1, pathTo: '/afrisport/player/profile', pathName: 'Profile'},
+        {id: 2, pathTo: '/afrisport/player/deal', pathName: 'Deals'},
+        {id: 3, pathTo: '/afrisport/player/views', pathName: 'Views'},
+        {id: 4, pathTo: '/afrisport/player/payment', pathName: 'Payment'}
     ]
 
     const header= [
@@ -87,4 +87,4 @@ const ScoutDeal = () => {
   )
 }
 
-export default ScoutDeal
+export default PlayerDeal

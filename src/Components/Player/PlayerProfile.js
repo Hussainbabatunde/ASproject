@@ -1,21 +1,21 @@
 import React, { useState } from 'react'
-import './ScoutProfile.css'
+import '../Scout/ScoutProfile.css'
 import imgPlaceHolder from '../../assets/imageplaceholder.png'
 import { Link } from 'react-router-dom'
-import ScoutProfileUploadId from './ScoutProfileUploadId'
-import ScoutProfileBusinessService from './ScoutProfileBusinessService'
-import ScoutProfilePhysicalStats from './ScoutProfilePhysicalStats'
-import ScoutProfileProfileform from './ScoutProfileProfileform'
-import ScoutProfileYourImages from './ScoutProfileYourImages'
-import ScoutProfileVideo from './ScoutProfileVideo'
 import { useDispatch, useSelector } from 'react-redux'
 import CircularProgress from '@mui/material/CircularProgress';
 import { ScoutProfilePicture } from '../../Slice/Scout/Scoutprofile/ScoutProfileSlice'
 import { LogoutAuth } from '../../Slice/auth/Login'
 import {RxExit} from 'react-icons/rx'
 import { NavLink, Route, Routes } from 'react-router-dom';
+import PlayerProfileProfileform from './PlayerProfileProfileform'
+import PlayerProfileBusinessService from './PlayerProfileBusinessService'
+import PlayerProfileUploadId from './PlayerProfileUploadId'
+import PlayerProfileYourImages from './PlayerProfileYourImages'
+import PlayerProfileVideo from './PlayerProfileVideo'
+import PlayerProfilePhysicalStats from './PlayerProfilePhysicalStats'
 
-const ScoutProfile = () => {
+const PlayerProfile = () => {
 
   const progress = '70';
 
@@ -54,10 +54,10 @@ const ScoutProfile = () => {
         window.location.reload();
     }
     const data = [
-        {id: 1, pathTo: '/afrisport/scout/profile', pathName: 'Profile'},
-        {id: 2, pathTo: '/afrisport/scout/deal', pathName: 'Deals'},
-        {id: 3, pathTo: '/afrisport/scout/views', pathName: 'Views'},
-        {id: 4, pathTo: '/afrisport/scout/payment', pathName: 'Payment'}
+        {id: 1, pathTo: '/afrisport/player/profile', pathName: 'Profile'},
+        {id: 2, pathTo: '/afrisport/player/deal', pathName: 'Deals'},
+        {id: 3, pathTo: '/afrisport/player/views', pathName: 'Views'},
+        {id: 4, pathTo: '/afrisport/player/payment', pathName: 'Payment'}
     ]
     function handleChange(e) {
       console.log(e.target.files[0])
@@ -109,14 +109,14 @@ const ScoutProfile = () => {
             <p className='Scoutpage_profile_Usertype'>Player Account</p>
           </div>
           </div>
-          <Link to='/afrisport/scout/viewprofile' className='Scoutpage_Profile_Viewprofilebutton'>View Profile</Link>
+          <Link to='/afrisport/player/viewprofile' className='Scoutpage_Profile_Viewprofilebutton'>View Profile</Link>
         </div>
-        <ScoutProfileProfileform />
-        <ScoutProfilePhysicalStats />
-        <ScoutProfileBusinessService />
-        <ScoutProfileUploadId />
-        <ScoutProfileYourImages />
-        <ScoutProfileVideo />
+        <PlayerProfileProfileform />
+        <PlayerProfilePhysicalStats />
+        <PlayerProfileBusinessService />
+        <PlayerProfileUploadId />
+        <PlayerProfileYourImages />
+        <PlayerProfileVideo />
       </div>
       <div className='ScoutProfile_VerificationCol'>
         <div className='ScoutProfile_VerificationDiv'>
@@ -135,4 +135,4 @@ const ScoutProfile = () => {
   )
 }
 
-export default ScoutProfile
+export default PlayerProfile

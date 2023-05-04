@@ -32,8 +32,8 @@ const Login = () => {
     const userData = useSelector((state)=> state.reducer.LoginSlice?.logindata )
 
     useEffect( ()=>{
-        if(userData){
-          navigate('/afrisport/scout/profile')
+        if(userData?.data?.user_type == 'player'){
+          navigate('/afrisport/player/profile')
         }
       }, [userData, navigate])
 

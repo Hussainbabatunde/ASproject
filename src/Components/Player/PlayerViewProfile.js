@@ -1,5 +1,5 @@
 import React from 'react'
-import './ScoutViewProfile.css'
+import '../../Pages/Scout/ScoutViewProfile.css'
 import { Link } from 'react-router-dom'
 import {GrFormNext} from 'react-icons/gr'
 import {BsShareFill} from 'react-icons/bs'
@@ -11,12 +11,12 @@ import {RiDashboardLine} from 'react-icons/ri'
 import PlayerImg from '../../assets/Player1.png'
 
 
-const ScoutViewProfile = () => {
+const PlayerViewProfile = () => {
   return (
     <div className='ScoutViewProfile'>
         <div className='ScoutViewProfile_navigation'>
             <div className='ScoutViewProfile_navigationprogress'>
-                <Link to='/afrisport/scout/profile' className='ScoutViewProfile_navigationback'>Back</Link>
+                <Link to='/afrisport/player/profile' className='ScoutViewProfile_navigationback'>Back</Link>
                 <GrFormNext style={{fontSize:'16px'}} />
                 <p className='ScoutViewProfile_navigationprofile'>Profile</p>
             </div>
@@ -101,4 +101,4 @@ const ScoutViewProfile = () => {
   )
 }
 
-export default ScoutViewProfile
+export default PlayerViewProfile

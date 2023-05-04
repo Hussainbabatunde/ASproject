@@ -1,11 +1,11 @@
 import React from 'react'
-import './ScoutViews.css'
+import '../Scout/ScoutViews.css'
 import { LogoutAuth } from '../../Slice/auth/Login'
 import { useDispatch } from 'react-redux'
 import {RxExit} from 'react-icons/rx'
 import { NavLink, Route, Routes } from 'react-router-dom';
 
-const ScoutViews = () => {
+const PlayerViews = () => {
   const dispatch = useDispatch()
     const handleLogout = async () =>{
         await dispatch(LogoutAuth())
@@ -14,10 +14,10 @@ const ScoutViews = () => {
         window.location.reload();
     }
     const data = [
-        {id: 1, pathTo: '/afrisport/scout/profile', pathName: 'Profile'},
-        {id: 2, pathTo: '/afrisport/scout/deal', pathName: 'Deals'},
-        {id: 3, pathTo: '/afrisport/scout/views', pathName: 'Views'},
-        {id: 4, pathTo: '/afrisport/scout/payment', pathName: 'Payment'}
+        {id: 1, pathTo: '/afrisport/player/profile', pathName: 'Profile'},
+        {id: 2, pathTo: '/afrisport/player/deal', pathName: 'Deals'},
+        {id: 3, pathTo: '/afrisport/player/views', pathName: 'Views'},
+        {id: 4, pathTo: '/afrisport/player/payment', pathName: 'Payment'}
     ]
   return (
     <div  className='Scoutpage_contents'>
@@ -41,4 +41,4 @@ const ScoutViews = () => {
   )
 }
 
-export default ScoutViews
+export default PlayerViews
