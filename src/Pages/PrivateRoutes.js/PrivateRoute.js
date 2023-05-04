@@ -8,7 +8,7 @@ function PrivateRoute({ children }) {
     (state) => state.reducer.LoginSlice
   );
 
-  if (!logindata?.plus?.token) {
+  if (!logindata?.data?.token) {
     // not logged in so redirect to login page with the return url
     // return <Navigate to="/" state={{ from: history.location }} />;
 

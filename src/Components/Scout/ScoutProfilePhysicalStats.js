@@ -1,6 +1,6 @@
 import React from 'react'
 
-const PhysicalStats = () => {
+const ScoutProfilePhysicalStats = () => {
   return (
     <form className='Scoutpage_ProfileforContent'>
         <p className='Scoutpage_Profile_Profiledetailstext'>Physical Stats</p>
@@ -23,4 +23,4 @@ const PhysicalStats = () => {
   )
 }
 
-export default PhysicalStats
+export default ScoutProfilePhysicalStats

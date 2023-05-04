@@ -1,5 +1,4 @@
 import React from 'react'
-import Table from 'react-bootstrap/Table';
 import './UseTable.css'
 import {FiEdit} from 'react-icons/fi'
 import {MdDelete} from 'react-icons/md'
@@ -7,7 +6,7 @@ import Lottie from 'lottie-react';
 
 const UseTable = ({header, data, handleShowEdit}) => {
   return (
-    <Table responsive >
+    <table  className='AdminUserTable' >
       <thead>
         <tr>
             {header?.map((item, index)=>(
@@ -48,7 +47,7 @@ const UseTable = ({header, data, handleShowEdit}) => {
 })}
         
       </tbody>
-    </Table>
+    </table>
   )
 }
 

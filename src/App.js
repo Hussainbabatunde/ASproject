@@ -8,7 +8,6 @@ import { GoogleOAuthProvider } from '@react-oauth/google';
 import Signup from './Pages/SignUp/Signup';
 import CreateAccount from './Pages/SignUp/CreateAccount';
 import ForgotPassword from './Pages/ForgotPassword/ForgotPassword';
-import Scout from './Pages/Scout/Scout';
 import ScoutDeal from './Components/Scout/ScoutDeal';
 import 'react-toastify/dist/ReactToastify.css';
 import ResetPassword from './Pages/ResetPassword/ResetPassword';
@@ -18,6 +17,8 @@ import AdminRote from './Pages/Admin/AdminRote';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { useEffect } from 'react';
+import ScoutViewProfile from './Pages/Scout/ScoutViewProfile';
+import Scout from './Pages/Scout/Scout';
 
 function App() {
   useEffect(() => {
@@ -37,10 +38,11 @@ function App() {
         <Route path='/afrisport/*' element={
         <PrivateRoute>
           <ScoutRoute />
-          {/* <Routes>
-        <Route path='/scout/profile' element={<Scout />} />
-        <Route path='/scout/deal' element={<ScoutDeal />} />
-        </Routes> */}
+        </PrivateRoute>
+        } />
+        <Route path='/afrisports/*' element={
+        <PrivateRoute>
+          <Scout />
         </PrivateRoute>
         } />
       </Routes>

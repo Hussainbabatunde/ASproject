@@ -69,10 +69,10 @@ export const loginAuth = createAsyncThunk(
       return await instance
         .post("login", details)
         .then(async (response) => {
-          if (response.data.plus.token !== undefined) {
-            localStorage.setItem('token', response.data.plus.token)
+          if (response.data.data.token !== undefined) {
+            localStorage.setItem('token', response.data.data.token)
           }            
-          // console.log(response.data)
+          // console.log('login data ',response.data)
           return response.data;
         })
   
@@ -304,6 +304,9 @@ export const LoginSlice = createSlice({
         state.user = true;
         state.logoutData = action.payload;
         state.logindata= null;
+        state.registerData= null;
+        state.forgotPasswordData = null;
+        state.resetPasswordData= null;
         if(action.payload?.message == 'User Successfully logged out'){
         toast.success('User Successfully logged out', {
           position: "top-right",

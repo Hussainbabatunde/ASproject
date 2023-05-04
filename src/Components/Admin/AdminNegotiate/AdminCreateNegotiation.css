@@ -1,0 +1,45 @@
+.Admin_Createnegotiation_text{
+    margin-top: 10px;
+    font-size: 16px;
+}
+.Admin_CreateNegotiation_label{
+    font-size: 16px;
+    font-weight: 600;
+    margin-top: 15px;
+    margin-bottom: 5px;
+}
+.Admin_CreateNegotiation_modal{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    padding: 2rem;
+    background-color: white;
+    border-radius: 20px;
+}
+.Admin_CreatNegotiation_actionbutton{
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-end;
+}
+.Admin_CreateNegotiation_cancel{
+    font-size: 14px;
+    font-weight: 600;
+    border: none;
+    padding: 10px 15px;
+    margin-right: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.Admin_CreateNegotiation_next{
+    font-size: 14px;
+    font-weight: 600;
+    border: none;
+    padding: 10px 15px;
+    margin-right: 10px;
+    border-radius: 5px;
+    background-color: black;
+    color: white;
+    cursor: pointer;
+}

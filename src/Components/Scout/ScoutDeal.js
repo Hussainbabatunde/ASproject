@@ -59,9 +59,9 @@ const ScoutDeal = () => {
   ]
 
   const dataTable= [
-    // {
-    //     id: 1,dealname: '5 Season Deal', imgRecip: imgRecipient, recipient: 'David Dada', firstname:'tunde', surname: 'kunle',  email: 'mayana@mail.com', role: "teacher", user_type: "teacher"
-    // }
+    {
+        id: 1,dealname: '5 Season Deal', imgRecip: imgRecipient, recipient: 'David Dada', firstname:'tunde', surname: 'kunle',  email: 'mayana@mail.com', role: "teacher", user_type: "teacher"
+    }
 ]
   return (
         <div className='Scoutpage_DealContent'>

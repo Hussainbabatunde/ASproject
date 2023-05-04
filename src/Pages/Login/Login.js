@@ -32,7 +32,7 @@ const Login = () => {
     const userData = useSelector((state)=> state.reducer.LoginSlice?.logindata )
 
     useEffect( ()=>{
-        if(userData?.message == 'Access granted'){
+        if(userData){
           navigate('/afrisport/scout/profile')
         }
       }, [userData, navigate])

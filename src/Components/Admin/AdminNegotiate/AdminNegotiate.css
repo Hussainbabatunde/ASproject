@@ -49,6 +49,7 @@
     font-weight:500;
     border-radius: 5px;
     padding: 8px;
+    cursor: pointer;
 }
 .AdminPage_NegotiateSortingAlgorithm{
     border: none;
