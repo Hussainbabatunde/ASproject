@@ -33,7 +33,7 @@ const initialState = {
         },
       });
       return await instance
-        .post("player/profile-picture", details)
+        .post("scout/profile-picture", details)
         .then(async (response) => {
             console.log('profile picture ',response.data)
           return response.data;

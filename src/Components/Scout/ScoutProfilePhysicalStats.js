@@ -18,7 +18,7 @@ const ScoutProfilePhysicalStats = () => {
             <option>Right</option>
         </select>
         
-        <button className='Scoutpage_Profileform_savebutton'>Save</button>
+        <button type='button' className='Scoutpage_Profileform_savebutton'>Save</button>
     </form>
   )
 }
