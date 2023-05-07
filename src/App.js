@@ -34,7 +34,10 @@ function App() {
         <Route path='/create-account/:id' element={<CreateAccount />} />
         <Route path='/forgotPassword' element={<ForgotPassword />} />
         <Route path='/setPassword' element={<ResetPassword />} />
-        <Route path='/admin/*' element={<AdminRote />} />
+        <Route path='/admin/*' element={
+        <PrivateRoute>
+          <AdminRote />
+          </PrivateRoute>} />
         <Route path='/afrisport/*' element={
         <PrivateRoute>
           <ScoutRoute />
