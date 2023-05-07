@@ -5,14 +5,16 @@ import {FiEdit} from 'react-icons/fi'
 import {MdDelete} from 'react-icons/md'
 import Lottie from 'lottie-react';
 import { Link } from 'react-router-dom';
+import { CircularProgress } from '@mui/material';
+import { PulseLoader } from 'react-spinners';
 
-const AdminUseTable = ({header, data, handleShowEdit}) => {
+const AdminUseTable = ({header, data, deletingIndex, handleDelete, handleShowEdit, deleteinfo}) => {
   return (
     <table className='AdminUserTable'>
       <thead>
         <tr>
             {header?.map((item, index)=>(<>
-                <th key={index}  className="UseTable_tableheader">{item?.name == 'ViewEditSuspend' || item?.name == 'PlayersViewdetails' || item?.name == 'EditResetPasswordEnableDisable' || item?.name == 'ViewEditUnSuspend' || item?.name == 'SuspendMessageView'? '' : item?.name}</th>
+                <th key={index}  className="UseTable_tableheader">{item?.name == 'ViewEditSuspend' || item?.name == 'PlayersViewdetails' || item?.name == 'EditDeletePermissions' || item?.name == 'EditResetPasswordEnableDisable' || item?.name == 'ViewEditUnSuspend' || item?.name == 'SuspendMessageView'? '' : item?.name}</th>
                 </>
             ))}
           {/* <th className="UseTable_tableheader">First Name</th>
@@ -30,6 +32,12 @@ const AdminUseTable = ({header, data, handleShowEdit}) => {
                         return (<td  className='useTable_tableDetails'>{each?.dealname}</td>);
                     case 'Player name':
                         return (<td  className='useTable_tableDetails'>{each?.playerName}</td>);
+                    case 'Permission name':
+                        return (<td  className='useTable_tableDetails'>{each?.name}</td>);
+                    case 'Description':
+                        return (<td  className='useTable_tableDetails'>{each?.description}</td>);
+                    case 'S/N':
+                        return (<td  className='useTable_tableDetails'>{index + 1}</td>);
                     case 'Position':
                         return (<td  className='useTable_tableDetails'>{each?.position}</td>);
                     case 'Active Negotiate':
@@ -95,6 +103,20 @@ const AdminUseTable = ({header, data, handleShowEdit}) => {
                             <Link className='Admin_playersviewprofile'>Edit</Link>
                             <Link className='Admin_playersEditprofile'>Reset Password</Link>
                             {each?.enable == 'enable'?<Link className='Admin_playersviewprofile'>Enable</Link> :<Link className='Admin_playersSuspendprofile'>Disable</Link>}
+                            </td>);
+                    case 'EditDeletePermissions':
+                        return (<td className='useTable_ViewEditSuspendDetails' style={{flex:1, width: '350px'}}>
+                            <Link className='Admin_playersviewprofile'>Edit</Link>
+                            <button onClick={()=> handleDelete(each?.id, index)} className='Admin_playersSuspendprofile'>
+                            {deletingIndex === index ? 
+                            <PulseLoader
+                            color='#7F351D'
+                            size={13}
+                            aria-label="Loading Spinner"
+                            data-testid="loader"
+                          />
+                             : <span>Delete</span>}
+                                </button>
                             </td>);
                     case 'SuspendMessageView':
                         return (<td className='useTable_ViewEditSuspendDetails' style={{flex:1}}>

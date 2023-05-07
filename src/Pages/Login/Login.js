@@ -34,6 +34,8 @@ const Login = () => {
     useEffect( ()=>{
         if(userData?.data?.user_type == 'player'){
           navigate('/afrisport/player/profile')
+        }else if(userData?.data?.user_type == 'admin'){
+          navigate('/admin/admin/dashboard')
         }
       }, [userData, navigate])
 

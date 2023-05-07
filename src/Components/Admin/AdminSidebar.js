@@ -14,7 +14,9 @@ import {AiFillBank} from 'react-icons/ai'
 const AdminSidebar = () => {
   const data = [
     {id: 1, pathTo: '/admin/admin/dashboard', pathName: 'Dashboard', pathIcon: <RxDashboard />, children: []},
-    {id: 2, pathTo: '/admin/admin/negotiate', pathName: 'Negotiate', pathIcon: <IoIosPaper />,
+    {id: 2,
+       pathTo: '/admin/admin/negotiate'
+       , pathName: 'Negotiate', pathIcon: <IoIosPaper />,
   children: [
     {id: 'name1', navName: 'Active', slug: 'admin_active', navSubLink: '/admin/admin/negotiate/allnegotiate'},
     {id: 'name2', navName: 'Closed', slug: 'admin_closed', navSubLink: '/admin/admin/negotiate/closed'},
@@ -28,9 +30,9 @@ const AdminSidebar = () => {
     {id: 7, pathTo: '/admin/admin/talentManager', pathName: 'Talent Manager', pathIcon: <BsFillPeopleFill />, children: []},
     {id: 8, pathTo: '/admin/admin/admins', pathName: 'Admins', pathIcon: <GiMeepleGroup />,
     children: [
-      {id: 'name6', navName: 'All Admin', slug: 'admin_alladmin',},
-      {id: 'name7', navName: 'Roles', slug: 'admin_roles',},
-      {id: 'name8', navName: 'Permission', slug: 'admin_permission',}
+      {id: 'name6', navName: 'All Admin', slug: 'admin_alladmin', navSubLink: '/admin/admin/admins/alladmins'},
+      {id: 'name7', navName: 'Roles', slug: 'admin_roles', navSubLink: '/admin/admin/admins/roles'},
+      {id: 'name8', navName: 'Permission', slug: 'admin_permission', navSubLink: '/admin/admin/admins/permission'}
     ]},
     {id: 9, pathTo: '/admin/admin/finance', pathName: 'Finance', pathIcon: <AiFillBank />, children: []},
 ]
