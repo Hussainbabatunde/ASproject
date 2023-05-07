@@ -1,6 +1,7 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import LoginSlice from "./auth/Login";
 import ScoutProfileSlice from './Scout/Scoutprofile/ScoutProfileSlice'
+import PlayerProfileSlice from './Player/Playerprofile/PlayerProfileSlice'
 import storage from "redux-persist/lib/storage";
 // import thunk from "redux-thunk";
 import { persistReducer, persistStore } from 'redux-persist';
@@ -9,6 +10,7 @@ import { persistReducer, persistStore } from 'redux-persist';
 const rootReducer = combineReducers({
     LoginSlice: LoginSlice,
     ScoutProfileSlice: ScoutProfileSlice,
+    PlayerProfileSlice: PlayerProfileSlice,
   });
 const persistConfig = {
     key: 'root',

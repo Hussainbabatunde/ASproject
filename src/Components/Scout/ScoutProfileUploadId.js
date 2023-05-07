@@ -28,7 +28,7 @@ const ScoutProfileUploadId = () => {
             <RiDeleteBin6Fill style={{fontSize: '25px'}} />
         </div>}
         
-        <button className='Scoutpage_Profileform_uploadButton'><FaRegImages style={{fontSize:'18px', marginRight:'5px'}} /> Upload Photo</button>
+        <button type='button' className='Scoutpage_Profileform_uploadButton'><FaRegImages style={{fontSize:'18px', marginRight:'5px'}} /> Upload Photo</button>
     </form>
   )
 }

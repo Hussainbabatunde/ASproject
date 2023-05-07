@@ -1,13 +1,45 @@
 import React, { useState } from 'react'
 import '../Scout/profileform.css'
 import {TbCurrencyNaira} from 'react-icons/tb'
+import { useDispatch } from 'react-redux'
+import { PlayerProfileBusinessServiceApi } from '../../Slice/Player/Playerprofile/PlayerProfileSlice'
+import { CircularProgress } from '@mui/material'
 
-const PlayerProfileBusinessService = () => {
+const PlayerProfileBusinessService = ({userId}) => {
     const [priceType, setPriceType] = useState('range')
     const [isChecked, setIsChecked] = useState(false);
     const [isChecked2, setIsChecked2] = useState(false);
     const [isChecked3, setIsChecked3] = useState(false);
     const [isChecked4, setIsChecked4] = useState(false);
+    const [pricingBusiness, setPricingBusiness] = useState({})
+    const [amtStated, setAmtStated] = useState({})
+    const dispatch = useDispatch()
+    const [loadBusinessService, setLoadBusinessService] = useState(false)
+
+    const handleChangeBusinessPricing = (e) =>{
+      setAmtStated({...amtStated, [e.target.name]: e.target.value})
+    }
+    const handleSubmitPhysicalStats =  async (event) =>{
+      event.preventDefault()
+      pricingBusiness.user_id = userId
+      pricingBusiness.service_type = priceType
+      if(priceType == 'range'){
+        pricingBusiness.amount = `${amtStated?.from} - ${amtStated?.to}`
+      }
+      else if(priceType == 'actual'){
+        pricingBusiness.amount = `${amtStated?.preferred}`
+      }
+      else if(priceType == 'open'){
+        pricingBusiness.amount = ''
+      }
+      else if(priceType == 'free'){
+        pricingBusiness.amount = ''
+      }
+      // console.log(pricingBusiness)
+      setLoadBusinessService(true)
+      await dispatch(PlayerProfileBusinessServiceApi(pricingBusiness))
+      setLoadBusinessService(false)
+    }
 
     const handleRadioButtonChange = () => {
         setIsChecked(!isChecked);
@@ -39,7 +71,7 @@ const PlayerProfileBusinessService = () => {
       };
 
   return (
-    <form className='Scoutpage_ProfileforContent'>
+    <form onSubmit={handleSubmitPhysicalStats} className='Scoutpage_ProfileforContent'>
         <p className='Scoutpage_Profile_Profiledetailstext'>Business Service Price</p>
         <p className='Scoutpage_Profile_filldetailstext'>Select what the price for your service to <b>scouts</b></p>
         <div className='Scoutpage_Profile_radiolabel'>
@@ -56,14 +88,14 @@ const PlayerProfileBusinessService = () => {
                 <b>From</b>
                 <div className='Scoutprofile_nairainput'>
                     <TbCurrencyNaira style={{fontSize:"18px"}} />
-                <input type='text' className='Scoutprofile_frominput' />
+                <input type='text' name='from' className='Scoutprofile_frominput' onChange={handleChangeBusinessPricing} required/>
                 </div>
             </div>
             <div className='Scoutpage_Profile_fromBusiness'>
                 <b>To</b>
                 <div className='Scoutprofile_nairainput'>
                     <TbCurrencyNaira style={{fontSize:"18px"}} />
-                <input type='text' className='Scoutprofile_frominput' />
+                <input type='text' name='to' className='Scoutprofile_frominput' onChange={handleChangeBusinessPricing} required/>
                 </div>
             </div>
         </div>
@@ -74,7 +106,7 @@ const PlayerProfileBusinessService = () => {
         <p className='Scoutpage_Profile_Profileformlabelnexttext'>Preferred </p>
                 <div className='Scoutprofile_nairainput'>
                     <TbCurrencyNaira style={{fontSize:"18px"}} />
-                <input type='text' className='Scoutprofile_frominput' />
+                <input type='text' name='preferred'  onChange={handleChangeBusinessPricing} className='Scoutprofile_frominput' required/>
                 </div>
         
         </div>}
@@ -87,7 +119,9 @@ const PlayerProfileBusinessService = () => {
         <p className='Scoutpage_Profile_filldetailstext'>You are not charging a price.  </p>        
         </div>}
         
-        <button className='Scoutpage_Profileform_savebutton'>Save</button>
+        <button type='submit' className='Scoutpage_Profileform_savebutton'>
+        {loadBusinessService? <CircularProgress size={15} /> : <span>Save</span>}
+          </button>
     </form>
   )
 }

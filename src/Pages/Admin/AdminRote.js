@@ -12,6 +12,10 @@ import AdminFinanaceTransaction from '../../Components/Admin/AdminFinance/AdminF
 import AdminAdmins from '../../Components/Admin/AdminAdmins/AdminAdmins'
 import AdminTalentMangersStep from '../../Components/Admin/AdminTalentManagers/AdminTalentManagersStep'
 import AdminTalentManagers from '../../Components/Admin/AdminTalentManagers/AdminTalentManagers'
+import AdminNegotiateAllNegotiate from '../../Components/Admin/AdminNegotiate/AdminNegotiateAllNegotiate'
+import AdminNegotiateSuspended from '../../Components/Admin/AdminNegotiate/AdminNegotiateSuspended'
+import AdminNegotiateClosed from '../../Components/Admin/AdminNegotiate/AdminNegotiateClosed'
+import AdminNegotiateTerminated from '../../Components/Admin/AdminNegotiate/AdminNegotiateTerminated'
 
 const AdminRote = () => {
   return (
@@ -28,6 +32,10 @@ const AdminRote = () => {
     <Route path='/admin/finance/transaction' element={<AdminFinanaceTransaction />} />
     <Route path='/admin/admins' element={<AdminAdmins />} />
     <Route path='/admin/talentManager' element={<AdminTalentManagers />} />
+    <Route path='/admin/negotiate/allnegotiate' element={<AdminNegotiateAllNegotiate />} />
+    <Route path='/admin/negotiate/suspended' element={<AdminNegotiateSuspended />} />
+    <Route path='/admin/negotiate/closed' element={<AdminNegotiateClosed />} />
+    <Route path='/admin/negotiate/terminated' element={<AdminNegotiateTerminated />} />
     </Routes>
     </div>
     </div>

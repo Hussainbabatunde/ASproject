@@ -87,7 +87,7 @@ const ScoutProfileBusinessService = () => {
         <p className='Scoutpage_Profile_filldetailstext'>You are not charging a price.  </p>        
         </div>}
         
-        <button className='Scoutpage_Profileform_savebutton'>Save</button>
+        <button type='button' className='Scoutpage_Profileform_savebutton'>Save</button>
     </form>
   )
 }

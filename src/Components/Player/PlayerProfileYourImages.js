@@ -22,8 +22,8 @@ const PlayerProfileYourImages = () => {
 
   return (
     <form className='Scoutpage_ProfileforContent'>
-        <p className='Scoutpage_Profile_Profiledetailstext'>Upload ID</p>
-        <p className='Scoutpage_Profile_filldetailstext'>Verification by means of ID, International Passport, NIN</p>
+        <p className='Scoutpage_Profile_Profiledetailstext'>Your Images</p>
+        <p className='Scoutpage_Profile_filldetailstext'>Please provide different images of yourself, a standard photo and you on the field.</p>
         <label for='YourImages' className='Scoutpage_Profileform_SelectImage' >Select Images</label>
         <input type='file' id='YourImages' onChange={handleMultipleImages} multiple className='Scoutpage_Profile_ImagePlaceInput' />
         

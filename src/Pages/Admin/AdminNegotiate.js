@@ -4,13 +4,13 @@ import AdminNegotiateStep from '../../Components/Admin/AdminNegotiate/AdminNegot
 
 const AdminNegotiate = () => {
   return (
-    <div className='AdminDashboard'>
-    <div className='AdminPage_Dashboard'>
-        <div className='AdminPage_DashboardTAbleCat'>
+    // <div className='AdminDashboard'>
+    // <div className='AdminPage_Dashboard'>
+    //     <div className='AdminPage_DashboardTAbleCat'>
             <AdminNegotiateStep />
-            </div>
-    </div>
-    </div>
+    //         </div>
+    // </div>
+    // </div>
   )
 }
 

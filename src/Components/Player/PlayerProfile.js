@@ -14,6 +14,8 @@ import PlayerProfileUploadId from './PlayerProfileUploadId'
 import PlayerProfileYourImages from './PlayerProfileYourImages'
 import PlayerProfileVideo from './PlayerProfileVideo'
 import PlayerProfilePhysicalStats from './PlayerProfilePhysicalStats'
+import { PlayerProfilePicture } from '../../Slice/Player/Playerprofile/PlayerProfileSlice'
+import { ToastContainer } from 'react-toastify'
 
 const PlayerProfile = () => {
 
@@ -60,7 +62,7 @@ const PlayerProfile = () => {
         {id: 4, pathTo: '/afrisport/player/payment', pathName: 'Payment'}
     ]
     function handleChange(e) {
-      console.log(e.target.files[0])
+      // console.log(e.target.files[0])
       setPicFile(e.target.files[0])
       setFile(URL.createObjectURL(e.target.files[0]));
     }
@@ -75,12 +77,13 @@ const PlayerProfile = () => {
       formData.append('id', userId)
       
         setImgLoader(true)
-        await dispatch(ScoutProfilePicture(formData))
+        await dispatch(PlayerProfilePicture(formData))
         setImgLoader(false)
     }
 
   return (  
     <div  className='Scoutpage_contents'>
+      <ToastContainer />
         <div className='Scoutpage_AccountLogout_div'>
             <p className='Scoutpage_AccountWord'>Account</p>
             <p className='Scoutpage_AccountWord' style={{cursor:'pointer'}} onClick={handleLogout}>Logout <RxExit /></p>
@@ -101,7 +104,7 @@ const PlayerProfile = () => {
           </label>
           
           <button type='submit' className='Scoutpage_Profileform_savebutton'>
-            {imgloader ? <CircularProgress /> : <span>Upload photo</span>}
+            {imgloader ? <CircularProgress size={15} /> : <span>Upload photo</span>}
             </button>
           </form>
           <div className='Scoutpage_Profile_nameVerify'>
@@ -111,10 +114,10 @@ const PlayerProfile = () => {
           </div>
           <Link to='/afrisport/player/viewprofile' className='Scoutpage_Profile_Viewprofilebutton'>View Profile</Link>
         </div>
-        <PlayerProfileProfileform />
-        <PlayerProfilePhysicalStats />
-        <PlayerProfileBusinessService />
-        <PlayerProfileUploadId />
+        <PlayerProfileProfileform userId={userId} />
+        <PlayerProfilePhysicalStats userId={userId} />
+        <PlayerProfileBusinessService userId={userId} />
+        <PlayerProfileUploadId userId={userId}/>
         <PlayerProfileYourImages />
         <PlayerProfileVideo />
       </div>

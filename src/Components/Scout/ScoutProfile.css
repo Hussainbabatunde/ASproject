@@ -52,6 +52,9 @@
 .ScoutProfile_VerificationCol{
     position: relative !important   ;
 }
+.css-1idz92c-MuiCircularProgress-svg {
+    color: white !important;
+}
 .ScoutProfile_VerificationDiv{
     position: fixed;
     bottom: 20px;

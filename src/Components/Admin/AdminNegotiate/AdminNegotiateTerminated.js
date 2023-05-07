@@ -45,13 +45,16 @@ const dataTable= [
   }
 ]
   return (
+    <div className='AdminDashboard'>
+    <div className='AdminPage_Dashboard'>
+        <div className='AdminPage_DashboardTAbleCat'>
     <div className='AdminPage_NegotiateTab'>
-    <div className='AdminPage_NegotiateTabTitle'>
+    {/* <div className='AdminPage_NegotiateTabTitle'>
       <p className='AdminPAge_Negotiate_TabNegotiateInactive' onClick={handleAllNegotiate}>All Negotiate</p>
       <p className='AdminPAge_Negotiate_TabNegotiateInactive'onClick={handleSuspended}>Suspended</p>
       <p className='AdminPAge_Negotiate_TabNegotiateInactive' onClick={handleClosed}>Closed <span className='AdminPage_NegotiateTab_TabNumber'>10k</span></p>
       <p className='AdminPAge_Negotiate_TabNegotiateActive' onClick={handleTerminated}>Terminated</p>
-    </div>
+    </div> */}
     <p className='AdminPage_NegotiateTitleText'>All Negotiates</p>
     <div className='AdminPage_TerminatedTableInfo'>
       <AiOutlineInfoCircle style={{fontSize: '18px'}}/>
@@ -74,6 +77,9 @@ const dataTable= [
       }
       </div>
   </div>
+            </div>
+    </div>
+    </div>
   )
 }
 
