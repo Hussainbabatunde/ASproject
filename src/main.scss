@@ -1,0 +1,35 @@
+// @import './GlobalStyle.scss';
+
+// @import './Components/Employee/Onboarding/Profile/ProfileComponent.scss';
+
+
+// @import './Page/Admin/Settings/settings.scss';
+
+// // import scss utilities
+@import './Components/Admin/AdminAdmins/AdminRoles.scss'
+
+
+
+// .app-view-screen {
+//   display: grid;
+//   grid-template-columns: auto 1fr;
+//   min-height: 100vh;
+// }
+
+// .sidebar-color {
+//   background-color: map-get($neutral, 'white') !important;
+// }
+
+// ::-moz-selection {
+//   background-color: map-get($brand, 'blue');
+//   color: map-get($neutral, 'white');
+// }
+
+// ::selection {
+//   background-color: map-get($brand, 'blue');
+//   color: map-get($neutral, 'white');
+// }
+
+// .table-pagination {
+//   padding: 0 pixTOrem(28px) pixTOrem(20px) pixTOrem(28px);
+// }
