@@ -43,7 +43,19 @@ export const RegisterAuth = createAsyncThunk(
 
       .catch((err) => {
         let errdata = err.response.data;
-        console.log('error ', errdata)
+        // console.log('error ', errdata)
+        if(errdata?.message == "Provide your surname"){
+          toast.error("Provide your surname", {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            });
+          }
         return rejectWithValue(errdata);
         // console.log(err)
       });
@@ -220,7 +232,7 @@ export const LoginSlice = createSlice({
         state.null = true;
       })
       .addCase(RegisterAuth.fulfilled, (state, action) => {
-        console.log('register state ', action?.payload)
+        // console.log('register state ', action?.payload)
         state.isLoading = false;
         state.isSuccess = true;
         state.user = true;

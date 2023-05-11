@@ -49,6 +49,7 @@
     width: 106px;
     height: 106px;
     margin-right: 10px;
+    border-radius: 50%;
 }
 .ScoutViewProfile_UserProfiledetailsUsername{
     font-size: 26px;
@@ -85,6 +86,8 @@
     font-size: 13px;
     margin-top: 10px;
     color: rgba(19, 41, 63, 1);
+    display: flex;
+    align-items: center;
 }
 .ScoutViewProfile_AdvertiseProfile{
     font-size: 16px;
