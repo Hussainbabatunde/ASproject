@@ -8,6 +8,8 @@ import storage from "redux-persist/lib/storage";
 import { persistReducer, persistStore } from "redux-persist";
 import RoleSlice from "./Admin/AdminAllAdmins/RoleSlice";
 import AdminUserSlice from "./Admin/AdminAllAdmins/AdminUserSlice";
+import AdminPrivilageSlice from "./Admin/AdminAllAdmins/AdminPrivilageSlice";
+
 const rootReducer = combineReducers({
   LoginSlice: LoginSlice,
   ScoutProfileSlice: ScoutProfileSlice,
@@ -15,6 +17,7 @@ const rootReducer = combineReducers({
   AdminAllAdminSlice: AdminAllAdminSlice,
   RoleSlice: RoleSlice,
   AdminUserSlice: AdminUserSlice,
+  AdminPrivilageSlice: AdminPrivilageSlice,
 });
 const persistConfig = {
   key: "root",
