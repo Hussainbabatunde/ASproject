@@ -15,6 +15,7 @@ const AdminUseTable = ({
   handleDelete,
   handleShowEdit,
   deleteinfo,
+  handleEdit,
 }) => {
   return (
     <table className="AdminUserTable">
@@ -315,7 +316,14 @@ const AdminUseTable = ({
                         className="useTable_ViewEditSuspendDetails"
                         style={{ flex: 1, width: "350px" }}
                       >
-                        <Link className="Admin_playersviewprofile">Edit</Link>
+                        {/* <Link className="Admin_playersviewprofile">Edit</Link> */}
+
+                        <button
+                          onClick={() => handleEdit(each?.id, index)}
+                          className="Admin_playersviewprofile"
+                        >
+                          <span>Edit</span>
+                        </button>
                         <button
                           onClick={() => handleDelete(each?.id, index)}
                           className="Admin_playersSuspendprofile"

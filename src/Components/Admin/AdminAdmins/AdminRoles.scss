@@ -10,11 +10,37 @@ $font-size: 16px;
 .form {
   display: flex;
   flex-direction: column;
-//   align-items: center;
+  // align-items: center;
   padding: 20px ;
   background-color: #fff;
   width: 40%;
   border-radius: 1rem;
+}
+
+.form > div  {
+
+  display: flex;
+  justify-content: space-between;
+
+}
+
+.form > div > p {
+
+
+  font-weight: 600;
+  font-size: 22px;
+
+
+}
+
+.form > div > div > img {
+
+
+  font-weight: 600;
+  font-size: 22px;
+
+  background-color: #F8F8F8;
+
 
 }
 
@@ -34,7 +60,7 @@ $font-size: 16px;
 // Define styles for the form inputs and submit button
 .form-input {
   margin-bottom: 10px;
-  width: 100%;
+  width: 90%;
 //   max-width: 400px;
 
 
