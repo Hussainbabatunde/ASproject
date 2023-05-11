@@ -26,6 +26,7 @@ const AdminUseTable = ({
               <th key={index} className="UseTable_tableheader">
                 {item?.name == "ViewEditSuspend" ||
                 item?.name == "PlayersViewdetails" ||
+                item?.name == "EditDeleteRoles" ||
                 item?.name == "EditDeletePermissions" ||
                 item?.name == "EditResetPasswordEnableDisable" ||
                 item?.name == "ViewEditUnSuspend" ||
@@ -164,16 +165,11 @@ const AdminUseTable = ({
                         </p>
                       </td>
                     );
-                  case "Admin name":
+                  case "Admin Name":
                     return (
                       <td className="useTable_tableDetails">
                         <p className="AdminUse_TableComp">
-                          <img
-                            src={each?.imgRecip}
-                            className="useTable_ImageRecipient"
-                            alt="Recipient image"
-                          />
-                          {each?.name}
+                          {each?.firstname} {each?.surname}
                         </p>
                       </td>
                     );
@@ -191,9 +187,7 @@ const AdminUseTable = ({
                     );
                   case "Phone number":
                     return (
-                      <td className="useTable_tableDetails">
-                        {each?.phoneNumber}
-                      </td>
+                      <td className="useTable_tableDetails">{each?.phone}</td>
                     );
                   case "Active Negotiaties":
                     return (

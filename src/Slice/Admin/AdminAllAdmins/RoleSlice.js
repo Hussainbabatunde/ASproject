@@ -254,6 +254,8 @@ export const RoleSlice = createSlice({
         state.createRole_isError = true;
         state.createRole_message = action.payload;
         state.createRole_isLoading = false;
+
+        console.log(state.createRole_message);
         toast.error(`${state.createRole_message}`, {
           position: "top-right",
           autoClose: 5000,

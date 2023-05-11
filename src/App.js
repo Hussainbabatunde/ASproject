@@ -20,6 +20,7 @@ import { useEffect } from "react";
 import ScoutViewProfile from "./Pages/Scout/ScoutViewProfile";
 import Scout from "./Pages/Scout/Scout";
 import "./main.scss";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   useEffect(() => {
@@ -28,6 +29,7 @@ function App() {
   return (
     <GoogleOAuthProvider clientId="<your_client_id>">
       <BrowserRouter>
+        <ToastContainer />
         <Routes>
           <Route path="" element={<HomePage />} />
           <Route path="/login" element={<Login />} />
