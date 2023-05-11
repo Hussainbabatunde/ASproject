@@ -7,7 +7,7 @@ import { CircularProgress } from '@mui/material'
 
 const PlayerProfileBusinessService = ({userId}) => {
     const [priceType, setPriceType] = useState('range')
-    const [isChecked, setIsChecked] = useState(false);
+    const [isChecked, setIsChecked] = useState(true);
     const [isChecked2, setIsChecked2] = useState(false);
     const [isChecked3, setIsChecked3] = useState(false);
     const [isChecked4, setIsChecked4] = useState(false);
@@ -35,7 +35,7 @@ const PlayerProfileBusinessService = ({userId}) => {
       else if(priceType == 'free'){
         pricingBusiness.amount = ''
       }
-      // console.log(pricingBusiness)
+      console.log(pricingBusiness)
       setLoadBusinessService(true)
       await dispatch(PlayerProfileBusinessServiceApi(pricingBusiness))
       setLoadBusinessService(false)

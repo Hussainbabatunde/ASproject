@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import '../Scout/ScoutProfile.css'
 import imgPlaceHolder from '../../assets/imageplaceholder.png'
 import { Link } from 'react-router-dom'
@@ -14,12 +14,26 @@ import PlayerProfileUploadId from './PlayerProfileUploadId'
 import PlayerProfileYourImages from './PlayerProfileYourImages'
 import PlayerProfileVideo from './PlayerProfileVideo'
 import PlayerProfilePhysicalStats from './PlayerProfilePhysicalStats'
-import { PlayerProfilePicture } from '../../Slice/Player/Playerprofile/PlayerProfileSlice'
+import { PlayerProfilePicture, PlayerProfileVerificationStatus } from '../../Slice/Player/Playerprofile/PlayerProfileSlice'
 import { ToastContainer } from 'react-toastify'
 
 const PlayerProfile = () => {
 
-  const progress = '70';
+
+  const VerifiedStatus = useSelector((state)=> state.reducer?.PlayerProfileSlice?.VerificationStatusData?.data)
+  console.log('verification ', VerifiedStatus)
+  let progress = VerifiedStatus?.bio + VerifiedStatus?.price +  VerifiedStatus?.physical_stat +  VerifiedStatus?.images +  VerifiedStatus?.videos;
+  useEffect(()=>{
+    if(VerifiedStatus?.videos == true){
+      setCheckedVideoLink(true)
+    }
+    if(VerifiedStatus?.physical_stat == 20){
+      setCheckedPhysicalStats(true)
+    }
+    if(VerifiedStatus?.images == 20){
+      setCheckedUploadPics(true)
+    }
+  },[VerifiedStatus])
 
   const Parentdiv = {
         height: '1rem',
@@ -48,6 +62,11 @@ const PlayerProfile = () => {
 
   const [file, setFile] = useState(imgPlaceHolder);
   const [picFile, setPicFile] = useState(null);
+  const [checkedVideoLink, setCheckedVideoLink] = useState(false)
+  const [checkedProfilePic, setCheckedProfilePic] = useState(false)
+  const [checkedPhysicalStats, setCheckedPhysicalStats] = useState(false)
+  const [checkedUploadPics, setCheckedUploadPics] = useState(false)
+  const [checkedMeansofID, setCheckedMeansofID] = useState(false)
   const dispatch = useDispatch()
     const handleLogout = async () =>{
         await dispatch(LogoutAuth())
@@ -67,7 +86,16 @@ const PlayerProfile = () => {
       setFile(URL.createObjectURL(e.target.files[0]));
     }
 
+    useEffect(()=>{
+      const checkingVerification = async() =>{
+        await dispatch(PlayerProfileVerificationStatus())
+      }
+      checkingVerification()
+    },[])
+
+
     const userId = useSelector((state)=> state?.reducer?.LoginSlice?.logindata?.message?.id)
+    const userDataInfo = useSelector((state)=> state?.reducer?.LoginSlice?.logindata?.message)
     // console.log('user ', userId)
 
     const handleImgSubmit = async (e) =>{
@@ -108,7 +136,7 @@ const PlayerProfile = () => {
             </button>
           </form>
           <div className='Scoutpage_Profile_nameVerify'>
-            <p className='Scoutpage_profile_Username'>clement bazuaye <span className='Scoutpage_Profile_Verificationstatus'>(not Verified)</span></p>
+            <p className='Scoutpage_profile_Username'>{`${userDataInfo?.firstname } ${userDataInfo?.surname }`} <span className='Scoutpage_Profile_Verificationstatus'>(not Verified)</span></p>
             <p className='Scoutpage_profile_Usertype'>Player Account</p>
           </div>
           </div>
@@ -118,8 +146,8 @@ const PlayerProfile = () => {
         <PlayerProfilePhysicalStats userId={userId} />
         <PlayerProfileBusinessService userId={userId} />
         <PlayerProfileUploadId userId={userId}/>
-        <PlayerProfileYourImages />
-        <PlayerProfileVideo />
+        <PlayerProfileYourImages userId={userId} />
+        <PlayerProfileVideo userId={userId} />
       </div>
       <div className='ScoutProfile_VerificationCol'>
         <div className='ScoutProfile_VerificationDiv'>
@@ -129,6 +157,26 @@ const PlayerProfile = () => {
       <div style={Childdiv}>
         <span style={progresstext}>{`${progress}%`}</span>
       </div>
+    </div>
+    <div className='ScoutProfile_VerifyAccountCheckdiv'>
+      <input type='radio' checked={checkedVideoLink} />
+      <p className='ScoutProfile_VerifyAccountCheck_Text'>Add a Youtube link to a Video of your showcasing skillsets</p>
+    </div>
+    <div className='ScoutProfile_VerifyAccountCheckdiv'>
+      <input type='radio' checked={checkedProfilePic} />
+      <p className='ScoutProfile_VerifyAccountCheck_Text'>Upload a Profile Picture of Your Actial face</p>
+    </div>
+    <div className='ScoutProfile_VerifyAccountCheckdiv'>
+      <input type='radio' checked={checkedPhysicalStats} />
+      <p className='ScoutProfile_VerifyAccountCheck_Text'>Add all Your Physical Stats</p>
+    </div>
+    <div className='ScoutProfile_VerifyAccountCheckdiv'>
+      <input type='radio' checked={checkedUploadPics} />
+      <p className='ScoutProfile_VerifyAccountCheck_Text'>Upload 5 pictures of yourself</p>
+    </div>
+    <div className='ScoutProfile_VerifyAccountCheckdiv'>
+      <input type='radio' checked={checkedMeansofID} />
+      <p className='ScoutProfile_VerifyAccountCheck_Text'>Upload Means of ID</p>
     </div>
     <button className='ScoutProfile_Profileform_SendRequest'>Send Request</button>
         </div>

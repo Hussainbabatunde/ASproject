@@ -31,6 +31,12 @@ const PlayerProfileUploadId = ({userId}) => {
           setLoadUploadId(false)
       }
 
+      const handleUploadIDDeleteImage = () => {
+        setUploadId(null);
+        setFileUploadId(null);
+        setUploaded(false)
+      };
+
   return (
     <form onSubmit={handleUploadIdSubmit} className='Scoutpage_ProfileforContent'>
         <p className='Scoutpage_Profile_Profiledetailstext'>Upload ID</p>
@@ -43,7 +49,7 @@ const PlayerProfileUploadId = ({userId}) => {
                 <img src={fileUploadId} width='100px' height='100px' />
                 <p style={{marginLeft: '20px'}}> 100 x 100</p>
             </div>
-            <RiDeleteBin6Fill style={{fontSize: '25px'}} />
+            <RiDeleteBin6Fill onClick={handleUploadIDDeleteImage} style={{fontSize: '25px', cursor:'pointer'}} />
         </div>}
         
         <button type='submit' className='Scoutpage_Profileform_uploadButton'><FaRegImages style={{fontSize:'18px', marginRight:'5px'}} />

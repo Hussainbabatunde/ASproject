@@ -10,7 +10,9 @@ const initialState = {
     message: null,
     AdminPermissiondata: null,
     GetAdminPermissiondata: null,
-    DeleteAdminPermissionData: null
+    DeleteAdminPermissionData: null,
+    GetAdminPermissionIndidata: null,
+    PutAdminPermissionIndidata: null
   };
 
   export const AdminAllPermissionsRequest = createAsyncThunk(
@@ -71,6 +73,74 @@ const initialState = {
         .get("admin/authorize/permission/all")
         .then(async (response) => {
             // console.log('get all permissions ',response.data)
+          return response.data;
+        })
+  
+        .catch((err) => {
+          let errdata = err.response.data;
+          console.log('error ', errdata)
+          return rejectWithValue(errdata);
+          // console.log(err)
+        });
+    }
+  );
+
+  export const AdminGetIndividualPermissionsRequest = createAsyncThunk(
+    "adminGetIndiPermission/userAdminGetIndiPermission",
+    async (id, { rejectWithValue }) => {
+        
+    // for (const [name, value] of details.entries()) {
+    //     console.log(`${name}: ${value}`);
+    //   }
+      const tokengot = localStorage.getItem("token");
+      const infoneeded = `Bearer ${tokengot}`;
+      const instance = axios.create({
+        baseURL: process.env.REACT_APP_AFRISPORTURL ,
+        timeout: 20000,
+  
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: infoneeded
+        },
+      });
+      return await instance
+        .get(`admin/authorize/permission/find/${id}`)
+        .then(async (response) => {
+          return response.data;
+        })
+  
+        .catch((err) => {
+          let errdata = err.response.data;
+          console.log('error ', errdata)
+          return rejectWithValue(errdata);
+          // console.log(err)
+        });
+    }
+  );
+
+  export const AdminPutIndividualPermissionsRequest = createAsyncThunk(
+    "adminPutIndiPermission/userAdminPutIndiPermission",
+    async (data, { rejectWithValue }) => {
+        
+    // for (const [name, value] of details.entries()) {
+    //     console.log(`${name}: ${value}`);
+    //   }
+      const tokengot = localStorage.getItem("token");
+      const infoneeded = `Bearer ${tokengot}`;
+      const instance = axios.create({
+        baseURL: process.env.REACT_APP_AFRISPORTURL ,
+        timeout: 20000,
+  
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: infoneeded
+        },
+      });
+      return await instance
+        .put('admin/authorize/permission/update', data)
+        .then(async (response) => {
           return response.data;
         })
   
@@ -178,6 +248,49 @@ const initialState = {
           
         })
         .addCase(AdminGetAllPermissionsRequest.rejected, (state, action) => {
+          state.isLoading = false;
+          state.isError = true;
+          state.message = action.payload;
+        })
+        .addCase(AdminGetIndividualPermissionsRequest.pending, (state) => {
+          state.isLoading = true;
+          state.null = true;
+        })
+        .addCase(AdminGetIndividualPermissionsRequest.fulfilled, (state, action) => {
+          state.isLoading = false;
+          state.isSuccess = true;
+          state.user = true;
+          state.GetAdminPermissionIndidata = action.payload;
+          
+        })
+        .addCase(AdminGetIndividualPermissionsRequest.rejected, (state, action) => {
+          state.isLoading = false;
+          state.isError = true;
+          state.message = action.payload;
+        })
+        .addCase(AdminPutIndividualPermissionsRequest.pending, (state) => {
+          state.isLoading = true;
+          state.null = true;
+        })
+        .addCase(AdminPutIndividualPermissionsRequest.fulfilled, (state, action) => {
+          state.isLoading = false;
+          state.isSuccess = true;
+          state.user = true;
+          state.PutAdminPermissionIndidata = action.payload;
+          if(action.payload?.message == "Permission successfully updated"){
+            toast.success("Permission successfully updated", {
+              position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+              });
+            }
+        })
+        .addCase(AdminPutIndividualPermissionsRequest.rejected, (state, action) => {
           state.isLoading = false;
           state.isError = true;
           state.message = action.payload;
