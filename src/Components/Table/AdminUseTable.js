@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 import { CircularProgress } from '@mui/material';
 import { PulseLoader } from 'react-spinners';
 
-const AdminUseTable = ({header, data, deletingIndex, handleDelete, handleShowEdit, deleteinfo}) => {
+const AdminUseTable = ({header, data, handleEditShow, deletingIndex, handleDelete, handleShowEdit, deleteinfo}) => {
   return (
     <table className='AdminUserTable'>
       <thead>
@@ -106,7 +106,7 @@ const AdminUseTable = ({header, data, deletingIndex, handleDelete, handleShowEdi
                             </td>);
                     case 'EditDeletePermissions':
                         return (<td className='useTable_ViewEditSuspendDetails' style={{flex:1, width: '350px'}}>
-                            <Link className='Admin_playersviewprofile'>Edit</Link>
+                            <button onClick={()=> handleEditShow(each?.id) } className='Admin_playersviewprofile'>Edit</button>
                             <button onClick={()=> handleDelete(each?.id, index)} className='Admin_playersSuspendprofile'>
                             {deletingIndex === index ? 
                             <PulseLoader

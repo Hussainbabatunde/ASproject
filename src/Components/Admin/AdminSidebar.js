@@ -9,6 +9,8 @@ import {GiMeepleGroup, GiHouse} from 'react-icons/gi'
 import {BsPersonLinesFill, BsFillPeopleFill, BsChevronDown} from 'react-icons/bs'
 import {ImExit} from 'react-icons/im'
 import {AiFillBank} from 'react-icons/ai'
+import { useDispatch } from 'react-redux'
+import { LogoutAuth } from '../../Slice/auth/Login'
 
 
 const AdminSidebar = () => {
@@ -46,6 +48,14 @@ const handleReveal = (key) => {
 
   setReveal(key);
 };
+
+const dispatch = useDispatch()
+    const handleLogout = async () =>{
+        await dispatch(LogoutAuth())
+        localStorage.clear();
+        sessionStorage.clear();
+        window.location.reload();
+    }
 
 
   return (
@@ -89,10 +99,10 @@ const handleReveal = (key) => {
       
       </div>
 
-      <NavLink  
+      <div onClick={handleLogout}
       className='SuperAdmin_SidebarLogoutInactiveNavLink'
       > <ImExit /><span className='SuperAdmin_SidebarText'>Logout</span>
-      </NavLink>
+      </div>
       
     </div>
   )
