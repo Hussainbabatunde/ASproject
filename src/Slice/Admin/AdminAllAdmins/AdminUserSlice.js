@@ -219,6 +219,41 @@ export const AdminUserSlice = createSlice({
           theme: "light",
           className: "Forbidden403",
         });
+      })
+
+      .addCase(Create__Admin_fun.pending, (state) => {
+        state.Create__Admin_isLoading = true;
+      })
+      .addCase(Create__Admin_fun.fulfilled, (state, action) => {
+        state.Create__Admin = action.payload;
+        state.Create__Admin_isSuccess = true;
+        state.Create__Admin_isLoading = false;
+        toast.success("Deleted successful", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      })
+      .addCase(Create__Admin_fun.rejected, (state, action) => {
+        state.Create__Admin_isError = true;
+        state.Create__Admin_message = action.payload;
+        state.Create__Admin_isLoading = false;
+        toast.error(`${state.Create__Admin_message}`, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          className: "Forbidden403",
+        });
       });
   },
 });
