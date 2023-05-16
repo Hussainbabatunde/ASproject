@@ -22,7 +22,9 @@ const ScoutHeader = () => {
   }
   return (<>
     <div className='Homepage_header'>
+      <Link to='/afrisport/player/homepage'>
         <img src={logo} alt="Afrisport logo" />
+        </Link>
         <div className='Admin_wholeNavigationBar'>
           <div className='Admin_HeaderNotification_div'>
             <MdNotifications className='Admin_headerNotification' />

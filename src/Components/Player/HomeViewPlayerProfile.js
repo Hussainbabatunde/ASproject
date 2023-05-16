@@ -13,31 +13,52 @@ import PlayerImg from '../../assets/Player1.png'
 import { useDispatch, useSelector } from 'react-redux'
 import { PlayerProfileVerificationStatus, ProfileDetailsPlayer } from '../../Slice/Player/Playerprofile/PlayerProfileSlice'
 import { Skeleton } from '@mui/material'
+import ScoutHeader from '../Header/ScoutHeader'
+import Footer from '../Homepage/Footer'
+import MakeARequest from './MakeARequest'
+import HomePagePitchOffer from './HomePagePitchOffer'
 
+const HomeViewPlayerProfile = () => {
+    const dispatch = useDispatch()
+    const [loading, setLoading] = useState(false)
+    const [show, setShow] = useState(false);
+    const [showOffer, setShowOffer] = useState(false);
+    const [loader, setLoader] = useState(false)
+  
+    const VerifiedStatus = useSelector((state)=> state.reducer?.PlayerProfileSlice?.VerificationStatusData?.data)
+    let progress = VerifiedStatus?.bio + VerifiedStatus?.price +  VerifiedStatus?.physical_stat +  VerifiedStatus?.images +  VerifiedStatus?.videos;
+  
+    const PlayerDetails = useSelector((state)=>state?.reducer?.PlayerProfileSlice?.AllProfileDetailsData?.data)
+    const userId = useSelector((state)=> state?.reducer?.LoginSlice?.logindata?.message?.id)
 
-const PlayerViewProfile = () => {
+    const handleHide = () => {
+        setShow(false)
+      }
+      const handleShow= ()=>{
+        setShow(true)
+      }
 
-  const dispatch = useDispatch()
-  const [loading, setLoading] = useState(false)
+      const handleHideOffer = () => {
+        setShowOffer(false)
+      }
+      const handleShowOffer= ()=>{
+        setShow(false)
+        setShowOffer(true)
+      }
+      
+    useEffect(()=>{
+        const getInfo = async() =>{
+          setLoading(true)
+          await dispatch(ProfileDetailsPlayer(userId))
+          await dispatch(PlayerProfileVerificationStatus())
+          setLoading(false)
+        }
+        getInfo()
+      },[])
 
-  const VerifiedStatus = useSelector((state)=> state.reducer?.PlayerProfileSlice?.VerificationStatusData?.data)
-  let progress = VerifiedStatus?.bio + VerifiedStatus?.price +  VerifiedStatus?.physical_stat +  VerifiedStatus?.images +  VerifiedStatus?.videos;
-
-  const PlayerDetails = useSelector((state)=>state?.reducer?.PlayerProfileSlice?.AllProfileDetailsData?.data)
-  const userId = useSelector((state)=> state?.reducer?.LoginSlice?.logindata?.message?.id)
-
-  // console.log('PlayerDetails ', PlayerDetails)
-
-  useEffect(()=>{
-    const getInfo = async() =>{
-      setLoading(true)
-      await dispatch(ProfileDetailsPlayer(userId))
-      await dispatch(PlayerProfileVerificationStatus())
-      setLoading(false)
-    }
-    getInfo()
-  },[])
   return (
+    <div>
+        <ScoutHeader />
     <div className='ScoutViewProfile'>
         <div className='ScoutViewProfile_navigation'>
             <div className='ScoutViewProfile_navigationprogress'>
@@ -47,6 +68,9 @@ const PlayerViewProfile = () => {
             </div>
             <Link className='ScoutViewProfile_share'> <BsShareFill style={{color:'rgba(150, 150, 150, 1)'}} /> <span style={{color:'rgba(150, 150, 150, 1)', marginLeft:'10px'}}>Share</span></Link>
         </div>
+
+        <div className='HomepageViewPlayerProfile'>
+        <div className='HomepageView_ProfileOffers'>
         <div className='ScoutViewProfile_UserProfileSection'>
           <div className='ScoutViewProfile_UserProfiledetailsSection'>
             <img src={PlayerDetails?.profile_pics} alt='image placeholder' className='ScoutViewProfile_UserProfileImage' />
@@ -124,8 +148,30 @@ const PlayerViewProfile = () => {
             <img src={PlayerImg} className='ScoutViewProfile_Image' /> */}
         </div>
         <p className='ScoutViewProfile_PhysicalStatsText'>Video <BsDot style={{fontSize:'25px'}}/> 4 </p>
+        </div>
+        <div className='HomepageViewProfile_OfferRequest'>
+            <div className='HomepageViewProfile_MakeRequestSec'>                
+            <p className='ScoutViewProfile_AboutTopicText'>For Fans</p>
+            <p className='ScoutViewProfile_UserProfileCurrentlyAvailable'>Request for personalized Video or Photo Content</p>
+            <button className='HomepageViewProfile_requestButton' onClick={handleShow}>Make a request</button>
+            </div>
+            <div className='HomepageViewProfile_MakeRequestSec'>                
+            <p className='ScoutViewProfile_AboutTopicText'>Negotiate this Player</p>
+            <p className='ScoutViewProfile_UserProfileCurrentlyAvailable'>For Business, Pitch your business offer to the player/talent manager.</p>
+            <div style={{marginTop: '20px'}}>
+            <p style={{fontSize: '13px'}}>Ranging from $400</p>
+            <p style={{fontSize: '13px', marginTop:"5px"}}>Open for negotiation</p>
+            </div>
+            <button className='HomepageViewProfile_requestButton' onClick={handleShowOffer}>Pitch offer</button>
+            </div>
+        </div>
+        </div>
+    </div>
+    <MakeARequest loader={loader} show={show} handleShow={handleShow} handleShowOffer={handleShowOffer} handleHide={handleHide}/>
+    <HomePagePitchOffer loader={loader} show={showOffer} handleShow={handleShowOffer} handleHide={handleHideOffer} />
+    <Footer />
     </div>
   )
 }
 
-export default PlayerViewProfile
+export default HomeViewPlayerProfile

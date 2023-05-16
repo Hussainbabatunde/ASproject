@@ -19,6 +19,8 @@ import 'aos/dist/aos.css';
 import { useEffect } from 'react';
 import ScoutViewProfile from './Pages/Scout/ScoutViewProfile';
 import Scout from './Pages/Scout/Scout';
+import HomepageFilterView from './Pages/LandingHomepage/HomepageFilterView';
+import HomeViewPlayerProfile from './Components/Player/HomeViewPlayerProfile';
 
 function App() {
   useEffect(() => {
@@ -34,6 +36,9 @@ function App() {
         <Route path='/create-account/:id' element={<CreateAccount />} />
         <Route path='/forgotPassword' element={<ForgotPassword />} />
         <Route path='/setPassword' element={<ResetPassword />} />
+        <Route path='/filterPage' element={<HomepageFilterView />} />
+        <Route path='/viewplayerprofile' element={<HomeViewPlayerProfile />} />
+
         <Route path='/admin/*' element={
         <PrivateRoute>
           <AdminRote />

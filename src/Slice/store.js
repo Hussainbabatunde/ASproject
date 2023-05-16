@@ -3,6 +3,7 @@ import LoginSlice from "./auth/Login";
 import ScoutProfileSlice from './Scout/Scoutprofile/ScoutProfileSlice'
 import PlayerProfileSlice from './Player/Playerprofile/PlayerProfileSlice'
 import AdminAllAdminSlice from './Admin/AdminAllAdmins/AdminPermissionSlice'
+import PlayerVisitSlice from './Player/PlayerView/PlayerViewSlice'
 import storage from "redux-persist/lib/storage";
 // import thunk from "redux-thunk";
 import { persistReducer, persistStore } from 'redux-persist';
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
     ScoutProfileSlice: ScoutProfileSlice,
     PlayerProfileSlice: PlayerProfileSlice,
     AdminAllAdminSlice: AdminAllAdminSlice,
+    PlayerVisitSlice: PlayerVisitSlice
   });
 const persistConfig = {
     key: 'root',

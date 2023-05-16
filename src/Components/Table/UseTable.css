@@ -24,6 +24,7 @@
 .useTable_tableDetails{    
     border: 1px solid #DDDDDD !important;
     padding: 10px 10px;
+    text-align: center;
 }
 .useTable_ViewEditSuspendDetails{    
     border: 1px solid #DDDDDD !important;

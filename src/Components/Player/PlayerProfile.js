@@ -14,17 +14,18 @@ import PlayerProfileUploadId from './PlayerProfileUploadId'
 import PlayerProfileYourImages from './PlayerProfileYourImages'
 import PlayerProfileVideo from './PlayerProfileVideo'
 import PlayerProfilePhysicalStats from './PlayerProfilePhysicalStats'
-import { PlayerProfilePicture, PlayerProfileVerificationStatus } from '../../Slice/Player/Playerprofile/PlayerProfileSlice'
+import { PlayerProfilePicture, PlayerProfileVerificationStatus, ProfileDetailsPlayer } from '../../Slice/Player/Playerprofile/PlayerProfileSlice'
 import { ToastContainer } from 'react-toastify'
+import { reset as resetPlayerProfileSlice } from "../../Slice/Player/Playerprofile/PlayerProfileSlice";
 
 const PlayerProfile = () => {
 
 
   const VerifiedStatus = useSelector((state)=> state.reducer?.PlayerProfileSlice?.VerificationStatusData?.data)
-  console.log('verification ', VerifiedStatus)
-  let progress = VerifiedStatus?.bio + VerifiedStatus?.price +  VerifiedStatus?.physical_stat +  VerifiedStatus?.images +  VerifiedStatus?.videos;
+  // console.log('verification ', VerifiedStatus)
+  let progress = VerifiedStatus?.identification + VerifiedStatus?.profile_pics +  VerifiedStatus?.physical_stat +  VerifiedStatus?.images +  VerifiedStatus?.videos;
   useEffect(()=>{
-    if(VerifiedStatus?.videos == true){
+    if(VerifiedStatus?.videos == 20){
       setCheckedVideoLink(true)
     }
     if(VerifiedStatus?.physical_stat == 20){
@@ -32,6 +33,12 @@ const PlayerProfile = () => {
     }
     if(VerifiedStatus?.images == 20){
       setCheckedUploadPics(true)
+    }
+    if(VerifiedStatus?.identification == 20){
+      setCheckedMeansofID(true)
+    }
+    if(VerifiedStatus?.profile_pics == 20){
+      setCheckedProfilePic(true)
     }
   },[VerifiedStatus])
 
@@ -70,6 +77,7 @@ const PlayerProfile = () => {
   const dispatch = useDispatch()
     const handleLogout = async () =>{
         await dispatch(LogoutAuth())
+        await dispatch(resetPlayerProfileSlice())
         localStorage.clear();
         sessionStorage.clear();
         window.location.reload();
@@ -86,17 +94,20 @@ const PlayerProfile = () => {
       setFile(URL.createObjectURL(e.target.files[0]));
     }
 
-    useEffect(()=>{
-      const checkingVerification = async() =>{
-        await dispatch(PlayerProfileVerificationStatus())
-      }
-      checkingVerification()
-    },[])
+    
 
 
     const userId = useSelector((state)=> state?.reducer?.LoginSlice?.logindata?.message?.id)
     const userDataInfo = useSelector((state)=> state?.reducer?.LoginSlice?.logindata?.message)
     // console.log('user ', userId)
+
+    useEffect(()=>{
+      const checkingVerification = async() =>{
+        await dispatch(ProfileDetailsPlayer(userId))
+        await dispatch(PlayerProfileVerificationStatus(userId))
+      }
+      checkingVerification()
+    },[])
 
     const handleImgSubmit = async (e) =>{
       e.preventDefault()
@@ -106,6 +117,7 @@ const PlayerProfile = () => {
       
         setImgLoader(true)
         await dispatch(PlayerProfilePicture(formData))
+        await dispatch(PlayerProfileVerificationStatus())
         setImgLoader(false)
     }
 
