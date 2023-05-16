@@ -20,6 +20,7 @@ import AdminAllAdmins from "../../Components/Admin/AdminAdmins/AdminAllAdmins";
 import AdminRoles from "../../Components/Admin/AdminAdmins/AdminRoles";
 import AdminPermissions from "../../Components/Admin/AdminAdmins/AdminPermissions";
 import Privilege from "../../Components/Admin/AdminAdmins/Privilege";
+import Authorization from "./Authorization";
 
 const AdminRote = () => {
   return (
@@ -28,7 +29,11 @@ const AdminRote = () => {
       <div className="AdminMainPage">
         <AdminSidebar />
         <Routes>
+          <Route path="/" element={<AdminAllAdmins />} />
+
           <Route path="/admin/dashboard" element={<AdminDashboard />} />
+          <Route path="/authorization" element={<Authorization />} />
+
           <Route path="/admin/negotiate" element={<AdminNegotiate />} />
           <Route path="/admin/players" element={<AdminPlayer />} />
           <Route path="/admin/scouts" element={<AdminScouts />} />
@@ -37,6 +42,7 @@ const AdminRote = () => {
             path="/admin/finance/transaction"
             element={<AdminFinanaceTransaction />}
           />
+
           <Route path="/admin/admins" element={<AdminAdmins />} />
           <Route path="/admin/admins/alladmins" element={<AdminAllAdmins />} />
           <Route path="/admin/admins/roles" element={<AdminRoles />} />

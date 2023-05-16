@@ -52,22 +52,25 @@ const Privilege = () => {
     row.name.toLowerCase().includes(searchQuery)
   );
 
+  console.log(filteredData);
   const header = [
     {
       id: 1,
-      name: "Admin Name",
+      name: "Previlage ",
+      case: "Previlage_Admin_Name",
     },
     {
       id: 2,
       name: "Description",
+      case: "Previlage_Admin_Name",
     },
 
-    {
-      id: 5,
-      name: "EditDeleteRoles",
+    // {
+    //   id: 5,
+    //   name: "EditDeleteRoles",
 
-      // name: "EditResetPasswordEnableDisable",
-    },
+    //   // name: "EditResetPasswordEnableDisable",
+    // },
   ];
 
   const dataTable = [
@@ -151,8 +154,6 @@ const Privilege = () => {
 
       console.log(data);
     };
-
-    return <>sjksdksjd</>;
 
     return (
       <div className="modal">

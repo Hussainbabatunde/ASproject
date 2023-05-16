@@ -94,35 +94,43 @@ const AdminSidebar = () => {
     },
     {
       id: 8,
-      pathTo: "/admin/admin/admins",
+      pathTo: "/admin",
       pathName: "Admins",
       pathIcon: <GiMeepleGroup />,
-      children: [
-        {
-          id: "name6",
-          navName: "All Admin",
-          slug: "admin_alladmin",
-          navSubLink: "/admin/admin/admins/alladmins",
-        },
-        {
-          id: "name7",
-          navName: "Roles",
-          slug: "admin_roles",
-          navSubLink: "/admin/admin/admins/roles",
-        },
-        {
-          id: "name8",
-          navName: "Permission",
-          slug: "admin_permission",
-          navSubLink: "/admin/admin/admins/permission",
-        },
-        {
-          id: "name9",
-          navName: "Privilege",
-          slug: "admin_privilege",
-          navSubLink: "/admin/admin/admins/privilege",
-        },
-      ],
+      children: [],
+
+      // children: [
+      //   {
+      //     id: "name5",
+      //     navName: "Autorisation",
+      //     slug: "autorisation",
+      //     navSubLink: "/admin/authorization",
+      //   },
+      //   {
+      //     id: "name6",
+      //     navName: "All Admin",
+      //     slug: "admin_alladmin",
+      //     navSubLink: "/admin/admin/admins/alladmins",
+      //   },
+      //   {
+      //     id: "name7",
+      //     navName: "Roles",
+      //     slug: "admin_roles",
+      //     navSubLink: "/admin/admin/admins/roles",
+      //   },
+      //   {
+      //     id: "name8",
+      //     navName: "Permission",
+      //     slug: "admin_permission",
+      //     navSubLink: "/admin/admin/admins/permission",
+      //   },
+      //   {
+      //     id: "name9",
+      //     navName: "Privilege",
+      //     slug: "admin_privilege",
+      //     navSubLink: "/admin/admin/admins/privilege",
+      //   },
+      // ],
     },
     {
       id: 9,
@@ -145,7 +153,7 @@ const AdminSidebar = () => {
 
   const dispatch = useDispatch();
   const handleLogout = async () => {
-    await dispatch(LogoutAuth());
+    dispatch(LogoutAuth());
     localStorage.clear();
     sessionStorage.clear();
     window.location.reload();
@@ -165,7 +173,7 @@ const AdminSidebar = () => {
                   : "SuperAdmin_SidebarInactiveNavLink"
               }
             >
-              <div>
+              <div className="flex">
                 {each?.pathIcon}
                 <span className="SuperAdmin_SidebarText">{each?.pathName}</span>
               </div>

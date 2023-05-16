@@ -16,6 +16,7 @@ const AdminUseTable = ({
   handleShowEdit,
   deleteinfo,
   handleEdit,
+  HandlePermision,
 }) => {
   return (
     <table className="AdminUserTable">
@@ -46,6 +47,82 @@ const AdminUseTable = ({
           return (
             <tr key={index}>
               {header?.map((item) => {
+                switch (item?.case) {
+                  case "Admin_email":
+                    return (
+                      <td className="useTable_tableDetails">
+                        {each?.user?.email}
+                      </td>
+                    );
+
+                  case "Admin_Phone_number":
+                    return (
+                      <td className="useTable_tableDetails">
+                        {each?.user?.phone}
+                      </td>
+                    );
+
+                  case "Admin_Role":
+                    return (
+                      <td className="useTable_tableDetails">{each?.role}</td>
+                    );
+
+                  case "Previlage_Admin_Name":
+                    return (
+                      <td className="useTable_tableDetails">
+                        <p className="AdminUse_TableComp">{each?.name}</p>
+                      </td>
+                    );
+
+                  case "Admin_Edit_Delete_Asign":
+                    return (
+                      <td
+                        className="useTable_ViewEditSuspendDetails"
+                        style={{ flex: 1, width: "350px" }}
+                      >
+                        {/* <Link className="Admin_playersviewprofile">Edit</Link> */}
+
+                        <button
+                          onClick={() => handleEdit(each)}
+                          className="Admin_playersviewprofile"
+                        >
+                          <span>Edit</span>
+                        </button>
+                        <button
+                          onClick={() => handleDelete(each)}
+                          className="Admin_playersSuspendprofile"
+                        >
+                          {deletingIndex === index ? (
+                            <PulseLoader
+                              color="#7F351D"
+                              size={13}
+                              aria-label="Loading Spinner"
+                              data-testid="loader"
+                            />
+                          ) : (
+                            <span>Delete</span>
+                          )}
+                        </button>
+
+                        <button
+                          onClick={() => HandlePermision(each)}
+                          className="Admin_playersSuspendprofile"
+                        >
+                          {deletingIndex === index ? (
+                            <PulseLoader
+                              color="#7F351D"
+                              size={13}
+                              aria-label="Loading Spinner"
+                              data-testid="loader"
+                            />
+                          ) : (
+                            <span>Permision</span>
+                          )}
+                        </button>
+                      </td>
+                    );
+                }
+
                 switch (item?.name) {
                   case "Deal name":
                     return (
@@ -169,7 +246,7 @@ const AdminUseTable = ({
                     return (
                       <td className="useTable_tableDetails">
                         <p className="AdminUse_TableComp">
-                          {each?.firstname} {each?.surname}
+                          {each?.user?.firstname} {each?.user?.surname}
                         </p>
                       </td>
                     );
@@ -287,7 +364,7 @@ const AdminUseTable = ({
                       >
                         <Link className="Admin_playersviewprofile">Edit</Link>
                         <button
-                          onClick={() => handleDelete(each?.id, index)}
+                          onClick={() => handleDelete(each?.id, index, each)}
                           className="Admin_playersSuspendprofile"
                         >
                           {deletingIndex === index ? (
@@ -313,13 +390,13 @@ const AdminUseTable = ({
                         {/* <Link className="Admin_playersviewprofile">Edit</Link> */}
 
                         <button
-                          onClick={() => handleEdit(each?.id, index)}
+                          onClick={() => handleEdit(each)}
                           className="Admin_playersviewprofile"
                         >
                           <span>Edit</span>
                         </button>
                         <button
-                          onClick={() => handleDelete(each?.id, index)}
+                          onClick={() => handleDelete(each)}
                           className="Admin_playersSuspendprofile"
                         >
                           {deletingIndex === index ? (

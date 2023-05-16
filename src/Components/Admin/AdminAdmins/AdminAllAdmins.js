@@ -9,12 +9,14 @@ import AdminUseTable from "../../Table/AdminUseTable";
 import {
   Create__Admin_fun,
   Delete__Admin_fun,
+  Update_permission___Admin_fun,
   get_All_Admin_fun,
   reset_Create__Admin_options,
 } from "../../../Slice/Admin/AdminAllAdmins/AdminUserSlice";
 import { useDispatch, useSelector } from "react-redux";
 import cancle_icon from "../../../assets/cancel_icon.png";
 import { ToastContainer } from "react-toastify";
+import { get_All_Role_fun } from "../../../Slice/Admin/AdminAllAdmins/RoleSlice";
 
 const AdminAllAdmins = () => {
   const dispatch = useDispatch();
@@ -29,6 +31,10 @@ const AdminAllAdmins = () => {
     Create__Admin_message,
   } = useSelector((state) => state?.reducer?.AdminUserSlice);
 
+  const { GetRole, Role_isSuccess, createRole_isSuccess } = useSelector(
+    (state) => state?.reducer?.RoleSlice
+  );
+
   const [modal, setModal] = useState(false);
 
   const [searchQuery, setSearchQuery] = useState("");
@@ -38,28 +44,35 @@ const AdminAllAdmins = () => {
     setSearchQuery(query);
   };
 
-  // Use computed property to get filtered data
-  const filteredData = get_All_Admin?.data.filter((row) =>
-    row.firstname.toLowerCase().includes(searchQuery)
-  );
+  const filteredData = get_All_Admin?.data;
 
   const header = [
     {
       id: 1,
       name: "Admin Name",
+      case: "Admin_Name",
     },
     {
       id: 2,
-      name: "Email",
+      name: "Admin Email",
+      case: "Admin_email",
     },
     {
       id: 3,
-      name: "Phone number",
+      name: "Telephone ",
+      case: "Admin_Phone_number",
+    },
+
+    {
+      id: 4,
+      name: "Admin Role",
+      case: "Admin_Role",
     },
 
     {
       id: 5,
-      name: "EditDeleteRoles",
+      name: "   ",
+      case: "Admin_Edit_Delete_Asign",
 
       // name: "EditResetPasswordEnableDisable",
     },
@@ -91,6 +104,9 @@ const AdminAllAdmins = () => {
     dispatch(get_All_Admin_fun());
 
     dispatch(reset_Create__Admin_options());
+
+    dispatch(get_All_Role_fun());
+
     // dispatch(reset_role_Create_options());
     // setFilteredData(GetRole?.data);
 
@@ -101,50 +117,99 @@ const AdminAllAdmins = () => {
   }, [Create__Admin_isSuccess]);
 
   const [formData, setFormData] = useState({
-    id: null,
-
-    firstname: "",
-    surname: "",
-    phone: "",
+    role: "",
+    fullname: "",
     email: "",
+    phone: "",
+    id: null,
   });
 
   const Close_form = () => {
     setModal(false);
 
+    setModal_permission(false);
+
     setFormData({
-      firstname: "",
-      surname: "",
-      phone: "",
+      role: "",
+      fullname: "",
       email: "",
+      phone: "",
+      id: null,
     });
+
+    dispatch(reset_Create__Admin_options());
   };
 
   const handleDelete = (data) => {
-    dispatch(Delete__Admin_fun(data));
+    console.log(data);
+    let id = data?.user?.id;
+
+    dispatch(Delete__Admin_fun(id));
+  };
+
+  const handleEdit = (item, asign) => {
+    setFormData({
+      fullname: `${item.user.firstname} ${item.user.surname}  `,
+      phone: item.user.phone,
+      email: item.user.email,
+      id: item.user.id,
+      role: item.role,
+    });
+
+    setModal(true);
+  };
+
+  const [modal_permission, setModal_permission] = useState(false);
+  const [permission_item, setPermission_item] = useState(null);
+
+  const HandlePermision = (item) => {
+    console.log(item);
+
+    console.log("as");
+
+    setModal_permission(true);
+    setPermission_item(item);
   };
 
   const Role_modal = () => {
-    const [role_data, setRole_data] = useState({
-      id: formData.id,
-      firstname: formData.firstname,
-      surname: formData.surname,
-      phone: formData.phone,
+    const [userAdmin, setUserAdmin] = useState({
+      role: formData.role,
+      fullname: formData.fullname,
       email: formData.email,
+      phone: formData.phone,
+      id: formData.id,
     });
+
+    useEffect(() => {
+      if (Create__Admin_isSuccess) {
+        setFormData({
+          role: "",
+          fullname: "",
+          email: "",
+          phone: "",
+          id: null,
+        });
+
+        setModal(false);
+      }
+
+      return () => {};
+    }, [Create__Admin_isSuccess]);
 
     const handleInputChange = (e) => {
       const { name, value } = e.target;
-      setRole_data((prevState) => ({ ...prevState, [name]: value }));
+      setUserAdmin((prevState) => ({ ...prevState, [name]: value }));
     };
 
     const handleSubmit = (e) => {
-      e.preventDefault();
-      let data = role_data;
-      setFormData(data);
-      dispatch(Create__Admin_fun(data));
-
-      console.log(data);
+      setFormData({
+        role: userAdmin.role,
+        fullname: userAdmin.fullname,
+        email: userAdmin.email,
+        phone: userAdmin.phone,
+        id: userAdmin.id,
+      });
+      dispatch(Create__Admin_fun(userAdmin));
     };
 
     return (
@@ -153,7 +218,6 @@ const AdminAllAdmins = () => {
           <div className=" d-flex">
             <p className="">Create Admin </p>
 
-            {/* <CloseIcon /> */}
             <div className="" onClick={Close_form}>
               <img src={cancle_icon} alt="" />
             </div>
@@ -161,53 +225,165 @@ const AdminAllAdmins = () => {
           <form className="" onSubmit={handleSubmit}>
             <div>
               <div>
-                <label htmlFor=""> firstname</label>
-
+                <label htmlFor=""> Fullname</label>
                 <input
                   className="form-input"
                   type="text"
-                  name="firstname"
-                  value={role_data.firstname}
-                  placeholder="firstname"
+                  name="fullname"
+                  value={userAdmin.fullname}
+                  placeholder="fullname"
                   onChange={handleInputChange}
                 />
               </div>
               <div>
-                <label htmlFor=""> Surname</label>
-
+                <label htmlFor="" className="block">
+                  Email
+                </label>
                 <input
                   className="form-input"
                   type="text"
-                  name="surname"
-                  value={role_data.surname}
-                  placeholder="surname"
+                  name="email"
+                  value={userAdmin.email}
+                  placeholder="email"
                   onChange={handleInputChange}
                 />
-              </div>{" "}
+              </div>
               <div>
-                <label htmlFor=""> Phone</label>
-
+                <label htmlFor="" className="block">
+                  Phone
+                </label>
                 <input
                   className="form-input"
                   type="tel"
                   name="phone"
-                  value={role_data.phone}
-                  placeholder="Phone"
+                  value={userAdmin.phone}
+                  placeholder="phone"
                   onChange={handleInputChange}
                 />
-              </div>{" "}
-              <div>
-                <label htmlFor=""> Email</label>
+              </div>
 
-                <input
+              <div>
+                <label htmlFor="" className="block">
+                  Role
+                </label>
+
+                {formData?.id ? (
+                  <>
+                    <input className="form-input" value={userAdmin.role} />
+                  </>
+                ) : (
+                  <select
+                    name="role"
+                    value={userAdmin.role}
+                    onChange={handleInputChange}
+                    className="form-input"
+                  >
+                    <>
+                      <option value="">Select a grade</option>
+                      {GetRole?.data.map((item) => (
+                        <option
+                          key={item.id}
+                          value={item.name}
+                          className=" w-24"
+                        >
+                          {item.name}
+                        </option>
+                      ))}
+                    </>
+                  </select>
+                )}
+              </div>
+            </div>
+            {!Create__Admin_isLoading && (
+              <button className="form-submit" type="submit">
+                Submit
+              </button>
+            )}
+          </form>
+        </div>
+      </div>
+    );
+  };
+
+  const Permision_modal = () => {
+    const [userAdmin, setUserAdmin] = useState({
+      role: formData.role,
+      fullname: formData.fullname,
+      email: formData.email,
+      phone: formData.phone,
+      id: formData.id,
+    });
+
+    // useEffect(() => {
+    //   if (Create__Admin_isSuccess) {
+    //     setFormData({
+    //       role: "",
+    //       fullname: "",
+    //       email: "",
+    //       phone: "",
+    //       id: null,
+    //     });
+
+    //     setModal(false);
+    //   }
+
+    //   return () => {};
+    // }, [Create__Admin_isSuccess]);
+
+    const [role, setRole] = useState(permission_item?.role);
+    const handleSubmit = (e) => {
+      e.preventDefault();
+
+      // setFormData({
+      //   role: userAdmin.role,
+      //   fullname: userAdmin.fullname,
+      //   email: userAdmin.email,
+      //   phone: userAdmin.phone,
+      //   id: userAdmin.id,
+      // });
+
+      let data = {
+        user: permission_item?.user?.id,
+        role: role,
+      };
+
+      console.log(data);
+      dispatch(Update_permission___Admin_fun(data));
+    };
+
+    return (
+      <div className="modal">
+        <div className="form">
+          <div className=" d-flex">
+            <p className="">Reassign Permission </p>
+
+            <div className="" onClick={Close_form}>
+              <img src={cancle_icon} alt="" />
+            </div>
+          </div>
+          <form onSubmit={handleSubmit} className="mt-5">
+            <div>
+              <div>
+                <label htmlFor="" className="block">
+                  Role
+                </label>
+
+                <select
+                  name="role"
+                  value={role}
+                  onChange={(event) => setRole(event.target.value)}
                   className="form-input"
-                  type="email"
-                  name="email"
-                  value={role_data.email}
-                  placeholder="Email"
-                  onChange={handleInputChange}
-                />
-              </div>{" "}
+                >
+                  <>
+                    <option value="">Select a grade</option>
+                    {GetRole?.data.map((item) => (
+                      <option key={item.id} value={item.name} className=" w-24">
+                        {item.name}
+                      </option>
+                    ))}
+                  </>
+                </select>
+              </div>
             </div>
             {!Create__Admin_isLoading && (
               <button className="form-submit" type="submit">
@@ -229,8 +405,10 @@ const AdminAllAdmins = () => {
           <div className="AdminPage_DashboardTAbleCat">
             {modal && <Role_modal />}
 
+            {modal_permission && <Permision_modal />}
+
             <button
-              className="Adminpage_CreateAdmins"
+              className="Adminpage_CreateAdmins "
               onClick={() => setModal(true)}
             >
               Create Admin
@@ -238,6 +416,7 @@ const AdminAllAdmins = () => {
 
             <div className="AdminPage_TableTitleandLink">
               <p className="AdminPage_NegotiateTitleText">Admins</p>
+
               <div className="AdminDashboard_Search">
                 <input
                   type="text"
@@ -246,6 +425,8 @@ const AdminAllAdmins = () => {
                 />
                 <RiSearchLine className="AdminDashboard_SearchIcon" />
               </div>
+
+              <h1></h1>
             </div>
 
             <div className="AdminTable_NegotiateTable">
@@ -268,6 +449,8 @@ const AdminAllAdmins = () => {
                   header={header}
                   data={filteredData}
                   handleDelete={handleDelete}
+                  handleEdit={handleEdit}
+                  HandlePermision={HandlePermision}
                 />
               )}
             </div>

@@ -9,6 +9,7 @@ import { persistReducer, persistStore } from "redux-persist";
 import RoleSlice from "./Admin/AdminAllAdmins/RoleSlice";
 import AdminUserSlice from "./Admin/AdminAllAdmins/AdminUserSlice";
 import AdminPrivilageSlice from "./Admin/AdminAllAdmins/AdminPrivilageSlice";
+import AuthorizeSlice from "./Admin/AuthorizeSlice";
 
 const rootReducer = combineReducers({
   LoginSlice: LoginSlice,
@@ -18,6 +19,8 @@ const rootReducer = combineReducers({
   RoleSlice: RoleSlice,
   AdminUserSlice: AdminUserSlice,
   AdminPrivilageSlice: AdminPrivilageSlice,
+
+  AuthorizeSlice: AuthorizeSlice,
 });
 const persistConfig = {
   key: "root",

@@ -27,17 +27,10 @@ const AdminRoles = () => {
     (state) => state?.reducer?.RoleSlice
   );
 
-  const [filteredData, setFilteredData] = useState(GetRole?.data);
+  console.log(GetRole);
+
   const [searchQuery, setSearchQuery] = useState("");
 
-  const handleSearchInputChange = (event) => {
-    const query = event.target.value.toLowerCase();
-    setSearchQuery(query);
-    const filtered = GetRole?.data.filter((row) =>
-      row.name.toLowerCase().includes(query)
-    );
-    setFilteredData(filtered);
-  };
   const header = [
     {
       id: 1,
@@ -114,6 +107,7 @@ const AdminRoles = () => {
     });
   };
 
+  console.log("ww");
   const Role_modal = () => {
     const [role_data, setRole_data] = useState({
       id: formData.id,
@@ -203,7 +197,7 @@ const AdminRoles = () => {
                   type="text"
                   placeholder="Search name"
                   value={searchQuery}
-                  onChange={handleSearchInputChange}
+                  // onChange={handleSearchInputChange}
                   className="AdminDashboard_SearchInput"
                 />
                 <RiSearchLine className="AdminDashboard_SearchIcon" />
@@ -211,7 +205,7 @@ const AdminRoles = () => {
             </div>
 
             <div className="AdminTable_NegotiateTable">
-              {filteredData.length === 0 ? (
+              {GetRole?.data.length === 0 ? (
                 <div
                   style={{
                     display: "flex",
@@ -228,7 +222,7 @@ const AdminRoles = () => {
               ) : (
                 <AdminUseTable
                   header={header}
-                  data={filteredData}
+                  data={GetRole?.data}
                   handleDelete={handleDelete}
                   handleEdit={handleEdit}
                 />
