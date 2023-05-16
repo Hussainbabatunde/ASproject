@@ -21,7 +21,7 @@ const initialState = {
 
   export const ProfileDetailsPlayer = createAsyncThunk(
     "playerProfileDetailsScreen/userPlayerProfileDetailsScreen",
-    async (_, { rejectWithValue }) => {
+    async (id, { rejectWithValue }) => {
         
     // for (const [name, value] of details.entries()) {
     //     console.log(`${name}: ${value}`);
@@ -39,7 +39,7 @@ const initialState = {
         },
       });
       return await instance
-        .get("player/profile")
+        .get(`player/profile/${id}`)
         .then(async (response) => {
             // console.log('profile details ',response.data)
           return response.data;
@@ -57,7 +57,7 @@ const initialState = {
 
   export const PlayerProfileVerificationStatus = createAsyncThunk(
     "playerVerificationStatus/userPlayerVerificationStatus",
-    async (_, { rejectWithValue }) => {
+    async (id, { rejectWithValue }) => {
         
     // for (const [name, value] of details.entries()) {
     //     console.log(`${name}: ${value}`);
@@ -75,7 +75,7 @@ const initialState = {
         },
       });
       return await instance
-        .get("player/profile-progress-bar")
+        .get(`player/profile-progress-bar/${id}`)
         .then(async (response) => {
             // console.log('progress bar ',response.data)
           return response.data;
@@ -182,6 +182,7 @@ const initialState = {
       return await instance
         .post("player/bio", details)
         .then(async (response) => {
+          console.log('response gotten ', response.data)
           return response.data;
         })
   
@@ -252,7 +253,7 @@ const initialState = {
       return await instance
         .post("player/service-type", details)
         .then(async (response) => {
-          console.log('profile business service ', response.data)
+          // console.log('profile business service ', response.data)
           return response.data;
         })
   

@@ -89,6 +89,36 @@
     display: flex;
     align-items: center;
 }
+.HomepageView_ProfileOffers{
+    width: 700px;
+}
+.HomepageViewPlayerProfile{
+    display: flex;
+    justify-content: space-between;
+    position: relative !important;
+}
+.HomepageViewProfile_OfferRequest{
+    position: sticky;
+    top: 10px;
+    width: 380px;
+}
+.HomepageViewProfile_MakeRequestSec{
+    margin-top: 20px;
+    border: 1px solid #D0D4D9;
+    padding: 1rem;
+    border-radius: 10px;
+}
+.HomepageViewProfile_requestButton{
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    color: white;
+    padding: 12px;
+    font-size: 15px;
+    background-color: rgba(71, 177, 67, 1);
+    margin-top: 15px;
+    width: 100%;
+}
 .ScoutViewProfile_AdvertiseProfile{
     font-size: 16px;
     color: white;

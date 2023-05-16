@@ -4,10 +4,30 @@
     display: flex;
     /* min-height: 400px; */
 }
+.heroSection_Filterbackground{
+    background-image: linear-gradient(to right, rgba(88, 220, 83, 1) 50%,  rgba(253, 222, 73, 1) 100%);
+    border-radius: 5px;
+    display: flex;
+    padding: 1rem;
+    /* min-height: 400px; */
+}
 .heroSection_Contentword{
     padding: 4rem 3rem;
     color: white;
     width: 40%;
+}
+.heroSection_ContentSearchFilter{
+    padding: 1rem;    
+    color: white;
+    width: 40%;
+    display: flex;
+    align-items: center;
+}
+.heroSection_ImageFilterPage{
+    padding: 0 4rem;
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
 }
 .heroSection_ContentTopic{
     font-size: 35px;
@@ -19,6 +39,14 @@
 .heroSection_Searchitem{
     display: flex;
     margin-top: 40px;
+    background-color: white;
+    border-radius: 5px;
+    padding: 5px;
+    color: rgba(160, 160, 160, 1);
+    align-items: center;
+}
+.heroSection_FilterSearchitem{
+    display: flex;
     background-color: white;
     border-radius: 5px;
     padding: 5px;
@@ -46,6 +74,53 @@
 .heroSection_ImageFootballer{
     animation: mover 2s ease-in-out infinite alternate-reverse both;
     /* height: 90%; */
+}
+.FilterPage_ContentSection{
+    display: flex;
+    margin-top: 20px;
+}
+.FilterPage_ResultFilter{
+    position: sticky;
+    top: 10px;
+    width: 250px;
+    border-right: 1px solid #E0E0E0;
+}
+.FilterPage_TopicSearchResult{
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+.FilterPage_LabelSearch{
+    font-weight: 600;
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+.FilterPage_MinPriceValue{
+    width: 90px;
+    margin-right: 10px;
+    padding: 3px 10px;
+    border: 1px solid #9AA6AC;
+    border-radius: 5px;
+}
+.FilterPage_MaxPriceValue{
+    width: 90px;
+    padding: 3px 10px;
+    border: 1px solid #9AA6AC;
+    border-radius: 5px;
+}
+.FilterPage_HeightSearch{
+    padding: 3px 10px;
+    border: 1px solid #9AA6AC;
+    border-radius: 5px;
+    width: 83%;
+
+}
+.FilterPage_StrongerfootSec{
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+}
+.FilterPage_PositionSearchedFor{
+    color: #4094F7;
 }
 @-webkit-keyframes mover {
     0% { transform: translateY(0); }
