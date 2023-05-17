@@ -330,7 +330,7 @@ const AdminAllAdmins = () => {
     //   return () => {};
     // }, [Create__Admin_isSuccess]);
 
-    const [role, setRole] = useState(permission_item?.role);
+    const [role, setRole] = useState(permission_item?.role.id);
     const handleSubmit = (e) => {
       e.preventDefault();
 
@@ -341,13 +341,12 @@ const AdminAllAdmins = () => {
       //   phone: userAdmin.phone,
       //   id: userAdmin.id,
       // });
-
       let data = {
-        user: permission_item?.user?.id,
-        role: role,
+        user: parseInt(permission_item?.user?.id),
+        role: parseInt(role),
       };
 
-      console.log(data);
+      setPermission_item(data);
       dispatch(Update_permission___Admin_fun(data));
     };
 
@@ -377,7 +376,7 @@ const AdminAllAdmins = () => {
                   <>
                     <option value="">Select a grade</option>
                     {GetRole?.data.map((item) => (
-                      <option key={item.id} value={item.name} className=" w-24">
+                      <option key={item.id} value={item.id} className=" w-24">
                         {item.name}
                       </option>
                     ))}

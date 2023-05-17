@@ -166,6 +166,8 @@ const Update_permission___Admin_fun_Service = async (token, data) => {
       Authorization: `Bearer ${token}`,
     },
   };
+  console.log(data);
+
   API_URL = `${baseURL}admin/user/change-permission`;
   const response = await axios.put(API_URL, data, config);
   console.log(response.data);
@@ -178,7 +180,6 @@ export const Update_permission___Admin_fun = createAsyncThunk(
     try {
       const token = thunkAPI.getState().reducer.LoginSlice.logindata.data.token;
 
-      console.log(data);
       return await Update_permission___Admin_fun_Service(token, data);
     } catch (error) {
       const message =
