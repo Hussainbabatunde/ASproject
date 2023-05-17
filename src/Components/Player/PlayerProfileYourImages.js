@@ -5,7 +5,8 @@ import {RiDeleteBin6Fill} from 'react-icons/ri'
 import {FaRegImages} from 'react-icons/fa'
 import { useDispatch } from 'react-redux'
 import { CircularProgress } from '@mui/material'
-import { PlayerYourImagesApi } from '../../Slice/Player/Playerprofile/PlayerProfileSlice'
+import { PlayerProfileVerificationStatus, PlayerYourImagesApi } from '../../Slice/Player/Playerprofile/PlayerProfileSlice'
+import { toast } from 'react-toastify'
 
 const PlayerProfileYourImages = ({userId}) => {
 
@@ -48,16 +49,31 @@ const PlayerProfileYourImages = ({userId}) => {
       const handleYourImagesSubmit = async (e) =>{
         e.preventDefault()
         const formData = new FormData();
+        if (images.length < 5){
+          toast.error("Upload 5 pictures of Yourself", {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            });
+        }else{
         for(let i =0; i < images.length; i++){
         formData.append('user_images[]', images[i])
     }
+  
         formData.append('id', userId)
         // for (const [name, value] of formData.entries()) {
         //     console.log(`${name}: ${value}`);
         //   }
         setLoadYourImages(true)
           await dispatch(PlayerYourImagesApi(formData))
+          await dispatch(PlayerProfileVerificationStatus(userId))
           setLoadYourImages(false)
+  }
       }
 
       const handleDeleteImage = (index) => {

@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import '../Scout/profileform.css'
 import {TbCurrencyNaira} from 'react-icons/tb'
-import { useDispatch } from 'react-redux'
-import { PlayerProfileBusinessServiceApi } from '../../Slice/Player/Playerprofile/PlayerProfileSlice'
+import { useDispatch, useSelector } from 'react-redux'
+import { PlayerProfileBusinessServiceApi, PlayerProfileVerificationStatus, ProfileDetailsPlayer } from '../../Slice/Player/Playerprofile/PlayerProfileSlice'
 import { CircularProgress } from '@mui/material'
 
 const PlayerProfileBusinessService = ({userId}) => {
@@ -12,22 +12,29 @@ const PlayerProfileBusinessService = ({userId}) => {
     const [isChecked3, setIsChecked3] = useState(false);
     const [isChecked4, setIsChecked4] = useState(false);
     const [pricingBusiness, setPricingBusiness] = useState({})
-    const [amtStated, setAmtStated] = useState({})
+    const [amtStatedfrom, setAmtStatedFrom] = useState('')
+    const [amtStatedTo, setAmtStatedTo] = useState('')
+    const [amtActual, setAmtActual] = useState('')
     const dispatch = useDispatch()
     const [loadBusinessService, setLoadBusinessService] = useState(false)
 
-    const handleChangeBusinessPricing = (e) =>{
-      setAmtStated({...amtStated, [e.target.name]: e.target.value})
-    }
+    const PlayerDetails = useSelector((state)=>state?.reducer?.PlayerProfileSlice?.AllProfileDetailsData?.data)
+
+   
+
+    // const handleChangeBusinessPricing = (e) =>{
+    //   setAmtStated({...amtStated, [e.target.name]: e.target.value})
+    // }
     const handleSubmitPhysicalStats =  async (event) =>{
       event.preventDefault()
       pricingBusiness.user_id = userId
       pricingBusiness.service_type = priceType
       if(priceType == 'range'){
-        pricingBusiness.amount = `${amtStated?.from} - ${amtStated?.to}`
+        pricingBusiness.minimum = amtStatedfrom
+        pricingBusiness.maximum = amtStatedTo
       }
       else if(priceType == 'actual'){
-        pricingBusiness.amount = `${amtStated?.preferred}`
+        pricingBusiness.amount = `${amtActual}`
       }
       else if(priceType == 'open'){
         pricingBusiness.amount = ''
@@ -35,9 +42,11 @@ const PlayerProfileBusinessService = ({userId}) => {
       else if(priceType == 'free'){
         pricingBusiness.amount = ''
       }
-      console.log(pricingBusiness)
+      // console.log(pricingBusiness)
       setLoadBusinessService(true)
       await dispatch(PlayerProfileBusinessServiceApi(pricingBusiness))
+      await dispatch(PlayerProfileVerificationStatus())
+      await dispatch(ProfileDetailsPlayer())
       setLoadBusinessService(false)
     }
 
@@ -70,6 +79,57 @@ const PlayerProfileBusinessService = ({userId}) => {
         setPriceType('free')
       };
 
+      useEffect(()=>{
+        if(PlayerDetails){
+          if(PlayerDetails?.price?.service_type == 'range'){
+            setPriceType(PlayerDetails?.price?.service_type)
+          // const myString = PlayerDetails?.price?.amount;
+          setAmtStatedFrom(PlayerDetails?.price?.minimum)
+          setAmtStatedTo(PlayerDetails?.price?.maximum)
+          setIsChecked2(false);
+          setIsChecked3(false);
+          setIsChecked4(false);
+        }
+          if(PlayerDetails?.price?.service_type == 'actual'){
+            setAmtActual(PlayerDetails?.price?.amount)
+            setPriceType(PlayerDetails?.price?.service_type)
+            // handleRadioButtonChange2()
+            setIsChecked2(true);
+            setIsChecked(false)
+            setIsChecked3(false);
+            setIsChecked4(false);
+          }
+          if(PlayerDetails?.price?.service_type == 'open'){
+            setAmtActual(PlayerDetails?.price?.amount)
+            setPriceType(PlayerDetails?.price?.service_type)
+            setIsChecked3(true);
+            setIsChecked(false);
+            setIsChecked2(false);
+            setIsChecked4(false);
+          }
+          if(PlayerDetails?.price?.service_type == 'free'){
+            setAmtActual(PlayerDetails?.price?.amount)
+            setPriceType(PlayerDetails?.price?.service_type)
+            setIsChecked4(true);
+            setIsChecked2(false);
+            setIsChecked3(false);
+            setIsChecked(false);
+          }
+        // setAvailable(PlayerDetails?.bio?.available)
+        // setAbout(PlayerDetails?.bio?.about)
+        }
+      },[PlayerDetails])
+
+      const handleAmountFrom = (e) =>{
+        setAmtStatedFrom(e.target.value)
+      }
+      const handleAmountTo = (e) =>{
+        setAmtStatedTo(e.target.value)
+      }
+      const handleAmtActual = (e) =>{
+        setAmtActual(e.target.value)
+      }
+
   return (
     <form onSubmit={handleSubmitPhysicalStats} className='Scoutpage_ProfileforContent'>
         <p className='Scoutpage_Profile_Profiledetailstext'>Business Service Price</p>
@@ -88,14 +148,14 @@ const PlayerProfileBusinessService = ({userId}) => {
                 <b>From</b>
                 <div className='Scoutprofile_nairainput'>
                     <TbCurrencyNaira style={{fontSize:"18px"}} />
-                <input type='text' name='from' className='Scoutprofile_frominput' onChange={handleChangeBusinessPricing} required/>
+                <input type='text' name='from' value={amtStatedfrom} className='Scoutprofile_frominput' onChange={handleAmountFrom} required/>
                 </div>
             </div>
             <div className='Scoutpage_Profile_fromBusiness'>
                 <b>To</b>
                 <div className='Scoutprofile_nairainput'>
                     <TbCurrencyNaira style={{fontSize:"18px"}} />
-                <input type='text' name='to' className='Scoutprofile_frominput' onChange={handleChangeBusinessPricing} required/>
+                <input type='text' name='to' value={amtStatedTo} className='Scoutprofile_frominput' onChange={handleAmountTo} required/>
                 </div>
             </div>
         </div>
@@ -106,7 +166,7 @@ const PlayerProfileBusinessService = ({userId}) => {
         <p className='Scoutpage_Profile_Profileformlabelnexttext'>Preferred </p>
                 <div className='Scoutprofile_nairainput'>
                     <TbCurrencyNaira style={{fontSize:"18px"}} />
-                <input type='text' name='preferred'  onChange={handleChangeBusinessPricing} className='Scoutprofile_frominput' required/>
+                <input type='text' name='preferred' value={amtActual}  onChange={handleAmtActual} className='Scoutprofile_frominput' required/>
                 </div>
         
         </div>}

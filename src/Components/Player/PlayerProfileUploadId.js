@@ -3,7 +3,7 @@ import '../Scout/profileform.css'
 import imgPlaceHolder from '../../assets/imageplaceholder.png'
 import {RiDeleteBin6Fill} from 'react-icons/ri'
 import {FaRegImages} from 'react-icons/fa'
-import { PlayerProfileUploadIdApi } from '../../Slice/Player/Playerprofile/PlayerProfileSlice'
+import { PlayerProfileUploadIdApi, PlayerProfileVerificationStatus } from '../../Slice/Player/Playerprofile/PlayerProfileSlice'
 import { CircularProgress } from '@mui/material'
 import { useDispatch } from 'react-redux'
 
@@ -28,6 +28,7 @@ const PlayerProfileUploadId = ({userId}) => {
         
         setLoadUploadId(true)
           await dispatch(PlayerProfileUploadIdApi(formData))
+          await dispatch(PlayerProfileVerificationStatus(userId))
           setLoadUploadId(false)
       }
 

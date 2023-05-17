@@ -3,6 +3,7 @@ import './UseTable.css'
 import {FiEdit} from 'react-icons/fi'
 import {MdDelete} from 'react-icons/md'
 import Lottie from 'lottie-react';
+import { Link } from 'react-router-dom';
 
 const UseTable = ({header, data, handleShowEdit}) => {
   return (
@@ -37,7 +38,7 @@ const UseTable = ({header, data, handleShowEdit}) => {
                         return (<td className='useTable_tableDetails'>{each?.email}</td>);
                         case '':
                           return (<>
-                          <td className='useTable_tableDetails'><button className='useTable_tableDetailsLink'>Details</button></td>
+                          <td className='useTable_tableDetails'><Link to="/afrisport/player/dealsmade" style={{color:'white'}} className='useTable_tableDetailsLink'>Details</Link></td>
                           </>)
                 }
             })}
