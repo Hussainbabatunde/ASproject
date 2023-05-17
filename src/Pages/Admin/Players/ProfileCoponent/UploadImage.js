@@ -20,10 +20,10 @@ function UploadImage({ Admin_Get_Players_Profile_details }) {
   const handleImgSubmit = async (e) => {
     e.preventDefault();
 
-    e.preventDefault();
-    const formData = new FormData();
-    formData.append("profile", picFile);
-    formData.append("id", userId);
+    // e.preventDefault();
+    // const formData = new FormData();
+    // formData.append("profile", picFile);
+    // formData.append("id", userId);
 
     //   await dispatch(PlayerProfilePicture(formData))
     //   await dispatch(PlayerProfileVerificationStatus())
