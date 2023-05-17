@@ -66,7 +66,7 @@ const AdminSidebar = () => {
     },
     {
       id: 4,
-      pathTo: "/admin/admin/players",
+      pathTo: "/admin/players",
       pathName: "Players",
       pathIcon: <MdGroups />,
       children: [],

@@ -74,6 +74,25 @@ const AdminUseTable = ({
                       </td>
                     );
 
+                  case "Admin_All_player_ViewEditSuspend":
+                    return (
+                      <td
+                        className="useTable_ViewEditSuspendDetails"
+                        style={{ flex: 1 }}
+                      >
+                        <Link
+                          to={`/admin/players/1`}
+                          className="Admin_playersviewprofile"
+                        >
+                          View
+                        </Link>
+                        <Link className="Admin_playersEditprofile">Edit</Link>
+                        <Link className="Admin_playersSuspendprofile">
+                          Suspend
+                        </Link>
+                      </td>
+                    );
+
                   case "Admin_Edit_Delete_Asign":
                     return (
                       <td
@@ -309,19 +328,7 @@ const AdminUseTable = ({
                     return (
                       <td className="useTable_tableDetails">{each?.club}</td>
                     );
-                  case "ViewEditSuspend":
-                    return (
-                      <td
-                        className="useTable_ViewEditSuspendDetails"
-                        style={{ flex: 1 }}
-                      >
-                        <Link className="Admin_playersviewprofile">View</Link>
-                        <Link className="Admin_playersEditprofile">Edit</Link>
-                        <Link className="Admin_playersSuspendprofile">
-                          Suspend
-                        </Link>
-                      </td>
-                    );
+
                   case "ViewEditUnSuspend":
                     return (
                       <td

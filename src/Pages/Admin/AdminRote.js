@@ -5,7 +5,7 @@ import AdminDashboard from "./AdminDashboard";
 import AdminHeader from "../../Components/Header/AdminHeader";
 import AdminSidebar from "../../Components/Admin/AdminSidebar";
 import AdminNegotiate from "./AdminNegotiate";
-import AdminPlayer from "./AdminPlayer";
+import AdminPlayer from "./Players/AdminPlayer";
 import AdminScouts from "../../Components/Admin/AdminScouts/AdminScouts";
 import AdminFinance from "../../Components/Admin/AdminFinance/AdminFinance";
 import AdminFinanaceTransaction from "../../Components/Admin/AdminFinance/AdminFinanaceTransaction";
@@ -21,6 +21,7 @@ import AdminRoles from "../../Components/Admin/AdminAdmins/AdminRoles";
 import AdminPermissions from "../../Components/Admin/AdminAdmins/AdminPermissions";
 import Privilege from "../../Components/Admin/AdminAdmins/Privilege";
 import Authorization from "./Authorization";
+import PlayersRoute from "./Players/PlayersRoute";
 
 const AdminRote = () => {
   return (
@@ -30,12 +31,12 @@ const AdminRote = () => {
         <AdminSidebar />
         <Routes>
           <Route path="/" element={<AdminAllAdmins />} />
+          <Route path="/players/*" element={<PlayersRoute />} />
 
           <Route path="/admin/dashboard" element={<AdminDashboard />} />
           <Route path="/authorization" element={<Authorization />} />
 
           <Route path="/admin/negotiate" element={<AdminNegotiate />} />
-          <Route path="/admin/players" element={<AdminPlayer />} />
           <Route path="/admin/scouts" element={<AdminScouts />} />
           <Route path="/admin/finance" element={<AdminFinance />} />
           <Route
@@ -44,7 +45,7 @@ const AdminRote = () => {
           />
 
           <Route path="/admin/admins" element={<AdminAdmins />} />
-          <Route path="/admin/admins/alladmins" element={<AdminAllAdmins />} />
+          {/* <Route path="/admin/admins/alladmins" element={<AdminAllAdmins />} /> */}
           <Route path="/admin/admins/roles" element={<AdminRoles />} />
           <Route
             path="/admin/admins/permission"
