@@ -38,12 +38,46 @@ const Admin_Get_Players_Profile_detailsfun_Service = async (data, token) => {
 };
 
 export const Admin_Get_Players_Profile_detailsfun = createAsyncThunk(
-  "role_fun/get_All_Role_fun",
+  "AdminUpdate_profileSlice/get_All_Role_fun",
   async (data, thunkAPI) => {
     try {
       const token = thunkAPI.getState().reducer.LoginSlice.logindata.data.token;
 
       return await Admin_Get_Players_Profile_detailsfun_Service(data, token);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+const Admin_update_user_image_fun_Service = async (data, token) => {
+  let API_URL = `${baseURL}admin/player/profile-picture`;
+
+  const config = {
+    headers: {
+      "Content-Type": "multipart/form-data",
+      Accept: "multipart/form-data",
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  const response = await axios.post(API_URL, data, config);
+  console.log(response.data);
+  // return response.data;
+};
+
+export const Admin_update_user_image_fun = createAsyncThunk(
+  "AdminUpdate_profileSlice/Admin_update_user_image_fun",
+  async (data, thunkAPI) => {
+    try {
+      const token = thunkAPI.getState().reducer.LoginSlice.logindata.data.token;
+      return await Admin_update_user_image_fun_Service(data, token);
     } catch (error) {
       const message =
         (error.response &&
@@ -68,19 +102,19 @@ export const AdminUpdate_profileSlice = createSlice({
     //     state.Role_isLoading = false;
     //     state.Role_message = null;
     //   },
-    //   reset_role_Create_options: (state, action) => {
-    //     state.createRole_isError = false;
-    //     state.createRole_isSuccess = false;
-    //     state.createRole_isLoading = false;
-    //     state.createRole_message = null;
-    //     state.createRole = null;
-    //   },
+    reset_Profile_post_request: (state, action) => {
+      state.Admin_update_user_image_isError = false;
+      state.Admin_update_user_image_isSuccess = false;
+      state.Admin_update_user_image_isLoading = false;
+      state.Admin_update_user_image_message = null;
+      state.Admin_update_user_image = null;
+    },
   },
 
   extraReducers: (builder) => {
     builder
       .addCase(Admin_Get_Players_Profile_detailsfun.pending, (state) => {
-        state.Role_isLoading = true;
+        state.Admin_Get_Players_Profile_details_isLoading = true;
       })
       .addCase(
         Admin_Get_Players_Profile_detailsfun.fulfilled,
@@ -88,16 +122,16 @@ export const AdminUpdate_profileSlice = createSlice({
           state.Admin_Get_Players_Profile_details = action.payload;
           state.Admin_Get_Players_Profile_details_isSuccess = true;
           state.Admin_Get_Players_Profile_details_isLoading = false;
-          toast.success("gotten Update", {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-          });
+          // toast.success("gotten Update", {
+          //   position: "top-right",
+          //   autoClose: 5000,
+          //   hideProgressBar: false,
+          //   closeOnClick: true,
+          //   pauseOnHover: true,
+          //   draggable: true,
+          //   progress: undefined,
+          //   theme: "light",
+          // });
         }
       )
       .addCase(
@@ -118,7 +152,42 @@ export const AdminUpdate_profileSlice = createSlice({
             className: "Forbidden403",
           });
         }
-      );
+      )
+
+      .addCase(Admin_update_user_image_fun.pending, (state) => {
+        state.Admin_update_user_image_isLoading = true;
+      })
+      .addCase(Admin_update_user_image_fun.fulfilled, (state, action) => {
+        state.Admin_update_user_image = action.payload;
+        state.Admin_update_user_image_isSuccess = true;
+        state.Admin_update_user_image_isLoading = false;
+        toast.success("image uploaded ", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      })
+      .addCase(Admin_update_user_image_fun.rejected, (state, action) => {
+        state.Admin_update_user_image_isError = true;
+        state.Admin_update_user_image_message = action.payload;
+        state.Admin_update_user_image_isLoading = false;
+        toast.error(`${state.Admin_update_user_image_message}`, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          className: "Forbidden403",
+        });
+      });
 
     //     .addCase(Create_All_Role_fun.pending, (state) => {
     //       state.createRole_isLoading = true;
@@ -194,6 +263,6 @@ export const AdminUpdate_profileSlice = createSlice({
   },
 });
 
-export const { reset_role_options, reset_role_Create_options } =
+export const { reset_Profile_post_request, reset_role_Create_options } =
   AdminUpdate_profileSlice.actions;
 export default AdminUpdate_profileSlice.reducer;

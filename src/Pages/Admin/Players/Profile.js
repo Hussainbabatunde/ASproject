@@ -10,22 +10,28 @@ import UploadProfile_detail, {
   Profile_detail,
 } from "./ProfileCoponent/UploadProfile_detail";
 import { useDispatch, useSelector } from "react-redux";
-import { Admin_Get_Players_Profile_detailsfun } from "../../../Slice/Admin/AdminUpdate_profileSlice";
+import {
+  Admin_Get_Players_Profile_detailsfun,
+  reset_Profile_post_request,
+} from "../../../Slice/Admin/AdminUpdate_profileSlice";
 import { useParams } from "react-router-dom";
 
 function Profile() {
   const { id } = useParams();
 
-  const { Admin_Get_Players_Profile_details } = useSelector(
-    (state) => state.reducer.AdminUpdate_profileSlice
-  );
+  const {
+    Admin_Get_Players_Profile_details,
+    Admin_update_user_image_isSuccess,
+  } = useSelector((state) => state.reducer.AdminUpdate_profileSlice);
 
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(Admin_Get_Players_Profile_detailsfun(id));
 
+    dispatch(reset_Profile_post_request());
+
     return () => {};
-  }, []);
+  }, [Admin_update_user_image_isSuccess]);
 
   return (
     <>
