@@ -20,6 +20,12 @@ const initialState = {
   Admin_update_user_bio_isSuccess: false,
   Admin_update_user_bio_isLoading: false,
   Admin_update_user_bio_message: null,
+
+  Admin_update_user_physical_stat_stat: null,
+  Admin_update_user_physical_stat_isError: false,
+  Admin_update_user_physical_stat_isSuccess: false,
+  Admin_update_user_physical_stat_isLoading: false,
+  Admin_update_user_physical_stat_message: null,
 };
 
 let baseURL = process.env.REACT_APP_AFRISPORTURL;
@@ -129,18 +135,77 @@ export const Admin_update_user_BIO_fun = createAsyncThunk(
   }
 );
 
+const Admin_update_user_physical_stat_fun_Service = async (data, token) => {
+  let API_URL = `${baseURL}admin/player/physical_stat`;
+
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  const response = await axios.post(API_URL, data, config);
+  console.log(response.data);
+  return response.data;
+};
+
+export const Admin_update_user_physical_stat_fun = createAsyncThunk(
+  "AdminUpdate_profileSlice/Admin_update_user_physical_stat_fun",
+  async (data, thunkAPI) => {
+    try {
+      const token = thunkAPI.getState().reducer.LoginSlice.logindata.data.token;
+      return await Admin_update_user_physical_stat_fun_Service(data, token);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+const Admin_update_user_upload_id_fun_Service = async (data, token) => {
+  let API_URL = `${baseURL}admin/player/identification`;
+
+  const config = {
+    headers: {
+      "Content-Type": "multipart/form-data",
+      Accept: "multipart/form-data",
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  const response = await axios.post(API_URL, data, config);
+  console.log(response.data);
+  return response.data;
+};
+
+export const Admin_update_user_upload_id_fun = createAsyncThunk(
+  "AdminUpdate_profileSlice/Admin_update_user_upload_id_fun",
+  async (data, thunkAPI) => {
+    try {
+      const token = thunkAPI.getState().reducer.LoginSlice.logindata.data.token;
+      return await Admin_update_user_upload_id_fun_Service(data, token);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
 export const AdminUpdate_profileSlice = createSlice({
   name: "AdminUpdate_profileSlice",
   initialState,
 
   reducers: {
-    //   reset_role: (state) => initialState,
-    //   reset_role_options: (state, action) => {
-    //     state.Role_isError = false;
-    //     state.Role_isSuccess = false;
-    //     state.Role_isLoading = false;
-    //     state.Role_message = null;
-    //   },
     reset_Profile_post_request: (state, action) => {
       state.Admin_update_user_image_isError = false;
       state.Admin_update_user_image_isSuccess = false;
@@ -199,6 +264,40 @@ export const AdminUpdate_profileSlice = createSlice({
         }
       )
 
+      .addCase(Admin_update_user_upload_id_fun.pending, (state) => {
+        state.Admin_update_user_image_isLoading = true;
+      })
+      .addCase(Admin_update_user_upload_id_fun.fulfilled, (state, action) => {
+        state.Admin_update_user_image = action.payload;
+        state.Admin_update_user_image_isSuccess = true;
+        state.Admin_update_user_image_isLoading = false;
+        toast.success("ID uploaded ", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      })
+      .addCase(Admin_update_user_upload_id_fun.rejected, (state, action) => {
+        state.Admin_update_user_image_isError = true;
+        state.Admin_update_user_image_message = action.payload;
+        state.Admin_update_user_image_isLoading = false;
+        toast.error(`${state.Admin_update_user_image_message}`, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          className: "Forbidden403",
+        });
+      })
       .addCase(Admin_update_user_image_fun.pending, (state) => {
         state.Admin_update_user_image_isLoading = true;
       })
@@ -267,7 +366,49 @@ export const AdminUpdate_profileSlice = createSlice({
           theme: "light",
           className: "Forbidden403",
         });
-      });
+      })
+
+      .addCase(Admin_update_user_physical_stat_fun.pending, (state) => {
+        state.Admin_update_user_physical_stat_isLoading = true;
+      })
+      .addCase(
+        Admin_update_user_physical_stat_fun.fulfilled,
+        (state, action) => {
+          state.Admin_update_user_physical_stat_stat = action.payload;
+          state.Admin_update_user_physical_stat_isSuccess = true;
+          state.Admin_update_user_physical_stat_isLoading = false;
+          toast.success(" uploaded ", {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
+        }
+      )
+
+      .addCase(
+        Admin_update_user_physical_stat_fun.rejected,
+        (state, action) => {
+          state.Admin_update_user_physical_stat_isError = true;
+          state.Admin_update_user_physical_stat_message = action.payload;
+          state.Admin_update_user_physical_stat_isLoading = false;
+          toast.error(`${state.Admin_update_user_physical_stat_message}`, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            className: "Forbidden403",
+          });
+        }
+      );
 
     //     .addCase(Create_All_Role_fun.pending, (state) => {
     //       state.createRole_isLoading = true;

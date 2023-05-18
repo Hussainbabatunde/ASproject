@@ -1,7 +1,14 @@
 import { CircularProgress } from "@mui/material";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Admin_update_user_BIO_fun } from "../../../../Slice/Admin/AdminUpdate_profileSlice";
+import {
+  Admin_update_user_BIO_fun,
+  Admin_update_user_physical_stat_fun,
+  Admin_update_user_upload_id_fun,
+} from "../../../../Slice/Admin/AdminUpdate_profileSlice";
+import { FaRegImages } from "react-icons/fa";
+import imgPlaceHolder from "../../../../assets/imageplaceholder.png";
+import { RiDeleteBin6Fill } from "react-icons/ri";
 
 export const Profile_detail = ({ Admin_Get_Players_Profile_details }) => {
   const dispatch = useDispatch();
@@ -157,20 +164,48 @@ export const Profile_detail = ({ Admin_Get_Players_Profile_details }) => {
   );
 };
 
-export const Admin_update_Physical_Stats = () => {
+export const Admin_update_Physical_Stats = ({
+  Admin_Get_Players_Profile_details,
+}) => {
+  const dispatch = useDispatch();
+
+  const { Admin_update_user_physical_stat_isLoading } = useSelector(
+    (state) => state.reducer.AdminUpdate_profileSlice
+  );
+
+  const [formData, setFormData] = useState({
+    user_id: Admin_Get_Players_Profile_details?.data?.physical_stat?.user_id,
+    gender: Admin_Get_Players_Profile_details?.data?.physical_stat?.gender,
+    height: Admin_Get_Players_Profile_details?.data?.physical_stat?.height,
+    weight: Admin_Get_Players_Profile_details?.data?.physical_stat?.weight,
+    language: Admin_Get_Players_Profile_details?.data?.physical_stat?.language,
+    strong_foot:
+      Admin_Get_Players_Profile_details?.data?.physical_stat?.strong_foot,
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Perform form submission or other operations
+    dispatch(Admin_update_user_physical_stat_fun(formData));
+  };
   return (
-    <form
-      //   onSubmit={handleSubmitPhysicalStats}
-      className="Scoutpage_ProfileforContent"
-    >
+    <form onSubmit={handleSubmit} className="Scoutpage_ProfileforContent">
       <p className="Scoutpage_Profile_Profiledetailstext">Physical Stats</p>
       <p className="Scoutpage_Profile_Profileformlabeltext">Gender</p>
       <input
         type="text"
         className="Scoutpage_Profile_ProfileformlabelInput"
         name="gender"
-        // value={genderPhysical}
-        // onChange={handleGenderPhysical}
+        value={formData.gender}
+        onChange={handleChange}
         placeholder="Male/Female"
         required
       />
@@ -178,9 +213,9 @@ export const Admin_update_Physical_Stats = () => {
       <input
         type="text"
         className="Scoutpage_Profile_ProfileformlabelInput"
-        // value={heightPhysical}
         name="height"
-        // onChange={handleHeightPhysical}
+        value={formData.height}
+        onChange={handleChange}
         placeholder="Feets"
         required
       />
@@ -188,9 +223,9 @@ export const Admin_update_Physical_Stats = () => {
       <input
         type="text"
         className="Scoutpage_Profile_ProfileformlabelInput"
-        // value={weightPhysical}
         name="weight"
-        // onChange={handleWeightPhysical}
+        value={formData.weight}
+        onChange={handleChange}
         placeholder="Kg"
         required
       />
@@ -198,9 +233,9 @@ export const Admin_update_Physical_Stats = () => {
       <input
         type="text"
         className="Scoutpage_Profile_ProfileformlabelInput"
-        // value={languagePhysical}
         name="language"
-        // onChange={handleLanguagePhysical}
+        value={formData.language}
+        onChange={handleChange}
         placeholder="---"
         required
       />
@@ -208,26 +243,62 @@ export const Admin_update_Physical_Stats = () => {
       <select
         required
         name="strong_foot"
-        // value={strongFoot}
-        // onChange={handleStrongfootPhysical}
+        value={formData.strong_foot}
+        onChange={handleChange}
         className="Scoutpage_Profile_ProfileformlabelInput"
       >
         <option disabled></option>
         <option value="Left">Left</option>
         <option value="Right">Right</option>
       </select>
-      {/* 
       <button type="submit" className="Scoutpage_Profileform_savebutton">
-        {loadProfileStats ? <CircularProgress size={15} /> : <span>Save</span>}
-      </button> */}
+        {Admin_update_user_physical_stat_isLoading ? (
+          <CircularProgress size={15} />
+        ) : (
+          <span>Save</span>
+        )}
+      </button>
     </form>
   );
 };
 
-export const Admin_upload_id = () => {
+export const Admin_upload_id = ({ Admin_Get_Players_Profile_details }) => {
+  const dispatch = useDispatch();
+
+  const { Admin_update_user_image_isLoading, Admin_update_user_image } =
+    useSelector((state) => state.reducer.AdminUpdate_profileSlice);
+
+  const userDataInfo = Admin_Get_Players_Profile_details?.data;
+
+  let img_Data = userDataInfo?.identification;
+
+  const [fileUploadId, setFileUploadId] = useState(img_Data);
+  const [uploadId, setUploadId] = useState(null);
+  const [uploaded, setUploaded] = useState(false);
+  const [loadUploadId, setLoadUploadId] = useState(false);
+  function handleUploadIdChange(e) {
+    setUploadId(e.target.files[0]);
+    setFileUploadId(URL.createObjectURL(e.target.files[0]));
+    setUploaded(true);
+  }
+
+  const handleUploadIdSubmit = async (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append("identification", uploadId);
+    formData.append("id", userDataInfo.id);
+
+    dispatch(Admin_update_user_upload_id_fun(formData));
+  };
+
+  const handleUploadIDDeleteImage = () => {
+    setUploadId(null);
+    setFileUploadId(null);
+    setUploaded(false);
+  };
   return (
     <form
-      //   onSubmit={handleUploadIdSubmit}
+      onSubmit={handleUploadIdSubmit}
       className="Scoutpage_ProfileforContent"
     >
       <p className="Scoutpage_Profile_Profiledetailstext">Upload ID</p>
@@ -240,14 +311,19 @@ export const Admin_upload_id = () => {
       <input
         type="file"
         id="UploadId"
-        // onChange={handleUploadIdChange}
+        onChange={handleUploadIdChange}
         className="Scoutpage_Profile_ImagePlaceInput"
       />
-      {/* 
-      {uploaded && (
+
+      {uploaded ? (
         <div className="Scoutpage_Profileform_ImgIploaded">
           <div className="Scoutpage_Profileform_UploadIDImg">
-            <img src={fileUploadId} width="100px" height="100px" />
+            <img
+              src={fileUploadId || imgPlaceHolder}
+              width="100px"
+              height="100px"
+            />
+
             <p style={{ marginLeft: "20px" }}> 100 x 100</p>
           </div>
           <RiDeleteBin6Fill
@@ -255,16 +331,28 @@ export const Admin_upload_id = () => {
             style={{ fontSize: "25px", cursor: "pointer" }}
           />
         </div>
-      )} */}
-      {/* 
+      ) : (
+        <div className="Scoutpage_Profileform_ImgIploaded">
+          <div className="Scoutpage_Profileform_UploadIDImg">
+            <img
+              src={fileUploadId || imgPlaceHolder}
+              width="100px"
+              height="100px"
+            />
+
+            <p style={{ marginLeft: "20px" }}> 100 x 100</p>
+          </div>
+        </div>
+      )}
+
       <button type="submit" className="Scoutpage_Profileform_uploadButton">
         <FaRegImages style={{ fontSize: "18px", marginRight: "5px" }} />
-        {loadUploadId ? (
+        {Admin_update_user_image_isLoading ? (
           <CircularProgress size={15} />
         ) : (
           <span>Upload photo</span>
         )}
-      </button> */}
+      </button>
     </form>
   );
 };

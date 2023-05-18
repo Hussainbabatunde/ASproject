@@ -52,12 +52,32 @@ function Profile() {
                 Admin_Get_Players_Profile_details
               }
             />
-            <Admin_update_Physical_Stats />
+            <Admin_update_Physical_Stats
+              Admin_Get_Players_Profile_details={
+                Admin_Get_Players_Profile_details
+              }
+            />
 
-            <Admin_PlayerProfileBusinessService />
-            <Admin_upload_id />
-            <Admin_upload_Players_image />
-            <Admin_PlayerProfileVideo />
+            <Admin_PlayerProfileBusinessService
+              Admin_Get_Players_Profile_details={
+                Admin_Get_Players_Profile_details
+              }
+            />
+            <Admin_upload_id
+              Admin_Get_Players_Profile_details={
+                Admin_Get_Players_Profile_details
+              }
+            />
+            <Admin_upload_Players_image
+              Admin_Get_Players_Profile_details={
+                Admin_Get_Players_Profile_details
+              }
+            />
+            <Admin_PlayerProfileVideo
+              Admin_Get_Players_Profile_details={
+                Admin_Get_Players_Profile_details
+              }
+            />
             <div></div>
           </div>
 
