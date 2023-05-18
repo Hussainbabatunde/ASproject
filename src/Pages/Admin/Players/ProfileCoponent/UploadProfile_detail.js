@@ -9,6 +9,7 @@ import {
 import { FaRegImages } from "react-icons/fa";
 import imgPlaceHolder from "../../../../assets/imageplaceholder.png";
 import { RiDeleteBin6Fill } from "react-icons/ri";
+import { toast } from "react-toastify";
 
 export const Profile_detail = ({ Admin_Get_Players_Profile_details }) => {
   const dispatch = useDispatch();
@@ -357,52 +358,223 @@ export const Admin_upload_id = ({ Admin_Get_Players_Profile_details }) => {
   );
 };
 
+// export const Admin_upload_Players_image = ({
+//   Admin_Get_Players_Profile_details,
+// }) => {
+//   const dispatch = useDispatch();
+
+//   const { Admin_update_user_image_isLoading, Admin_update_user_image } =
+//     useSelector((state) => state.reducer.AdminUpdate_profileSlice);
+
+//   const userDataInfo = Admin_Get_Players_Profile_details?.data;
+
+//   let img_Data = userDataInfo?.identification;
+
+//   const [images, setImages] = useState([]);
+//   const [previewUrls, setPreviewUrls] = useState([]);
+//   const [uploaded2, setUploaded2] = useState(false);
+//   const [loadYourImages, setLoadYourImages] = useState(false);
+
+//   console.log(images);
+//   console.log(uploaded2);
+
+//   const handleMultipleImages = (e) => {
+//     setUploaded2(true);
+//     const files = Array.from(e.target.files);
+//     if (files.length > 0) {
+//       setImages([...images, ...files]);
+//       Promise.all(
+//         files.map((file) => {
+//           return new Promise((resolve, reject) => {
+//             const reader = new FileReader();
+//             reader.readAsDataURL(file);
+//             reader.onload = () => resolve(reader.result);
+//             reader.onerror = (error) => reject(error);
+//           });
+//         })
+//       ).then((results) => {
+//         setPreviewUrls([...previewUrls, ...results]);
+//       });
+//     }
+//   };
+
+//   const handleYourImagesSubmit = async (e) => {
+//     e.preventDefault();
+//     const formData = new FormData();
+//     if (images.length < 5) {
+//       toast.error("Upload 5 pictures of Yourself", {
+//         position: "top-right",
+//         autoClose: 5000,
+//         hideProgressBar: false,
+//         closeOnClick: true,
+//         pauseOnHover: true,
+//         draggable: true,
+//         progress: undefined,
+//         theme: "light",
+//       });
+//     } else {
+//       for (let i = 0; i < images.length; i++) {
+//         formData.append("user_images[]", images[i]);
+//       }
+
+//       // formData.append("id", userId);
+//       // for (const [name, value] of formData.entries()) {
+//       //     console.log(`${name}: ${value}`);
+//       //   }
+//       setLoadYourImages(true);
+//       // await dispatch(PlayerYourImagesApi(formData))
+//       // await dispatch(PlayerProfileVerificationStatus(userId))
+//       setLoadYourImages(false);
+//     }
+//   };
+
+//   const handleDeleteImage = (index) => {
+//     const newImages = [...images];
+//     newImages.splice(index, 1);
+//     setImages(newImages);
+//     console.log("images ", images);
+
+//     const newPreviewUrls = [...previewUrls];
+//     newPreviewUrls.splice(index, 1);
+//     setPreviewUrls(newPreviewUrls);
+//   };
+//   return (
+//     <form
+//       onSubmit={handleYourImagesSubmit}
+//       className="Scoutpage_ProfileforContent"
+//     >
+//       <p className="Scoutpage_Profile_Profiledetailstext">Your Images</p>
+//       <p className="Scoutpage_Profile_filldetailstext">
+//         Please provide different images of yourself, a standard photo and you on
+//         the field.
+//       </p>
+//       <label for="YourImages" className="Scoutpage_Profileform_SelectImage">
+//         Select Images
+//       </label>
+//       <input
+//         type="file"
+//         id="YourImages"
+//         onChange={handleMultipleImages}
+//         multiple
+//         className="Scoutpage_Profile_ImagePlaceInput"
+//       />
+
+//       {uploaded2 &&
+//         previewUrls.map((url, index) => {
+//           return (
+//             <div className="Scoutpage_Profileform_ImgIploaded">
+//               <div className="Scoutpage_Profileform_UploadIDImg">
+//                 <img src={url} width="100px" height="100px" />
+//                 <p style={{ marginLeft: "20px" }}> 100 x 100</p>
+//               </div>
+//               <RiDeleteBin6Fill
+//                 onClick={() => handleDeleteImage(index)}
+//                 style={{ fontSize: "25px", cursor: "pointer" }}
+//               />
+//             </div>
+//           );
+//         })}
+
+//       <button type="submit" className="Scoutpage_Profileform_uploadButton">
+//         <FaRegImages style={{ fontSize: "18px", marginRight: "5px" }} />
+//         {loadYourImages ? (
+//           <CircularProgress size={15} />
+//         ) : (
+//           <span>Upload photo</span>
+//         )}
+//       </button>
+//     </form>
+//   );
+// };
+
 export const Admin_upload_Players_image = () => {
+  const [images, setImages] = useState([]);
+  const [previewUrls, setPreviewUrls] = useState([]);
+  const [uploading, setUploading] = useState(false);
+
+  const handleImageUpload = (e) => {
+    const files = Array.from(e.target.files);
+
+    // Check if total uploaded images exceed the limit (5 in this example)
+    if (images.length + files.length > 5) {
+      // Display an error message
+      alert("You can upload a maximum of 5 images.");
+      return;
+    }
+
+    const uploadedImages = [];
+    const previewImageUrls = [];
+
+    // Process each selected file
+    files.forEach((file) => {
+      // Create a FileReader object to read the file
+      const reader = new FileReader();
+
+      // Set up the callback function when the file reading is complete
+      reader.onload = (event) => {
+        const imageUrl = event.target.result;
+
+        // Add the file and its corresponding preview URL to the state
+        uploadedImages.push(file);
+        previewImageUrls.push(imageUrl);
+
+        // Update the state with the new image and preview URLs
+        setImages((prevImages) => [...prevImages, ...uploadedImages]);
+        setPreviewUrls((prevUrls) => [...prevUrls, ...previewImageUrls]);
+      };
+
+      // Read the file as a data URL (to generate the preview URL)
+      reader.readAsDataURL(file);
+    });
+  };
+
+  const handleImageDelete = (index) => {
+    const updatedImages = [...images];
+    const updatedPreviewUrls = [...previewUrls];
+
+    // Remove the image and its preview URL from the arrays
+    updatedImages.splice(index, 1);
+    updatedPreviewUrls.splice(index, 1);
+
+    // Update the state with the updated arrays
+    setImages(updatedImages);
+    setPreviewUrls(updatedPreviewUrls);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    // Perform the image upload logic here
+    // You can use the "images" array to access the uploaded images
+
+    // Reset the form after successful upload
+    setImages([]);
+    setPreviewUrls([]);
+    setUploading(false);
+  };
+
   return (
-    <form
-      //   onSubmit={handleYourImagesSubmit}
-      className="Scoutpage_ProfileforContent"
-    >
-      <p className="Scoutpage_Profile_Profiledetailstext">Your Images</p>
-      <p className="Scoutpage_Profile_filldetailstext">
-        Please provide different images of yourself, a standard photo and you on
-        the field.
-      </p>
-      <label for="YourImages" className="Scoutpage_Profileform_SelectImage">
-        Select Images
-      </label>
-      <input
-        type="file"
-        id="YourImages"
-        // onChange={handleMultipleImages}
-        multiple
-        className="Scoutpage_Profile_ImagePlaceInput"
-      />
-
-      {/* {uploaded2 &&
-        previewUrls.map((url, index) => {
-          return (
-            <div className="Scoutpage_Profileform_ImgIploaded">
-              <div className="Scoutpage_Profileform_UploadIDImg">
-                <img src={url} width="100px" height="100px" />
-                <p style={{ marginLeft: "20px" }}> 100 x 100</p>
-              </div>
-              <RiDeleteBin6Fill
-                onClick={() => handleDeleteImage(index)}
-                style={{ fontSize: "25px", cursor: "pointer" }}
-              />
-            </div>
-          );
-        })}
-
-      <button type="submit" className="Scoutpage_Profileform_uploadButton">
-        <FaRegImages style={{ fontSize: "18px", marginRight: "5px" }} />
-        {loadYourImages ? (
-          <CircularProgress size={15} />
-        ) : (
-          <span>Upload photo</span>
-        )}
-      </button> */}
+    <form onSubmit={handleSubmit}>
+      <p>Upload Images</p>
+      <input type="file" multiple onChange={handleImageUpload} />
+      <div>
+        {previewUrls.map((url, index) => (
+          <div key={index}>
+            <img
+              src={url}
+              alt={`Preview ${index + 1}`}
+              width="100"
+              height="100"
+            />
+            <button type="button" onClick={() => handleImageDelete(index)}>
+              Delete
+            </button>
+          </div>
+        ))}
+      </div>
+      <button type="submit" disabled={uploading}>
+        {uploading ? "Uploading..." : "Upload"}
+      </button>
     </form>
   );
 };

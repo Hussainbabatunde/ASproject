@@ -6,7 +6,6 @@ import { Admin_update_user_image_fun } from "../../../../Slice/Admin/AdminUpdate
 import { CircularProgress } from "@mui/material";
 
 function UploadImage({ Admin_Get_Players_Profile_details }) {
-  console.log(Admin_Get_Players_Profile_details);
   const dispatch = useDispatch();
 
   const { Admin_update_user_image_isLoading, Admin_update_user_image } =
@@ -20,7 +19,6 @@ function UploadImage({ Admin_Get_Players_Profile_details }) {
   const [picFile, setPicFile] = useState(null);
 
   function handleChange(e) {
-    // console.log(e.target.files[0])
     setPicFile(e.target.files[0]);
 
     setFile(URL.createObjectURL(e.target.files[0]));
