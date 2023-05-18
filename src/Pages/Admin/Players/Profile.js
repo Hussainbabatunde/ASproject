@@ -47,7 +47,11 @@ function Profile() {
                 Admin_Get_Players_Profile_details
               }
             />
-            <Profile_detail />
+            <Profile_detail
+              Admin_Get_Players_Profile_details={
+                Admin_Get_Players_Profile_details
+              }
+            />
             <Admin_update_Physical_Stats />
 
             <Admin_PlayerProfileBusinessService />

@@ -1,36 +1,92 @@
-export const Profile_detail = () => {
+import { CircularProgress } from "@mui/material";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Admin_update_user_BIO_fun } from "../../../../Slice/Admin/AdminUpdate_profileSlice";
+
+export const Profile_detail = ({ Admin_Get_Players_Profile_details }) => {
+  const dispatch = useDispatch();
+
+  const {
+    Admin_update_user_bio,
+    Admin_update_user_bio_isError,
+    Admin_update_user_bio_isSuccess,
+    Admin_update_user_bio_isLoading,
+    Admin_update_user_bio_message,
+  } = useSelector((state) => state.reducer.AdminUpdate_profileSlice);
+
+  const [formData, setFormData] = useState({
+    user_id: Admin_Get_Players_Profile_details?.data?.bio?.user_id,
+
+    user_type: "player",
+    fullname: `${Admin_Get_Players_Profile_details?.data?.firstname}  ${Admin_Get_Players_Profile_details?.data?.surname}`,
+
+    phone: Admin_Get_Players_Profile_details?.data?.phone,
+
+    current_club: Admin_Get_Players_Profile_details?.data?.bio?.current_club,
+
+    available: Admin_Get_Players_Profile_details?.data?.available,
+
+    position: Admin_Get_Players_Profile_details?.data?.bio?.position,
+
+    about: Admin_Get_Players_Profile_details?.data?.bio?.about,
+
+    location: Admin_Get_Players_Profile_details?.data?.bio?.location,
+
+    home_town: Admin_Get_Players_Profile_details?.data?.bio?.home_town,
+
+    email: Admin_Get_Players_Profile_details?.data?.email,
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Perform form submission or other operations
+
+    dispatch(Admin_update_user_BIO_fun(formData));
+  };
   return (
-    <form
-      //   onSubmit={handleSubmitProfileform}
-      className="Scoutpage_ProfileforContent"
-    >
+    <form onSubmit={handleSubmit} className="Scoutpage_ProfileforContent">
       <p className="Scoutpage_Profile_Profiledetailstext">Profile Details</p>
       <p className="Scoutpage_Profile_filldetailstext">
         Fill in the following details
       </p>
+
       <p className="Scoutpage_Profile_Profileformlabeltext">Full Name</p>
       <input
         type="text"
         className="Scoutpage_Profile_ProfileformlabelInput"
-        // value={fullname}
-        // onChange={handleFullnameClick}
-        placeholder="first name and last name"
+        name="fullname"
+        value={formData.fullname}
+        onChange={handleChange}
+        placeholder="First name and last name"
       />
+
       <p className="Scoutpage_Profile_Profileformlabelnexttext">
         Email Address
       </p>
       <input
         type="email"
         className="Scoutpage_Profile_ProfileformlabelInput"
-        // value={userDataLogin?.email}
+        name="email"
+        value={formData.email}
+        onChange={handleChange}
         placeholder="abc@mail.com"
       />
+
       <p className="Scoutpage_Profile_Profileformlabelnexttext">Phone Number</p>
       <input
         type="text"
         className="Scoutpage_Profile_ProfileformlabelInput"
-        // value={phone}
-        // onChange={handlePhoneClick}
+        name="phone"
+        value={formData.phone}
+        onChange={handleChange}
         placeholder="08000000000000"
       />
 
@@ -39,29 +95,31 @@ export const Profile_detail = () => {
       </p>
       <textarea
         placeholder="Write about yourself"
-        // value={about}
-        required
         name="about"
-        // onChange={handleAboutClick}
+        value={formData.about}
+        onChange={handleChange}
+        required
         className="Scoutpage_Profile_Profileformlabeltextarea"
       ></textarea>
+
       <p className="Scoutpage_Profile_Profileformlabelnexttext">Location</p>
       <input
         type="text"
         className="Scoutpage_Profile_ProfileformlabelInput"
-        // value={location}
         name="location"
-        // onChange={handleLocationClick}
+        value={formData.location}
+        onChange={handleChange}
         placeholder="Country of Residence"
         required
       />
+
       <p className="Scoutpage_Profile_Profileformlabelnexttext">Home Town</p>
       <input
         type="text"
         className="Scoutpage_Profile_ProfileformlabelInput"
-        // value={home_town}
         name="home_town"
-        // onChange={handleHometownClick}
+        value={formData.home_town}
+        onChange={handleChange}
         placeholder="---"
         required
       />
@@ -70,16 +128,31 @@ export const Profile_detail = () => {
       <input
         type="text"
         className="Scoutpage_Profile_ProfileformlabelInput"
-        // value={current_club}
-        // onChange={handleCurrentClubClick}
         name="current_club"
+        value={formData.current_club}
+        onChange={handleChange}
         placeholder="Name of Club"
         required
       />
 
-      {/* <button type="submit" className="Scoutpage_Profileform_savebutton">
-        {loadProfileform ? <CircularProgress size={15} /> : <span>Save</span>}
-      </button> */}
+      <p className="Scoutpage_Profile_Profileformlabelnexttext">Availability</p>
+      <select
+        name="available"
+        onChange={handleChange}
+        value={formData.available}
+        className="Scoutpage_Profile_ProfileformlabelInput"
+      >
+        <option></option>
+        <option value="1">Available</option>
+        <option value="0">Not Available</option>
+      </select>
+      <button type="submit" className="Scoutpage_Profileform_savebutton">
+        {Admin_update_user_bio_isLoading ? (
+          <CircularProgress size={15} />
+        ) : (
+          <span>Save</span>
+        )}
+      </button>
     </form>
   );
 };

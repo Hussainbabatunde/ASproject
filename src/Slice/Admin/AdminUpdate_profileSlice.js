@@ -14,6 +14,12 @@ const initialState = {
   Admin_update_user_image_isSuccess: false,
   Admin_update_user_image_isLoading: false,
   Admin_update_user_image_message: null,
+
+  Admin_update_user_bio: null,
+  Admin_update_user_bio_isError: false,
+  Admin_update_user_bio_isSuccess: false,
+  Admin_update_user_bio_isLoading: false,
+  Admin_update_user_bio_message: null,
 };
 
 let baseURL = process.env.REACT_APP_AFRISPORTURL;
@@ -69,7 +75,7 @@ const Admin_update_user_image_fun_Service = async (data, token) => {
 
   const response = await axios.post(API_URL, data, config);
   console.log(response.data);
-  // return response.data;
+  return response.data;
 };
 
 export const Admin_update_user_image_fun = createAsyncThunk(
@@ -78,6 +84,39 @@ export const Admin_update_user_image_fun = createAsyncThunk(
     try {
       const token = thunkAPI.getState().reducer.LoginSlice.logindata.data.token;
       return await Admin_update_user_image_fun_Service(data, token);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+const Admin_update_user_BIO_fun_Service = async (data, token) => {
+  let API_URL = `${baseURL}admin/player/bio`;
+
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  console.log(data);
+  const response = await axios.post(API_URL, data, config);
+  console.log(response.data);
+  return response.data;
+};
+
+export const Admin_update_user_BIO_fun = createAsyncThunk(
+  "AdminUpdate_profileSlice/Admin_update_user_BIO_fun",
+  async (data, thunkAPI) => {
+    try {
+      const token = thunkAPI.getState().reducer.LoginSlice.logindata.data.token;
+      return await Admin_update_user_BIO_fun_Service(data, token);
     } catch (error) {
       const message =
         (error.response &&
@@ -108,6 +147,12 @@ export const AdminUpdate_profileSlice = createSlice({
       state.Admin_update_user_image_isLoading = false;
       state.Admin_update_user_image_message = null;
       state.Admin_update_user_image = null;
+
+      state.Admin_update_user_bio_isError = false;
+      state.Admin_update_user_bio_isSuccess = false;
+      state.Admin_update_user_bio_isLoading = false;
+      state.Admin_update_user_bio_message = null;
+      state.Admin_update_user_bio = null;
     },
   },
 
@@ -177,6 +222,41 @@ export const AdminUpdate_profileSlice = createSlice({
         state.Admin_update_user_image_message = action.payload;
         state.Admin_update_user_image_isLoading = false;
         toast.error(`${state.Admin_update_user_image_message}`, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          className: "Forbidden403",
+        });
+      })
+
+      .addCase(Admin_update_user_BIO_fun.pending, (state) => {
+        state.Admin_update_user_bio_isLoading = true;
+      })
+      .addCase(Admin_update_user_BIO_fun.fulfilled, (state, action) => {
+        state.Admin_update_user_bio = action.payload;
+        state.Admin_update_user_bio_isSuccess = true;
+        state.Admin_update_user_bio_isLoading = false;
+        toast.success(" uploaded ", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      })
+      .addCase(Admin_update_user_BIO_fun.rejected, (state, action) => {
+        state.Admin_update_user_bio_isError = true;
+        state.Admin_update_user_bio_message = action.payload;
+        state.Admin_update_user_bio_isLoading = false;
+        toast.error(`${state.Admin_update_user_bio_message}`, {
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,
