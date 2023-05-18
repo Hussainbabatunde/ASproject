@@ -78,13 +78,6 @@ function Profile() {
                 Admin_Get_Players_Profile_details
               }
             />
-            <div></div>
-          </div>
-
-          <div className="AdminPage_DashboardTAbleCat">
-            {/* <AdminPlayerStep /> */}
-
-            <h1>sam</h1>
           </div>
         </div>
       </div>

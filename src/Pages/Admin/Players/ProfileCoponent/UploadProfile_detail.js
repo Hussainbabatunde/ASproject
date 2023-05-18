@@ -1,8 +1,10 @@
 import { CircularProgress } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   Admin_update_user_BIO_fun,
+  Admin_update_user_BusinessService_fun,
+  Admin_update_user_Your_image_id_fun,
   Admin_update_user_physical_stat_fun,
   Admin_update_user_upload_id_fun,
 } from "../../../../Slice/Admin/AdminUpdate_profileSlice";
@@ -10,6 +12,8 @@ import { FaRegImages } from "react-icons/fa";
 import imgPlaceHolder from "../../../../assets/imageplaceholder.png";
 import { RiDeleteBin6Fill } from "react-icons/ri";
 import { toast } from "react-toastify";
+
+import { TbCurrencyNaira } from "react-icons/tb";
 
 export const Profile_detail = ({ Admin_Get_Players_Profile_details }) => {
   const dispatch = useDispatch();
@@ -358,143 +362,17 @@ export const Admin_upload_id = ({ Admin_Get_Players_Profile_details }) => {
   );
 };
 
-// export const Admin_upload_Players_image = ({
-//   Admin_Get_Players_Profile_details,
-// }) => {
-//   const dispatch = useDispatch();
-
-//   const { Admin_update_user_image_isLoading, Admin_update_user_image } =
-//     useSelector((state) => state.reducer.AdminUpdate_profileSlice);
-
-//   const userDataInfo = Admin_Get_Players_Profile_details?.data;
-
-//   let img_Data = userDataInfo?.identification;
-
-//   const [images, setImages] = useState([]);
-//   const [previewUrls, setPreviewUrls] = useState([]);
-//   const [uploaded2, setUploaded2] = useState(false);
-//   const [loadYourImages, setLoadYourImages] = useState(false);
-
-//   console.log(images);
-//   console.log(uploaded2);
-
-//   const handleMultipleImages = (e) => {
-//     setUploaded2(true);
-//     const files = Array.from(e.target.files);
-//     if (files.length > 0) {
-//       setImages([...images, ...files]);
-//       Promise.all(
-//         files.map((file) => {
-//           return new Promise((resolve, reject) => {
-//             const reader = new FileReader();
-//             reader.readAsDataURL(file);
-//             reader.onload = () => resolve(reader.result);
-//             reader.onerror = (error) => reject(error);
-//           });
-//         })
-//       ).then((results) => {
-//         setPreviewUrls([...previewUrls, ...results]);
-//       });
-//     }
-//   };
-
-//   const handleYourImagesSubmit = async (e) => {
-//     e.preventDefault();
-//     const formData = new FormData();
-//     if (images.length < 5) {
-//       toast.error("Upload 5 pictures of Yourself", {
-//         position: "top-right",
-//         autoClose: 5000,
-//         hideProgressBar: false,
-//         closeOnClick: true,
-//         pauseOnHover: true,
-//         draggable: true,
-//         progress: undefined,
-//         theme: "light",
-//       });
-//     } else {
-//       for (let i = 0; i < images.length; i++) {
-//         formData.append("user_images[]", images[i]);
-//       }
-
-//       // formData.append("id", userId);
-//       // for (const [name, value] of formData.entries()) {
-//       //     console.log(`${name}: ${value}`);
-//       //   }
-//       setLoadYourImages(true);
-//       // await dispatch(PlayerYourImagesApi(formData))
-//       // await dispatch(PlayerProfileVerificationStatus(userId))
-//       setLoadYourImages(false);
-//     }
-//   };
-
-//   const handleDeleteImage = (index) => {
-//     const newImages = [...images];
-//     newImages.splice(index, 1);
-//     setImages(newImages);
-//     console.log("images ", images);
-
-//     const newPreviewUrls = [...previewUrls];
-//     newPreviewUrls.splice(index, 1);
-//     setPreviewUrls(newPreviewUrls);
-//   };
-//   return (
-//     <form
-//       onSubmit={handleYourImagesSubmit}
-//       className="Scoutpage_ProfileforContent"
-//     >
-//       <p className="Scoutpage_Profile_Profiledetailstext">Your Images</p>
-//       <p className="Scoutpage_Profile_filldetailstext">
-//         Please provide different images of yourself, a standard photo and you on
-//         the field.
-//       </p>
-//       <label for="YourImages" className="Scoutpage_Profileform_SelectImage">
-//         Select Images
-//       </label>
-//       <input
-//         type="file"
-//         id="YourImages"
-//         onChange={handleMultipleImages}
-//         multiple
-//         className="Scoutpage_Profile_ImagePlaceInput"
-//       />
-
-//       {uploaded2 &&
-//         previewUrls.map((url, index) => {
-//           return (
-//             <div className="Scoutpage_Profileform_ImgIploaded">
-//               <div className="Scoutpage_Profileform_UploadIDImg">
-//                 <img src={url} width="100px" height="100px" />
-//                 <p style={{ marginLeft: "20px" }}> 100 x 100</p>
-//               </div>
-//               <RiDeleteBin6Fill
-//                 onClick={() => handleDeleteImage(index)}
-//                 style={{ fontSize: "25px", cursor: "pointer" }}
-//               />
-//             </div>
-//           );
-//         })}
-
-//       <button type="submit" className="Scoutpage_Profileform_uploadButton">
-//         <FaRegImages style={{ fontSize: "18px", marginRight: "5px" }} />
-//         {loadYourImages ? (
-//           <CircularProgress size={15} />
-//         ) : (
-//           <span>Upload photo</span>
-//         )}
-//       </button>
-//     </form>
-//   );
-// };
-
-export const Admin_upload_Players_image = () => {
+export const Admin_upload_Players_image = ({
+  Admin_Get_Players_Profile_details,
+}) => {
+  const dispatch = useDispatch();
+  const userDataInfo = Admin_Get_Players_Profile_details?.data;
   const [images, setImages] = useState([]);
   const [previewUrls, setPreviewUrls] = useState([]);
   const [uploading, setUploading] = useState(false);
 
   const handleImageUpload = (e) => {
     const files = Array.from(e.target.files);
-
     // Check if total uploaded images exceed the limit (5 in this example)
     if (images.length + files.length > 5) {
       // Display an error message
@@ -544,6 +422,30 @@ export const Admin_upload_Players_image = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    // if (images.length < 5) {
+    //   toast.error("Upload 5 pictures of Yourself", {
+    //     position: "top-right",
+    //     autoClose: 5000,
+    //     hideProgressBar: false,
+    //     closeOnClick: true,
+    //     pauseOnHover: true,
+    //     draggable: true,
+    //     progress: undefined,
+    //     theme: "light",
+    //   });
+    //   // alert("Upload 5 pictures of Yourself");
+    //   return;
+    // }
+
+    const formData = new FormData();
+    images.forEach((image) => {
+      formData.append("user_images[]", image);
+    });
+
+    formData.append("id", userDataInfo.id);
+
+    dispatch(Admin_update_user_Your_image_id_fun(formData));
+
     // Perform the image upload logic here
     // You can use the "images" array to access the uploaded images
 
@@ -554,54 +456,234 @@ export const Admin_upload_Players_image = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <p>Upload Images</p>
-      <input type="file" multiple onChange={handleImageUpload} />
-      <div>
-        {previewUrls.map((url, index) => (
-          <div key={index}>
-            <img
-              src={url}
-              alt={`Preview ${index + 1}`}
-              width="100"
-              height="100"
-            />
-            <button type="button" onClick={() => handleImageDelete(index)}>
-              Delete
-            </button>
-          </div>
-        ))}
-      </div>
-      <button type="submit" disabled={uploading}>
-        {uploading ? "Uploading..." : "Upload"}
-      </button>
-    </form>
+    <>
+      <form onSubmit={handleSubmit} className="Scoutpage_ProfileforContent">
+        <p className="Scoutpage_Profile_Profiledetailstext">Your Images</p>
+        <p className="Scoutpage_Profile_filldetailstext">
+          Please provide different images of yourself, a standard photo and you
+          on the field.
+        </p>
+
+        <label for="YourImages" className="Scoutpage_Profileform_SelectImage">
+          Select Images
+        </label>
+        <input
+          type="file"
+          id="YourImages"
+          onChange={handleImageUpload}
+          multiple
+          className="Scoutpage_Profile_ImagePlaceInput"
+        />
+
+        <div className="flex w-[100%] mb-5  gap-2">
+          {previewUrls.map((url, index) => (
+            <>
+              {/* <div className="Scoutpage_Profileform_ImgIploaded"> */}
+              <div className="w-[10rem] h-[10rem] flex flex-col  items-center">
+                {/* <div className="Scoutpage_Profileform_UploadIDImg"> */}
+                <div className="w-full h-full">
+                  <img src={url} className="w-full h-full" />
+                  {/* <p style={{ marginLeft: "20px" }}> 100 x 100</p> */}
+                </div>
+                <div onClick={() => handleImageDelete(index)}>
+                  <RiDeleteBin6Fill
+                    // onClick={() => handleDeleteImage(index)}
+                    style={{ fontSize: "25px", cursor: "pointer" }}
+                  />
+                </div>
+              </div>
+            </>
+          ))}
+        </div>
+
+        <button type="submit" className="Scoutpage_Profileform_uploadButton">
+          <FaRegImages style={{ fontSize: "18px", marginRight: "5px" }} />
+          {/* {loadYourImages ? (
+            <CircularProgress size={15} />
+          ) : (
+            <span>Upload photo</span>
+          )} */}
+
+          <span>Upload photo</span>
+        </button>
+      </form>
+    </>
   );
 };
 
-export const Admin_PlayerProfileVideo = () => {
+export const Admin_PlayerProfileVideo = ({
+  Admin_Get_Players_Profile_details,
+}) => {
+  const [videoLinks, setVideoLinks] = useState([]);
+
+  const handleVideoLinkChange = (event) => {
+    const link = event.target.value;
+    // const linksArray = link.split(" ");
+    // setVideoLinks((prevLinks) => [...prevLinks, ...linksArray]);
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    // Here you can perform further processing or API calls to submit the data
+    const data = {
+      user_id: 19,
+      videos_url: videoLinks,
+    };
+    console.log(data); // You can replace this with your actual submission logic
+  };
   return (
-    <form className="Scoutpage_ProfileforContent">
+    <form className="Scoutpage_ProfileforContent" onSubmit={handleSubmit}>
       <p className="Scoutpage_Profile_Profiledetailstext">Video</p>
       <p className="Scoutpage_Profile_filldetailstext">
-        Share a video or more of yourself in action must be from{" "}
-        <b>Google Drive</b>
+        Share a video or more of yourself in action. Must be from{" "}
+        <b>Google Drive</b>.
       </p>
       <input
         type="text"
         className="Scoutpage_Profile_ProfileformlabelInput"
         placeholder="Link to Video"
+        onChange={handleVideoLinkChange}
       />
-
-      <button className="Scoutpage_Profileform_savebutton">Save</button>
+      <button type="submit" className="Scoutpage_Profileform_savebutton">
+        Save
+      </button>
     </form>
   );
 };
 
-export const Admin_PlayerProfileBusinessService = () => {
+export const Admin_PlayerProfileBusinessService = ({
+  Admin_Get_Players_Profile_details,
+}) => {
+  const [priceType, setPriceType] = useState("range");
+  const [isChecked, setIsChecked] = useState(true);
+  const [isChecked2, setIsChecked2] = useState(false);
+  const [isChecked3, setIsChecked3] = useState(false);
+  const [isChecked4, setIsChecked4] = useState(false);
+  const [pricingBusiness, setPricingBusiness] = useState({});
+  const [amtStatedfrom, setAmtStatedFrom] = useState("");
+  const [amtStatedTo, setAmtStatedTo] = useState("");
+  const [amtActual, setAmtActual] = useState("");
+  const dispatch = useDispatch();
+  const [loadBusinessService, setLoadBusinessService] = useState(false);
+
+  let PlayerDetails = Admin_Get_Players_Profile_details?.data;
+  // const PlayerDetails = useSelector(
+  //   (state) => state?.reducer?.PlayerProfileSlice?.AllProfileDetailsData?.data
+  // );
+
+  // const handleChangeBusinessPricing = (e) =>{
+  //   setAmtStated({...amtStated, [e.target.name]: e.target.value})
+  // }
+  const handleSubmitPhysicalStats = async (event) => {
+    event.preventDefault();
+    pricingBusiness.user_id =
+      Admin_Get_Players_Profile_details?.data?.bio?.user_id;
+    pricingBusiness.service_type = priceType;
+    if (priceType == "range") {
+      pricingBusiness.minimum = amtStatedfrom;
+      pricingBusiness.maximum = amtStatedTo;
+    } else if (priceType == "actual") {
+      pricingBusiness.amount = `${amtActual}`;
+    } else if (priceType == "open") {
+      pricingBusiness.amount = "";
+    } else if (priceType == "free") {
+      pricingBusiness.amount = "";
+    }
+    // console.log(pricingBusiness)
+    setLoadBusinessService(true);
+    console.log(pricingBusiness);
+
+    dispatch(Admin_update_user_BusinessService_fun(pricingBusiness));
+
+    // await dispatch(PlayerProfileBusinessServiceApi(pricingBusiness));
+    // await dispatch(PlayerProfileVerificationStatus());
+    // await dispatch(ProfileDetailsPlayer());
+    setLoadBusinessService(false);
+  };
+
+  const handleRadioButtonChange = () => {
+    setIsChecked(!isChecked);
+    setIsChecked2(false);
+    setIsChecked3(false);
+    setIsChecked4(false);
+    setPriceType("range");
+  };
+  const handleRadioButtonChange2 = () => {
+    setIsChecked2(!isChecked2);
+    setIsChecked(false);
+    setIsChecked3(false);
+    setIsChecked4(false);
+    setPriceType("actual");
+  };
+  const handleRadioButtonChange3 = () => {
+    setIsChecked3(!isChecked3);
+    setIsChecked(false);
+    setIsChecked2(false);
+    setIsChecked4(false);
+    setPriceType("open");
+  };
+  const handleRadioButtonChange4 = () => {
+    setIsChecked4(!isChecked4);
+    setIsChecked2(false);
+    setIsChecked3(false);
+    setIsChecked(false);
+    setPriceType("free");
+  };
+
+  useEffect(() => {
+    if (PlayerDetails) {
+      if (PlayerDetails?.price?.service_type == "range") {
+        setPriceType(PlayerDetails?.price?.service_type);
+        // const myString = PlayerDetails?.price?.amount;
+        setAmtStatedFrom(PlayerDetails?.price?.minimum);
+        setAmtStatedTo(PlayerDetails?.price?.maximum);
+        setIsChecked2(false);
+        setIsChecked3(false);
+        setIsChecked4(false);
+      }
+      if (PlayerDetails?.price?.service_type == "actual") {
+        setAmtActual(PlayerDetails?.price?.amount);
+        setPriceType(PlayerDetails?.price?.service_type);
+        // handleRadioButtonChange2()
+        setIsChecked2(true);
+        setIsChecked(false);
+        setIsChecked3(false);
+        setIsChecked4(false);
+      }
+      if (PlayerDetails?.price?.service_type == "open") {
+        setAmtActual(PlayerDetails?.price?.amount);
+        setPriceType(PlayerDetails?.price?.service_type);
+        setIsChecked3(true);
+        setIsChecked(false);
+        setIsChecked2(false);
+        setIsChecked4(false);
+      }
+      if (PlayerDetails?.price?.service_type == "free") {
+        setAmtActual(PlayerDetails?.price?.amount);
+        setPriceType(PlayerDetails?.price?.service_type);
+        setIsChecked4(true);
+        setIsChecked2(false);
+        setIsChecked3(false);
+        setIsChecked(false);
+      }
+      // setAvailable(PlayerDetails?.bio?.available)
+      // setAbout(PlayerDetails?.bio?.about)
+    }
+  }, [PlayerDetails]);
+
+  const handleAmountFrom = (e) => {
+    setAmtStatedFrom(e.target.value);
+  };
+  const handleAmountTo = (e) => {
+    setAmtStatedTo(e.target.value);
+  };
+  const handleAmtActual = (e) => {
+    setAmtActual(e.target.value);
+  };
+
   return (
     <form
-      //   onSubmit={handleSubmitPhysicalStats}
+      onSubmit={handleSubmitPhysicalStats}
       className="Scoutpage_ProfileforContent"
     >
       <p className="Scoutpage_Profile_Profiledetailstext">
@@ -614,8 +696,8 @@ export const Admin_PlayerProfileBusinessService = () => {
         <label className="Scoutpage_Profile_Profileformradiolabel">
           <input
             type="radio"
-            // onClick={handleRadioButtonChange}
-            // checked={isChecked}
+            onClick={handleRadioButtonChange}
+            checked={isChecked}
             value="range"
           />{" "}
           Range
@@ -623,17 +705,17 @@ export const Admin_PlayerProfileBusinessService = () => {
         <label className="Scoutpage_Profile_Profileformradiolabel">
           <input
             type="radio"
-            // onClick={handleRadioButtonChange2}
-            // checked={isChecked2}
-            // value="actual"
+            onClick={handleRadioButtonChange2}
+            checked={isChecked2}
+            value="actual"
           />{" "}
           Actual
         </label>
         <label className="Scoutpage_Profile_Profileformradiolabel">
           <input
             type="radio"
-            // onClick={handleRadioButtonChange3}
-            // checked={isChecked3}
+            onClick={handleRadioButtonChange3}
+            checked={isChecked3}
             value="open"
           />{" "}
           Open
@@ -641,14 +723,14 @@ export const Admin_PlayerProfileBusinessService = () => {
         <label className="Scoutpage_Profile_Profileformradiolabel">
           <input
             type="radio"
-            // onClick={handleRadioButtonChange4}
-            // checked={isChecked4}
+            onClick={handleRadioButtonChange4}
+            checked={isChecked4}
             value="free"
           />{" "}
           Free
         </label>
       </div>
-      {/* {priceType == "range" && (
+      {priceType == "range" && (
         <div>
           <p className="Scoutpage_Profile_filldetailstext">
             You won't go below this price
@@ -684,8 +766,8 @@ export const Admin_PlayerProfileBusinessService = () => {
             </div>
           </div>
         </div>
-      )} */}
-      {/* {priceType == "actual" && (
+      )}
+      {priceType == "actual" && (
         <div>
           <p className="Scoutpage_Profile_filldetailstext">
             This is your Price and it's none negotiable
@@ -705,29 +787,29 @@ export const Admin_PlayerProfileBusinessService = () => {
             />
           </div>
         </div>
-      )} */}
-      {/* {priceType == "open" && (
+      )}
+      {priceType == "open" && (
         <div>
           <p className="Scoutpage_Profile_filldetailstext">
             Our Team will evaluate your profile and fix an amount
           </p>
         </div>
-      )} */}
-      {/* {priceType == "free" && (
+      )}
+      {priceType == "free" && (
         <div>
           <p className="Scoutpage_Profile_filldetailstext">
             You are not charging a price.{" "}
           </p>
         </div>
-      )} */}
+      )}
 
-      {/* <button type="submit" className="Scoutpage_Profileform_savebutton">
+      <button type="submit" className="Scoutpage_Profileform_savebutton">
         {loadBusinessService ? (
           <CircularProgress size={15} />
         ) : (
           <span>Save</span>
         )}
-      </button> */}
+      </button>
     </form>
   );
 };

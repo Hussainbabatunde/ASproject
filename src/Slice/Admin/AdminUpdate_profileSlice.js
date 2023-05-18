@@ -26,6 +26,12 @@ const initialState = {
   Admin_update_user_physical_stat_isSuccess: false,
   Admin_update_user_physical_stat_isLoading: false,
   Admin_update_user_physical_stat_message: null,
+
+  Admin_update_user_BusinessService: null,
+  Admin_update_user_BusinessService_isError: false,
+  Admin_update_user_BusinessService_isSuccess: false,
+  Admin_update_user_BusinessService_isLoading: false,
+  Admin_update_user_BusinessService_message: null,
 };
 
 let baseURL = process.env.REACT_APP_AFRISPORTURL;
@@ -189,6 +195,73 @@ export const Admin_update_user_upload_id_fun = createAsyncThunk(
     try {
       const token = thunkAPI.getState().reducer.LoginSlice.logindata.data.token;
       return await Admin_update_user_upload_id_fun_Service(data, token);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+const Admin_update_user_Your_image_id_fun_Service = async (data, token) => {
+  let API_URL = `${baseURL}admin/player/images`;
+
+  const config = {
+    headers: {
+      "Content-Type": "multipart/form-data",
+      Accept: "multipart/form-data",
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  const response = await axios.post(API_URL, data, config);
+  console.log(response.data);
+  return response.data;
+};
+
+export const Admin_update_user_Your_image_id_fun = createAsyncThunk(
+  "AdminUpdate_profileSlice/Admin_update_user_Your_image_id_fun",
+  async (data, thunkAPI) => {
+    try {
+      const token = thunkAPI.getState().reducer.LoginSlice.logindata.data.token;
+      return await Admin_update_user_Your_image_id_fun_Service(data, token);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+const Admin_update_user_BusinessService_fun_Service = async (data, token) => {
+  let API_URL = `${baseURL}admin/player/service_type`;
+
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  console.log(data);
+  const response = await axios.post(API_URL, data, config);
+  console.log(response.data);
+  return response.data;
+};
+
+export const Admin_update_user_BusinessService_fun = createAsyncThunk(
+  "AdminUpdate_profileSlice/Admin_update_user_BusinessService_fun",
+  async (data, thunkAPI) => {
+    try {
+      const token = thunkAPI.getState().reducer.LoginSlice.logindata.data.token;
+      return await Admin_update_user_BusinessService_fun_Service(data, token);
     } catch (error) {
       const message =
         (error.response &&
@@ -408,79 +481,49 @@ export const AdminUpdate_profileSlice = createSlice({
             className: "Forbidden403",
           });
         }
+      )
+
+      .addCase(Admin_update_user_BusinessService_fun.pending, (state) => {
+        state.Admin_update_user_BusinessService_isLoading = true;
+      })
+      .addCase(
+        Admin_update_user_BusinessService_fun.fulfilled,
+        (state, action) => {
+          state.Admin_update_user_BusinessService = action.payload;
+          state.Admin_update_user_BusinessService_isSuccess = true;
+          state.Admin_update_user_BusinessService_isLoading = false;
+          toast.success(" uploaded ", {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
+        }
+      )
+
+      .addCase(
+        Admin_update_user_BusinessService_fun.rejected,
+        (state, action) => {
+          state.Admin_update_user_BusinessService_isError = true;
+          state.Admin_update_user_BusinessService_message = action.payload;
+          state.Admin_update_user_BusinessService_isLoading = false;
+          toast.error(`${state.Admin_update_user_BusinessService_message}`, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            className: "Forbidden403",
+          });
+        }
       );
-
-    //     .addCase(Create_All_Role_fun.pending, (state) => {
-    //       state.createRole_isLoading = true;
-    //     })
-    //     .addCase(Create_All_Role_fun.fulfilled, (state, action) => {
-    //       state.createRole = action.payload;
-    //       state.createRole_isSuccess = true;
-    //       state.createRole_isLoading = false;
-    //       toast.success("Role create successful", {
-    //         position: "top-right",
-    //         autoClose: 5000,
-    //         hideProgressBar: false,
-    //         closeOnClick: true,
-    //         pauseOnHover: true,
-    //         draggable: true,
-    //         progress: undefined,
-    //         theme: "light",
-    //       });
-    //     })
-    //     .addCase(Create_All_Role_fun.rejected, (state, action) => {
-    //       state.createRole_isError = true;
-    //       state.createRole_message = action.payload;
-    //       state.createRole_isLoading = false;
-    //       toast.error(`${state.createRole_message}`, {
-    //         position: "top-right",
-    //         autoClose: 5000,
-    //         hideProgressBar: false,
-    //         closeOnClick: true,
-    //         pauseOnHover: true,
-    //         draggable: true,
-    //         progress: undefined,
-    //         theme: "light",
-    //         className: "Forbidden403",
-    //       });
-    //     })
-
-    //     .addCase(Delete_All_Role_fun.pending, (state) => {
-    //       state.createRole_isLoading = true;
-    //     })
-    //     .addCase(Delete_All_Role_fun.fulfilled, (state, action) => {
-    //       state.createRole = action.payload;
-    //       state.createRole_isSuccess = true;
-    //       state.createRole_isLoading = false;
-    //       toast.success("Deleted successful", {
-    //         position: "top-right",
-    //         autoClose: 5000,
-    //         hideProgressBar: false,
-    //         closeOnClick: true,
-    //         pauseOnHover: true,
-    //         draggable: true,
-    //         progress: undefined,
-    //         theme: "light",
-    //       });
-    //     })
-    //     .addCase(Delete_All_Role_fun.rejected, (state, action) => {
-    //       state.createRole_isError = true;
-    //       state.createRole_message = action.payload;
-    //       state.createRole_isLoading = false;
-
-    //       console.log(state.createRole_message);
-    //       toast.error(`${state.createRole_message}`, {
-    //         position: "top-right",
-    //         autoClose: 5000,
-    //         hideProgressBar: false,
-    //         closeOnClick: true,
-    //         pauseOnHover: true,
-    //         draggable: true,
-    //         progress: undefined,
-    //         theme: "light",
-    //         className: "Forbidden403",
-    //       });
-    //     });
   },
 });
 
