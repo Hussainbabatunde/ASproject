@@ -177,7 +177,7 @@ const PlayerProfile = () => {
           <div className='Scoutpage_Profile_ImgNameSec'>
             <form onSubmit={handleImgSubmit}  style={{display:'flex',flexDirection:'column', alignItems:'center'}} >
             <label for='imagePlcholder'>
-          <img src={file} className='Scoutpage_Profile_placeholder' width='132px' height='136px' />
+          <img src={file} className='Scoutpage_Profile_placeholder'  />
           <input type='file' id='imagePlcholder' onChange={handleChange} className='Scoutpage_Profile_ImagePlaceInput' />
           </label>
           

@@ -67,7 +67,7 @@ const HomePagePitchOffer = ({show, loader, handleSubmit, handleChange, title, ha
       await dispatch(OfferPlayApi(data))
       setLoadingOffer(false)
       handleHide()
-      console.log('data ', data)
+      // console.log('data ', data)
     }
     
     const customStyles = {
@@ -100,9 +100,9 @@ const HomePagePitchOffer = ({show, loader, handleSubmit, handleChange, title, ha
        </div>
        <div style={{margin:'15px 25px'}}>
         <p style={{fontWeight: '600'}}>Provide Details on Your Offer</p>
-        <p style={{fontSize:'13px', margin: '7px 0'}}>Offer Name</p>
+        <p style={{fontSize:'13px', }}>Offer Name</p>
         <input type='text' name='name' onChange={handleOfferChange} className='OfferModal_TitleInput' />
-        <p style={{fontSize:'13px', margin: '7px 0'}}>Offer Details</p>
+        <p style={{fontSize:'13px', }}>Offer Details</p>
         <textarea type='text' name='detail' onChange={handleOfferChange} className='OfferModal_TitleTextarea' />
         <p style={{fontSize:'13px', margin: '7px 0 0'}}>Expiration date (optional)</p>
         <p style={{fontSize:'12px', marginBottom:'5px'}}>After this date, the recipient will no longer be able to review or accept your deal</p>

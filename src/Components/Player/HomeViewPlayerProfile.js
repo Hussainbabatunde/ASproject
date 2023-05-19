@@ -77,14 +77,17 @@ const HomeViewPlayerProfile = () => {
         <ScoutHeader />
     <div className='ScoutViewProfile'>
       <ToastContainer />
-        <div className='ScoutViewProfile_navigation'>
+        {/* <div className='ScoutViewProfile_navigation'>
             <div className='ScoutViewProfile_navigationprogress'>
-                <p style={{cursor:'pointer'}} onClick={handleUserProfile} className='ScoutViewProfile_navigationback'>Back</p>
+                <Link style={{cursor:'pointer'}}
+                to='/afrisport/player/homepage'
+                //  onClick={handleUserProfile} 
+                 className='ScoutViewProfile_navigationback'>Back</Link>
                 <GrFormNext style={{fontSize:'16px'}} />
-                <p className='ScoutViewProfile_navigationprofile'>Profile</p>
+                <p className='ScoutViewProfile_navigationprofile'>Player Profile</p>
             </div>
             <Link className='ScoutViewProfile_share'> <BsShareFill style={{color:'rgba(150, 150, 150, 1)'}} /> <span style={{color:'rgba(150, 150, 150, 1)', marginLeft:'10px'}}>Share</span></Link>
-        </div>
+        </div> */}
 
         <div className='HomepageViewPlayerProfile'>
         <div className='HomepageView_ProfileOffers'>
@@ -92,7 +95,9 @@ const HomeViewPlayerProfile = () => {
           <div className='ScoutViewProfile_UserProfiledetailsSection'>
             <img src={PlayerDetails?.profile_pics} alt='image placeholder' className='ScoutViewProfile_UserProfileImage' />
             <div>
-              <p className='ScoutViewProfile_UserProfiledetailsUsername'>{loading == true ? <Skeleton variant="rounded" width='90%' height={32} /> : <span>{PlayerDetails?.firstname} {PlayerDetails?.surname} <BsFillPatchCheckFill style={{fontSize:'22px', color:'#0F7BEF', marginLeft:'10px'}} /></span>}</p>
+              <p className='ScoutViewProfile_UserProfiledetailsUsername'>{loading == true ? <Skeleton variant="rounded" width='90%' height={32} /> : <span style={{display:'flex', alignItems:'center'}}>{PlayerDetails?.firstname} {PlayerDetails?.surname} 
+              {/* <BsFillPatchCheckFill style={{fontSize:'22px', color:'#0F7BEF', marginLeft:'10px'}} /> */}
+              </span>}</p>
               {/* <p className='ScoutViewProfile_UserProfileScore'>Score: {progress}/100</p> */}
               {loading == true ? <Skeleton variant="rounded" width='90%' height={22} />  : <p className='ScoutViewProfile_UserProfileCurrentlyAvailable'>{PlayerDetails?.bio?.available == 0 ? `Not Available` : `Currently Available`}</p>}
               <div className='ScoutViewProfile_UserProfilePositionSection'>
@@ -100,7 +105,7 @@ const HomeViewPlayerProfile = () => {
                 <p className='ScoutViewProfile_UserProfilePosition'>Midfielders</p>
                 </div>
 
-                <p className='ScoutViewProfile_UserProfilePricerange'>Contract: {loading == true? <Skeleton variant="rounded" width='90%' height={20} /> : <span><TbCurrencyNaira style={{fontSize:"18px"}} />{PlayerDetails?.price?.minimum} - {PlayerDetails?.price?.maximum}</span>}</p>
+                <p className='ScoutViewProfile_UserProfilePricerange'>Contract: {loading == true? <Skeleton variant="rounded" width='90%' height={20} /> : <span style={{display:'flex', alignItems:'center'}}><TbCurrencyNaira style={{fontSize:"18px"}} />{PlayerDetails?.price?.minimum} - {PlayerDetails?.price?.maximum}</span>}</p>
             </div>
           </div>
 
@@ -163,7 +168,7 @@ const HomeViewPlayerProfile = () => {
             <img src={PlayerImg} className='ScoutViewProfile_Image' />
             <img src={PlayerImg} className='ScoutViewProfile_Image' /> */}
         </div>
-        <p className='ScoutViewProfile_PhysicalStatsText'>Video <BsDot style={{fontSize:'25px'}}/> 4 </p>
+        <p className='ScoutViewProfile_PhysicalStatsText'>Video <BsDot style={{fontSize:'25px'}}/> {PlayerDetails?.videos?.length} </p>
         <div className='ScoutViewProfile_VideoSection'>
         {PlayerDetails?.videos.map((each, index) =>( 
           <div key={index} className='ScoutViewProfile_VideoDiv'>

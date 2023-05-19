@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom'
 import {RxDotFilled} from 'react-icons/rx';
 import { useDispatch, useSelector } from 'react-redux';
 import { GetPlayersApi } from '../../Slice/Player/PlayerHomePage/GetAllPlayersHomePage';
+import Footer from '../../Components/Homepage/Footer';
+import ScoutHeader from '../../Components/Header/ScoutHeader';
 
 const HomepageFilterView = () => {
     const [allPlayers, setAllPlayers] = useState([])
@@ -20,7 +22,7 @@ const HomepageFilterView = () => {
 
   return (
     <div>
-        <Header />
+        <ScoutHeader />
         <div className='Homepage_contents'>
             <FilterHeroSection />
             <div className='FilterPage_ContentSection'>
@@ -28,12 +30,12 @@ const HomepageFilterView = () => {
                 <div className='FilterPage_ResultFilter'>
                     <p className='FilterPage_TopicSearchResult'>Found 376 results for <span className='FilterPage_PositionSearchedFor'>Strikers</span></p>
                     <p className='FilterPage_LabelSearch'>Price, $</p>
-                    <div style={{display:'flex', marginTop: '5px    '}}>
+                    <div style={{display:'flex'}}>
                         <input placeholder='Min' className='FilterPage_MinPriceValue' type='text' />
                         <input placeholder='Max' className='FilterPage_MaxPriceValue' type='text' />
                     </div>
                     <p className='FilterPage_LabelSearch'>Age Range</p>
-                    <div style={{display:'flex', marginTop: '5px    '}}>
+                    <div style={{display:'flex'}}>
                         <input placeholder='Min' className='FilterPage_MinPriceValue' type='text' />
                         <input placeholder='Max' className='FilterPage_MaxPriceValue' type='text' />
                     </div>
@@ -297,11 +299,11 @@ const HomepageFilterView = () => {
                     </select>
                     <p className='FilterPage_LabelSearch'>Stronger Foot</p>
                     <div className='FilterPage_StrongerfootSec'>
-                        <div style={{marginBottom: '10px'}}>
+                        <div>
                             <input type='checkbox' />
                             <label style={{marginLeft:"10px"}}>Left</label>
                         </div>
-                        <div style={{marginBottom: '10px'}}>
+                        <div >
                             <input type='checkbox' />
                             <label style={{marginLeft:"10px"}}>Right</label>
                         </div>
@@ -309,35 +311,35 @@ const HomepageFilterView = () => {
                     
                     <p className='FilterPage_LabelSearch'>Position</p>
                     <div className='FilterPage_StrongerfootSec'>
-                        <div style={{marginBottom: '10px'}}>
+                        <div>
                             <input type='checkbox' />
                             <label style={{marginLeft:"10px"}}>Goalkeeper</label>
                         </div>
-                        <div style={{marginBottom: '10px'}}>
+                        <div>
                             <input type='checkbox' />
                             <label style={{marginLeft:"10px"}}>Center Back(Defenders)</label>
                         </div>
-                        <div style={{marginBottom: '10px'}}>
+                        <div>
                             <input type='checkbox' />
                             <label style={{marginLeft:"10px"}}>Full Back(Defenders)</label>
                         </div>
-                        <div style={{marginBottom: '10px'}}>
+                        <div>
                             <input type='checkbox' />
                             <label style={{marginLeft:"10px"}}>Central midfielders</label>
                         </div>
-                        <div style={{marginBottom: '10px'}}>
+                        <div>
                             <input type='checkbox' />
                             <label style={{marginLeft:"10px"}}>Attacking midfielders</label>
                         </div>
-                        <div style={{marginBottom: '10px'}}>
+                        <div>
                             <input type='checkbox' />
                             <label style={{marginLeft:"10px"}}>Defensive midfielders</label>
                         </div>
-                        <div style={{marginBottom: '10px'}}>
+                        <div>
                             <input type='checkbox' />
                             <label style={{marginLeft:"10px"}}>Wingers</label>
                         </div>
-                        <div style={{marginBottom: '10px'}}>
+                        <div>
                             <input type='checkbox' />
                             <label style={{marginLeft:"10px"}}>Striker</label>
                         </div>
@@ -366,6 +368,7 @@ const HomepageFilterView = () => {
             </div>
             </div>
         </div>
+        <Footer />
     </div>
   )
 }
