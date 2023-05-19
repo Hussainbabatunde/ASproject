@@ -1,7 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { createAction } from '@reduxjs/toolkit';
 
 const initialState = {
     user: null,
@@ -9,23 +8,22 @@ const initialState = {
     isSuccess: false,
     isLoading: false,
     message: null,
-    ProfilePicturedata: null,
-    ProfileProfileformdata: null,
-    ProfilePhysicalStatsdata: null,
-    ProfileBusinessServicedata: null,
-    ProfileUploadIddata: null,
-    ProfileYourImagesdata: null,
-    VerificationStatusData:null,
-    AllProfileDetailsData: null,
-    ProfileVideoLinksData: null,
-    ProfileSetcoverImgData: null,
-    ProfileDeleteImgData: null,
-    ProfileDeleteVideoData: null
+    ScoutPicturedata: null,
+    ScoutProfileformdata: null,
+    ScoutPhysicalStatsdata: null,
+    ScoutBusinessServicedata: null,
+    ScoutUploadIddata: null,
+    ScoutYourImagesdata: null,
+    ScoutVerificationStatusData:null,
+    ScoutAllProfileDetailsData: null,
+    ScoutVideoLinksData: null,
+    ScoutSetcoverImgData: null,
+    ScoutDeleteImgData: null
   };
 
 
-  export const ProfileDetailsPlayer = createAsyncThunk(
-    "playerProfileDetailsScreen/userPlayerProfileDetailsScreen",
+  export const ProfileDetailsScout = createAsyncThunk(
+    "scoutProfileDetailsScreen/userScoutProfileDetailsScreen",
     async (id, { rejectWithValue }) => {
         
     // for (const [name, value] of details.entries()) {
@@ -60,8 +58,8 @@ const initialState = {
   );
 
 
-  export const PlayerProfileVerificationStatus = createAsyncThunk(
-    "playerVerificationStatus/userPlayerVerificationStatus",
+  export const ScoutProfileVerificationStatus = createAsyncThunk(
+    "scoutVerificationStatus/userScoutVerificationStatus",
     async (id, { rejectWithValue }) => {
         
     // for (const [name, value] of details.entries()) {
@@ -80,7 +78,7 @@ const initialState = {
         },
       });
       return await instance
-        .get(`player/profile-progress-bar/${id}`)
+        .get(`scout/profile-progress-bar/${id}`)
         .then(async (response) => {
             // console.log('progress bar ',response.data)
           return response.data;
@@ -95,8 +93,8 @@ const initialState = {
     }
   );
 
-  export const PlayerProfilePicture = createAsyncThunk(
-    "playerprofilepicture/userPlayerProfilePicture",
+  export const ScoutProfilePicture = createAsyncThunk(
+    "scoutprofilepicture/userScoutProfilePicture",
     async (details, { rejectWithValue }) => {
         
     // for (const [name, value] of details.entries()) {
@@ -115,7 +113,7 @@ const initialState = {
         },
       });
       return await instance
-        .post("player/profile-picture", details)
+        .post("scout/profile-picture", details)
         .then(async (response) => {
             // console.log('profile picture ',response.data)
           return response.data;
@@ -130,8 +128,8 @@ const initialState = {
     }
   );
 
-  export const PlayerSetCoverImg = createAsyncThunk(
-    "playersetcoverimg/userPlayerSetCoverImg",
+  export const ScoutSetCoverImg = createAsyncThunk(
+    "scoutsetcoverimg/userScoutSetCoverImg",
     async (details, { rejectWithValue }) => {
         
     // for (const [name, value] of details.entries()) {
@@ -150,9 +148,9 @@ const initialState = {
         },
       });
       return await instance
-        .post("player/make-cover-page", details)
+        .post("scout/make-cover-page", details)
         .then(async (response) => {
-            console.log('cover image set ',response.data)
+            // console.log('cover image set ',response.data)
           return response.data;
         })
   
@@ -165,8 +163,8 @@ const initialState = {
     }
   );
 
-  export const PlayerDeleteImgApi = createAsyncThunk(
-    "playerdeleteimg/userPlayerDeleteImg",
+  export const ScoutDeleteImgApi = createAsyncThunk(
+    "scoutdeleteimg/userScoutDeleteImg",
     async ({id, user_id}, { rejectWithValue }) => {
         
     // for (const [name, value] of details.entries()) {
@@ -185,7 +183,7 @@ const initialState = {
         },
       });
       return await instance
-        .delete(`player/remove-image/${id}/${user_id}`)
+        .delete(`scout/remove-image/${id}/${user_id}`)
         .then(async (response) => {
             // console.log('deleted img ',response.data)
           return response.data;
@@ -200,46 +198,8 @@ const initialState = {
     }
   );
 
-  export const PlayerDeleteVideoApi = createAsyncThunk(
-    "playerdeletevideo/userPlayerDeleteVideo",
-    async ({id, user_id}, { rejectWithValue }) => {
-        
-    // for (const [name, value] of details.entries()) {
-    //     console.log(`${name}: ${value}`);
-    //   }
-      const tokengot = localStorage.getItem("token");
-      const infoneeded = `Bearer ${tokengot}`;
-      const instance = axios.create({
-        baseURL: process.env.REACT_APP_AFRISPORTURL ,
-        timeout: 20000,
-  
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-          Authorization: infoneeded
-        },
-      });
-      return await instance
-        .delete(`player/remove-video-url/${id}/${user_id}`)
-        .then(async (response) => {
-            console.log('deleted video ',response.data)
-          return response.data;
-        })
-  
-        .catch((err) => {
-          let errdata = err.response.data;
-          console.log('error ', errdata)
-          return rejectWithValue(errdata);
-          // console.log(err)
-        });
-    }
-  );
-
-
-
-
-  export const PlayerProfileVideoLink = createAsyncThunk(
-    "playerprofilevideos/userPlayerProfileVideos",
+  export const ScoutProfileVideoLink = createAsyncThunk(
+    "scoutprofilevideos/userScoutProfileVideos",
     async (details, { rejectWithValue }) => {
         
     // for (const [name, value] of details.entries()) {
@@ -258,7 +218,7 @@ const initialState = {
         },
       });
       return await instance
-        .post("player/video_text_url", details)
+        .post("scout/video_text_url", details)
         .then(async (response) => {
             // console.log('Video links ',response.data)
           return response.data;
@@ -273,8 +233,8 @@ const initialState = {
     }
   );
 
-  export const PlayerYourImagesApi = createAsyncThunk(
-    "playeryourimages/userPlayerYourImages",
+  export const ScoutYourImagesApi = createAsyncThunk(
+    "scoutyourimages/userScoutYourImages",
     async (details, { rejectWithValue }) => {
         
     // for (const [name, value] of details.entries()) {
@@ -293,7 +253,7 @@ const initialState = {
         },
       });
       return await instance
-        .post("player/images", details)
+        .post("scout/images", details)
         .then(async (response) => {
             console.log('your images ',response.data)
           return response.data;
@@ -308,8 +268,8 @@ const initialState = {
     }
   );
 
-  export const PlayerProfileProfileformApi = createAsyncThunk(
-    "playerprofileProfileform/userPlayerprofileProfileform",
+  export const ScoutProfileProfileformApi = createAsyncThunk(
+    "scoutprofileProfileform/userScoutprofileProfileform",
     async (details, { rejectWithValue }) => {
         
     // for (const [name, value] of details.entries()) {
@@ -328,7 +288,7 @@ const initialState = {
         },
       });
       return await instance
-        .post("player/bio", details)
+        .post("scout/bio", details)
         .then(async (response) => {
           console.log('response gotten ', response.data)
           return response.data;
@@ -344,8 +304,8 @@ const initialState = {
   );
 
 
-  export const PlayerProfilePhysicalStatsApi = createAsyncThunk(
-    "playerprofilePhysicalStats/userPlayerprofilePhysicalStats",
+  export const ScoutProfilePhysicalStatsApi = createAsyncThunk(
+    "scoutprofilePhysicalStats/userScoutprofilePhysicalStats",
     async (details, { rejectWithValue }) => {
         
     // for (const [name, value] of details.entries()) {
@@ -364,7 +324,7 @@ const initialState = {
         },
       });
       return await instance
-        .post("player/physical_stat", details)
+        .post("scout/physical_stat", details)
         .then(async (response) => {
           // console.log('profile physical stats ', response.data)
           return response.data;
@@ -379,8 +339,8 @@ const initialState = {
     }
   );
 
-  export const PlayerProfileBusinessServiceApi = createAsyncThunk(
-    "playerprofileBusinessStats/userPlayerprofileBusinessStats",
+  export const ScoutProfileBusinessServiceApi = createAsyncThunk(
+    "scoutprofileBusinessStats/userScoutprofileBusinessStats",
     async (details, { rejectWithValue }) => {
         
     // for (const [name, value] of details.entries()) {
@@ -399,7 +359,7 @@ const initialState = {
         },
       });
       return await instance
-        .post("player/service-type", details)
+        .post("scout/service-type", details)
         .then(async (response) => {
           // console.log('profile business service ', response.data)
           return response.data;
@@ -415,13 +375,13 @@ const initialState = {
   );
 
 
-  export const PlayerProfileUploadIdApi = createAsyncThunk(
-    "playerprofileUploadId/userPlayerprofileUploadId",
+  export const ScoutProfileUploadIdApi = createAsyncThunk(
+    "scoutprofileUploadId/userScoutprofileUploadId",
     async (details, { rejectWithValue }) => {
         
-    for (const [name, value] of details.entries()) {
-        console.log(`${name}: ${value}`);
-      }
+    // for (const [name, value] of details.entries()) {
+    //     console.log(`${name}: ${value}`);
+    //   }
       const tokengot = localStorage.getItem("token");
       const infoneeded = `Bearer ${tokengot}`;
       const instance = axios.create({
@@ -435,7 +395,7 @@ const initialState = {
         },
       });
       return await instance
-        .post("player/identification", details)
+        .post("scout/identification", details)
         .then(async (response) => {
           console.log('identification ', response.data)
           return response.data;
@@ -450,44 +410,40 @@ const initialState = {
     }
   );
 
-  
-  export const resetState = createAction('resetState');
 
-
-
-  export const PlayerProfileSlice = createSlice({
-    name: "playerprofile",
+  export const ScoutProfileSlice = createSlice({
+    name: "scoutprofile",
     initialState,
     reducers: {
       reset: (state) => initialState,
     },
     extraReducers: (builder) => {
       builder
-      .addCase(ProfileDetailsPlayer.pending, (state) => {
+      .addCase(ProfileDetailsScout.pending, (state) => {
         state.isLoading = true;
         state.null = true;
       })
-      .addCase(ProfileDetailsPlayer.fulfilled, (state, action) => {
+      .addCase(ProfileDetailsScout.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
         state.user = true;
-        state.AllProfileDetailsData = action.payload;
+        state.ScoutAllProfileDetailsData = action.payload;
         
       })
-      .addCase(ProfileDetailsPlayer.rejected, (state, action) => {
+      .addCase(ProfileDetailsScout.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;
       })
-      .addCase(PlayerProfilePicture.pending, (state) => {
+      .addCase(ScoutProfilePicture.pending, (state) => {
           state.isLoading = true;
           state.null = true;
         })
-        .addCase(PlayerProfilePicture.fulfilled, (state, action) => {
+        .addCase(ScoutProfilePicture.fulfilled, (state, action) => {
           state.isLoading = false;
           state.isSuccess = true;
           state.user = true;
-          state.ProfilePicturedata = action.payload;
+          state.ScoutPicturedata = action.payload;
           if(action.payload?.message == "Profile Photo Uploaded"){
           toast.success("Profile Photo Uploaded", {
             position: "top-right",
@@ -513,20 +469,20 @@ const initialState = {
               });
             }
         })
-        .addCase(PlayerProfilePicture.rejected, (state, action) => {
+        .addCase(ScoutProfilePicture.rejected, (state, action) => {
           state.isLoading = false;
           state.isError = true;
           state.message = action.payload;
         })
-        .addCase(PlayerSetCoverImg.pending, (state) => {
+        .addCase(ScoutSetCoverImg.pending, (state) => {
           state.isLoading = true;
           state.null = true;
         })
-        .addCase(PlayerSetCoverImg.fulfilled, (state, action) => {
+        .addCase(ScoutSetCoverImg.fulfilled, (state, action) => {
           state.isLoading = false;
           state.isSuccess = true;
           state.user = true;
-          state.ProfileSetcoverImgData = action.payload;
+          state.ScoutSetcoverImgData = action.payload;
           if(action.payload?.message == "New Cover Page set"){
           toast.success("New Cover Page set", {
             position: "top-right",
@@ -540,20 +496,20 @@ const initialState = {
             });
           }
         })
-        .addCase(PlayerSetCoverImg.rejected, (state, action) => {
+        .addCase(ScoutSetCoverImg.rejected, (state, action) => {
           state.isLoading = false;
           state.isError = true;
           state.message = action.payload;
         })
-        .addCase(PlayerDeleteImgApi.pending, (state) => {
+        .addCase(ScoutDeleteImgApi.pending, (state) => {
           state.isLoading = true;
           state.null = true;
         })
-        .addCase(PlayerDeleteImgApi.fulfilled, (state, action) => {
+        .addCase(ScoutDeleteImgApi.fulfilled, (state, action) => {
           state.isLoading = false;
           state.isSuccess = true;
           state.user = true;
-          state.ProfileDeleteImgData = action.payload;
+          state.ScoutDeleteImgData = action.payload;
           if(action.payload?.message == "Image deleted"){
           toast.success("Image deleted", {
             position: "top-right",
@@ -567,63 +523,36 @@ const initialState = {
             });
           }
         })
-        .addCase(PlayerDeleteImgApi.rejected, (state, action) => {
+        .addCase(ScoutDeleteImgApi.rejected, (state, action) => {
           state.isLoading = false;
           state.isError = true;
           state.message = action.payload;
         })
-        .addCase(PlayerDeleteVideoApi.pending, (state) => {
+        .addCase(ScoutProfileVerificationStatus.pending, (state) => {
           state.isLoading = true;
           state.null = true;
         })
-        .addCase(PlayerDeleteVideoApi.fulfilled, (state, action) => {
+        .addCase(ScoutProfileVerificationStatus.fulfilled, (state, action) => {
           state.isLoading = false;
           state.isSuccess = true;
           state.user = true;
-          state.ProfileDeleteImgData = action.payload;
-          if(action.payload?.message == "Video deleted"){
-          toast.success("Video deleted", {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-            });
-          }
-        })
-        .addCase(PlayerDeleteVideoApi.rejected, (state, action) => {
-          state.isLoading = false;
-          state.isError = true;
-          state.message = action.payload;
-        })
-        .addCase(PlayerProfileVerificationStatus.pending, (state) => {
-          state.isLoading = true;
-          state.null = true;
-        })
-        .addCase(PlayerProfileVerificationStatus.fulfilled, (state, action) => {
-          state.isLoading = false;
-          state.isSuccess = true;
-          state.user = true;
-          state.VerificationStatusData = action.payload;
+          state.ScoutVerificationStatusData = action.payload;
           
         })
-        .addCase(PlayerProfileVerificationStatus.rejected, (state, action) => {
+        .addCase(ScoutProfileVerificationStatus.rejected, (state, action) => {
           state.isLoading = false;
           state.isError = true;
           state.message = action.payload;
         })
-        .addCase(PlayerYourImagesApi.pending, (state) => {
+        .addCase(ScoutYourImagesApi.pending, (state) => {
           state.isLoading = true;
           state.null = true;
         })
-        .addCase(PlayerYourImagesApi.fulfilled, (state, action) => {
+        .addCase(ScoutYourImagesApi.fulfilled, (state, action) => {
           state.isLoading = false;
           state.isSuccess = true;
           state.user = true;
-          state.ProfileYourImagesdata = action.payload;
+          state.ScoutYourImagesdata = action.payload;
           if(action.payload?.message == "Image(s) Uploaded"){
           toast.success("Image(s) Uploaded", {
             position: "top-right",
@@ -649,20 +578,20 @@ const initialState = {
               });
             }
         })
-        .addCase(PlayerYourImagesApi.rejected, (state, action) => {
+        .addCase(ScoutYourImagesApi.rejected, (state, action) => {
           state.isLoading = false;
           state.isError = true;
           state.message = action.payload;
         })
-        .addCase(PlayerProfileProfileformApi.pending, (state) => {
+        .addCase(ScoutProfileProfileformApi.pending, (state) => {
           state.isLoading = true;
           state.null = true;
         })
-        .addCase(PlayerProfileProfileformApi.fulfilled, (state, action) => {
+        .addCase(ScoutProfileProfileformApi.fulfilled, (state, action) => {
           state.isLoading = false;
           state.isSuccess = true;
           state.user = true;
-          state.ProfileProfileformdata = action.payload;
+          state.ScoutProfileformdata = action.payload;
           if(action.payload?.message == "Successful"){
           toast.success("Profile Details Updated", {
             position: "top-right",
@@ -676,20 +605,20 @@ const initialState = {
             });
           }
         })
-        .addCase(PlayerProfileProfileformApi.rejected, (state, action) => {
+        .addCase(ScoutProfileProfileformApi.rejected, (state, action) => {
           state.isLoading = false;
           state.isError = true;
           state.message = action.payload;
         })
-        .addCase(PlayerProfilePhysicalStatsApi.pending, (state) => {
+        .addCase(ScoutProfilePhysicalStatsApi.pending, (state) => {
           state.isLoading = true;
           state.null = true;
         })
-        .addCase(PlayerProfilePhysicalStatsApi.fulfilled, (state, action) => {
+        .addCase(ScoutProfilePhysicalStatsApi.fulfilled, (state, action) => {
           state.isLoading = false;
           state.isSuccess = true;
           state.user = true;
-          state.ProfilePhysicalStatsdata = action.payload;
+          state.ScoutPhysicalStatsdata = action.payload;
           if(action.payload?.message == "Successful"){
           toast.success("Physical Stats Updated", {
             position: "top-right",
@@ -703,20 +632,20 @@ const initialState = {
             });
           }
         })
-        .addCase(PlayerProfilePhysicalStatsApi.rejected, (state, action) => {
+        .addCase(ScoutProfilePhysicalStatsApi.rejected, (state, action) => {
           state.isLoading = false;
           state.isError = true;
           state.message = action.payload;
         })
-        .addCase(PlayerProfileBusinessServiceApi.pending, (state) => {
+        .addCase(ScoutProfileBusinessServiceApi.pending, (state) => {
           state.isLoading = true;
           state.null = true;
         })
-        .addCase(PlayerProfileBusinessServiceApi.fulfilled, (state, action) => {
+        .addCase(ScoutProfileBusinessServiceApi.fulfilled, (state, action) => {
           state.isLoading = false;
           state.isSuccess = true;
           state.user = true;
-          state.ProfileBusinessServicedata = action.payload;
+          state.ScoutBusinessServicedata = action.payload;
           if(action.payload?.message == "Successful"){
           toast.success("Business service Updated", {
             position: "top-right",
@@ -730,20 +659,20 @@ const initialState = {
             });
           }
         })
-        .addCase(PlayerProfileBusinessServiceApi.rejected, (state, action) => {
+        .addCase(ScoutProfileBusinessServiceApi.rejected, (state, action) => {
           state.isLoading = false;
           state.isError = true;
           state.message = action.payload;
         })
-        .addCase(PlayerProfileUploadIdApi.pending, (state) => {
+        .addCase(ScoutProfileUploadIdApi.pending, (state) => {
           state.isLoading = true;
           state.null = true;
         })
-        .addCase(PlayerProfileUploadIdApi.fulfilled, (state, action) => {
+        .addCase(ScoutProfileUploadIdApi.fulfilled, (state, action) => {
           state.isLoading = false;
           state.isSuccess = true;
           state.user = true;
-          state.ProfileUploadIddata = action.payload;
+          state.ScoutUploadIddata = action.payload;
           if(action.payload?.message == 
             "Image Uploaded"){
           toast.success("Upload Id Updated", {
@@ -758,20 +687,20 @@ const initialState = {
             });
           }
         })
-        .addCase(PlayerProfileUploadIdApi.rejected, (state, action) => {
+        .addCase(ScoutProfileUploadIdApi.rejected, (state, action) => {
           state.isLoading = false;
           state.isError = true;
           state.message = action.payload;
         })
-        .addCase(PlayerProfileVideoLink.pending, (state) => {
+        .addCase(ScoutProfileVideoLink.pending, (state) => {
           state.isLoading = true;
           state.null = true;
         })
-        .addCase(PlayerProfileVideoLink.fulfilled, (state, action) => {
+        .addCase(ScoutProfileVideoLink.fulfilled, (state, action) => {
           state.isLoading = false;
           state.isSuccess = true;
           state.user = true;
-          state.ProfileVideoLinksData = action.payload;
+          state.ScoutVideoLinksData = action.payload;
           if(action.payload?.message == "Video(s) Uploaded"){
           toast.success("Video(s) Uploaded", {
             position: "top-right",
@@ -785,21 +714,16 @@ const initialState = {
             });
           }
         })
-        .addCase(PlayerProfileVideoLink.rejected, (state, action) => {
+        .addCase(ScoutProfileVideoLink.rejected, (state, action) => {
           state.isLoading = false;
           state.isError = true;
           state.message = action.payload;
         })
-        .addCase(resetState, (state) => {
-          Object.assign(state, initialState);
-        });
     },
   });
   
-  // export const { reset } = PlayerProfileSlice.actions;
-  export const { reducer, actions } = PlayerProfileSlice;
-
+  export const { reset } = ScoutProfileSlice.actions;
   
-  export const selectPlayerProfileSlice = (state) => state.PlayerProfileSlice;
-  export default PlayerProfileSlice.reducer;
+  export const selectScoutProfileSlice = (state) => state.ScoutProfileSlice;
+  export default ScoutProfileSlice.reducer;
   

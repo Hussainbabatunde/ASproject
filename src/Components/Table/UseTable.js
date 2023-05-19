@@ -25,13 +25,13 @@ const UseTable = ({header, data, handleShowEdit}) => {
             {header?.map((item)=>{
                 switch(item?.name) {
                     case 'Deal name':
-                        return (<td  className='useTable_tableDetails'>{each?.dealname}</td>);
+                        return (<td  className='useTable_tableDetails'>{each?.name}</td>);
                     case 'Recipient':
-                        return (<td className='useTable_tableDetails'><img src={each?.imgRecip} className='useTable_ImageRecipient' alt='Recipient image'/>{each?.recipient}</td>);
+                        return (<td className='useTable_tableDetails'><img src={each?.profile_pics} className='useTable_ImageRecipient' alt='Recipient image'/>{each?.firstname} {each?.surname}</td>);
                     case 'Details':
-                        return (<td className='useTable_tableDetails'>{each?.description}</td>);
+                        return (<td className='useTable_tableDetails'>{each?.about}</td>);
                     case 'Amount':
-                        return (<td className='useTable_tableDetails'>{each?.firstname}</td>);
+                        return (<td className='useTable_tableDetails'>{each?.value}</td>);
                     case 'Payment':
                         return (<td className='useTable_tableDetails'>{each?.surname}</td>);
                     case 'Status':

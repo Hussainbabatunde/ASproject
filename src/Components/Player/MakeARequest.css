@@ -54,3 +54,44 @@
     border-radius: 5px;
     border: 1px solid rgba(204, 204, 204, 1);
 }
+.OfferModal_PriceInput{
+    border: 1px solid rgba(204, 204, 204, 1); 
+    padding: 5px 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+.OfferInput_ViewProfilePage{
+    width: 90%;
+    border: none;
+    margin-left: 5px;
+}
+.OfferInput_PriceSingleSummary{
+    font-size: 14px;
+    margin-top: 5px;
+    display: flex;
+    justify-content: space-between;
+}
+.OfferInput_PriceTotal{
+    margin-top: 5px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    padding: 5px;
+    background-color: #EFEFEF;
+}
+.MakeARequest_InitialAmtDiv{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+.MakeARequest_InitialAmtText{
+    font-size: 20px;
+    font-weight: 600;
+}
+.MakeARequest_InitialChangeText{
+    border: 1px solid black;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-weight: 600;
+    cursor: pointer;
+}

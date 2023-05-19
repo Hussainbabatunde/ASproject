@@ -22,15 +22,17 @@
 .Homepage_Sortfootballers{
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-evenly;
+    /* justify-content: space-evenly; */
     margin-bottom: 60px;
 }
 .Homepage_foorballersBriefInfo{
     border: 1px solid #DCDCDC;
     padding: 5px;
     border-radius: 5px;
+    max-height: 272px;
     position: relative;
     margin-top: 10px;
+    margin-right: 10px;
 }
 .Homepage_PlayersImage{
     width: 290px;

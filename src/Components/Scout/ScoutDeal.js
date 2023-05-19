@@ -1,5 +1,5 @@
-import React from 'react'
-import './Scout.css';
+import React, { useEffect, useState } from 'react'
+import '../Scout/Scout.css';
 import {RxExit} from 'react-icons/rx'
 import { NavLink } from 'react-router-dom';
 import ScoutHeader from '../Header/ScoutHeader';
@@ -9,21 +9,29 @@ import imgRecipient from '../../assets/imgRecipient.png'
 import Lottie from 'lottie-react';
 import empty from '../../assets/lottie/emptyState.json'
 import { LogoutAuth } from '../../Slice/auth/Login';
-import { useDispatch } from 'react-redux';
+import Modal from '@mui/material/Modal';
+import Box from '@mui/material/Box';
+import football from '../../assets/lottie/92356-football.json'
+import { useDispatch, useSelector } from 'react-redux';
+import { PlayerDealsApi } from '../../Slice/Player/PlayerDeal/PlayerDealSlice';
+import { reset as resetPlayerProfileSlice } from "../../Slice/Player/Playerprofile/PlayerProfileSlice";
+import {reset as resetGetAllPlayerDealSlice} from "../../Slice/Player/PlayerDeal/PlayerDealSlice"
+import { UserLogout } from '../Player/UserLogOut';
 
-const ScoutDeal = () => {
+const PlayerDeal = () => {
     const dispatch = useDispatch()
     const handleLogout = async () =>{
         await dispatch(LogoutAuth())
+        // await dispatch(resetPlayerProfileSlice())
+        // await dispatch(resetGetAllPlayerDealSlice())
+        UserLogout()
         localStorage.clear();
         sessionStorage.clear();
         window.location.reload();
     }
     const data = [
         {id: 1, pathTo: '/afrisport/scout/profile', pathName: 'Profile'},
-        {id: 2, pathTo: '/afrisport/scout/deal', pathName: 'Deals'},
-        {id: 3, pathTo: '/afrisport/scout/views', pathName: 'Views'},
-        {id: 4, pathTo: '/afrisport/scout/payment', pathName: 'Payment'}
+        {id: 2, pathTo: '/afrisport/scout/deal', pathName: 'Deals'}
     ]
 
     const header= [
@@ -57,12 +65,34 @@ const ScoutDeal = () => {
           name:''
       }
   ]
+  const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 210,
+    p: 4,
+  };
+  
+  const [show, setShow] = useState(false);
 
-  const dataTable= [
-    {
-        id: 1,dealname: '5 Season Deal', imgRecip: imgRecipient, recipient: 'David Dada', firstname:'tunde', surname: 'kunle',  email: 'mayana@mail.com', role: "teacher", user_type: "teacher"
+  useEffect(()=>{
+    const DealSlice = async ()=>{
+        setShow(true)
+        await dispatch(PlayerDealsApi())
+        setShow(false)
     }
-]
+    DealSlice()
+  },[])
+
+//   const dataTable= [
+//     {
+//         id: 1,dealname: '5 Season Deal', imgRecip: imgRecipient, recipient: 'David Dada', firstname:'tunde', surname: 'kunle',  email: 'mayana@mail.com', role: "teacher", user_type: "teacher", description: 'jhkjhkjjj jjjjjjjjj jjjjjj jjjjkhk  iuhhiuhiuh uhiuhiyu8gu  ygug'
+//     }
+// ]
+
+const dataTable = useSelector((state)=> state?.reducer?.GetAllPlayerDealSlice?.PlayerDealData)
+
   return (
     <div  className='Scoutpage_contents'>
     <div className='Scoutpage_AccountLogout_div'>
@@ -80,11 +110,22 @@ const ScoutDeal = () => {
                 <Lottie style={{width: '200px', height:'200px'}} animationData={empty} />
         </div>
         : 
-        <UseTable header={header} data={dataTable} />
+            <UseTable header={header} data={dataTable} />
         }
         </div>
+        <Modal
+        open={show}
+        // onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+            <Lottie style={{width: '200px', height:'200px'}} animationData={football} />
+            </Box>
+        
+      </Modal>
         </div>
   )
 }
 
-export default ScoutDeal
+export default PlayerDeal

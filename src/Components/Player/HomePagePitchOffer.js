@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import imgPlaceholder from '../../assets/AdminImg.png'
@@ -8,6 +8,10 @@ import { CircularProgress } from '@mui/material';
 import {IoMdArrowBack} from 'react-icons/io'
 import {AiOutlineInfoCircle} from 'react-icons/ai'
 import './MakeARequest.css'
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
+import { OfferPlayApi } from '../../Slice/Player/PlayerView/PlayerViewSlice';
+import { ToastContainer } from 'react-toastify';
 
 const style = {
     position: 'absolute',
@@ -23,6 +27,48 @@ const style = {
 
 const HomePagePitchOffer = ({show, loader, handleSubmit, handleChange, title, handleHide}) => {
 
+    const [payValue, setPayValue] = useState('')
+    const { id } = useParams();
+    const [data, setData] = useState({})
+    const [change, setChange] = useState(false)
+    const PlayerDetails = useSelector((state)=>state?.reducer?.PlayerProfileSlice?.AllProfileDetailsData?.data)
+    const userId = useSelector((state)=> state?.reducer?.LoginSlice?.logindata?.data?.user?.id)
+    const [loadingOffer, setLoadingOffer] = useState(false)
+    const dispatch = useDispatch()
+
+    useEffect(()=>{
+      if(PlayerDetails){
+        if(PlayerDetails?.price?.minimum == ''){
+          setPayValue(0)
+        }else{
+      setPayValue(PlayerDetails?.price?.minimum)
+        }
+    }
+    },[PlayerDetails])
+
+    const marketfee = 10/100 * Number(payValue);
+    const TotalFee = marketfee + Number(payValue);
+
+    const handleChangePayValue =(e) =>{
+      setPayValue(e.target.value)
+    }
+    const handleOfferChange = (e) => {
+      setData({...data, [e.target.name]: e.target.value})
+    }
+
+    const handleSubmitOffer = async (e) =>{
+      e.preventDefault()
+      data.to = id;
+      data.from = userId;
+      data.value = payValue
+      data.recipient_earnings = payValue
+      data.market_place_fee = marketfee
+      setLoadingOffer(true)
+      await dispatch(OfferPlayApi(data))
+      setLoadingOffer(false)
+      handleHide()
+      console.log('data ', data)
+    }
     
     const customStyles = {
             
@@ -44,7 +90,8 @@ const HomePagePitchOffer = ({show, loader, handleSubmit, handleChange, title, ha
     aria-describedby="modal-modal-description"
   >
     <div className='HomePage_ViewProfileModal'>
-      <div className='MakeaRequest_ModalView'>
+      <ToastContainer />
+      <form onSubmit={handleSubmitOffer} className='MakeaRequest_ModalView'>
        <div className='MakeaRequest_Modal'>
         <IoMdArrowBack style={{fontSize:'25px'}} onClick={handleHide} />
         <img src={imgPlaceholder} width='50px' height='50px' style={{marginLeft:'10px'}} />
@@ -54,14 +101,41 @@ const HomePagePitchOffer = ({show, loader, handleSubmit, handleChange, title, ha
        <div style={{margin:'15px 25px'}}>
         <p style={{fontWeight: '600'}}>Provide Details on Your Offer</p>
         <p style={{fontSize:'13px', margin: '7px 0'}}>Offer Name</p>
-        <input type='text' className='OfferModal_TitleInput' />
+        <input type='text' name='name' onChange={handleOfferChange} className='OfferModal_TitleInput' />
         <p style={{fontSize:'13px', margin: '7px 0'}}>Offer Details</p>
-        <textarea type='text' className='OfferModal_TitleTextarea' />
+        <textarea type='text' name='detail' onChange={handleOfferChange} className='OfferModal_TitleTextarea' />
         <p style={{fontSize:'13px', margin: '7px 0 0'}}>Expiration date (optional)</p>
         <p style={{fontSize:'12px', marginBottom:'5px'}}>After this date, the recipient will no longer be able to review or accept your deal</p>
-        <input type='date' className='OfferModal_TitleDate' />
+        <input type='date' name='expiration' onChange={handleOfferChange} className='OfferModal_TitleDate' />
+        <p style={{fontWeight: '600', marginTop:'20px'}}>How much will you like to pay</p>
+         {change == false ?  
+        <div className='MakeARequest_InitialAmtDiv'>
+          <p className='MakeARequest_InitialAmtText'>${payValue}</p>
+          <p className='MakeARequest_InitialChangeText' onClick={() => setChange(true)}>Change</p>
+        </div>
+        :
+        <div className='OfferModal_PriceInput'>
+          <label>$</label>
+          <input type='text' value={payValue} onChange={handleChangePayValue} className='OfferInput_ViewProfilePage' placeholder='Input your price' />
+        </div> }
+        
+        <div className='OfferInput_PriceSingleSummary'>          
+        <p style={{fontSize:'13px', margin: '7px 0 0'}}>Recipient earnings</p>
+        <p style={{fontSize:'13px', margin: '7px 0 0'}}>${payValue}</p>
+        </div>
+        <div className='OfferInput_PriceSingleSummary'>          
+        <p style={{fontSize:'13px'}}>Marketplace fee*</p>
+        <p style={{fontSize:'13px'}}>${marketfee}</p>
+        </div>
+        <div className='OfferInput_PriceTotal'>
+          <p style={{fontWeight:'600'}}>Total</p>
+          <p style={{fontWeight:'600'}}>${TotalFee}</p>
+        </div>
+            <button type='submit' className='HomepageViewProfile_requestButton' >
+            {loadingOffer? <CircularProgress size={15} /> : <span>Send Offer</span>}
+              </button>
        </div>
-       </div>
+       </form>
     </div>
     
   </Modal>

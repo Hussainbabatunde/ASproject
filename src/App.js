@@ -28,19 +28,16 @@ function App() {
   }, []);
   return (
     <GoogleOAuthProvider clientId="<your_client_id>">
-      <BrowserRouter>
-        <Routes>
-          <Route path="" element={<HomePage />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/create-account/:id" element={<CreateAccount />} />
-          <Route path="/forgotPassword" element={<ForgotPassword />} />
-          <Route path="/setPassword" element={<ResetPassword />} />
-          <Route path="/filterPage" element={<HomepageFilterView />} />
-          <Route
-            path="/viewplayerprofile"
-            element={<HomeViewPlayerProfile />}
-          />
+    <BrowserRouter>
+      <Routes>
+        <Route path='' element={<HomePage />} />
+        <Route path='/login' element={<Login />} />
+        <Route path='/signup' element={<Signup />} />
+        <Route path='/create-account/:id' element={<CreateAccount />} />
+        <Route path='/forgotPassword' element={<ForgotPassword />} />
+        <Route path='/setPassword' element={<ResetPassword />} />
+        <Route path='/filterPage' element={<HomepageFilterView />} />
+        <Route path='/viewplayerprofile/:id' element={<HomeViewPlayerProfile />} />
 
           <Route
             path="/admin/*"
