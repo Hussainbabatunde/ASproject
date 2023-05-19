@@ -4,7 +4,6 @@ import imgPlaceHolder from '../../assets/imageplaceholder.png'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import CircularProgress from '@mui/material/CircularProgress';
-import { ScoutProfilePicture } from '../../Slice/Scout/Scoutprofile/ScoutProfileSlice'
 import { LogoutAuth } from '../../Slice/auth/Login'
 import {RxExit} from 'react-icons/rx'
 import { NavLink, Route, Routes } from 'react-router-dom';
@@ -14,9 +13,11 @@ import PlayerProfileUploadId from './PlayerProfileUploadId'
 import PlayerProfileYourImages from './PlayerProfileYourImages'
 import PlayerProfileVideo from './PlayerProfileVideo'
 import PlayerProfilePhysicalStats from './PlayerProfilePhysicalStats'
-import { PlayerProfilePicture, PlayerProfileVerificationStatus, ProfileDetailsPlayer } from '../../Slice/Player/Playerprofile/PlayerProfileSlice'
+import { PlayerProfilePicture, PlayerProfileVerificationStatus, PlayerProfileVideoLink, ProfileDetailsPlayer } from '../../Slice/Player/Playerprofile/PlayerProfileSlice'
 import { ToastContainer } from 'react-toastify'
 import { reset as resetPlayerProfileSlice } from "../../Slice/Player/Playerprofile/PlayerProfileSlice";
+import {reset as resetGetAllPlayerDealSlice} from "../../Slice/Player/PlayerDeal/PlayerDealSlice"
+import { UserLogout } from './UserLogOut'
 
 const PlayerProfile = () => {
 
@@ -77,7 +78,8 @@ const PlayerProfile = () => {
   const dispatch = useDispatch()
     const handleLogout = async () =>{
         await dispatch(LogoutAuth())
-        await dispatch(resetPlayerProfileSlice())
+        // await dispatch(resetPlayerProfileSlice())
+        UserLogout()
         localStorage.clear();
         sessionStorage.clear();
         window.location.reload();
@@ -96,9 +98,9 @@ const PlayerProfile = () => {
 
     
 
-
-    const userId = useSelector((state)=> state?.reducer?.LoginSlice?.logindata?.message?.id)
-    const userDataInfo = useSelector((state)=> state?.reducer?.LoginSlice?.logindata?.message)
+    const PlayerDetails = useSelector((state)=>state?.reducer?.PlayerProfileSlice?.AllProfileDetailsData?.data)
+    const userId = useSelector((state)=> state?.reducer?.LoginSlice?.logindata?.data?.user?.id)
+    const userDataInfo = useSelector((state)=> state?.reducer?.LoginSlice?.logindata?.data?.user)
     // console.log('user ', userId)
 
     useEffect(()=>{
@@ -120,6 +122,42 @@ const PlayerProfile = () => {
         await dispatch(PlayerProfileVerificationStatus())
         setImgLoader(false)
     }
+
+    //for the vieo upload
+    const [inputs, setInputs] = useState(['']);
+    const [videoLoader, setVideoLoader] = useState(false) // Initialize with one empty input
+    const [videoData, setVideoData] = useState({})
+
+  const addInput = () => {
+    const newInputs = [...inputs, '']; // Add an empty input
+    setInputs(newInputs);
+  };
+
+  const removeInput = (index) => {
+    const newInputs = [...inputs]; // Copy the current inputs array
+    newInputs.splice(index, 1); // Remove the input at the specified index
+    setInputs(newInputs);
+  };
+
+  const handleInputChange = (value, index) => {
+    const newInputs = [...inputs];
+    newInputs[index] = value; // Update the value of the input at the specified index
+    setInputs(newInputs);
+  };
+
+  const handleSubmitVideos=async(e)=>{
+    videoData.user_id= userId
+    videoData.videos_url = inputs
+    e.preventDefault()
+    setVideoLoader(true)
+    await dispatch(PlayerProfileVideoLink(videoData))
+    setVideoLoader(false)
+    // console.log('inputs ', inputs)
+  }
+
+  useEffect(()=>{
+    setFile(PlayerDetails?.profile_pics)
+  },[PlayerDetails])
 
   return (  
     <div  className='Scoutpage_contents'>
@@ -159,7 +197,7 @@ const PlayerProfile = () => {
         <PlayerProfileBusinessService userId={userId} />
         <PlayerProfileUploadId userId={userId}/>
         <PlayerProfileYourImages userId={userId} />
-        <PlayerProfileVideo userId={userId} />
+        <PlayerProfileVideo userId={userId} videoLoader={videoLoader} handleSubmitVideos={handleSubmitVideos} addInput={addInput} handleInputChange={handleInputChange} inputs={inputs} removeInput={removeInput} />
       </div>
       <div className='ScoutProfile_VerificationCol'>
         <div className='ScoutProfile_VerificationDiv'>

@@ -37,7 +37,7 @@ function App() {
         <Route path='/forgotPassword' element={<ForgotPassword />} />
         <Route path='/setPassword' element={<ResetPassword />} />
         <Route path='/filterPage' element={<HomepageFilterView />} />
-        <Route path='/viewplayerprofile' element={<HomeViewPlayerProfile />} />
+        <Route path='/viewplayerprofile/:id' element={<HomeViewPlayerProfile />} />
 
         <Route path='/admin/*' element={
         <PrivateRoute>

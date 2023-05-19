@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import '../../Pages/Scout/ScoutViewProfile.css'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import {GrFormNext} from 'react-icons/gr'
 import {BsShareFill} from 'react-icons/bs'
 import imgPlaceholder from '../../assets/imgPlaceholder.png'
@@ -17,19 +17,23 @@ import ScoutHeader from '../Header/ScoutHeader'
 import Footer from '../Homepage/Footer'
 import MakeARequest from './MakeARequest'
 import HomePagePitchOffer from './HomePagePitchOffer'
+import ReactPlayer from 'react-player'
+import { ToastContainer } from 'react-toastify'
 
 const HomeViewPlayerProfile = () => {
+  const { id } = useParams();
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     const [loading, setLoading] = useState(false)
     const [show, setShow] = useState(false);
     const [showOffer, setShowOffer] = useState(false);
     const [loader, setLoader] = useState(false)
   
-    const VerifiedStatus = useSelector((state)=> state.reducer?.PlayerProfileSlice?.VerificationStatusData?.data)
-    let progress = VerifiedStatus?.bio + VerifiedStatus?.price +  VerifiedStatus?.physical_stat +  VerifiedStatus?.images +  VerifiedStatus?.videos;
   
+    const userData = useSelector((state)=> state.reducer.LoginSlice?.logindata )
     const PlayerDetails = useSelector((state)=>state?.reducer?.PlayerProfileSlice?.AllProfileDetailsData?.data)
-    const userId = useSelector((state)=> state?.reducer?.LoginSlice?.logindata?.message?.id)
+    // console.log('Player details ', PlayerDetails)
+    // const userId = useSelector((state)=> state?.reducer?.LoginSlice?.logindata?.message?.id)
 
     const handleHide = () => {
         setShow(false)
@@ -45,12 +49,24 @@ const HomeViewPlayerProfile = () => {
         setShow(false)
         setShowOffer(true)
       }
+
+      const handleUserProfile = () =>{
+        if(userData?.data?.user_type == 'player'){
+          navigate('/afrisport/player/profile')
+        }
+        else if(userData?.data?.user_type == 'admin'){
+          navigate('/admin/admin/dashboard')
+        }
+        else if(userData?.data?.user_type == 'scout'){
+          navigate('/afrisport/scout/profile')
+        }
+      }
       
     useEffect(()=>{
         const getInfo = async() =>{
           setLoading(true)
-          await dispatch(ProfileDetailsPlayer(userId))
-          await dispatch(PlayerProfileVerificationStatus())
+          await dispatch(ProfileDetailsPlayer(id))
+          // await dispatch(PlayerProfileVerificationStatus())
           setLoading(false)
         }
         getInfo()
@@ -60,9 +76,10 @@ const HomeViewPlayerProfile = () => {
     <div>
         <ScoutHeader />
     <div className='ScoutViewProfile'>
+      <ToastContainer />
         <div className='ScoutViewProfile_navigation'>
             <div className='ScoutViewProfile_navigationprogress'>
-                <Link to='/afrisport/player/profile' className='ScoutViewProfile_navigationback'>Back</Link>
+                <p style={{cursor:'pointer'}} onClick={handleUserProfile} className='ScoutViewProfile_navigationback'>Back</p>
                 <GrFormNext style={{fontSize:'16px'}} />
                 <p className='ScoutViewProfile_navigationprofile'>Profile</p>
             </div>
@@ -76,7 +93,7 @@ const HomeViewPlayerProfile = () => {
             <img src={PlayerDetails?.profile_pics} alt='image placeholder' className='ScoutViewProfile_UserProfileImage' />
             <div>
               <p className='ScoutViewProfile_UserProfiledetailsUsername'>{loading == true ? <Skeleton variant="rounded" width='90%' height={32} /> : <span>{PlayerDetails?.firstname} {PlayerDetails?.surname} <BsFillPatchCheckFill style={{fontSize:'22px', color:'#0F7BEF', marginLeft:'10px'}} /></span>}</p>
-              <p className='ScoutViewProfile_UserProfileScore'>Score: {progress}/100</p>
+              {/* <p className='ScoutViewProfile_UserProfileScore'>Score: {progress}/100</p> */}
               {loading == true ? <Skeleton variant="rounded" width='90%' height={22} />  : <p className='ScoutViewProfile_UserProfileCurrentlyAvailable'>{PlayerDetails?.bio?.available == 0 ? `Not Available` : `Currently Available`}</p>}
               <div className='ScoutViewProfile_UserProfilePositionSection'>
                 <p className='ScoutViewProfile_UserProfilePosition'>Striker</p>
@@ -87,7 +104,6 @@ const HomeViewPlayerProfile = () => {
             </div>
           </div>
 
-          <button className='ScoutViewProfile_AdvertiseProfile'>Advertise Profile</button>
         </div>
         <div className='ScoutViewProfile_AboutSection'>
             <p className='ScoutViewProfile_AboutTopicText'>About</p>
@@ -119,13 +135,13 @@ const HomeViewPlayerProfile = () => {
                 <p className='ScoutViewProfile_AboutSectionIconText'>{loading == true ? <Skeleton variant="rounded" width='90%' height={22} />  : PlayerDetails?.bio?.home_town}.</p>
               </div>
             </div>
-            <div className='ScoutViewProfile_AboutSectionInfo'>
+            {/* <div className='ScoutViewProfile_AboutSectionInfo'>
               <p className='ScoutViewProfile_AboutSectionIcon'><RiDashboardLine /></p>
               <div>
                 <p className='ScoutViewProfile_AboutSectionIconTopic'>Interest</p>
                 <p className='ScoutViewProfile_AboutSectionIconText'>Gamming, Singing.</p>
               </div>
-            </div>
+            </div> */}
             <p className='ScoutViewProfile_PhysicalStatsText'>Physical Stats</p>
             <div className='ScoutViewProfile_PhysicalStatsInfo'>
               <p className='ScoutViewProfile_PhysicalStatsGender'>Gender: {loading == true ? <Skeleton variant="rounded" width='90%' height={22} />  : PlayerDetails?.physical_stat?.gender}</p>
@@ -148,6 +164,13 @@ const HomeViewPlayerProfile = () => {
             <img src={PlayerImg} className='ScoutViewProfile_Image' /> */}
         </div>
         <p className='ScoutViewProfile_PhysicalStatsText'>Video <BsDot style={{fontSize:'25px'}}/> 4 </p>
+        <div className='ScoutViewProfile_VideoSection'>
+        {PlayerDetails?.videos.map((each, index) =>( 
+          <div key={index} className='ScoutViewProfile_VideoDiv'>
+        <ReactPlayer width='300px' height='300px' controls url={each?.video_url} />
+        </div>
+        ))}
+        </div>
         </div>
         <div className='HomepageViewProfile_OfferRequest'>
             <div className='HomepageViewProfile_MakeRequestSec'>                

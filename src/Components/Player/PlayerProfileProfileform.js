@@ -31,6 +31,8 @@ const PlayerProfileProfileform = ({userId}) => {
     if(PlayerDetails){
     setCurrentClub(PlayerDetails?.bio?.current_club)
     setAvailable(PlayerDetails?.bio?.available)
+    setAge(PlayerDetails?.bio?.age)
+    setPosition(PlayerDetails?.bio?.position)
     setAbout(PlayerDetails?.bio?.about)
     setLocation(PlayerDetails?.bio?.location)
     setHomeTown(PlayerDetails?.bio?.home_town)

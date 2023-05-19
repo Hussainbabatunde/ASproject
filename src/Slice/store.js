@@ -1,20 +1,23 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import LoginSlice from "./auth/Login";
-import ScoutProfileSlice from './Scout/Scoutprofile/ScoutProfileSlice'
+import ScoutProfileAction from "./Scout/ProfileScoutSlice/ProfileScoutSlice";
 import PlayerProfileSlice from './Player/Playerprofile/PlayerProfileSlice'
 import AdminAllAdminSlice from './Admin/AdminAllAdmins/AdminPermissionSlice'
 import PlayerVisitSlice from './Player/PlayerView/PlayerViewSlice'
+import GetPlayerSlice from './Player/PlayerHomePage/GetAllPlayersHomePage'
+import GetAllPlayerDealSlice  from "./Player/PlayerDeal/PlayerDealSlice";
 import storage from "redux-persist/lib/storage";
-// import thunk from "redux-thunk";
 import { persistReducer, persistStore } from 'redux-persist';
 
 
 const rootReducer = combineReducers({
     LoginSlice: LoginSlice,
-    ScoutProfileSlice: ScoutProfileSlice,
     PlayerProfileSlice: PlayerProfileSlice,
     AdminAllAdminSlice: AdminAllAdminSlice,
-    PlayerVisitSlice: PlayerVisitSlice
+    PlayerVisitSlice: PlayerVisitSlice,
+    GetPlayerSlice: GetPlayerSlice,
+    GetAllPlayerDealSlice: GetAllPlayerDealSlice,
+    ScoutProfileAction: ScoutProfileAction
   });
 const persistConfig = {
     key: 'root',

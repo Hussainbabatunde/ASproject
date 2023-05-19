@@ -7,11 +7,13 @@ import { useDispatch } from 'react-redux'
 import { LogoutAuth } from '../../Slice/auth/Login'
 import {RxExit} from 'react-icons/rx'
 import { NavLink, Route, Routes } from 'react-router-dom';
+import { UserLogout } from './UserLogOut'
 
 const PlayerPayment = () => {
     const dispatch = useDispatch()
     const handleLogout = async () =>{
         await dispatch(LogoutAuth())
+        UserLogout()
         localStorage.clear();
         sessionStorage.clear();
         window.location.reload();
