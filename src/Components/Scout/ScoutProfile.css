@@ -17,6 +17,8 @@
 }
 .Scoutpage_Profile_placeholder{
     border-radius: 50%;
+    width: 132px;
+    height: 136px !important;
 }
 .Scoutpage_Profile_ImgNameSec{
     display: flex;
@@ -30,7 +32,7 @@
     padding: 10px 10px;
     font-size: 14px;
     border-radius: 5px;
-    height: 20px;
+    min-height: 20px;
     color: rgba(27, 133, 80, 1) !important;
     font-weight: 600;
 }

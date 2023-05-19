@@ -40,7 +40,7 @@
     border: 1px solid #D0D4D9;
     padding: 1rem 30px;
     border-radius: 10px;
-    width: 670px;
+    width: 700px;
 }
 .ScoutViewProfile_UserProfiledetailsSection{
     display: flex;
@@ -63,12 +63,12 @@
 .ScoutViewProfile_UserProfileCurrentlyAvailable{
     color: rgba(90, 105, 121, 1);
     font-size: 15px;
-    margin-top: 10px;
+    /* margin-top: 10px; */
 }
 .ScoutViewProfile_UserProfilePositionSection{
     display: flex;
     flex-wrap: wrap;
-    margin-top: 10px;
+    /* margin-top: 10px; */
 }
 .ScoutViewProfile_UserProfilePosition{
     background-color: rgba(244, 244, 244, 1);
