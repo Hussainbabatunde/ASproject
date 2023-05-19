@@ -8,6 +8,11 @@ import GetPlayerSlice from './Player/PlayerHomePage/GetAllPlayersHomePage'
 import GetAllPlayerDealSlice  from "./Player/PlayerDeal/PlayerDealSlice";
 import storage from "redux-persist/lib/storage";
 import { persistReducer, persistStore } from 'redux-persist';
+import RoleSlice from "./Admin/AdminAllAdmins/RoleSlice";
+import AdminUserSlice from "./Admin/AdminAllAdmins/AdminUserSlice";
+import AdminPrivilageSlice from "./Admin/AdminAllAdmins/AdminPrivilageSlice";
+import AuthorizeSlice from "./Admin/AuthorizeSlice";
+import AdminUpdate_profileSlice from "./Admin/AdminUpdate_profileSlice";
 
 
 const rootReducer = combineReducers({
@@ -17,21 +22,29 @@ const rootReducer = combineReducers({
     PlayerVisitSlice: PlayerVisitSlice,
     GetPlayerSlice: GetPlayerSlice,
     GetAllPlayerDealSlice: GetAllPlayerDealSlice,
-    ScoutProfileAction: ScoutProfileAction
+    ScoutProfileAction: ScoutProfileAction,
+  RoleSlice: RoleSlice,
+  AdminUserSlice: AdminUserSlice,
+  AdminPrivilageSlice: AdminPrivilageSlice,
+  AuthorizeSlice: AuthorizeSlice,
+  AdminUpdate_profileSlice: AdminUpdate_profileSlice,
   });
+
+
 const persistConfig = {
-    key: 'root',
-    storage,
-  }
+  key: "root",
+  storage,
+};
 
-  const persistedReducer = persistReducer(persistConfig, rootReducer)
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-  export const store = configureStore({
-    reducer: {
-        reducer: persistedReducer,
-      },
-    devTools: process.env.NODE_ENV !== 'production',
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware({serializableCheck: false})
-  })
+export const store = configureStore({
+  reducer: {
+    reducer: persistedReducer,
+  },
+  devTools: process.env.NODE_ENV !== "production",
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({ serializableCheck: false }),
+});
 
-  export const persistor = persistStore(store)
+export const persistor = persistStore(store);
