@@ -32,11 +32,134 @@ const initialState = {
   Admin_update_user_BusinessService_isSuccess: false,
   Admin_update_user_BusinessService_isLoading: false,
   Admin_update_user_BusinessService_message: null,
+
+  Admin_Get_All_Player: null,
+  Admin_Get_All_Player_isError: false,
+  Admin_Get_All_Player_isSuccess: false,
+  Admin_Get_All_Player_isLoading: false,
+  Admin_Get_All_Player_message: null,
+
+  Admin_Get_All_Suspended_Player: null,
+  Admin_Get_All_Suspended_Player_isError: false,
+  Admin_Get_All_Suspended_Player_isSuccess: false,
+  Admin_Get_All_Suspended_Player_isLoading: false,
+  Admin_Get_All_Suspended_Player_message: null,
+
+  Admin_Get_All_Review_Player: null,
+  Admin_Get_All_Review_Player_isError: false,
+  Admin_Get_All_Review_Player_isSuccess: false,
+  Admin_Get_All_Review_Player_isLoading: false,
+  Admin_Get_All_Review_Player_message: null,
 };
 
 let baseURL = process.env.REACT_APP_AFRISPORTURL;
 
 const tokengot = localStorage.getItem("token");
+
+const Admin_Get_All_Review_Player_fun_Service = async (token) => {
+  let API_URL = `${baseURL}admin/player/review`;
+
+  console.log(API_URL);
+
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  const response = await axios.get(API_URL, config);
+  console.log(response.data);
+  return response.data;
+};
+
+export const Admin_Get_All_Review_Player_fun = createAsyncThunk(
+  "AdminUpdate_profileSlice/Admin_Get_All_Review_Player_fun",
+  async (_, thunkAPI) => {
+    try {
+      const token = thunkAPI.getState().reducer.LoginSlice.logindata.data.token;
+
+      return await Admin_Get_All_Review_Player_fun_Service(token);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+const Admin_Get_All_Suspended_Player_fun_Service = async (token) => {
+  let API_URL = `${baseURL}admin/player/all-suspended`;
+
+  console.log(API_URL);
+
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  const response = await axios.get(API_URL, config);
+  console.log(response.data);
+  return response.data;
+};
+
+export const Admin_Get_All_Suspended_Player_fun = createAsyncThunk(
+  "AdminUpdate_profileSlice/Admin_Get_All_Suspended_Player_fun",
+  async (_, thunkAPI) => {
+    try {
+      const token = thunkAPI.getState().reducer.LoginSlice.logindata.data.token;
+
+      return await Admin_Get_All_Suspended_Player_fun_Service(token);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+const Admin_Get_ALLPlayers_fun_Service = async (token) => {
+  let API_URL = `${baseURL}admin/player/players`;
+
+  console.log(API_URL);
+
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  const response = await axios.get(API_URL, config);
+  console.log(response.data);
+  return response.data;
+};
+
+export const Admin_Get_ALLPlayers_fun = createAsyncThunk(
+  "AdminUpdate_profileSlice/Admin_Get_ALLPlayers_fun",
+  async (_, thunkAPI) => {
+    try {
+      const token = thunkAPI.getState().reducer.LoginSlice.logindata.data.token;
+
+      return await Admin_Get_ALLPlayers_fun_Service(token);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
 
 const Admin_Get_Players_Profile_detailsfun_Service = async (data, token) => {
   let API_URL = `${baseURL}admin/player/profile/${data}`;
@@ -296,6 +419,85 @@ export const AdminUpdate_profileSlice = createSlice({
 
   extraReducers: (builder) => {
     builder
+
+      .addCase(Admin_Get_ALLPlayers_fun.pending, (state) => {
+        state.Admin_Get_All_Player_isLoading = true;
+      })
+      .addCase(Admin_Get_ALLPlayers_fun.fulfilled, (state, action) => {
+        state.Admin_Get_All_Player = action.payload;
+        state.Admin_Get_All_Player_isSuccess = true;
+        state.Admin_Get_All_Player_isLoading = false;
+      })
+      .addCase(Admin_Get_ALLPlayers_fun.rejected, (state, action) => {
+        state.Admin_Get_All_Player_isError = true;
+        state.Admin_Get_All_Player_message = action.payload;
+        state.Admin_Get_All_Player_isLoading = false;
+        toast.error(`${state.Admin_Get_All_Player_message}`, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          className: "Forbidden403",
+        });
+      })
+
+      .addCase(Admin_Get_All_Review_Player_fun.pending, (state) => {
+        state.Admin_Get_All_Review_Player_isLoading = true;
+      })
+      .addCase(Admin_Get_All_Review_Player_fun.fulfilled, (state, action) => {
+        state.Admin_Get_All_Review_Player = action.payload;
+        state.Admin_Get_All_Review_Player_isSuccess = true;
+        state.Admin_Get_All_Review_Player_isLoading = false;
+      })
+      .addCase(Admin_Get_All_Review_Player_fun.rejected, (state, action) => {
+        state.Admin_Get_All_Review_Player_isError = true;
+        state.Admin_Get_All_Review_Player_message = action.payload;
+        state.Admin_Get_All_Review_Player_isLoading = false;
+        toast.error(`${state.Admin_Get_All_Review_Player_message}`, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          className: "Forbidden403",
+        });
+      })
+
+      .addCase(Admin_Get_All_Suspended_Player_fun.pending, (state) => {
+        state.Admin_Get_All_Suspended_Player_isLoading = true;
+      })
+      .addCase(
+        Admin_Get_All_Suspended_Player_fun.fulfilled,
+        (state, action) => {
+          state.Admin_Get_All_Suspended_Player = action.payload;
+          state.Admin_Get_All_Suspended_Player_isSuccess = true;
+          state.Admin_Get_All_Suspended_Player_isLoading = false;
+        }
+      )
+      .addCase(Admin_Get_All_Suspended_Player_fun.rejected, (state, action) => {
+        state.Admin_Get_All_Suspended_Player_isError = true;
+        state.Admin_Get_All_Suspended_Player_message = action.payload;
+        state.Admin_Get_All_Suspended_Player_isLoading = false;
+        toast.error(`${state.Admin_Get_All_Suspended_Player_message}`, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          className: "Forbidden403",
+        });
+      })
+
       .addCase(Admin_Get_Players_Profile_detailsfun.pending, (state) => {
         state.Admin_Get_Players_Profile_details_isLoading = true;
       })

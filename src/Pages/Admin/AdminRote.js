@@ -22,6 +22,7 @@ import AdminPermissions from "../../Components/Admin/AdminAdmins/AdminPermission
 import Privilege from "../../Components/Admin/AdminAdmins/Privilege";
 import Authorization from "./Authorization";
 import PlayersRoute from "./Players/PlayersRoute";
+import ScoutRoute from "./Souts/ScoutRoute";
 
 const AdminRote = () => {
   return (
@@ -33,11 +34,12 @@ const AdminRote = () => {
           <Route path="/" element={<AdminAllAdmins />} />
           <Route path="/players/*" element={<PlayersRoute />} />
 
+          <Route path="/scouts/*" element={<ScoutRoute />} />
+
           <Route path="/admin/dashboard" element={<AdminDashboard />} />
           <Route path="/authorization" element={<Authorization />} />
 
           <Route path="/admin/negotiate" element={<AdminNegotiate />} />
-          <Route path="/admin/scouts" element={<AdminScouts />} />
           <Route path="/admin/finance" element={<AdminFinance />} />
           <Route
             path="/admin/finance/transaction"

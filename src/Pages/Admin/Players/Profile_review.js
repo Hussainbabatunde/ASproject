@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { ToastContainer } from "react-toastify";
-import UploadImage from "./ProfileCoponent/UploadImage";
+import UploadImage from "./ProfileReviewCoponent/UploadImage";
 import UploadProfile_detail, {
   Admin_PlayerProfileBusinessService,
   Admin_PlayerProfileVideo,
@@ -8,7 +8,7 @@ import UploadProfile_detail, {
   Admin_upload_Players_image,
   Admin_upload_id,
   Profile_detail,
-} from "./ProfileCoponent/UploadProfile_detail";
+} from "./ProfileReviewCoponent/UploadProfile_detail";
 import { useDispatch, useSelector } from "react-redux";
 import {
   Admin_Get_Players_Profile_detailsfun,
@@ -17,7 +17,7 @@ import {
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { GrFormNext } from "react-icons/gr";
 
-function Profile() {
+function Profile_review() {
   const { id } = useParams();
 
   const navigate = useNavigate();
@@ -54,7 +54,7 @@ function Profile() {
               <p className="ScoutViewProfile_navigationprofile">Profile</p>
             </div>
 
-            <div className="w-[60%] m-auto">
+            <div className="w-[70%] m-auto">
               <UploadImage
                 Admin_Get_Players_Profile_details={
                   Admin_Get_Players_Profile_details
@@ -99,4 +99,4 @@ function Profile() {
   );
 }
 
-export default Profile;
+export default Profile_review;

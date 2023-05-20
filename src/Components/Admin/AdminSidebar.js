@@ -73,7 +73,7 @@ const AdminSidebar = () => {
     },
     {
       id: 5,
-      pathTo: "/admin/admin/scouts",
+      pathTo: "/admin/scouts",
       pathName: "Scout",
       pathIcon: <BsPersonLinesFill />,
       children: [],

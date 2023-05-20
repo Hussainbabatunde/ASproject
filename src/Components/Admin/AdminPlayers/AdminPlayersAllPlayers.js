@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "../AdminNegotiate/AdminNegotiate.css";
 import { AiOutlineInfoCircle } from "react-icons/ai";
 import { Link } from "react-router-dom";
@@ -8,6 +8,8 @@ import Lottie from "lottie-react";
 import empty from "../../../assets/lottie/emptyState.json";
 import imgRecipient from "../../../assets/imgRecipient.png";
 import ChatCircle from "../../../assets/ChatsCircle.png";
+import { useDispatch, useSelector } from "react-redux";
+import { Admin_Get_ALLPlayers_fun } from "../../../Slice/Admin/AdminUpdate_profileSlice";
 
 const AdminPlayerAllNegotiate = ({
   handleAllNegotiate,
@@ -15,9 +17,22 @@ const AdminPlayerAllNegotiate = ({
   handleClosed,
   handleTerminated,
 }) => {
+  const dispatch = useDispatch();
+  const { Admin_Get_All_Player } = useSelector(
+    (state) => state.reducer.AdminUpdate_profileSlice
+  );
+
+  console.log(Admin_Get_All_Player);
+
+  useEffect(() => {
+    dispatch(Admin_Get_ALLPlayers_fun());
+
+    return () => {};
+  }, []);
+
   const header = [
     {
-      id: 1,
+      id: 19,
       name: "Player Name",
     },
     {
@@ -38,6 +53,10 @@ const AdminPlayerAllNegotiate = ({
       case: "Admin_All_player_ViewEditSuspend",
     },
   ];
+
+  const handleEdit = (data) => {
+    console.log("this is data");
+  };
 
   const dataTable = [
     {
@@ -107,7 +126,11 @@ const AdminPlayerAllNegotiate = ({
             />
           </div>
         ) : (
-          <AdminUseTable header={header} data={dataTable} />
+          <AdminUseTable
+            header={header}
+            data={Admin_Get_All_Player}
+            handleEdit={handleEdit}
+          />
         )}
       </div>
     </div>

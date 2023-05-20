@@ -16,29 +16,27 @@ import { BsFillPatchCheckFill, BsHouseDoor, BsDot } from "react-icons/bs";
 import { MdOutlineDashboard } from "react-icons/md";
 import { SlLocationPin } from "react-icons/sl";
 import { RiDashboardLine } from "react-icons/ri";
+import { Admin_Get_ScoutsDetails_fun } from "../../../Slice/Admin/Admin_Scouts_Slice";
 
 let baseURL = process.env.REACT_APP_AFRISPORTURL;
 
-function PlayerDetails() {
+function ScoutDetails() {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const {
-    Admin_Get_Players_Profile_details,
-    Admin_update_user_image_isSuccess,
-  } = useSelector((state) => state.reducer.AdminUpdate_profileSlice);
+  const { Admin_Get_ScoutsDetails } = useSelector(
+    (state) => state.reducer.Admin_Scouts_Slice
+  );
 
-  let user_Data = Admin_Get_Players_Profile_details?.data;
+  let user_Data = Admin_Get_ScoutsDetails?.data;
   let PlayerDetails = user_Data;
 
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(Admin_Get_Players_Profile_detailsfun(id));
-
-    dispatch(reset_Profile_post_request());
+    dispatch(Admin_Get_ScoutsDetails_fun(id));
 
     return () => {};
-  }, [Admin_update_user_image_isSuccess]);
+  }, []);
 
   const [loading, setLoading] = useState(false);
 
@@ -130,16 +128,6 @@ function PlayerDetails() {
 
   // console.log('PlayerDetails ', PlayerDetails)
 
-  useEffect(() => {
-    const getInfo = async () => {
-      setLoading(true);
-      // await dispatch(ProfileDetailsPlayer(userId));
-      // await dispatch(PlayerProfileVerificationStatus());
-      setLoading(false);
-    };
-    getInfo();
-  }, []);
-
   const [isPlaying, setIsPlaying] = useState(false);
 
   const handlePlay = () => {
@@ -159,7 +147,7 @@ function PlayerDetails() {
             <div className="ScoutViewProfile_navigation">
               <div className="ScoutViewProfile_navigationprogress">
                 <Link
-                  to={`/admin/players`}
+                  to={`/admin/scouts`}
                   className="ScoutViewProfile_navigationback"
                 >
                   Back
@@ -205,7 +193,7 @@ function PlayerDetails() {
                   </p>
 
                   <span className="bg-[#F4F4F4] font-normal text-sm py-2 px-5">
-                    {user_Data?.bio?.position.toUpperCase()}
+                    {/* {user_Data?.bio?.position.toUpperCase()} */}
                   </span>
 
                   <span className="block  rounded-lg border-2 mt-4 pl-2 py-2 ">
@@ -215,15 +203,6 @@ function PlayerDetails() {
               </div>
 
               <div className="flex">
-                <div>
-                  <button
-                    className="Admin_playersviewprofile"
-                    onClick={() => navigate(`/admin/players/profile/19`)}
-                  >
-                    edit
-                  </button>
-                </div>
-
                 <div>
                   {user_Data?.status === "suspended" && (
                     <button
@@ -246,6 +225,14 @@ function PlayerDetails() {
                       Suspend
                     </button>
                   )}
+                </div>
+                <div>
+                  <button
+                    className="Admin_playersviewprofile"
+                    // onClick={() => navigate(`/admin/players/profile/19`)}
+                  >
+                    message
+                  </button>
                 </div>
               </div>
               {/* </div> */}
@@ -428,4 +415,4 @@ function PlayerDetails() {
   );
 }
 
-export default PlayerDetails;
+export default ScoutDetails;
