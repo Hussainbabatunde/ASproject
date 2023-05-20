@@ -6,12 +6,14 @@ import {RxExit} from 'react-icons/rx'
 import { NavLink, Route, Routes } from 'react-router-dom';
 import { ProfileVisitsNumber } from '../../Slice/Player/PlayerView/PlayerViewSlice'
 import { Skeleton } from '@mui/material'
+import { UserLogout } from './UserLogOut'
 
 const PlayerViews = () => {
   const dispatch = useDispatch()
   const [loading, setLoading] = useState(false)
     const handleLogout = async () =>{
         await dispatch(LogoutAuth())
+        UserLogout()
         localStorage.clear();
         sessionStorage.clear();
         window.location.reload();

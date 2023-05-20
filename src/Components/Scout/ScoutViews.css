@@ -1,6 +1,6 @@
 .Scoutpage_ViewContent{
     border: 1px solid rgba(154, 154, 154, 1);
-    padding: 4rem 3rem;
+    padding: 3rem 3rem;
     border-radius: 10px;
     width: 500px;
 }
@@ -10,7 +10,7 @@
 }
 .Scoutpage_View_NoofScouts{
     font-size: 20px;
-    margin-top: 15px;
+    margin-top: 10px;
     font-weight: 500;
 }
 .Scoutpage_View_NoofEnquiry{

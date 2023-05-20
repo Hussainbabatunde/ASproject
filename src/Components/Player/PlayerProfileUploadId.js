@@ -42,7 +42,7 @@ const PlayerProfileUploadId = ({userId}) => {
     <form onSubmit={handleUploadIdSubmit} className='Scoutpage_ProfileforContent'>
         <p className='Scoutpage_Profile_Profiledetailstext'>Upload ID</p>
         <p className='Scoutpage_Profile_filldetailstext'>Verification by means of ID, International Passport, NIN</p>
-        <label for='UploadId' className='Scoutpage_Profileform_SelectImage' >Select Image</label>
+        <label for='UploadId' className='Scoutpage_Profileform_savebutton' >Select Image</label>
         <input type='file' id='UploadId' onChange={handleUploadIdChange} className='Scoutpage_Profile_ImagePlaceInput' />
         
         {uploaded && <div className='Scoutpage_Profileform_ImgIploaded'>

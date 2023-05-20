@@ -9,6 +9,7 @@ const initialState = {
     isLoading: false,
     message: null,
     ProfileVisitsdata: null,
+    offerDetailsData: null
   };
 
   export const ProfileVisitsNumber = createAsyncThunk(
@@ -46,6 +47,38 @@ const initialState = {
     }
   );
 
+  export const OfferPlayApi = createAsyncThunk(
+    "offerPlayerApi/userOfferPlayerApi",
+    async (data, { rejectWithValue }) => {
+       
+      const tokengot = localStorage.getItem("token");
+      const infoneeded = `Bearer ${tokengot}`;
+      const instance = axios.create({
+        baseURL: process.env.REACT_APP_AFRISPORTURL ,
+        timeout: 20000,
+  
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: infoneeded
+        },
+      });
+      return await instance
+        .post('activities/make-offer', data)
+        .then(async (response) => {
+            // console.log('offer details ',response.data)
+          return response.data;
+        })
+  
+        .catch((err) => {
+          let errdata = err.response.data;
+          console.log('error ', errdata)
+          return rejectWithValue(errdata);
+          // console.log(err)
+        });
+    }
+  );
+
 
   export const PlayerVisitSlice = createSlice({
     name: "playerVisits",
@@ -66,6 +99,31 @@ const initialState = {
         state.ProfileVisitsdata = action.payload;        
       })
       .addCase(ProfileVisitsNumber.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+      })
+      .addCase(OfferPlayApi.pending, (state) => {
+        state.isLoading = true;
+        state.null = true;
+      })
+      .addCase(OfferPlayApi.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.user = true;
+        state.offerDetailsData = action.payload;     
+          toast.success("Offer Created", {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            });
+      })
+      .addCase(OfferPlayApi.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;

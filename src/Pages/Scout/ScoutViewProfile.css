@@ -40,7 +40,7 @@
     border: 1px solid #D0D4D9;
     padding: 1rem 30px;
     border-radius: 10px;
-    width: 670px;
+    width: 700px;
 }
 .ScoutViewProfile_UserProfiledetailsSection{
     display: flex;
@@ -63,12 +63,12 @@
 .ScoutViewProfile_UserProfileCurrentlyAvailable{
     color: rgba(90, 105, 121, 1);
     font-size: 15px;
-    margin-top: 10px;
+    /* margin-top: 10px; */
 }
 .ScoutViewProfile_UserProfilePositionSection{
     display: flex;
     flex-wrap: wrap;
-    margin-top: 10px;
+    /* margin-top: 10px; */
 }
 .ScoutViewProfile_UserProfilePosition{
     background-color: rgba(244, 244, 244, 1);
@@ -184,13 +184,56 @@
 }
 .ScoutViewProfile_ImageSection{
     display: flex;
-    justify-content: space-around;
+    justify-content: space-evenly;
     flex-wrap: wrap;
-    width: 700px;
+}
+.ScoutViewProfile_VideoDiv{
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+.ViewProfile_DeleteVideo{
+    border: none;
+    background-color: red;
+    color: white;
+    margin: 10px;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+.ScoutViewProfile_VideoSection{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
 }
 .ScoutViewProfile_Image{
-    width: 170px;
-    height: 150px;
+    width: 200px;
+    height: 170px;
     border-radius: 5px;
     margin-top: 10px;
+}
+.ScoutViewProfile_ImageDiv{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.ScoutViewProfile_Image_CoverImg{
+    border: none;
+    color: white;
+    margin-top: 5px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    background-color: rgba(124, 205, 121, 1);
+    cursor: pointer;
+}
+.ScoutViewProfile_Image_DeleteImg{
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    background-color: red;
+    cursor: pointer;
 }

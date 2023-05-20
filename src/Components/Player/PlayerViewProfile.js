@@ -11,8 +11,10 @@ import {SlLocationPin} from 'react-icons/sl'
 import {RiDashboardLine} from 'react-icons/ri'
 import PlayerImg from '../../assets/Player1.png'
 import { useDispatch, useSelector } from 'react-redux'
-import { PlayerProfileVerificationStatus, ProfileDetailsPlayer } from '../../Slice/Player/Playerprofile/PlayerProfileSlice'
-import { Skeleton } from '@mui/material'
+import { PlayerDeleteImgApi, PlayerDeleteVideoApi, PlayerProfileVerificationStatus, PlayerSetCoverImg, ProfileDetailsPlayer } from '../../Slice/Player/Playerprofile/PlayerProfileSlice'
+import { CircularProgress, Skeleton } from '@mui/material'
+import ReactPlayer from 'react-player'
+import { ToastContainer } from 'react-toastify'
 
 
 const PlayerViewProfile = () => {
@@ -24,21 +26,50 @@ const PlayerViewProfile = () => {
   let progress = VerifiedStatus?.bio + VerifiedStatus?.price +  VerifiedStatus?.physical_stat +  VerifiedStatus?.images +  VerifiedStatus?.videos;
 
   const PlayerDetails = useSelector((state)=>state?.reducer?.PlayerProfileSlice?.AllProfileDetailsData?.data)
-  const userId = useSelector((state)=> state?.reducer?.LoginSlice?.logindata?.message?.id)
+  const userId = useSelector((state)=> state?.reducer?.LoginSlice?.logindata?.data?.user?.id)
+  const [coverimg, setCoverImg] = useState({})
+  const [deleteimgIndex, setDeleteImgIndex] = useState({})
+  const [deleteVideoIndex, setDeleteVideoIndex] = useState({})
+  const [loadingIndex, setLoadingIndex] = useState(null);
 
   // console.log('PlayerDetails ', PlayerDetails)
+
+  //set cover img
+  const handleSetCoverImg = async (id) =>{
+    coverimg.user_id = userId
+    coverimg.id = id
+    setLoadingIndex(id);
+    await dispatch(PlayerSetCoverImg(coverimg))
+    setLoadingIndex(null);
+    // console.log('cover img ', coverimg)
+  }
+
+  const handleDeleteImg = async (id) =>{
+    setDeleteImgIndex(id);
+    await dispatch(PlayerDeleteImgApi({id, userId}))
+    await dispatch(ProfileDetailsPlayer(userId))
+    setDeleteImgIndex(null)
+  }
+
+  const handleDeleteVideo = async (id) =>{
+    setDeleteVideoIndex(id);
+    await dispatch(PlayerDeleteVideoApi({id, userId}))
+    await dispatch(ProfileDetailsPlayer(userId))
+    setDeleteVideoIndex(null)
+  }
 
   useEffect(()=>{
     const getInfo = async() =>{
       setLoading(true)
       await dispatch(ProfileDetailsPlayer(userId))
-      await dispatch(PlayerProfileVerificationStatus())
+      await dispatch(PlayerProfileVerificationStatus(userId))
       setLoading(false)
     }
     getInfo()
   },[])
   return (
     <div className='ScoutViewProfile'>
+      <ToastContainer />
         <div className='ScoutViewProfile_navigation'>
             <div className='ScoutViewProfile_navigationprogress'>
                 <Link to='/afrisport/player/profile' className='ScoutViewProfile_navigationback'>Back</Link>
@@ -51,7 +82,7 @@ const PlayerViewProfile = () => {
           <div className='ScoutViewProfile_UserProfiledetailsSection'>
             <img src={PlayerDetails?.profile_pics} alt='image placeholder' className='ScoutViewProfile_UserProfileImage' />
             <div>
-              <p className='ScoutViewProfile_UserProfiledetailsUsername'>{loading == true ? <Skeleton variant="rounded" width='90%' height={32} /> : <span>{PlayerDetails?.firstname} {PlayerDetails?.surname} <BsFillPatchCheckFill style={{fontSize:'22px', color:'#0F7BEF', marginLeft:'10px'}} /></span>}</p>
+              <p className='ScoutViewProfile_UserProfiledetailsUsername'>{loading == true ? <Skeleton variant="rounded" width='90%' height={32} /> : <span style={{display:'flex', alignItems:'center'}}>{PlayerDetails?.firstname} {PlayerDetails?.surname} <BsFillPatchCheckFill style={{fontSize:'22px', color:'#0F7BEF', marginLeft:'10px'}} /></span>}</p>
               <p className='ScoutViewProfile_UserProfileScore'>Score: {progress}/100</p>
               {loading == true ? <Skeleton variant="rounded" width='90%' height={22} />  : <p className='ScoutViewProfile_UserProfileCurrentlyAvailable'>{PlayerDetails?.bio?.available == 0 ? `Not Available` : `Currently Available`}</p>}
               <div className='ScoutViewProfile_UserProfilePositionSection'>
@@ -59,7 +90,7 @@ const PlayerViewProfile = () => {
                 <p className='ScoutViewProfile_UserProfilePosition'>Midfielders</p>
                 </div>
 
-                <p className='ScoutViewProfile_UserProfilePricerange'>Contract: {loading == true? <Skeleton variant="rounded" width='90%' height={20} /> : <span><TbCurrencyNaira style={{fontSize:"18px"}} />{PlayerDetails?.price?.minimum} - {PlayerDetails?.price?.maximum}</span>}</p>
+                <p className='ScoutViewProfile_UserProfilePricerange'>Contract: {loading == true? <Skeleton variant="rounded" width='90%' height={20} /> : <span style={{display:'flex', alignItems:'center'}}><TbCurrencyNaira style={{fontSize:"18px"}} />{PlayerDetails?.price?.minimum} - {PlayerDetails?.price?.maximum}</span>}</p>
             </div>
           </div>
 
@@ -115,7 +146,15 @@ const PlayerViewProfile = () => {
         <p className='ScoutViewProfile_PhysicalStatsText'>Images <BsDot style={{fontSize:'25px'}}/> {PlayerDetails?.images.length} </p>
         <div className='ScoutViewProfile_ImageSection'>
         {PlayerDetails?.images.map((each, index) =>( 
-        <img src={each?.image_url}  key={index} className='ScoutViewProfile_Image' />
+          <div key={index} className='ScoutViewProfile_ImageDiv'>
+        <img src={each?.image_url}  className='ScoutViewProfile_Image' />
+        <button className='ScoutViewProfile_Image_CoverImg' onClick={()=> handleSetCoverImg(each?.id)}>
+        {loadingIndex == each?.id ? <CircularProgress size={15} /> : <span>Set as Cover Image</span>}
+        </button>
+        <button className='ScoutViewProfile_Image_DeleteImg' onClick={()=> handleDeleteImg(each?.id)}>
+        {deleteimgIndex == each?.id ? <CircularProgress size={15} /> : <span>Delete</span>}
+        </button>
+        </div>
         ))}
             {/* <img src={PlayerImg} className='ScoutViewProfile_Image' />
             <img src={PlayerImg} className='ScoutViewProfile_Image' />
@@ -123,7 +162,18 @@ const PlayerViewProfile = () => {
             <img src={PlayerImg} className='ScoutViewProfile_Image' />
             <img src={PlayerImg} className='ScoutViewProfile_Image' /> */}
         </div>
-        <p className='ScoutViewProfile_PhysicalStatsText'>Video <BsDot style={{fontSize:'25px'}}/> 4 </p>
+        <p className='ScoutViewProfile_PhysicalStatsText'>Video <BsDot style={{fontSize:'25px'}}/> {PlayerDetails?.videos?.length} </p>
+        <div className='ScoutViewProfile_VideoSection'>
+        {PlayerDetails?.videos.map((each, index) =>( 
+          <div key={index} className='ScoutViewProfile_VideoDiv'>
+        <ReactPlayer width='300px' height='300px' controls url={each?.video_url} />
+        <button  onClick={()=> handleDeleteVideo(each?.id)} className='ViewProfile_DeleteVideo'>
+        {deleteVideoIndex == each?.id ? <CircularProgress size={15} /> : <span>Delete</span>}
+          </button>
+        </div>
+        ))}
+        </div>
+
     </div>
   )
 }

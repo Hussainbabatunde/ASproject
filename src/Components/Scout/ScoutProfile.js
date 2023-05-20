@@ -1,72 +1,87 @@
-import React, { useState } from 'react'
-import './ScoutProfile.css'
+import React, { useEffect, useState } from 'react'
+import '../Scout/ScoutProfile.css'
 import imgPlaceHolder from '../../assets/imageplaceholder.png'
 import { Link } from 'react-router-dom'
-import ScoutProfileUploadId from './ScoutProfileUploadId'
-import ScoutProfileBusinessService from './ScoutProfileBusinessService'
-import ScoutProfilePhysicalStats from './ScoutProfilePhysicalStats'
-import ScoutProfileProfileform from './ScoutProfileProfileform'
-import ScoutProfileYourImages from './ScoutProfileYourImages'
-import ScoutProfileVideo from './ScoutProfileVideo'
 import { useDispatch, useSelector } from 'react-redux'
 import CircularProgress from '@mui/material/CircularProgress';
-import { ScoutProfilePicture } from '../../Slice/Scout/Scoutprofile/ScoutProfileSlice'
 import { LogoutAuth } from '../../Slice/auth/Login'
 import {RxExit} from 'react-icons/rx'
 import { NavLink, Route, Routes } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify'
+import { ProfileDetailsScout, ScoutProfilePicture, ScoutProfileVerificationStatus, reset as resetScoutProfileSlice } from "../../Slice/Scout/ProfileScoutSlice/ProfileScoutSlice";
+import ScoutProfileProfileform from './ScoutProfileProfileform'
+import ScoutProfileUploadId from './ScoutProfileUploadId'
+import { UserLogout } from '../Player/UserLogOut'
 
 const ScoutProfile = () => {
 
-  const progress = '70';
 
-  const Parentdiv = {
-        height: '1rem',
-        width: '100%',
-        backgroundColor: 'whitesmoke',
-        borderRadius: 40,
-      }
-      
-      const Childdiv = {
-        height: '100%',
-        width: `${progress}%`,
-        backgroundColor: '#91BE3F',
-       borderRadius:40,
-        textAlign: 'right',
-        marginTop: 10
-      }
-      
-      const progresstext = {
-        padding: 10,
-        color: 'black',
-        fontWeight: 900
-      }
+  const VerifiedStatus = useSelector((state)=> state.reducer?.ScoutProfileSlice?.VerificationStatusData?.data)
+  // console.log('verification ', VerifiedStatus)
+  let progress = VerifiedStatus?.identification + VerifiedStatus?.profile_pics +  VerifiedStatus?.physical_stat +  VerifiedStatus?.images +  VerifiedStatus?.videos;
+  useEffect(()=>{
+    if(VerifiedStatus?.videos == 20){
+      setCheckedVideoLink(true)
+    }
+    if(VerifiedStatus?.physical_stat == 20){
+      setCheckedPhysicalStats(true)
+    }
+    if(VerifiedStatus?.images == 20){
+      setCheckedUploadPics(true)
+    }
+    if(VerifiedStatus?.identification == 20){
+      setCheckedMeansofID(true)
+    }
+    if(VerifiedStatus?.profile_pics == 20){
+      setCheckedProfilePic(true)
+    }
+  },[VerifiedStatus])
+
 
       
       const [imgloader, setImgLoader] =useState(false)
 
   const [file, setFile] = useState(imgPlaceHolder);
   const [picFile, setPicFile] = useState(null);
+  const [checkedVideoLink, setCheckedVideoLink] = useState(false)
+  const [checkedProfilePic, setCheckedProfilePic] = useState(false)
+  const [checkedPhysicalStats, setCheckedPhysicalStats] = useState(false)
+  const [checkedUploadPics, setCheckedUploadPics] = useState(false)
+  const [checkedMeansofID, setCheckedMeansofID] = useState(false)
   const dispatch = useDispatch()
     const handleLogout = async () =>{
         await dispatch(LogoutAuth())
+        // await dispatch(resetScoutProfileSlice())
+        UserLogout()
         localStorage.clear();
         sessionStorage.clear();
         window.location.reload();
     }
     const data = [
         {id: 1, pathTo: '/afrisport/scout/profile', pathName: 'Profile'},
-        {id: 2, pathTo: '/afrisport/scout/deal', pathName: 'Deals'},
-        {id: 3, pathTo: '/afrisport/scout/views', pathName: 'Views'},
-        {id: 4, pathTo: '/afrisport/scout/payment', pathName: 'Payment'}
+        {id: 2, pathTo: '/afrisport/scout/deal', pathName: 'Deals'}
     ]
     function handleChange(e) {
-      console.log(e.target.files[0])
+      // console.log(e.target.files[0])
       setPicFile(e.target.files[0])
       setFile(URL.createObjectURL(e.target.files[0]));
     }
 
-    const userId = useSelector((state)=> state?.reducer?.LoginSlice?.logindata?.message?.id)
-    // console.log('user ', userId)
+    
+
+
+    const userId = useSelector((state)=> state?.reducer?.LoginSlice?.logindata?.data?.user?.id)
+    const userDataInfo = useSelector((state)=> state?.reducer?.LoginSlice?.logindata?.data?.user)
+
+    const PlayerDetails = useSelector((state)=>state?.reducer?.ScoutProfileAction?.ScoutAllProfileDetailsData?.data)
+    useEffect(()=>{
+      const checkingVerification = async() =>{
+        await dispatch(ProfileDetailsScout(userId))
+        // await dispatch(ScoutProfileVerificationStatus(userId))
+        setFile(PlayerDetails?.profile_pics)
+      }
+      checkingVerification()
+    },[])
 
     const handleImgSubmit = async (e) =>{
       e.preventDefault()
@@ -76,11 +91,15 @@ const ScoutProfile = () => {
       
         setImgLoader(true)
         await dispatch(ScoutProfilePicture(formData))
+        // await dispatch(ScoutProfileVerificationStatus())
         setImgLoader(false)
     }
 
+
+
   return (  
     <div  className='Scoutpage_contents'>
+      <ToastContainer />
         <div className='Scoutpage_AccountLogout_div'>
             <p className='Scoutpage_AccountWord'>Account</p>
             <p className='Scoutpage_AccountWord' style={{cursor:'pointer'}} onClick={handleLogout}>Logout <RxExit /></p>
@@ -101,24 +120,20 @@ const ScoutProfile = () => {
           </label>
           
           <button type='submit' className='Scoutpage_Profileform_savebutton'>
-            {imgloader ? <CircularProgress /> : <span>Upload photo</span>}
+            {imgloader ? <CircularProgress size={15} /> : <span>Upload photo</span>}
             </button>
           </form>
           <div className='Scoutpage_Profile_nameVerify'>
-            <p className='Scoutpage_profile_Username'>clement bazuaye <span className='Scoutpage_Profile_Verificationstatus'>(not Verified)</span></p>
-            <p className='Scoutpage_profile_Usertype'>Player Account</p>
+            <p className='Scoutpage_profile_Username'>{`${userDataInfo?.firstname } ${userDataInfo?.surname }`}</p>
+            <p className='Scoutpage_profile_Usertype'>Scout Account</p>
           </div>
           </div>
-          <Link to='/afrisport/scout/viewprofile' className='Scoutpage_Profile_Viewprofilebutton'>View Profile</Link>
+          {/* <Link to='/afrisport/player/viewprofile' className='Scoutpage_Profile_Viewprofilebutton'>View Profile</Link> */}
         </div>
-        <ScoutProfileProfileform />
-        <ScoutProfilePhysicalStats />
-        <ScoutProfileBusinessService />
-        <ScoutProfileUploadId />
-        <ScoutProfileYourImages />
-        <ScoutProfileVideo />
+        <ScoutProfileProfileform userId={userId} />
+        <ScoutProfileUploadId userId={userId}/>
       </div>
-      <div className='ScoutProfile_VerificationCol'>
+      {/* <div className='ScoutProfile_VerificationCol'>
         <div className='ScoutProfile_VerificationDiv'>
         <p className='Scoutpage_Profile_Profiledetailstext'>Verify Account</p>
         <p className='ScoutProfile_VerifyAccountText'>Your profile is not visible. Complete 3 more tasks to level up to</p>
@@ -127,9 +142,29 @@ const ScoutProfile = () => {
         <span style={progresstext}>{`${progress}%`}</span>
       </div>
     </div>
+    <div className='ScoutProfile_VerifyAccountCheckdiv'>
+      <input type='radio' checked={checkedVideoLink} />
+      <p className='ScoutProfile_VerifyAccountCheck_Text'>Add a Youtube link to a Video of your showcasing skillsets</p>
+    </div>
+    <div className='ScoutProfile_VerifyAccountCheckdiv'>
+      <input type='radio' checked={checkedProfilePic} />
+      <p className='ScoutProfile_VerifyAccountCheck_Text'>Upload a Profile Picture of Your Actial face</p>
+    </div>
+    <div className='ScoutProfile_VerifyAccountCheckdiv'>
+      <input type='radio' checked={checkedPhysicalStats} />
+      <p className='ScoutProfile_VerifyAccountCheck_Text'>Add all Your Physical Stats</p>
+    </div>
+    <div className='ScoutProfile_VerifyAccountCheckdiv'>
+      <input type='radio' checked={checkedUploadPics} />
+      <p className='ScoutProfile_VerifyAccountCheck_Text'>Upload 5 pictures of yourself</p>
+    </div>
+    <div className='ScoutProfile_VerifyAccountCheckdiv'>
+      <input type='radio' checked={checkedMeansofID} />
+      <p className='ScoutProfile_VerifyAccountCheck_Text'>Upload Means of ID</p>
+    </div>
     <button className='ScoutProfile_Profileform_SendRequest'>Send Request</button>
         </div>
-      </div>
+      </div> */}
         </div>
     </div>
   )
