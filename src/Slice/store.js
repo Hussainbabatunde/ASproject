@@ -15,6 +15,8 @@ import AuthorizeSlice from "./Admin/AuthorizeSlice";
 import AdminUpdate_profileSlice from "./Admin/AdminUpdate_profileSlice";
 import AdminDashboardSlice from "./Admin/AdminDashboardSlice";
 import Admin_Scouts_Slice from "./Admin/Admin_Scouts_Slice";
+import Admin_NegotiationsSlice from "./Admin/Admin_NegotiationsSlice";
+import Admin_FanData_Slice from "./Admin/Admin_FanData_Slice";
 
 const reducers = combineReducers({
   LoginSlice: LoginSlice,
@@ -31,6 +33,10 @@ const reducers = combineReducers({
   AdminUpdate_profileSlice: AdminUpdate_profileSlice,
   AdminDashboardSlice: AdminDashboardSlice,
   Admin_Scouts_Slice: Admin_Scouts_Slice,
+
+  Admin_NegotiationsSlice: Admin_NegotiationsSlice,
+
+  Admin_FanData_Slice: Admin_FanData_Slice,
 });
 
 const persistConfig = {

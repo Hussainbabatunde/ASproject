@@ -103,7 +103,7 @@ const Ads = ({
               ) : (
                 <AdminUseTable
                   header={header}
-                  data={Admin_Get_All_Player}
+                  data={[]}
                   handleDelete={handleDelete}
                 />
               )}

@@ -27,34 +27,34 @@ const AdminSidebar = () => {
     },
     {
       id: 2,
-      pathTo: "/admin/admin/negotiate",
+      // pathTo: "/admin/admin/negotiate",
       pathName: "Negotiate",
       pathIcon: <IoIosPaper />,
       children: [
-        {
-          id: "name1",
-          navName: "Active",
-          slug: "admin_active",
-          navSubLink: "/admin/negotiations",
-        },
-        {
-          id: "name2",
-          navName: "Closed",
-          slug: "admin_closed",
-          navSubLink: "/admin/admin/negotiate/closed",
-        },
-        {
-          id: "name3",
-          navName: "Suspended",
-          slug: "admin_suspended",
-          navSubLink: "/admin/admin/negotiate/suspended",
-        },
-        {
-          id: "name4",
-          navName: "Terminated",
-          slug: "admin_terminated",
-          navSubLink: "/admin/admin/negotiate/terminated",
-        },
+        // {
+        //   id: "name1",
+        //   navName: "Active",
+        //   slug: "admin_active",
+        //   navSubLink: "/admin/negotiations",
+        // },
+        // {
+        //   id: "name2",
+        //   navName: "Closed",
+        //   slug: "admin_closed",
+        //   navSubLink: "/admin/admin/negotiate/closed",
+        // },
+        // {
+        //   id: "name3",
+        //   navName: "Suspended",
+        //   slug: "admin_suspended",
+        //   navSubLink: "/admin/admin/negotiate/suspended",
+        // },
+        // {
+        //   id: "name4",
+        //   navName: "Terminated",
+        //   slug: "admin_terminated",
+        //   navSubLink: "/admin/admin/negotiate/terminated",
+        // },
       ],
     },
     {
@@ -80,7 +80,7 @@ const AdminSidebar = () => {
     },
     {
       id: 6,
-      pathTo: "/admin/admin/fans",
+      pathTo: "/admin/fans",
       pathName: "Fans",
       pathIcon: <BsPersonLinesFill />,
       children: [],

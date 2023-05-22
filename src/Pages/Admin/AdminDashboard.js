@@ -255,7 +255,12 @@ const AdminDashboard = () => {
         <div className="AdminPage_DashboardTAbleCat">
           <div className="AdminPage_TableTitleandLink">
             <p className="AdminDashboard_Dashboardtext">Active Negotiaties</p>
-            <Link className="AdminDashBoard_LinkViewall">View All</Link>
+            <Link
+              to="/admin/negotiations"
+              className="AdminDashBoard_LinkViewall"
+            >
+              View All
+            </Link>
           </div>
           <div className="AdminPage_TableInfo">
             <AiOutlineInfoCircle style={{ fontSize: "18px" }} />

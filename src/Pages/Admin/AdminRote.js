@@ -26,6 +26,7 @@ import ScoutRoute from "./Souts/ScoutRoute";
 import TalentmanagerRoute from "./TalentManagers/TalentmanagerRoute";
 import AdsRoute from "./Ads/AdsRoute";
 import NegotiationRoute from "./Negotiation/NegotiationRoute";
+import FanRoute from "./Fans/FanRoute";
 
 const AdminRote = () => {
   return (
@@ -38,7 +39,7 @@ const AdminRote = () => {
           <Route path="/dashboard" element={<AdminDashboard />} />
           <Route path="/players/*" element={<PlayersRoute />} />
           <Route path="/scouts/*" element={<ScoutRoute />} />
-          <Route path="/fan/*" element={<ScoutRoute />} />
+          <Route path="/fans/*" element={<FanRoute />} />
           <Route path="/talentManager/*" element={<TalentmanagerRoute />} />
           <Route path="/Ads/*" element={<AdsRoute />} />
           <Route path="/negotiations/*" element={<NegotiationRoute />} />

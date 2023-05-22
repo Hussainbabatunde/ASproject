@@ -1,16 +1,15 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import AdminPlayer from "./AdminPlayer";
-import PlayerDetails from "./PlayerDetails";
-import Profile from "./Profile";
-import Profile_review from "./Profile_review";
+import Admin_Fans from "./Admin_Fans";
+import FanDetails from "./FanDetails";
 
-function PlayersRoute() {
+function FanRoute() {
   return (
     <Routes>
-      <Route path="/" element={<AdminPlayer />} />
+      <Route path="/" element={<Admin_Fans />} />
+      <Route path="/:id" element={<FanDetails />} />
     </Routes>
   );
 }
 
-export default PlayersRoute;
+export default FanRoute;
