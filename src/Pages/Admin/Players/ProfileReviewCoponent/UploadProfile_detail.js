@@ -76,8 +76,8 @@ export const Profile_detail = ({ Admin_Get_Players_Profile_details }) => {
         className="Scoutpage_Profile_ProfileformlabelInput"
         name="fullname"
         value={formData.fullname}
-        onChange={handleChange}
         placeholder="First name and last name"
+        disabled
       />
 
       <p className="Scoutpage_Profile_Profileformlabelnexttext">
@@ -88,8 +88,8 @@ export const Profile_detail = ({ Admin_Get_Players_Profile_details }) => {
         className="Scoutpage_Profile_ProfileformlabelInput"
         name="email"
         value={formData.email}
-        onChange={handleChange}
         placeholder="abc@mail.com"
+        disabled
       />
 
       <p className="Scoutpage_Profile_Profileformlabelnexttext">Phone Number</p>
@@ -98,8 +98,8 @@ export const Profile_detail = ({ Admin_Get_Players_Profile_details }) => {
         className="Scoutpage_Profile_ProfileformlabelInput"
         name="phone"
         value={formData.phone}
-        onChange={handleChange}
         placeholder="08000000000000"
+        disabled
       />
 
       <p className="Scoutpage_Profile_Profileformlabelnexttext">
@@ -109,9 +109,9 @@ export const Profile_detail = ({ Admin_Get_Players_Profile_details }) => {
         placeholder="Write about yourself"
         name="about"
         value={formData.about}
-        onChange={handleChange}
         required
         className="Scoutpage_Profile_Profileformlabeltextarea"
+        disabled
       ></textarea>
 
       <p className="Scoutpage_Profile_Profileformlabelnexttext">Location</p>
@@ -120,9 +120,9 @@ export const Profile_detail = ({ Admin_Get_Players_Profile_details }) => {
         className="Scoutpage_Profile_ProfileformlabelInput"
         name="location"
         value={formData.location}
-        onChange={handleChange}
         placeholder="Country of Residence"
         required
+        disabled
       />
 
       <p className="Scoutpage_Profile_Profileformlabelnexttext">Home Town</p>
@@ -131,9 +131,9 @@ export const Profile_detail = ({ Admin_Get_Players_Profile_details }) => {
         className="Scoutpage_Profile_ProfileformlabelInput"
         name="home_town"
         value={formData.home_town}
-        onChange={handleChange}
         placeholder="---"
         required
+        disabled
       />
 
       <p className="Scoutpage_Profile_Profileformlabelnexttext">Current Club</p>
@@ -142,29 +142,22 @@ export const Profile_detail = ({ Admin_Get_Players_Profile_details }) => {
         className="Scoutpage_Profile_ProfileformlabelInput"
         name="current_club"
         value={formData.current_club}
-        onChange={handleChange}
         placeholder="Name of Club"
         required
+        disabled
       />
 
       <p className="Scoutpage_Profile_Profileformlabelnexttext">Availability</p>
       <select
         name="available"
-        onChange={handleChange}
         value={formData.available}
         className="Scoutpage_Profile_ProfileformlabelInput"
+        disabled
       >
         <option></option>
         <option value="1">Available</option>
         <option value="0">Not Available</option>
       </select>
-      <button type="submit" className="Scoutpage_Profileform_savebutton">
-        {Admin_update_user_bio_isLoading ? (
-          <CircularProgress size={15} />
-        ) : (
-          <span>Save</span>
-        )}
-      </button>
     </form>
   );
 };
@@ -210,9 +203,9 @@ export const Admin_update_Physical_Stats = ({
         className="Scoutpage_Profile_ProfileformlabelInput"
         name="gender"
         value={formData.gender}
-        onChange={handleChange}
         placeholder="Male/Female"
         required
+        disabled
       />
       <p className="Scoutpage_Profile_Profileformlabelnexttext">Height</p>
       <input
@@ -220,9 +213,9 @@ export const Admin_update_Physical_Stats = ({
         className="Scoutpage_Profile_ProfileformlabelInput"
         name="height"
         value={formData.height}
-        onChange={handleChange}
         placeholder="Feets"
         required
+        disabled
       />
       <p className="Scoutpage_Profile_Profileformlabelnexttext">Weight</p>
       <input
@@ -230,9 +223,9 @@ export const Admin_update_Physical_Stats = ({
         className="Scoutpage_Profile_ProfileformlabelInput"
         name="weight"
         value={formData.weight}
-        onChange={handleChange}
         placeholder="Kg"
         required
+        disabled
       />
       <p className="Scoutpage_Profile_Profileformlabelnexttext">Language</p>
       <input
@@ -240,29 +233,22 @@ export const Admin_update_Physical_Stats = ({
         className="Scoutpage_Profile_ProfileformlabelInput"
         name="language"
         value={formData.language}
-        onChange={handleChange}
         placeholder="---"
         required
+        disabled
       />
       <p className="Scoutpage_Profile_Profileformlabelnexttext">Strong foot</p>
       <select
         required
         name="strong_foot"
         value={formData.strong_foot}
-        onChange={handleChange}
+        disabled
         className="Scoutpage_Profile_ProfileformlabelInput"
       >
         <option disabled></option>
         <option value="Left">Left</option>
         <option value="Right">Right</option>
       </select>
-      <button type="submit" className="Scoutpage_Profileform_savebutton">
-        {Admin_update_user_physical_stat_isLoading ? (
-          <CircularProgress size={15} />
-        ) : (
-          <span>Save</span>
-        )}
-      </button>
     </form>
   );
 };
@@ -310,15 +296,6 @@ export const Admin_upload_id = ({ Admin_Get_Players_Profile_details }) => {
       <p className="Scoutpage_Profile_filldetailstext">
         Verification by means of ID, International Passport, NIN
       </p>
-      <label for="UploadId" className="Scoutpage_Profileform_SelectImage">
-        Select Image
-      </label>
-      <input
-        type="file"
-        id="UploadId"
-        onChange={handleUploadIdChange}
-        className="Scoutpage_Profile_ImagePlaceInput"
-      />
 
       {uploaded ? (
         <div className="Scoutpage_Profileform_ImgIploaded">
@@ -349,15 +326,6 @@ export const Admin_upload_id = ({ Admin_Get_Players_Profile_details }) => {
           </div>
         </div>
       )}
-
-      <button type="submit" className="Scoutpage_Profileform_uploadButton">
-        <FaRegImages style={{ fontSize: "18px", marginRight: "5px" }} />
-        {Admin_update_user_image_isLoading ? (
-          <CircularProgress size={15} />
-        ) : (
-          <span>Upload photo</span>
-        )}
-      </button>
     </form>
   );
 };
@@ -464,17 +432,6 @@ export const Admin_upload_Players_image = ({
           on the field.
         </p>
 
-        <label for="YourImages" className="Scoutpage_Profileform_SelectImage">
-          Select Images
-        </label>
-        <input
-          type="file"
-          id="YourImages"
-          onChange={handleImageUpload}
-          multiple
-          className="Scoutpage_Profile_ImagePlaceInput"
-        />
-
         <div className="flex w-[100%] mb-5  gap-2">
           {previewUrls.map((url, index) => (
             <>
@@ -495,17 +452,6 @@ export const Admin_upload_Players_image = ({
             </>
           ))}
         </div>
-
-        <button type="submit" className="Scoutpage_Profileform_uploadButton">
-          <FaRegImages style={{ fontSize: "18px", marginRight: "5px" }} />
-          {/* {loadYourImages ? (
-            <CircularProgress size={15} />
-          ) : (
-            <span>Upload photo</span>
-          )} */}
-
-          <span>Upload photo</span>
-        </button>
       </form>
     </>
   );
@@ -543,6 +489,7 @@ export const Admin_PlayerProfileVideo = ({
         className="Scoutpage_Profile_ProfileformlabelInput"
         placeholder="Link to Video"
         onChange={handleVideoLinkChange}
+        disabled
       />
       <button type="submit" className="Scoutpage_Profileform_savebutton">
         Save
@@ -574,6 +521,8 @@ export const Admin_PlayerProfileBusinessService = ({
   // const handleChangeBusinessPricing = (e) =>{
   //   setAmtStated({...amtStated, [e.target.name]: e.target.value})
   // }
+
+  console.log(PlayerDetails);
   const handleSubmitPhysicalStats = async (event) => {
     event.preventDefault();
     pricingBusiness.user_id =
@@ -699,6 +648,7 @@ export const Admin_PlayerProfileBusinessService = ({
             onClick={handleRadioButtonChange}
             checked={isChecked}
             value="range"
+            disabled
           />{" "}
           Range
         </label>
@@ -708,6 +658,7 @@ export const Admin_PlayerProfileBusinessService = ({
             onClick={handleRadioButtonChange2}
             checked={isChecked2}
             value="actual"
+            disabled
           />{" "}
           Actual
         </label>
@@ -717,6 +668,7 @@ export const Admin_PlayerProfileBusinessService = ({
             onClick={handleRadioButtonChange3}
             checked={isChecked3}
             value="open"
+            disabled
           />{" "}
           Open
         </label>
@@ -726,6 +678,7 @@ export const Admin_PlayerProfileBusinessService = ({
             onClick={handleRadioButtonChange4}
             checked={isChecked4}
             value="free"
+            disabled
           />{" "}
           Free
         </label>
@@ -747,6 +700,7 @@ export const Admin_PlayerProfileBusinessService = ({
                   className="Scoutprofile_frominput"
                   onChange={handleAmountFrom}
                   required
+                  disabled
                 />
               </div>
             </div>
@@ -761,6 +715,7 @@ export const Admin_PlayerProfileBusinessService = ({
                   className="Scoutprofile_frominput"
                   onChange={handleAmountTo}
                   required
+                  disabled
                 />
               </div>
             </div>
@@ -784,6 +739,7 @@ export const Admin_PlayerProfileBusinessService = ({
               onChange={handleAmtActual}
               className="Scoutprofile_frominput"
               required
+              disabled
             />
           </div>
         </div>
@@ -802,14 +758,6 @@ export const Admin_PlayerProfileBusinessService = ({
           </p>
         </div>
       )}
-
-      <button type="submit" className="Scoutpage_Profileform_savebutton">
-        {loadBusinessService ? (
-          <CircularProgress size={15} />
-        ) : (
-          <span>Save</span>
-        )}
-      </button>
     </form>
   );
 };

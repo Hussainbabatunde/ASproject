@@ -20,46 +20,46 @@ const AdminSidebar = () => {
   const data = [
     {
       id: 1,
-      pathTo: "/admin/admin/dashboard",
+      pathTo: "/admin/dashboard",
       pathName: "Dashboard",
       pathIcon: <RxDashboard />,
       children: [],
     },
     {
       id: 2,
-      pathTo: "/admin/admin/negotiate",
+      // pathTo: "/admin/admin/negotiate",
       pathName: "Negotiate",
       pathIcon: <IoIosPaper />,
       children: [
-        {
-          id: "name1",
-          navName: "Active",
-          slug: "admin_active",
-          navSubLink: "/admin/admin/negotiate/allnegotiate",
-        },
-        {
-          id: "name2",
-          navName: "Closed",
-          slug: "admin_closed",
-          navSubLink: "/admin/admin/negotiate/closed",
-        },
-        {
-          id: "name3",
-          navName: "Suspended",
-          slug: "admin_suspended",
-          navSubLink: "/admin/admin/negotiate/suspended",
-        },
-        {
-          id: "name4",
-          navName: "Terminated",
-          slug: "admin_terminated",
-          navSubLink: "/admin/admin/negotiate/terminated",
-        },
+        // {
+        //   id: "name1",
+        //   navName: "Active",
+        //   slug: "admin_active",
+        //   navSubLink: "/admin/negotiations",
+        // },
+        // {
+        //   id: "name2",
+        //   navName: "Closed",
+        //   slug: "admin_closed",
+        //   navSubLink: "/admin/admin/negotiate/closed",
+        // },
+        // {
+        //   id: "name3",
+        //   navName: "Suspended",
+        //   slug: "admin_suspended",
+        //   navSubLink: "/admin/admin/negotiate/suspended",
+        // },
+        // {
+        //   id: "name4",
+        //   navName: "Terminated",
+        //   slug: "admin_terminated",
+        //   navSubLink: "/admin/admin/negotiate/terminated",
+        // },
       ],
     },
     {
       id: 3,
-      pathTo: "/admin/admin/ads",
+      pathTo: "/admin/ads",
       pathName: "Ads",
       pathIcon: <RiFileEditFill />,
       children: [],
@@ -73,21 +73,21 @@ const AdminSidebar = () => {
     },
     {
       id: 5,
-      pathTo: "/admin/admin/scouts",
+      pathTo: "/admin/scouts",
       pathName: "Scout",
       pathIcon: <BsPersonLinesFill />,
       children: [],
     },
     {
       id: 6,
-      pathTo: "/admin/admin/fans",
+      pathTo: "/admin/fans",
       pathName: "Fans",
       pathIcon: <BsPersonLinesFill />,
       children: [],
     },
     {
       id: 7,
-      pathTo: "/admin/admin/talentManager",
+      pathTo: "/admin/talentManager",
       pathName: "Talent Manager",
       pathIcon: <BsFillPeopleFill />,
       children: [],
@@ -157,6 +157,7 @@ const AdminSidebar = () => {
     localStorage.clear();
     sessionStorage.clear();
     window.location.reload();
+    dispatch(dispatch({ type: "RESET" }));
   };
 
   return (
@@ -214,7 +215,6 @@ const AdminSidebar = () => {
         onClick={handleLogout}
         className="SuperAdmin_SidebarLogoutInactiveNavLink"
       >
-        {" "}
         <ImExit />
         <span className="SuperAdmin_SidebarText">Logout</span>
       </div>
