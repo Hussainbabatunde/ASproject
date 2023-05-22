@@ -51,7 +51,7 @@ export const Admin_Get_All_Scouts_fun = createAsyncThunk(
 );
 
 const Admin_Get_ScoutsDetails_fun_Service = async (data, token) => {
-  let API_URL = `${baseURL}admin/scout/profile/22`;
+  let API_URL = `${baseURL}admin/scout/profile/${data}`;
 
   console.log(API_URL);
 
@@ -110,6 +110,31 @@ export const Admin_Scouts_Slice = createSlice({
         state.Admin_Get_All_Scouts_isLoading = false;
       })
       .addCase(Admin_Get_All_Scouts_fun.rejected, (state, action) => {
+        state.Admin_Get_All_Scouts_isError = true;
+        state.Admin_Get_All_Scouts_message = action.payload;
+        state.Admin_Get_All_Scouts_isLoading = false;
+        toast.error(`${state.Admin_Get_All_Scouts_message}`, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          className: "Forbidden403",
+        });
+      })
+
+      .addCase(Admin_Get_ScoutsDetails_fun.pending, (state) => {
+        state.Admin_Get_All_Scouts_isLoading = true;
+      })
+      .addCase(Admin_Get_ScoutsDetails_fun.fulfilled, (state, action) => {
+        state.Admin_Get_ScoutsDetails = action.payload;
+        state.Admin_Get_All_Scouts_isSuccess = true;
+        state.Admin_Get_All_Scouts_isLoading = false;
+      })
+      .addCase(Admin_Get_ScoutsDetails_fun.rejected, (state, action) => {
         state.Admin_Get_All_Scouts_isError = true;
         state.Admin_Get_All_Scouts_message = action.payload;
         state.Admin_Get_All_Scouts_isLoading = false;

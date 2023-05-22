@@ -16,7 +16,10 @@ import { BsFillPatchCheckFill, BsHouseDoor, BsDot } from "react-icons/bs";
 import { MdOutlineDashboard } from "react-icons/md";
 import { SlLocationPin } from "react-icons/sl";
 import { RiDashboardLine } from "react-icons/ri";
-import { Admin_Get_ScoutsDetails_fun } from "../../../Slice/Admin/Admin_Scouts_Slice";
+import {
+  Admin_Get_ScoutsDetails_fun,
+  reset__Admin_Scouts_Slice,
+} from "../../../Slice/Admin/Admin_Scouts_Slice";
 import { FiMail, FiPhoneCall } from "react-icons/fi";
 import AdminNegotiateStep from "../../../Components/Admin/AdminNegotiate/AdminNegotiateStep";
 import ScoutsNegotiateStep from "../../../Components/Admin/AdminScouts/ScoutsNegotiateStep";
@@ -31,12 +34,15 @@ function ScoutDetails() {
     (state) => state.reducer.Admin_Scouts_Slice
   );
 
+  console.log(Admin_Get_ScoutsDetails);
+
   let user_Data = Admin_Get_ScoutsDetails?.data;
   let PlayerDetails = user_Data;
 
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(Admin_Get_ScoutsDetails_fun(id));
+    dispatch(reset__Admin_Scouts_Slice());
 
     return () => {};
   }, []);
@@ -264,7 +270,7 @@ function ScoutDetails() {
 
             <div className="ScoutViewProfile_PhysicalStatsText">
               <div className="flex flex-wrap gap-3">
-                {PlayerDetails?.videos.map((each, index) => (
+                {/* {PlayerDetails?.videos.map((each, index) => (
                   <>
                     <a
                       href={each?.video_url}
@@ -274,7 +280,7 @@ function ScoutDetails() {
                       {each?.video_url}
                     </a>
                   </>
-                ))}
+                ))} */}
               </div>
             </div>
           </div>

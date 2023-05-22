@@ -70,7 +70,15 @@ const AdminUseTable = ({
                     );
 
                   case "Admin_fan_Acitive_Negotiate":
-                    console.log(each);
+                    return (
+                      <td className="useTable_tableDetails">
+                        <p className="AdminUse_TableComp">
+                          <span>{each?.active_negotiations}</span>
+                        </p>
+                      </td>
+                    );
+
+                  case "Admin_scout_Acitive_Negotiate":
                     return (
                       <td className="useTable_tableDetails">
                         <p className="AdminUse_TableComp">
@@ -80,11 +88,19 @@ const AdminUseTable = ({
                     );
 
                   case "Admin_fan_Closed_Negotiate":
-                    console.log(each);
                     return (
                       <td className="useTable_tableDetails">
                         <p className="AdminUse_TableComp">
-                          <span>{each?.active_negotiations}</span>
+                          <span>{each?.closed_negotiations}</span>
+                        </p>
+                      </td>
+                    );
+
+                  case "Admin_scout_Closed_Negotiate":
+                    return (
+                      <td className="useTable_tableDetails">
+                        <p className="AdminUse_TableComp">
+                          <span>{each?.closed_negotiations}</span>
                         </p>
                       </td>
                     );
@@ -117,7 +133,9 @@ const AdminUseTable = ({
                             alt="Recipient image"
                           />
 
-                          <span>{` ${each?.firstname}  ${each?.surname}`}</span>
+                          <span>{` ${each?.user[0]?.firstname}  ${each?.user[0]?.surname}`}</span>
+
+                          {/* <span>{` ${each?.firstname}  ${each?.surname}`}</span> */}
                         </p>
                       </td>
                     );
@@ -150,7 +168,7 @@ const AdminUseTable = ({
                           Message
                         </span>
                         <Link
-                          to={`/admin/scouts/${each?.id}`}
+                          to={`/admin/scouts/${each?.user[0]?.id}`}
                           className="Admin_playersEditprofile"
                         >
                           View
@@ -240,7 +258,6 @@ const AdminUseTable = ({
                     );
 
                   case "Admin_All_player_ViewEditSuspend":
-                    console.log(each);
                     return (
                       <td
                         className="useTable_ViewEditSuspendDetails"
@@ -268,7 +285,6 @@ const AdminUseTable = ({
                     );
 
                   case "Admin_All_Ads_View_Terminate":
-                    console.log(each);
                     return (
                       <td
                         className="useTable_ViewEditSuspendDetails"

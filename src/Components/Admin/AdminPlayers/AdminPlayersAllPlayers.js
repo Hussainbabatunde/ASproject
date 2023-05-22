@@ -22,13 +22,13 @@ const AdminPlayerAllNegotiate = ({
     (state) => state.reducer.AdminUpdate_profileSlice
   );
 
-  console.log(Admin_Get_All_Player);
-
   useEffect(() => {
     dispatch(Admin_Get_ALLPlayers_fun());
 
     return () => {};
   }, []);
+
+  console.log(Admin_Get_All_Player);
 
   const header = [
     {
@@ -111,7 +111,7 @@ const AdminPlayerAllNegotiate = ({
         </div>
       </div>
       <div className="AdminTable_NegotiateTable">
-        {dataTable?.length === 0 ? (
+        {Admin_Get_All_Player?.data?.length === 0 ? (
           <div
             style={{
               display: "flex",
@@ -128,7 +128,7 @@ const AdminPlayerAllNegotiate = ({
         ) : (
           <AdminUseTable
             header={header}
-            data={Admin_Get_All_Player}
+            data={Admin_Get_All_Player?.data}
             handleEdit={handleEdit}
           />
         )}
