@@ -20,7 +20,7 @@ const AdminSidebar = () => {
   const data = [
     {
       id: 1,
-      pathTo: "/admin/admin/dashboard",
+      pathTo: "/admin/dashboard",
       pathName: "Dashboard",
       pathIcon: <RxDashboard />,
       children: [],
@@ -35,7 +35,7 @@ const AdminSidebar = () => {
           id: "name1",
           navName: "Active",
           slug: "admin_active",
-          navSubLink: "/admin/admin/negotiate/allnegotiate",
+          navSubLink: "/admin/negotiations",
         },
         {
           id: "name2",
@@ -59,7 +59,7 @@ const AdminSidebar = () => {
     },
     {
       id: 3,
-      pathTo: "/admin/admin/ads",
+      pathTo: "/admin/ads",
       pathName: "Ads",
       pathIcon: <RiFileEditFill />,
       children: [],
@@ -87,7 +87,7 @@ const AdminSidebar = () => {
     },
     {
       id: 7,
-      pathTo: "/admin/admin/talentManager",
+      pathTo: "/admin/talentManager",
       pathName: "Talent Manager",
       pathIcon: <BsFillPeopleFill />,
       children: [],

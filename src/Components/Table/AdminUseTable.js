@@ -55,6 +55,24 @@ const AdminUseTable = ({
                       </td>
                     );
 
+                  case "Admin_scout_view_suspend":
+                    return (
+                      <td
+                        className="useTable_ViewEditSuspendDetails"
+                        style={{ flex: 1 }}
+                      >
+                        <Link
+                          to={`/admin/scouts/${each?.id}`}
+                          className="Admin_playersviewprofile"
+                        >
+                          View
+                        </Link>
+                        {/* <Link className="Admin_playersEditprofile">Edit</Link> */}
+                        <Link className="Admin_playersSuspendprofile">
+                          Un-Suspend
+                        </Link>
+                      </td>
+                    );
                   case "Admin_Scout":
                     return (
                       <td className="useTable_tableDetails">
@@ -68,6 +86,11 @@ const AdminUseTable = ({
                           <span>{` ${each?.firstname}  ${each?.surname}`}</span>
                         </p>
                       </td>
+                    );
+
+                  case "All_negotiate_payment":
+                    return (
+                      <td className="useTable_tableDetails">{each?.number}</td>
                     );
 
                   case "Admin_Phone_number":
@@ -183,6 +206,28 @@ const AdminUseTable = ({
                       </td>
                     );
 
+                  case "Admin_All_Ads_View_Terminate":
+                    console.log(each);
+                    return (
+                      <td
+                        className="useTable_ViewEditSuspendDetails"
+                        style={{ flex: 1 }}
+                      >
+                        <Link
+                          to={`/admin/Ads/${each?.id}`}
+                          className="Admin_playersviewprofile"
+                        >
+                          View
+                        </Link>
+                        <span
+                          onClick={() => handleDelete(each)}
+                          className="Admin_playersEditprofile"
+                        >
+                          Terminante
+                        </span>
+                      </td>
+                    );
+
                   case "Admin_Edit_Delete_Asign":
                     return (
                       <td
@@ -291,7 +336,7 @@ const AdminUseTable = ({
                   case "Nationality":
                     return (
                       <td className="useTable_tableDetails">
-                        {each?.nationality}
+                        {each?.Nationality}
                       </td>
                     );
                   case "Date":

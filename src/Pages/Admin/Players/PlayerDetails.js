@@ -384,12 +384,14 @@ function PlayerDetails() {
               </div>
             </div>
 
-            <p className="ScoutViewProfile_PhysicalStatsText">
+            {/* <p className="ScoutViewProfile_PhysicalStatsText">
               Images <BsDot style={{ fontSize: "25px" }} />{" "}
               {PlayerDetails?.images.length}{" "}
-            </p>
+            </p> */}
 
-            <div className="ScoutViewProfile_ImageSection">
+            {/* <div className="ScoutViewProfile_ImageSection"></div> */}
+
+            <div className=" bg-white w-[720px] rounded pl-5 flex flex-wrap mb-5 py-5 gap-2">
               {PlayerDetails?.images.map((each, index) => (
                 <>
                   <img
@@ -401,20 +403,18 @@ function PlayerDetails() {
               ))}
             </div>
 
-            <div className="ScoutViewProfile_PhysicalStatsText">
-              <div className="flex flex-wrap gap-3">
-                {PlayerDetails?.videos.map((each, index) => (
-                  <>
-                    <a
-                      href={each?.video_url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      {each?.video_url}
-                    </a>
-                  </>
-                ))}
-              </div>
+            <div className=" bg-white w-[720px] rounded pl-5">
+              {PlayerDetails?.videos.map((each, index) => (
+                <li className="">
+                  <a
+                    href={each?.video_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    click to view video {index}
+                  </a>
+                </li>
+              ))}
             </div>
           </div>
 

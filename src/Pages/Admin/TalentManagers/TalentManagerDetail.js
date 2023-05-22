@@ -20,10 +20,11 @@ import { Admin_Get_ScoutsDetails_fun } from "../../../Slice/Admin/Admin_Scouts_S
 import { FiMail, FiPhoneCall } from "react-icons/fi";
 import AdminNegotiateStep from "../../../Components/Admin/AdminNegotiate/AdminNegotiateStep";
 import ScoutsNegotiateStep from "../../../Components/Admin/AdminScouts/ScoutsNegotiateStep";
+import TalentManagerNegotiateStep from "./TalentManagerNegotiateStep";
 
 let baseURL = process.env.REACT_APP_AFRISPORTURL;
 
-function ScoutDetails() {
+function TalentManagerDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -279,16 +280,11 @@ function ScoutDetails() {
             </div>
           </div>
 
-          {/* <div className="AdminPage_DashboardTAbleCat">
-
-          <h1>sam</h1>
-        </div> */}
-
-          <ScoutsNegotiateStep />
+          <TalentManagerNegotiateStep />
         </div>
       </div>
     </>
   );
 }
 
-export default ScoutDetails;
+export default TalentManagerDetail;

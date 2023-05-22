@@ -23,6 +23,9 @@ import Privilege from "../../Components/Admin/AdminAdmins/Privilege";
 import Authorization from "./Authorization";
 import PlayersRoute from "./Players/PlayersRoute";
 import ScoutRoute from "./Souts/ScoutRoute";
+import TalentmanagerRoute from "./TalentManagers/TalentmanagerRoute";
+import AdsRoute from "./Ads/AdsRoute";
+import NegotiationRoute from "./Negotiation/NegotiationRoute";
 
 const AdminRote = () => {
   return (
@@ -32,13 +35,15 @@ const AdminRote = () => {
         <AdminSidebar />
         <Routes>
           <Route path="/" element={<AdminAllAdmins />} />
+          <Route path="/dashboard" element={<AdminDashboard />} />
           <Route path="/players/*" element={<PlayersRoute />} />
-
           <Route path="/scouts/*" element={<ScoutRoute />} />
+          <Route path="/fan/*" element={<ScoutRoute />} />
+          <Route path="/talentManager/*" element={<TalentmanagerRoute />} />
+          <Route path="/Ads/*" element={<AdsRoute />} />
+          <Route path="/negotiations/*" element={<NegotiationRoute />} />
 
-          <Route path="/admin/dashboard" element={<AdminDashboard />} />
-          <Route path="/authorization" element={<Authorization />} />
-
+          {/* <Route path="/authorization" element={<Authorization />} /> */}
           <Route path="/admin/negotiate" element={<AdminNegotiate />} />
           <Route path="/admin/finance" element={<AdminFinance />} />
           <Route
@@ -54,10 +59,7 @@ const AdminRote = () => {
             element={<AdminPermissions />}
           />
           <Route path="/admin/admins/privilege" element={<Privilege />} />
-          <Route
-            path="/admin/talentManager"
-            element={<AdminTalentManagers />}
-          />
+
           <Route
             path="/admin/negotiate/allnegotiate"
             element={<AdminNegotiateAllNegotiate />}

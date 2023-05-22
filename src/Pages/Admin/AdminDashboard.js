@@ -28,19 +28,67 @@ import { BsDisplay } from "react-icons/bs";
 const AdminDashboard = () => {
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    dispatch(Admin_Header_Summary_fun());
+
+    dispatch(Admin_dashboard_approved_player_fun());
+    dispatch(Admin_dashboard_active_negotiations_fun());
+
+    return () => {};
+  }, []);
+
   const {
     Admin_Header_Summary,
     Admin_dashboard_approved_player,
     Admin_dashboard_active_negotiations,
   } = useSelector((state) => state.reducer.AdminDashboardSlice);
 
-  console.log(Admin_dashboard_active_negotiations);
+  let lastObject_Admin_dashboard_approved_player;
 
-  const lastObject_Admin_dashboard_approved_player =
-    Admin_dashboard_approved_player?.plus.slice(-1);
+  let lastObject_Admin_dashboard_active_negotiations;
 
-  const lastObject_Admin_dashboard_active_negotiations =
-    Admin_dashboard_active_negotiations?.plus.slice(-1);
+  if (Admin_dashboard_approved_player?.plus.length < 1) {
+    lastObject_Admin_dashboard_approved_player = [];
+    console.log("Admin_dashboard_approved_player.plus is an empty array");
+  } else {
+    lastObject_Admin_dashboard_approved_player =
+      Admin_dashboard_approved_player?.plus.slice(-1);
+    console.log(
+      "Last array from Admin_dashboard_approved_player.plus:",
+      lastObject_Admin_dashboard_approved_player
+    );
+  }
+
+  const data___ = [
+    // {
+    //   Nationality: "Nigeria",
+    //   firstname: "unknown",
+    //   images_count: "6",
+    //   position: "chel",
+    //   profile_pics:
+    //     "https://certificate.bcodestech.com/storage/image/profile/1684488537-32069166806727-editprofile.PNG",
+    //   surname: "name",
+    //   videos_count: "0",
+    // },
+  ];
+
+  if (Admin_dashboard_active_negotiations?.plus.length < 1) {
+    lastObject_Admin_dashboard_active_negotiations = [];
+
+    console.log("Admin_dashboard_approved_player.plus is an empty array");
+  } else {
+    console.log("Last array from Admin_dashboard_approved_player.plus:");
+
+    // lastObject_Admin_dashboard_active_negotiations =
+    //   Admin_dashboard_approved_player?.plus?.data.slice(-1);
+
+    lastObject_Admin_dashboard_active_negotiations =
+      Admin_dashboard_active_negotiations?.plus?.data.slice();
+  }
+
+  console.log(lastObject_Admin_dashboard_active_negotiations);
+
+  console.log(Admin_dashboard_active_negotiations?.plus?.data);
 
   const header = [
     {
@@ -141,15 +189,6 @@ const AdminDashboard = () => {
     },
   ];
 
-  useEffect(() => {
-    dispatch(Admin_Header_Summary_fun());
-
-    dispatch(Admin_dashboard_approved_player_fun());
-    dispatch(Admin_dashboard_active_negotiations_fun());
-
-    return () => {};
-  }, []);
-
   return (
     <div className="AdminDashboard">
       {/* <AdminHeader /> */}
@@ -194,7 +233,12 @@ const AdminDashboard = () => {
             <img src={volume} />
             <div className="AdminDashBoard_CategoryTitileDet">
               <p style={{ fontSize: "14px" }}>Active Ads</p>
-              <p className="AdminDashboard_categoryNum">20</p>
+
+              <p className="AdminDashboard_categoryNum">
+                {/* {Admin_Active_Negotiations?.data?.total_active_negotiations} */}
+
+                {Admin_Header_Summary?.data?.active_advertisement}
+              </p>
             </div>
           </div>
 
@@ -253,7 +297,7 @@ const AdminDashboard = () => {
               approval on the platform
             </span>
           </div>
-          {lastObject_Admin_dashboard_approved_player?.length === 0 ? (
+          {!lastObject_Admin_dashboard_approved_player ? (
             <div
               style={{
                 display: "flex",

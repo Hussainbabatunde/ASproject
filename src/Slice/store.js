@@ -16,7 +16,7 @@ import AdminUpdate_profileSlice from "./Admin/AdminUpdate_profileSlice";
 import AdminDashboardSlice from "./Admin/AdminDashboardSlice";
 import Admin_Scouts_Slice from "./Admin/Admin_Scouts_Slice";
 
-const rootReducer = combineReducers({
+const reducers = combineReducers({
   LoginSlice: LoginSlice,
   PlayerProfileSlice: PlayerProfileSlice,
   AdminAllAdminSlice: AdminAllAdminSlice,
@@ -38,6 +38,14 @@ const persistConfig = {
   storage,
 };
 
+const rootReducer = (state, action) => {
+  if (action.type === "RESET") {
+    console.log("his is working ");
+    storage.removeItem("persist:root");
+    state = {};
+  }
+  return reducers(state, action);
+};
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const store = configureStore({
