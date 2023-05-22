@@ -157,6 +157,7 @@ const AdminSidebar = () => {
     localStorage.clear();
     sessionStorage.clear();
     window.location.reload();
+    dispatch(dispatch({ type: "RESET" }));
   };
 
   return (
@@ -214,7 +215,6 @@ const AdminSidebar = () => {
         onClick={handleLogout}
         className="SuperAdmin_SidebarLogoutInactiveNavLink"
       >
-        {" "}
         <ImExit />
         <span className="SuperAdmin_SidebarText">Logout</span>
       </div>
