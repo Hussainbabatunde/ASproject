@@ -13,6 +13,7 @@ import AdminUserSlice from "./Admin/AdminAllAdmins/AdminUserSlice";
 import AdminPrivilageSlice from "./Admin/AdminAllAdmins/AdminPrivilageSlice";
 import AuthorizeSlice from "./Admin/AuthorizeSlice";
 import AdminUpdate_profileSlice from "./Admin/AdminUpdate_profileSlice";
+import ScoutDealsSlice from './Scout/ScoutDealsApiPage/ScoutDealSlice'
 
 
 const rootReducer = combineReducers({
@@ -28,6 +29,7 @@ const rootReducer = combineReducers({
   AdminPrivilageSlice: AdminPrivilageSlice,
   AuthorizeSlice: AuthorizeSlice,
   AdminUpdate_profileSlice: AdminUpdate_profileSlice,
+  ScoutDealsSlice: ScoutDealsSlice
   });
 
 

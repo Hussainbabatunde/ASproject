@@ -4,14 +4,31 @@ import FilterHeroSection from '../../Components/Homepage/FilterHeroSection'
 import { Link } from 'react-router-dom'
 import {RxDotFilled} from 'react-icons/rx';
 import { useDispatch, useSelector } from 'react-redux';
-import { GetPlayersApi } from '../../Slice/Player/PlayerHomePage/GetAllPlayersHomePage';
+import { FilteredPlayersApi, GetPlayersApi } from '../../Slice/Player/PlayerHomePage/GetAllPlayersHomePage';
 import Footer from '../../Components/Homepage/Footer';
 import ScoutHeader from '../../Components/Header/ScoutHeader';
+import { CircularProgress } from '@mui/material';
 
 const HomepageFilterView = () => {
     const [allPlayers, setAllPlayers] = useState([])
     const dispatch = useDispatch()
     const Sortdata = useSelector((state)=> state.reducer?.GetPlayerSlice?.gottenPlayerData?.data?.data)
+    const filteredPlayer = useSelector((state)=> state.reducer?.GetPlayerSlice?.filteredPlayersData?.data)
+    console.log('sortdata ', Sortdata)
+    const [searchLoader, setSearchloader] = useState(false)
+    const [checkedPosition, setCheckedPosition] = useState('')
+    const [checkStrongFoot, setCheckStrongFoot] = useState('')
+    const [minPrice, setMinPrice] = useState('')
+    const [maxPrice, setMaxPrice] = useState('')
+    const [minAge, setMinAge] = useState('')
+    const [maxAge, setMaxAge] = useState('')
+    const [height, setHeight] = useState('')
+    const [country, setCountry] = useState('')
+    const [position, setPosition] = useState('')
+    const [foot, setFoot] = useState('')
+
+    const [data, setData] = useState({})
+
     useEffect(()=>{
         const getPlayerDataHome = async () =>{
           await dispatch(GetPlayersApi())
@@ -20,6 +37,56 @@ const HomepageFilterView = () => {
         getPlayerDataHome()
     },[])
 
+    useEffect(()=>{
+        setAllPlayers(filteredPlayer)
+    }, [filteredPlayer])
+
+
+    const handleCheckedPosition = (positionChecked) =>{
+         setCheckedPosition(positionChecked)
+         setPosition(positionChecked)
+    }
+    const handleCheckedStrongFoot = (footChecked) =>{
+        setCheckStrongFoot(footChecked)
+        setFoot(footChecked)
+   }
+    const handleMinPriceChange = (e) =>{
+        setMinPrice(e.target.value)
+    }
+    const handleMaxPriceChange = (e) =>{
+        setMaxPrice(e.target.value)
+    }
+    const handleMinAgeChange = (e) =>{
+        setMinAge(e.target.value)
+    }
+    const handleMaxAgeChange = (e) =>{
+        setMaxAge(e.target.value)
+    }
+    const handleHeightChange = (e) =>{
+        setHeight(e.target.value)
+    }
+    const handleCountryChange = (e) =>{
+        setCountry(e.target.value)
+    }
+    // const handleFootChange = (e) =>{
+    //     setFoot(e.target.value)
+    // }
+    const handleSearchFilter = async (e) =>{
+        e.preventDefault()
+        data.foot= foot
+        data.position= position
+        data.min_age = minAge
+        data.max_age = maxAge
+        data.min_price = minPrice
+        data.max_price = maxPrice
+        data.height = height
+        data.country = country
+        console.log('data ',data)
+        await dispatch(FilteredPlayersApi(data))
+        setSearchloader(true)
+        setSearchloader(false)
+    }
+
   return (
     <div>
         <ScoutHeader />
@@ -27,22 +94,22 @@ const HomepageFilterView = () => {
             <FilterHeroSection />
             <div className='FilterPage_ContentSection'>
                 <div style={{position:'relative'}}>
-                <div className='FilterPage_ResultFilter'>
+                <form onSubmit={handleSearchFilter} className='FilterPage_ResultFilter'>
                     <p className='FilterPage_TopicSearchResult'>Found 376 results for <span className='FilterPage_PositionSearchedFor'>Strikers</span></p>
                     <p className='FilterPage_LabelSearch'>Price, $</p>
                     <div style={{display:'flex'}}>
-                        <input placeholder='Min' className='FilterPage_MinPriceValue' type='text' />
-                        <input placeholder='Max' className='FilterPage_MaxPriceValue' type='text' />
+                        <input name='min_price' value={minPrice} onChange={handleMinPriceChange} placeholder='Min' className='FilterPage_MinPriceValue' type='text' />
+                        <input name='max_price' value={maxPrice} onChange={handleMaxPriceChange} placeholder='Max' className='FilterPage_MaxPriceValue' type='text' />
                     </div>
                     <p className='FilterPage_LabelSearch'>Age Range</p>
                     <div style={{display:'flex'}}>
-                        <input placeholder='Min' className='FilterPage_MinPriceValue' type='text' />
-                        <input placeholder='Max' className='FilterPage_MaxPriceValue' type='text' />
+                        <input name='min_age' value={minAge} onChange={handleMinAgeChange} placeholder='Min' className='FilterPage_MinPriceValue' type='text' />
+                        <input name='max_age' value={maxAge} onChange={handleMaxAgeChange} placeholder='Max' className='FilterPage_MaxPriceValue' type='text' />
                     </div>
                     <p className='FilterPage_LabelSearch'>Height (ft)</p>
-                    <input className='FilterPage_HeightSearch' type="text" placeholder='ft' />
+                    <input name='height' value={height} onChange={handleHeightChange} className='FilterPage_HeightSearch' type="text" placeholder='ft' />
                     <p className='FilterPage_LabelSearch'>Country</p>
-                    <select className='FilterPage_HeightSearch'>
+                    <select name='country' value={country} onChange={handleCountryChange} className='FilterPage_HeightSearch'>
                         <option ></option>
     <option value="Afghanistan">Afghanistan</option>
     <option value="Aland Islands">Aland Islands</option>
@@ -300,11 +367,11 @@ const HomepageFilterView = () => {
                     <p className='FilterPage_LabelSearch'>Stronger Foot</p>
                     <div className='FilterPage_StrongerfootSec'>
                         <div>
-                            <input type='checkbox' />
+                            <input name='foot' checked={checkStrongFoot === 'left'} onChange={()=> handleCheckedStrongFoot('left')} type='checkbox' />
                             <label style={{marginLeft:"10px"}}>Left</label>
                         </div>
                         <div >
-                            <input type='checkbox' />
+                            <input name='foot' checked={checkStrongFoot === 'right'} onChange={()=> handleCheckedStrongFoot('right')}  type='checkbox' />
                             <label style={{marginLeft:"10px"}}>Right</label>
                         </div>
                     </div>
@@ -312,55 +379,58 @@ const HomepageFilterView = () => {
                     <p className='FilterPage_LabelSearch'>Position</p>
                     <div className='FilterPage_StrongerfootSec'>
                         <div>
-                            <input type='checkbox' />
+                            <input  name='position'  checked={checkedPosition === 'goalkeeper'} onChange={()=> handleCheckedPosition('goalkeeper')} type='checkbox' />
                             <label style={{marginLeft:"10px"}}>Goalkeeper</label>
                         </div>
                         <div>
-                            <input type='checkbox' />
+                            <input  name='position'  checked={checkedPosition === 'centerback_defender'} onChange={()=> handleCheckedPosition('centerback_defender')} type='checkbox' />
                             <label style={{marginLeft:"10px"}}>Center Back(Defenders)</label>
                         </div>
                         <div>
-                            <input type='checkbox' />
+                            <input  name='position' checked={checkedPosition === 'fullback_defender'} onChange={()=> handleCheckedPosition('fullback_defender')} type='checkbox' />
                             <label style={{marginLeft:"10px"}}>Full Back(Defenders)</label>
                         </div>
                         <div>
-                            <input type='checkbox' />
+                            <input name='position' checked={checkedPosition === 'central_midfielders'} onChange={()=> handleCheckedPosition('central_midfielders')} type='checkbox' />
                             <label style={{marginLeft:"10px"}}>Central midfielders</label>
                         </div>
                         <div>
-                            <input type='checkbox' />
+                            <input name='position' checked={checkedPosition === 'attacking_midfielders'} onChange={()=> handleCheckedPosition('attacking_midfielders')} type='checkbox' />
                             <label style={{marginLeft:"10px"}}>Attacking midfielders</label>
                         </div>
                         <div>
-                            <input type='checkbox' />
+                            <input name='position' checked={checkedPosition === 'defensive_midfielders'} onChange={()=> handleCheckedPosition('defensive_midfielders')} type='checkbox' />
                             <label style={{marginLeft:"10px"}}>Defensive midfielders</label>
                         </div>
                         <div>
-                            <input type='checkbox' />
+                            <input name='position' checked={checkedPosition === 'wingers'} onChange={()=> handleCheckedPosition('wingers')} type='checkbox' />
                             <label style={{marginLeft:"10px"}}>Wingers</label>
                         </div>
                         <div>
-                            <input type='checkbox' />
+                            <input  name='position' checked={checkedPosition === 'striker'} onChange={()=> handleCheckedPosition('striker')} type='checkbox' />
                             <label style={{marginLeft:"10px"}}>Striker</label>
                         </div>
+                        <button type='submit' className='Scoutpage_Profileform_savebutton'>
+            {searchLoader ? <CircularProgress size={15} /> : <span>Search</span>}
+            </button>
                     </div>
-                </div>
+                </form>
             </div>
             <div style={{marginLeft: '10px'}}>
             <div className='Homepage_Sortfootballers'>
              {allPlayers?.map((each, index)=>( 
-             <Link to={`/viewplayerprofile/${each?.user_id}`}
+             <Link to={`/viewplayerprofile/${each?.user_id || each?.id}`}
               data-aos-easing='ease-in-out' 
              data-aos-duration="1000" 
              data-aos="flip-down"
              className='Homepage_foorballersBriefInfo' key={index}>
-                <img src={each?.image_url} className='Homepage_PlayersImage' />
-                <p className='Homepage_PlayerStatus'>{each?.market_place_fee}</p>
+                <img src={each?.image_url || each?.profile_pics} className='Homepage_PlayersImage' />
+                <p className='Homepage_PlayerStatus'>{each?.service_type == 'range'? `${each?.minimum} - ${each?.maximum}` : each?.service_type == 'free' ? `free` : null }</p>
                 <p className='Homepage_PlayersName'>{each?.firstname} {each?.surname}</p>
                 <div className='Homepage_playersPosition'>
-                  <p>{each?.position}</p>
+                  <p>{each?.position || each?.bio?.position}</p>
                   <RxDotFilled />
-                  <p>{each?.current_club}</p>
+                  <p>{each?.current_club || each?.bio?.current_club}</p>
                 </div>
               </Link>))}
               

@@ -64,7 +64,7 @@ const initialState = {
         },
       });
       return await instance
-        .post('activities/make-offer', data)
+        .post('scout/make-offer', data)
         .then(async (response) => {
             // console.log('offer details ',response.data)
           return response.data;

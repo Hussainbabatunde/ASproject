@@ -17,8 +17,9 @@ import { PlayerDealsApi } from '../../Slice/Player/PlayerDeal/PlayerDealSlice';
 import { reset as resetPlayerProfileSlice } from "../../Slice/Player/Playerprofile/PlayerProfileSlice";
 import {reset as resetGetAllPlayerDealSlice} from "../../Slice/Player/PlayerDeal/PlayerDealSlice"
 import { UserLogout } from '../Player/UserLogOut';
+import { ScoutDealsApi } from '../../Slice/Scout/ScoutDealsApiPage/ScoutDealSlice';
 
-const PlayerDeal = () => {
+const ScoutDeal = () => {
     const dispatch = useDispatch()
     const handleLogout = async () =>{
         await dispatch(LogoutAuth())
@@ -62,7 +63,7 @@ const PlayerDeal = () => {
       },
       {
           id:7,
-          name:''
+          name:'Scout Deals'
       }
   ]
   const style = {
@@ -79,7 +80,7 @@ const PlayerDeal = () => {
   useEffect(()=>{
     const DealSlice = async ()=>{
         setShow(true)
-        await dispatch(PlayerDealsApi())
+        await dispatch(ScoutDealsApi())
         setShow(false)
     }
     DealSlice()
@@ -91,7 +92,7 @@ const PlayerDeal = () => {
 //     }
 // ]
 
-const dataTable = useSelector((state)=> state?.reducer?.GetAllPlayerDealSlice?.PlayerDealData)
+const dataTable = useSelector((state)=> state?.reducer?.ScoutDealsSlice?.ScoutDealData)
 
   return (
     <div  className='Scoutpage_contents'>
@@ -128,4 +129,4 @@ const dataTable = useSelector((state)=> state?.reducer?.GetAllPlayerDealSlice?.P
   )
 }
 
-export default PlayerDeal
+export default ScoutDeal
