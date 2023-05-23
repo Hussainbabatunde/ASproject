@@ -123,7 +123,7 @@ const AdminUseTable = ({
                       <td className="useTable_tableDetails">
                         <p className="AdminUse_TableComp">
                           <img
-                            src={each?.profile_pics}
+                            src={each?.user[0]?.profile_pics}
                             className="useTable_ImageRecipient"
                             alt="Recipient image"
                           />

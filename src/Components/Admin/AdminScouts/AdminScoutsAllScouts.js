@@ -26,7 +26,6 @@ const AdminScoutsAllScouts = ({
     (state) => state.reducer.Admin_Scouts_Slice
   );
 
-  console.log(Admin_Get_All_Scouts);
   const dispatch = useDispatch();
 
   const header = [
@@ -59,9 +58,7 @@ const AdminScoutsAllScouts = ({
       dispatch(reset__Admin_Scouts_Slice());
     };
   }, []);
-  let Admi = Admin_Get_All_Scouts?.plus;
 
-  console.log(Admi);
   const dataTable = [
     {
       id: 1,
