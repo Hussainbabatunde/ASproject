@@ -3,11 +3,11 @@ import '../Scout/profileform.css'
 import imgPlaceHolder from '../../assets/imageplaceholder.png'
 import {RiDeleteBin6Fill} from 'react-icons/ri'
 import {FaRegImages} from 'react-icons/fa'
-import { PlayerProfileUploadIdApi, PlayerProfileVerificationStatus } from '../../Slice/Player/Playerprofile/PlayerProfileSlice'
 import { CircularProgress } from '@mui/material'
 import { useDispatch } from 'react-redux'
+import { ScoutProfileUploadIdApi, ScoutProfileVerificationStatus } from '../../Slice/Scout/ProfileScoutSlice/ProfileScoutSlice'
 
-const PlayerProfileUploadId = ({userId}) => {
+const FanProfileUploadId = ({userId}) => {
 
     const [fileUploadId, setFileUploadId] = useState(imgPlaceHolder);
     const [uploadId, setUploadId] = useState(null)
@@ -27,8 +27,8 @@ const PlayerProfileUploadId = ({userId}) => {
         formData.append('id', userId)
         
         setLoadUploadId(true)
-          await dispatch(PlayerProfileUploadIdApi(formData))
-          await dispatch(PlayerProfileVerificationStatus(userId))
+          await dispatch(ScoutProfileUploadIdApi(formData))
+          await dispatch(ScoutProfileVerificationStatus(userId))
           setLoadUploadId(false)
       }
 
@@ -42,8 +42,8 @@ const PlayerProfileUploadId = ({userId}) => {
     <form onSubmit={handleUploadIdSubmit} className='Scoutpage_ProfileforContent'>
         <p className='Scoutpage_Profile_Profiledetailstext'>Upload ID</p>
         <p className='Scoutpage_Profile_filldetailstext'>Verification by means of ID, International Passport, NIN</p>
-        <label for='UploadId' className='Scoutpage_Profileform_savebutton' >Select Image</label>
-        <input type='file' id='UploadId' onChange={handleUploadIdChange} className='Scoutpage_Profileform_ImgIploaded' />
+        <label for='UploadId' className='Scoutpage_Profileform_SelectImage' >Select Image</label>
+        <input type='file' id='UploadId' onChange={handleUploadIdChange} className='Scoutpage_Profile_ImagePlaceInput' />
         
         {uploaded && <div className='Scoutpage_Profileform_ImgIploaded'>
             <div className='Scoutpage_Profileform_UploadIDImg'>
@@ -60,4 +60,4 @@ const PlayerProfileUploadId = ({userId}) => {
   )
 }
 
-export default PlayerProfileUploadId
+export default FanProfileUploadId

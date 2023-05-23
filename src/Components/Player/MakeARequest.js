@@ -20,7 +20,7 @@ const style = {
     borderRadius: '20px'
   };
 
-const MakeARequest = ({show, loader, handleShowOffer, handleChange, title, handleHide}) => {
+const MakeARequest = ({show, loader, handleShowOffer, handleChange, handleShowVideoRequest, handleHide}) => {
 
     const customStyles = {
             
@@ -51,7 +51,7 @@ const MakeARequest = ({show, loader, handleShowOffer, handleChange, title, handl
        </div>
        <div className='MakeaRequest_HowitWorksContent'>
         <p>What type of Video are you interested in?</p>
-        <div onClick={handleShowOffer} className='MakeaRequest_HowitWorksContentInnerDiv'>
+        <div onClick={handleShowVideoRequest} className='MakeaRequest_HowitWorksContentInnerDiv'>
           <div style={{display:'flex', alignItems:'center'}}>
           <div style={{border:'2px solid rgba(204, 204, 204, 1)', borderRadius:'50%', padding:'15px'}}></div>
           <p style={{marginLeft:'15px'}}>Video, or Photo</p>

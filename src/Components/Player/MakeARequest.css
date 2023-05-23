@@ -9,6 +9,14 @@
     border-radius: 10px;
     width: 450px;
 }
+.offeraRequest_ModalView{
+    background-color: white !important;
+    border-radius: 10px;
+    width: 450px;
+    max-height: 80vh;
+    overflow-y: scroll;
+    scrollbar-width: thin !important;
+}
 .MakeaRequest_HowitWorksText{
     margin-left: 70px;
     font-weight: 600;
@@ -94,4 +102,13 @@
     border-radius: 20px;
     font-weight: 600;
     cursor: pointer;
+}
+.VideoRequest_MidalVideoDiv{
+    border: 1px solid rgba(204, 204, 204, 1);
+    padding: 15px 10px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
 }

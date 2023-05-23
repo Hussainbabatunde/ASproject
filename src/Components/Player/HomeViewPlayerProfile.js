@@ -19,6 +19,7 @@ import MakeARequest from './MakeARequest'
 import HomePagePitchOffer from './HomePagePitchOffer'
 import ReactPlayer from 'react-player'
 import { ToastContainer } from 'react-toastify'
+import VideoRequestModal from './VideoRequestModal'
 
 const HomeViewPlayerProfile = () => {
   const { id } = useParams();
@@ -28,6 +29,8 @@ const HomeViewPlayerProfile = () => {
     const [show, setShow] = useState(false);
     const [showOffer, setShowOffer] = useState(false);
     const [loader, setLoader] = useState(false)
+    const [videoLoader, setVideoLoader] = useState(false)
+    const [showVideoRequest, setShowVideoRequest] = useState(false)
   
   
     const userData = useSelector((state)=> state.reducer.LoginSlice?.logindata )
@@ -48,6 +51,14 @@ const HomeViewPlayerProfile = () => {
       const handleShowOffer= ()=>{
         setShow(false)
         setShowOffer(true)
+      }
+
+      const handleShowVideoRequest = () =>{
+        setShow(false)
+        setShowVideoRequest(true)
+      }
+      const handleHideVideoRequest = () =>{
+        setShowVideoRequest(false)
       }
 
       const handleUserProfile = () =>{
@@ -183,7 +194,7 @@ const HomeViewPlayerProfile = () => {
             <p className='ScoutViewProfile_UserProfileCurrentlyAvailable'>Request for personalized Video or Photo Content</p>
             <button className='HomepageViewProfile_requestButton' onClick={handleShow}>Make a request</button>
             </div>
-            <div className='HomepageViewProfile_MakeRequestSec'>                
+            {userData?.data?.user_type != 'player' && <div className='HomepageViewProfile_MakeRequestSec'>                
             <p className='ScoutViewProfile_AboutTopicText'>Negotiate this Player</p>
             <p className='ScoutViewProfile_UserProfileCurrentlyAvailable'>For Business, Pitch your business offer to the player/talent manager.</p>
             <div style={{marginTop: '20px'}}>
@@ -191,12 +202,13 @@ const HomeViewPlayerProfile = () => {
             <p style={{fontSize: '13px', marginTop:"5px"}}>Open for negotiation</p>
             </div>
             <button className='HomepageViewProfile_requestButton' onClick={handleShowOffer}>Pitch offer</button>
-            </div>
+            </div>}
         </div>
         </div>
     </div>
-    <MakeARequest loader={loader} show={show} handleShow={handleShow} handleShowOffer={handleShowOffer} handleHide={handleHide}/>
+    <MakeARequest loader={loader} show={show} handleShow={handleShow} handleShowOffer={handleShowOffer} handleShowVideoRequest={handleShowVideoRequest} handleHide={handleHide}/>
     <HomePagePitchOffer loader={loader} show={showOffer} handleShow={handleShowOffer} handleHide={handleHideOffer} />
+    <VideoRequestModal loader={videoLoader} show={showVideoRequest} handleHide={handleHideVideoRequest} />
     <Footer />
     </div>
   )

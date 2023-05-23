@@ -13,13 +13,12 @@ import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import football from '../../assets/lottie/92356-football.json'
 import { useDispatch, useSelector } from 'react-redux';
-import { GetPlayerOfferDetailsApi, PlayerDealsApi } from '../../Slice/Player/PlayerDeal/PlayerDealSlice';
+import { PlayerDealsApi } from '../../Slice/Player/PlayerDeal/PlayerDealSlice';
 import { reset as resetPlayerProfileSlice } from "../../Slice/Player/Playerprofile/PlayerProfileSlice";
 import {reset as resetGetAllPlayerDealSlice} from "../../Slice/Player/PlayerDeal/PlayerDealSlice"
-import { UserLogout } from './UserLogOut';
-import { ToastContainer } from 'react-toastify';
+import { UserLogout } from '../Player/UserLogOut';
 
-const PlayerDeal = () => {
+const FanDeal = () => {
     const dispatch = useDispatch()
     const handleLogout = async () =>{
         await dispatch(LogoutAuth())
@@ -31,10 +30,8 @@ const PlayerDeal = () => {
         window.location.reload();
     }
     const data = [
-        {id: 1, pathTo: '/afrisport/player/profile', pathName: 'Profile'},
-        {id: 2, pathTo: '/afrisport/player/deal', pathName: 'Deals'},
-        {id: 3, pathTo: '/afrisport/player/views', pathName: 'Views'},
-        {id: 4, pathTo: '/afrisport/player/payment', pathName: 'Payment'}
+        {id: 1, pathTo: '/afrisport/scout/profile', pathName: 'Profile'},
+        {id: 2, pathTo: '/afrisport/scout/deal', pathName: 'Deals'}
     ]
 
     const header= [
@@ -64,14 +61,9 @@ const PlayerDeal = () => {
           name:'Status'
       },
       {
-        id: 8,
-        name: 'AcceptDeclineOffer'
-      },
-      {
           id:7,
           name:''
       }
-      
   ]
   const style = {
     position: 'absolute',
@@ -88,7 +80,6 @@ const PlayerDeal = () => {
     const DealSlice = async ()=>{
         setShow(true)
         await dispatch(PlayerDealsApi())
-        await dispatch(GetPlayerOfferDetailsApi())
         setShow(false)
     }
     DealSlice()
@@ -100,11 +91,10 @@ const PlayerDeal = () => {
 //     }
 // ]
 
-const dataTable = useSelector((state)=> state?.reducer?.GetAllPlayerDealSlice?.PlayerDealData?.data)
-// console.log('deals ', dataTable)
+const dataTable = useSelector((state)=> state?.reducer?.GetAllPlayerDealSlice?.PlayerDealData)
+
   return (
     <div  className='Scoutpage_contents'>
-        <ToastContainer />
     <div className='Scoutpage_AccountLogout_div'>
         <p className='Scoutpage_AccountWord'>Account</p>
         <p className='Scoutpage_AccountWord' style={{cursor:'pointer'}} onClick={handleLogout}>Logout <RxExit /></p>
@@ -138,4 +128,4 @@ const dataTable = useSelector((state)=> state?.reducer?.GetAllPlayerDealSlice?.P
   )
 }
 
-export default PlayerDeal
+export default FanDeal
