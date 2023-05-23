@@ -23,23 +23,18 @@ const AdminUseTable = ({
       <thead>
         <tr>
           {header?.map((item, index) => (
-            <>
-              <th key={index} className="UseTable_tableheader">
-                {item?.name == "ViewEditSuspend" ||
-                item?.name == "PlayersViewdetails" ||
-                item?.name == "EditDeleteRoles" ||
-                item?.name == "EditDeletePermissions" ||
-                item?.name == "EditResetPasswordEnableDisable" ||
-                item?.name == "ViewEditUnSuspend" ||
-                item?.name == "SuspendMessageView"
-                  ? ""
-                  : item?.name}
-              </th>
-            </>
+            <th key={index} className="UseTable_tableheader">
+              {item?.name == "ViewEditSuspend" ||
+              item?.name == "PlayersViewdetails" ||
+              item?.name == "EditDeleteRoles" ||
+              item?.name == "EditDeletePermissions" ||
+              item?.name == "EditResetPasswordEnableDisable" ||
+              item?.name == "ViewEditUnSuspend" ||
+              item?.name == "SuspendMessageView"
+                ? ""
+                : item?.name}
+            </th>
           ))}
-          {/* <th className="UseTable_tableheader">First Name</th>
-          <th className="UseTable_tableheader">Last Name</th>
-          <th className="UseTable_tableheader">Username</th> */}
         </tr>
       </thead>
       <tbody>
@@ -55,10 +50,154 @@ const AdminUseTable = ({
                       </td>
                     );
 
+                  case "Admin_fan_scout":
+                    return (
+                      <td className="useTable_tableDetails">
+                        <p className="AdminUse_TableComp">
+                          <img
+                            src={each?.user[0].profile_pics}
+                            className="useTable_ImageRecipient"
+                            alt="Recipient image"
+                          />
+                          <span>{` ${each?.user[0]?.firstname}  ${each?.user[0]?.surname}`}</span>
+                        </p>
+                      </td>
+                    );
+
+                  case "Admin_fan_Acitive_Negotiate":
+                    return (
+                      <td className="useTable_tableDetails">
+                        <p className="AdminUse_TableComp">
+                          <span>{each?.active_negotiations}</span>
+                        </p>
+                      </td>
+                    );
+
+                  case "Admin_scout_Acitive_Negotiate":
+                    return (
+                      <td className="useTable_tableDetails">
+                        <p className="AdminUse_TableComp">
+                          <span>{each?.active_negotiations}</span>
+                        </p>
+                      </td>
+                    );
+
+                  case "Admin_fan_Closed_Negotiate":
+                    return (
+                      <td className="useTable_tableDetails">
+                        <p className="AdminUse_TableComp">
+                          <span>{each?.closed_negotiations}</span>
+                        </p>
+                      </td>
+                    );
+
+                  case "Admin_scout_Closed_Negotiate":
+                    return (
+                      <td className="useTable_tableDetails">
+                        <p className="AdminUse_TableComp">
+                          <span>{each?.closed_negotiations}</span>
+                        </p>
+                      </td>
+                    );
+
+                  case "Admin_scout_view_suspend":
+                    return (
+                      <td
+                        className="useTable_ViewEditSuspendDetails"
+                        style={{ flex: 1 }}
+                      >
+                        <Link
+                          to={`/admin/scouts/${each?.id}`}
+                          className="Admin_playersviewprofile"
+                        >
+                          View
+                        </Link>
+                        {/* <Link className="Admin_playersEditprofile">Edit</Link> */}
+                        <Link className="Admin_playersSuspendprofile">
+                          Un-Suspend
+                        </Link>
+                      </td>
+                    );
+                  case "Admin_Scout":
+                    return (
+                      <td className="useTable_tableDetails">
+                        <p className="AdminUse_TableComp">
+                          <img
+                            src={each?.profile_pics}
+                            className="useTable_ImageRecipient"
+                            alt="Recipient image"
+                          />
+
+                          <span>{` ${each?.user[0]?.firstname}  ${each?.user[0]?.surname}`}</span>
+
+                          {/* <span>{` ${each?.firstname}  ${each?.surname}`}</span> */}
+                        </p>
+                      </td>
+                    );
+
+                  case "All_negotiate_payment":
+                    return (
+                      <td className="useTable_tableDetails">{each?.number}</td>
+                    );
+
                   case "Admin_Phone_number":
                     return (
                       <td className="useTable_tableDetails">
                         {each?.user?.phone}
+                      </td>
+                    );
+
+                  case "Scout_Suspend_Message_View":
+                    return (
+                      <td
+                        className="useTable_ViewEditSuspendDetails"
+                        style={{ flex: 1 }}
+                      >
+                        <Link
+                          onClick={() => handleDelete(each)}
+                          className="Admin_playersSuspendprofile"
+                        >
+                          Suspend
+                        </Link>
+                        <span
+                          onClick={() => handleEdit(each)}
+                          className="useTable_ViewEditSuspendDetails"
+                        >
+                          Message
+                        </span>
+                        <Link
+                          to={`/admin/scouts/${each?.user[0]?.id}`}
+                          className="Admin_playersEditprofile"
+                        >
+                          View
+                        </Link>
+                      </td>
+                    );
+
+                  case "Admin_fan_Suspend_message_view":
+                    return (
+                      <td
+                        className="useTable_ViewEditSuspendDetails"
+                        style={{ flex: 1 }}
+                      >
+                        <span
+                          onClick={() => handleEdit(each)}
+                          className="Admin_playersviewprofile"
+                        >
+                          Suspend
+                        </span>
+                        <span
+                          onClick={() => handleEdit(each)}
+                          className="Admin_playersviewprofile"
+                        >
+                          Message
+                        </span>
+                        <Link
+                          to={`/admin/fans/${each?.user[0]?.id}`}
+                          className="Admin_playersEditprofile"
+                        >
+                          View
+                        </Link>
                       </td>
                     );
 
@@ -74,6 +213,48 @@ const AdminUseTable = ({
                       </td>
                     );
 
+                  case "Admin_All_player_View_Edit_Suspend":
+                    return (
+                      <td
+                        className="border-2 px-1 border-[#DDDDDD] w-[300px] text-center "
+                        style={{ flex: 1 }}
+                      >
+                        <Link
+                          to={`/admin/players/${each?.id}`}
+                          className="Admin_playersviewprofile"
+                        >
+                          View
+                        </Link>
+                        <Link
+                          to={`/admin/players/profile/${each}`}
+                          className="Admin_playersEditprofile"
+                        >
+                          Edit
+                        </Link>
+                        <span
+                          onClick={() => handleEdit(each)}
+                          className="Admin_playersSuspendprofile"
+                        >
+                          Un-Suspend
+                        </span>
+                      </td>
+                    );
+
+                  case "Admin_All_player_ViewDetail":
+                    return (
+                      <td
+                        className="useTable_ViewEditSuspendDetails"
+                        style={{ flex: 1 }}
+                      >
+                        <Link
+                          to={`/admin/players/review/${each?.id}`}
+                          className="Admin_playersviewprofile"
+                        >
+                          View Details
+                        </Link>
+                      </td>
+                    );
+
                   case "Admin_All_player_ViewEditSuspend":
                     return (
                       <td
@@ -81,15 +262,44 @@ const AdminUseTable = ({
                         style={{ flex: 1 }}
                       >
                         <Link
-                          to={`/admin/players/1`}
+                          to={`/admin/players/${each?.id}`}
                           className="Admin_playersviewprofile"
                         >
                           View
                         </Link>
-                        <Link className="Admin_playersEditprofile">Edit</Link>
-                        <Link className="Admin_playersSuspendprofile">
-                          Suspend
+                        <Link
+                          to={`/admin/players/profile/${each?.id}`}
+                          className="Admin_playersEditprofile"
+                        >
+                          Edit
                         </Link>
+                        {/* <span
+                          onClick={() => handleEdit(each)}
+                          className="Admin_playersSuspendprofile"
+                        >
+                          Suspend
+                        </span> */}
+                      </td>
+                    );
+
+                  case "Admin_All_Ads_View_Terminate":
+                    return (
+                      <td
+                        className="useTable_ViewEditSuspendDetails"
+                        style={{ flex: 1 }}
+                      >
+                        <Link
+                          to={`/admin/Ads/${each?.id}`}
+                          className="Admin_playersviewprofile"
+                        >
+                          View
+                        </Link>
+                        <span
+                          onClick={() => handleDelete(each)}
+                          className="Admin_playersEditprofile"
+                        >
+                          Terminante
+                        </span>
                       </td>
                     );
 
@@ -201,7 +411,7 @@ const AdminUseTable = ({
                   case "Nationality":
                     return (
                       <td className="useTable_tableDetails">
-                        {each?.nationality}
+                        {each?.Nationality}
                       </td>
                     );
                   case "Date":
@@ -243,24 +453,15 @@ const AdminUseTable = ({
                   case "View Details":
                     return (
                       <td className="useTable_tableDetails">
-                        <Link className="AdminPage_TableViewDetails">
+                        <Link
+                          to={`/admin/players/19`}
+                          className="AdminPage_TableViewDetails"
+                        >
                           View Details
                         </Link>
                       </td>
                     );
-                  case "Scout":
-                    return (
-                      <td className="useTable_tableDetails">
-                        <p className="AdminUse_TableComp">
-                          <img
-                            src={each?.imgRecip}
-                            className="useTable_ImageRecipient"
-                            alt="Recipient image"
-                          />
-                          {each?.scoutname}
-                        </p>
-                      </td>
-                    );
+
                   case "Admin Name":
                     return (
                       <td className="useTable_tableDetails">
@@ -314,19 +515,32 @@ const AdminUseTable = ({
                     );
                   case "Player Name":
                     return (
-                      <td className="useTable_tableDetails">
-                        {each?.playerName}
+                      <td className="useTable_tableDetails ">
+                        <div className="flex gap-2 items-center">
+                          <div>
+                            <img
+                              src={each?.profile_pics}
+                              alt=""
+                              className="border-1 border-black shadow-md w-[35px] h-[35px] rounded-[50%] block"
+                            />
+                          </div>
+                          <span className="f text-xs font-normal">
+                            {each?.firstname} {each?.surname}
+                          </span>
+                        </div>
                       </td>
                     );
                   case "Recent Negotiate":
                     return (
                       <td className="useTable_tableDetails">
-                        {each?.recentNegotiate}
+                        {each?.Negotiation}
                       </td>
                     );
                   case "Club":
                     return (
-                      <td className="useTable_tableDetails">{each?.club}</td>
+                      <td className="useTable_tableDetails">
+                        {each?.current_club}
+                      </td>
                     );
 
                   case "ViewEditUnSuspend":
