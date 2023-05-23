@@ -25,15 +25,14 @@ const AdminPlayersSuspended = ({
   handleClosed,
   handleTerminated,
 }) => {
-  const { Admin_Get_All_Player, Admin_Get_All_Suspended_Player } = useSelector(
+  const { Admin_Get_All_Suspended_Player } = useSelector(
     (state) => state.reducer.AdminUpdate_profileSlice
   );
 
   const dispatch = useDispatch();
 
-  console.log(Admin_Get_All_Suspended_Player);
-
   const [loading, setLoading] = useState(false);
+  console.log(Admin_Get_All_Suspended_Player);
 
   useEffect(() => {
     dispatch(Admin_Get_All_Suspended_Player_fun());
@@ -195,7 +194,7 @@ const AdminPlayersSuspended = ({
         ) : (
           <AdminUseTable
             header={header}
-            data={Admin_Get_All_Suspended_Player}
+            data={Admin_Get_All_Suspended_Player?.data}
             handleEdit={handleEdit}
           />
         )}
