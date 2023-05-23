@@ -21,6 +21,7 @@ import { FiMail, FiPhoneCall } from "react-icons/fi";
 import AdminNegotiateStep from "../../../Components/Admin/AdminNegotiate/AdminNegotiateStep";
 import ScoutsNegotiateStep from "../../../Components/Admin/AdminScouts/ScoutsNegotiateStep";
 import { Single_Admin_Fan__fun } from "../../../Slice/Admin/Admin_FanData_Slice";
+import Fan_message_modal from "./FanComponent/Fan_message_modal";
 
 let baseURL = process.env.REACT_APP_AFRISPORTURL;
 
@@ -45,6 +46,11 @@ function FanDetails() {
   }, []);
 
   const [loading, setLoading] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
 
   const handleSuspend_Unsuspend = async (data, id) => {
     let API_URL;
@@ -147,6 +153,14 @@ function FanDetails() {
   return (
     <>
       <ToastContainer />
+
+      {isModalOpen && (
+        <Fan_message_modal
+          scout_email={user_Data?.email}
+          isOpen={isModalOpen}
+          onClose={closeModal}
+        />
+      )}
       <div className="AdminDashboard">
         <div className="AdminPage_Dashboard">
           <div>
@@ -223,7 +237,7 @@ function FanDetails() {
                 <div>
                   <button
                     className="Admin_playersviewprofile"
-                    // onClick={() => navigate(`/admin/players/profile/19`)}
+                    onClick={() => setIsModalOpen(true)}
                   >
                     message
                   </button>

@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import Scout_message_modal from "../../Scout/Scout_message_modal";
 import { Admin_FanData__fun } from "../../../Slice/Admin/Admin_FanData_Slice";
+import Fan_message_modal from "./FanComponent/Fan_message_modal";
 
 const Admin_Fans = ({}) => {
   const dispatch = useDispatch();
@@ -104,14 +105,14 @@ const Admin_Fans = ({}) => {
 
   const handleEdit = (data) => {
     console.log(data);
-    setIsModalOpen(true);
-    setScout_email(data);
+    // setIsModalOpen(true);
+    // setScout_email(data);
   };
 
   return (
     <>
       {isModalOpen && (
-        <Scout_message_modal
+        <Fan_message_modal
           scout_email={scout_email}
           isOpen={isModalOpen}
           onClose={closeModal}

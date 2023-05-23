@@ -12,16 +12,11 @@ import { BsShareFill } from "react-icons/bs";
 import { Skeleton } from "@mui/material";
 import { TbCurrencyNaira } from "react-icons/tb";
 
-import { BsFillPatchCheckFill, BsHouseDoor, BsDot } from "react-icons/bs";
-import { MdOutlineDashboard } from "react-icons/md";
-import { SlLocationPin } from "react-icons/sl";
-import { RiDashboardLine } from "react-icons/ri";
 import {
   Admin_Get_ScoutsDetails_fun,
   reset__Admin_Scouts_Slice,
 } from "../../../Slice/Admin/Admin_Scouts_Slice";
 import { FiMail, FiPhoneCall } from "react-icons/fi";
-import AdminNegotiateStep from "../../../Components/Admin/AdminNegotiate/AdminNegotiateStep";
 import ScoutsNegotiateStep from "../../../Components/Admin/AdminScouts/ScoutsNegotiateStep";
 
 let baseURL = process.env.REACT_APP_AFRISPORTURL;

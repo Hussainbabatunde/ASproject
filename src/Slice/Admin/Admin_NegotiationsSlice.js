@@ -42,12 +42,11 @@ const Admin__Active_Negotiations_fun_Service = async (token) => {
     Admin__Terminate_Negotiations,
   };
 
-  console.log(Admin___Negotiations);
   return Admin___Negotiations;
 };
 
 export const Admin___Negotiations_fun = createAsyncThunk(
-  "AdminUpdate_profileSlice/Admin_Get_ScoutsDetails_fun",
+  "Admin_NegotiationsSlice/Admin___Negotiations_fun",
   async (_, thunkAPI) => {
     try {
       const token = thunkAPI.getState().reducer.LoginSlice.logindata.data.token;
@@ -65,7 +64,7 @@ export const Admin___Negotiations_fun = createAsyncThunk(
 );
 
 export const Admin_NegotiationsSlice = createSlice({
-  name: "Admin_Scouts_Slice",
+  name: "Admin_NegotiationsSlice",
   initialState,
 
   reducers: {},
@@ -96,30 +95,6 @@ export const Admin_NegotiationsSlice = createSlice({
           className: "Forbidden403",
         });
       });
-    //   .addCase(Admin_Get_ScoutsDetails_fun.pending, (state) => {
-    //     state.Admin_Get_All_Scouts_isLoading = true;
-    //   })
-    //   .addCase(Admin_Get_ScoutsDetails_fun.fulfilled, (state, action) => {
-    //     state.Admin_Get_ScoutsDetails = action.payload;
-    //     state.Admin_Get_All_Scouts_isSuccess = true;
-    //     state.Admin_Get_All_Scouts_isLoading = false;
-    //   })
-    //   .addCase(Admin_Get_ScoutsDetails_fun.rejected, (state, action) => {
-    //     state.Admin_Get_All_Scouts_isError = true;
-    //     state.Admin_Get_All_Scouts_message = action.payload;
-    //     state.Admin_Get_All_Scouts_isLoading = false;
-    //     toast.error(`${state.Admin_Get_All_Scouts_message}`, {
-    //       position: "top-right",
-    //       autoClose: 5000,
-    //       hideProgressBar: false,
-    //       closeOnClick: true,
-    //       pauseOnHover: true,
-    //       draggable: true,
-    //       progress: undefined,
-    //       theme: "light",
-    //       className: "Forbidden403",
-    //     });
-    //   });
   },
 });
 

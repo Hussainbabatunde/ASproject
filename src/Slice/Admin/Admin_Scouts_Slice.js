@@ -19,20 +19,17 @@ const tokengot = localStorage.getItem("token");
 const Admin_Get_All_Scouts_fun_Service = async (token) => {
   let API_URL = `${baseURL}admin/scout/negotiation`;
 
-  console.log(API_URL);
-
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
     },
   };
   const response = await axios.get(API_URL, config);
-  console.log(response.data);
   return response.data;
 };
 
 export const Admin_Get_All_Scouts_fun = createAsyncThunk(
-  "AdminUpdate_profileSlice/Admin_Get_All_Review_Player_fun",
+  "Admin_Scouts_Slice/Admin_Get_All_Scouts_fun",
   async (_, thunkAPI) => {
     try {
       const token = thunkAPI.getState().reducer.LoginSlice.logindata.data.token;
@@ -53,8 +50,6 @@ export const Admin_Get_All_Scouts_fun = createAsyncThunk(
 const Admin_Get_ScoutsDetails_fun_Service = async (data, token) => {
   let API_URL = `${baseURL}admin/scout/profile/${data}`;
 
-  console.log(API_URL);
-
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -62,16 +57,14 @@ const Admin_Get_ScoutsDetails_fun_Service = async (data, token) => {
   };
 
   const response = await axios.get(API_URL, config);
-  console.log(response.data);
   return response.data;
 };
 
 export const Admin_Get_ScoutsDetails_fun = createAsyncThunk(
-  "AdminUpdate_profileSlice/Admin_Get_ScoutsDetails_fun",
+  "Admin_Scouts_Slice/Admin_Get_ScoutsDetails_fun",
   async (data, thunkAPI) => {
     try {
       const token = thunkAPI.getState().reducer.LoginSlice.logindata.data.token;
-      console.log(data);
       return await Admin_Get_ScoutsDetails_fun_Service(data, token);
     } catch (error) {
       const message =

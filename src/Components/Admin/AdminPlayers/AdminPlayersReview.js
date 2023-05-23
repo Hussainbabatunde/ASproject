@@ -24,8 +24,9 @@ const AdminPlayersReview = ({
     (state) => state.reducer.AdminUpdate_profileSlice
   );
 
-  console.log(Admin_Get_All_Review_Player);
   const dispatch = useDispatch();
+
+  console.log(Admin_Get_All_Review_Player);
 
   const header = [
     {

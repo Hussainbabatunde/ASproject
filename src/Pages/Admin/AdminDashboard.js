@@ -49,14 +49,9 @@ const AdminDashboard = () => {
 
   if (Admin_dashboard_approved_player?.plus.length < 1) {
     lastObject_Admin_dashboard_approved_player = [];
-    console.log("Admin_dashboard_approved_player.plus is an empty array");
   } else {
     lastObject_Admin_dashboard_approved_player =
       Admin_dashboard_approved_player?.plus.slice(-1);
-    console.log(
-      "Last array from Admin_dashboard_approved_player.plus:",
-      lastObject_Admin_dashboard_approved_player
-    );
   }
 
   const data___ = [
@@ -74,21 +69,13 @@ const AdminDashboard = () => {
 
   if (Admin_dashboard_active_negotiations?.plus.length < 1) {
     lastObject_Admin_dashboard_active_negotiations = [];
-
-    console.log("Admin_dashboard_approved_player.plus is an empty array");
   } else {
-    console.log("Last array from Admin_dashboard_approved_player.plus:");
-
     // lastObject_Admin_dashboard_active_negotiations =
     //   Admin_dashboard_approved_player?.plus?.data.slice(-1);
 
     lastObject_Admin_dashboard_active_negotiations =
       Admin_dashboard_active_negotiations?.plus?.data.slice();
   }
-
-  console.log(lastObject_Admin_dashboard_active_negotiations);
-
-  console.log(Admin_dashboard_active_negotiations?.plus?.data);
 
   const header = [
     {
