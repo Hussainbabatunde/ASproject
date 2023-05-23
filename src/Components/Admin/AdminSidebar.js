@@ -27,7 +27,7 @@ const AdminSidebar = () => {
     },
     {
       id: 2,
-      // pathTo: "/admin/admin/negotiate",
+      pathTo: "/admin/negotiations",
       pathName: "Negotiate",
       pathIcon: <IoIosPaper />,
       children: [

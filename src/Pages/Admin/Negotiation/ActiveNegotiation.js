@@ -8,7 +8,10 @@ import imgRecipient from "../../../assets/imgRecipient.png";
 import ChatCircle from "../../../assets/ChatsCircle.png";
 import AdminUseTable from "../../../Components/Table/AdminUseTable";
 import AdminCreateNegotiation from "../../../Components/Admin/AdminNegotiate/AdminCreateNegotiation";
-import { Admin__Active_Negotiations_fun } from "../../../Slice/Admin/Admin_NegotiationsSlice";
+import {
+  Admin__Active_Negotiations_fun,
+  Admin___Negotiations_fun,
+} from "../../../Slice/Admin/Admin_NegotiationsSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 const ActiveNegotiation = ({}) => {
@@ -33,10 +36,11 @@ const ActiveNegotiation = ({}) => {
   };
 
   const {
-    Admin__Active_Negotiations,
-    Admin__Active_Negotiations_isSuccess,
-    Admin__Active_Negotiations_isLoading,
-    Admin__Active_Negotiations_message,
+    Admin___Negotiations,
+    Admin___Negotiations_isError,
+    Admin___Negotiations_isSuccess,
+    Admin___Negotiations_isLoading,
+    Admin___Negotiations_message,
   } = useSelector((state) => state.reducer.Admin_NegotiationsSlice);
 
   const header = [
@@ -97,14 +101,14 @@ const ActiveNegotiation = ({}) => {
     setShow(false);
   };
 
-  console.log(Admin__Active_Negotiations);
+  console.log(Admin___Negotiations);
   console.log("rhisii");
 
   useEffect(() => {
-    dispatch(Admin__Active_Negotiations_fun());
+    dispatch(Admin___Negotiations_fun());
 
     return () => {};
-  }, [Admin__Active_Negotiations_isSuccess]);
+  }, [Admin___Negotiations_isSuccess]);
 
   return (
     <div className="AdminDashboard">
@@ -155,128 +159,197 @@ const ActiveNegotiation = ({}) => {
                 Terminated
               </p>
             </div>
-            <p className="AdminPage_NegotiateTitleText">All Negotiates</p>
-            <div className="AdminPage_TableInfo">
-              <AiOutlineInfoCircle style={{ fontSize: "18px" }} />
-              <span className="AdminPage_TableInfoText">
-                This is a table of recent communication on the platform
-              </span>
-            </div>
-            <div className="AdminPage_TableTitleandLink">
-              <button
-                className="AdminPage_NegotiateCreateButton"
-                onClick={handleShow}
-              >
-                Create Negotiate
-              </button>
-              <div className="AdminDashboard_Search">
-                <input
-                  type="text"
-                  placeholder="Search name"
-                  className="AdminDashboard_SearchInput"
-                />
-                <RiSearchLine className="AdminDashboard_SearchIcon" />
-              </div>
-            </div>
 
             {step === 1 && (
-              <div className="AdminTable_NegotiateTable">
-                {Admin__Active_Negotiations?.data.length === 0 ? (
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      width: "100%",
-                    }}
+              <>
+                <p className="AdminPage_NegotiateTitleText">All Negotiates</p>
+                <div className="AdminPage_TableInfo">
+                  <AiOutlineInfoCircle style={{ fontSize: "18px" }} />
+                  <span className="AdminPage_TableInfoText">
+                    This is a table of recent communication on the platform
+                  </span>
+                </div>
+                <div className="AdminPage_TableTitleandLink">
+                  <button
+                    className="AdminPage_NegotiateCreateButton"
+                    onClick={handleShow}
                   >
-                    <Lottie
-                      style={{ width: "200px", height: "200px" }}
-                      animationData={empty}
+                    Create Negotiate
+                  </button>
+                  <div className="AdminDashboard_Search">
+                    <input
+                      type="text"
+                      placeholder="Search name"
+                      className="AdminDashboard_SearchInput"
                     />
+                    <RiSearchLine className="AdminDashboard_SearchIcon" />
                   </div>
-                ) : (
-                  <AdminUseTable
-                    header={header}
-                    data={Admin__Active_Negotiations?.data}
-                  />
-                )}
-              </div>
+                </div>
+
+                <div className="AdminTable_NegotiateTable">
+                  {Admin___Negotiations?.Admin__Active_Negotiations?.data
+                    .length === 0 ? (
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        width: "100%",
+                      }}
+                    >
+                      <Lottie
+                        style={{ width: "200px", height: "200px" }}
+                        animationData={empty}
+                      />
+                    </div>
+                  ) : (
+                    <AdminUseTable
+                      header={header}
+                      data={
+                        Admin___Negotiations?.Admin__Active_Negotiations?.data
+                      }
+                    />
+                  )}
+                </div>
+              </>
             )}
 
             {step === 2 && (
-              <div className="AdminTable_NegotiateTable">
-                {Admin__Active_Negotiations?.data.length === 0 ? (
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      width: "100%",
-                    }}
-                  >
-                    <Lottie
-                      style={{ width: "200px", height: "200px" }}
-                      animationData={empty}
+              <>
+                <p className="AdminPage_NegotiateTitleText">Suspended</p>
+                <div className="AdminPage_SuspendedTableInfo">
+                  <AiOutlineInfoCircle style={{ fontSize: "18px" }} />
+                  <span className="AdminPage_TableInfoText">
+                    This is a table of Suspended Negotiates on the platform
+                  </span>
+                </div>
+
+                <div className="AdminTable_NegotiateTable">
+                  {Admin___Negotiations?.Admin__Active_Negotiations?.data
+                    .length === 0 ? (
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        width: "100%",
+                      }}
+                    >
+                      <Lottie
+                        style={{ width: "200px", height: "200px" }}
+                        animationData={empty}
+                      />
+                    </div>
+                  ) : (
+                    <AdminUseTable
+                      header={header}
+                      data={
+                        Admin___Negotiations?.Admin__Active_Negotiations?.data
+                      }
                     />
-                  </div>
-                ) : (
-                  <AdminUseTable
-                    header={header}
-                    data={Admin__Active_Negotiations?.data}
-                  />
-                )}
-              </div>
+                  )}
+                </div>
+              </>
             )}
 
             {step === 3 && (
-              <div className="AdminTable_NegotiateTable">
-                {Admin__Active_Negotiations?.data.length === 0 ? (
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      width: "100%",
-                    }}
-                  >
-                    <Lottie
-                      style={{ width: "200px", height: "200px" }}
-                      animationData={empty}
+              <>
+                <p className="AdminPage_NegotiateTitleText">Closed</p>
+                <div className="AdminPage_TableInfo">
+                  <AiOutlineInfoCircle style={{ fontSize: "18px" }} />
+                  <span className="AdminPage_TableInfoText">
+                    This is a table of Closed Negotiates on the platform
+                  </span>
+                </div>
+                <div className="AdminPage_TableTitleandLink">
+                  <button className="AdminPage_NegotiateCreateButton">
+                    Create Negotiate
+                  </button>
+                  <div className="AdminDashboard_Search">
+                    <input
+                      type="text"
+                      placeholder="Search name"
+                      className="AdminDashboard_SearchInput"
                     />
+                    <RiSearchLine className="AdminDashboard_SearchIcon" />
                   </div>
-                ) : (
-                  <AdminUseTable
-                    header={header}
-                    data={Admin__Active_Negotiations?.data}
-                  />
-                )}
-              </div>
+                </div>
+                <div className="AdminTable_NegotiateTable">
+                  {Admin___Negotiations?.Admin__Active_Negotiations?.data
+                    .length === 0 ? (
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        width: "100%",
+                      }}
+                    >
+                      <Lottie
+                        style={{ width: "200px", height: "200px" }}
+                        animationData={empty}
+                      />
+                    </div>
+                  ) : (
+                    <AdminUseTable
+                      header={header}
+                      data={
+                        Admin___Negotiations?.Admin__Active_Negotiations?.data
+                      }
+                    />
+                  )}
+                </div>
+              </>
             )}
 
             {step === 4 && (
-              <div className="AdminTable_NegotiateTable">
-                {Admin__Active_Negotiations?.data.length === 0 ? (
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      width: "100%",
-                    }}
-                  >
-                    <Lottie
-                      style={{ width: "200px", height: "200px" }}
-                      animationData={empty}
+              <>
+                <p className="AdminPage_NegotiateTitleText">Terminated</p>
+                <div className="AdminPage_TerminatedTableInfo">
+                  <AiOutlineInfoCircle style={{ fontSize: "18px" }} />
+                  <span className="AdminPage_TableInfoText">
+                    This is a table of Terminated Negotiates on the platform
+                  </span>
+                </div>
+                <div className="AdminPage_TableTitleandLink">
+                  <button className="AdminPage_NegotiateCreateButton">
+                    Create Negotiate
+                  </button>
+                  <div className="AdminDashboard_Search">
+                    <input
+                      type="text"
+                      placeholder="Search name"
+                      className="AdminDashboard_SearchInput"
                     />
+                    <RiSearchLine className="AdminDashboard_SearchIcon" />
                   </div>
-                ) : (
-                  <AdminUseTable
-                    header={header}
-                    data={Admin__Active_Negotiations?.data}
-                  />
-                )}
-              </div>
+                </div>
+                <div className="AdminTable_NegotiateTable">
+                  {Admin___Negotiations?.Admin__Active_Negotiations?.data
+                    .length === 0 ? (
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        width: "100%",
+                      }}
+                    >
+                      <Lottie
+                        style={{ width: "200px", height: "200px" }}
+                        animationData={empty}
+                      />
+                    </div>
+                  ) : (
+                    <AdminUseTable
+                      header={header}
+                      data={
+                        Admin___Negotiations?.Admin__Active_Negotiations?.data
+                      }
+                    />
+                  )}
+                </div>
+              </>
             )}
 
             <AdminCreateNegotiation

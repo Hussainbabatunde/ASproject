@@ -26,8 +26,8 @@ const AdminScoutsAllScouts = ({
     (state) => state.reducer.Admin_Scouts_Slice
   );
 
-  const dispatch = useDispatch();
   console.log(Admin_Get_All_Scouts);
+  const dispatch = useDispatch();
 
   const header = [
     {
@@ -59,7 +59,9 @@ const AdminScoutsAllScouts = ({
       dispatch(reset__Admin_Scouts_Slice());
     };
   }, []);
+  let Admi = Admin_Get_All_Scouts?.plus;
 
+  console.log(Admi);
   const dataTable = [
     {
       id: 1,
@@ -85,9 +87,13 @@ const AdminScoutsAllScouts = ({
   const handleEdit = (data) => {
     console.log(data);
     setIsModalOpen(true);
-
     setScout_email(data);
   };
+
+  const handleDelete = (data) => {
+    console.log(data);
+  };
+
   return (
     <>
       {isModalOpen && (
@@ -134,7 +140,7 @@ const AdminScoutsAllScouts = ({
           </span>
         </div>
         <div className="AdminTable_NegotiateTable">
-          {dataTable?.length === 0 ? (
+          {Admin_Get_All_Scouts.length === 0 ? (
             <div
               style={{
                 display: "flex",
@@ -153,6 +159,7 @@ const AdminScoutsAllScouts = ({
               header={header}
               data={Admin_Get_All_Scouts}
               handleEdit={handleEdit}
+              handleDelete={handleDelete}
             />
           )}
         </div>

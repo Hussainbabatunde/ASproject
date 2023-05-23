@@ -20,7 +20,6 @@ const tokengot = localStorage.getItem("token");
 
 const Admin_Header_Summary_fun_Service = async (token) => {
   let API_URL = `${baseURL}admin/dashboard/summary`;
-  console.log(API_URL);
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -28,7 +27,6 @@ const Admin_Header_Summary_fun_Service = async (token) => {
   };
 
   const response = await axios.get(API_URL, config);
-  console.log(response.data);
   return response.data;
 };
 
@@ -53,7 +51,6 @@ export const Admin_Header_Summary_fun = createAsyncThunk(
 
 const Admin_dashboard_approved_player_fun_Service = async (token) => {
   let API_URL = `${baseURL}admin/dashboard/approved-player`;
-  console.log(API_URL);
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -61,7 +58,6 @@ const Admin_dashboard_approved_player_fun_Service = async (token) => {
   };
 
   const response = await axios.get(API_URL, config);
-  console.log(response.data);
   return response.data;
 };
 
@@ -86,7 +82,6 @@ export const Admin_dashboard_approved_player_fun = createAsyncThunk(
 
 const Admin_dashboard_active_negotiations_fun_Service = async (token) => {
   let API_URL = `${baseURL}admin/dashboard/active-negotiations`;
-  console.log(API_URL);
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -94,7 +89,6 @@ const Admin_dashboard_active_negotiations_fun_Service = async (token) => {
   };
 
   const response = await axios.get(API_URL, config);
-  console.log(response.data);
   return response.data;
 };
 

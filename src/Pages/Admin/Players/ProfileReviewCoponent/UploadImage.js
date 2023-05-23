@@ -46,10 +46,10 @@ function UploadImage({ Admin_Get_Players_Profile_details }) {
     console.log(data);
     let API_URL;
     if (data === "approved") {
-      API_URL = `${baseURL}admin/dashboard/approve`;
+      API_URL = `${baseURL}admin/player/accept-review`;
     }
     if (data === "decline") {
-      API_URL = `${baseURL}dashboard/decline`;
+      API_URL = `${baseURL}admin/player/decline-review`;
     }
     console.log(API_URL);
     const tokengot = localStorage.getItem("token");
@@ -57,6 +57,8 @@ function UploadImage({ Admin_Get_Players_Profile_details }) {
     let user_Data = {
       user_id: userDataInfo.id,
     };
+
+    console.log(user_Data);
     try {
       // Set the loading state to true before sending the request
       console.log("Sending POST request...");
@@ -77,6 +79,7 @@ function UploadImage({ Admin_Get_Players_Profile_details }) {
       // Reset the loading state to false after receiving the response
       setLoading(false);
       console.log("POST request successful");
+      console.log(response);
       console.log("Response:", response.data);
       toast.success(`${response.data.message} `, {
         position: "top-right",

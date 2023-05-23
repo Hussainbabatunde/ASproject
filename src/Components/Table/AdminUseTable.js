@@ -23,23 +23,18 @@ const AdminUseTable = ({
       <thead>
         <tr>
           {header?.map((item, index) => (
-            <>
-              <th key={index} className="UseTable_tableheader">
-                {item?.name == "ViewEditSuspend" ||
-                item?.name == "PlayersViewdetails" ||
-                item?.name == "EditDeleteRoles" ||
-                item?.name == "EditDeletePermissions" ||
-                item?.name == "EditResetPasswordEnableDisable" ||
-                item?.name == "ViewEditUnSuspend" ||
-                item?.name == "SuspendMessageView"
-                  ? ""
-                  : item?.name}
-              </th>
-            </>
+            <th key={index} className="UseTable_tableheader">
+              {item?.name == "ViewEditSuspend" ||
+              item?.name == "PlayersViewdetails" ||
+              item?.name == "EditDeleteRoles" ||
+              item?.name == "EditDeletePermissions" ||
+              item?.name == "EditResetPasswordEnableDisable" ||
+              item?.name == "ViewEditUnSuspend" ||
+              item?.name == "SuspendMessageView"
+                ? ""
+                : item?.name}
+            </th>
           ))}
-          {/* <th className="UseTable_tableheader">First Name</th>
-          <th className="UseTable_tableheader">Last Name</th>
-          <th className="UseTable_tableheader">Username</th> */}
         </tr>
       </thead>
       <tbody>
@@ -158,7 +153,10 @@ const AdminUseTable = ({
                         className="useTable_ViewEditSuspendDetails"
                         style={{ flex: 1 }}
                       >
-                        <Link className="Admin_playersSuspendprofile">
+                        <Link
+                          onClick={() => handleDelete(each)}
+                          className="Admin_playersSuspendprofile"
+                        >
                           Suspend
                         </Link>
                         <span
