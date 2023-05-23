@@ -25,7 +25,7 @@ const style = {
   };
 
 
-const HomePagePitchOffer = ({show, loader, handleSubmit, handleChange, title, handleHide}) => {
+const VideoRequestModal = ({show, loader, handleSubmit, handleChange, title, handleHide}) => {
 
     const [payValue, setPayValue] = useState('')
     const { id } = useParams();
@@ -33,7 +33,6 @@ const HomePagePitchOffer = ({show, loader, handleSubmit, handleChange, title, ha
     const [change, setChange] = useState(false)
     const PlayerDetails = useSelector((state)=>state?.reducer?.PlayerProfileSlice?.AllProfileDetailsData?.data)
     const userId = useSelector((state)=> state?.reducer?.LoginSlice?.logindata?.data?.user?.id)
-    const userType = useSelector((state)=> state?.reducer?.LoginSlice?.logindata?.data?.user_type)
     const [loadingOffer, setLoadingOffer] = useState(false)
     const dispatch = useDispatch()
 
@@ -65,9 +64,7 @@ const HomePagePitchOffer = ({show, loader, handleSubmit, handleChange, title, ha
       data.recipient_earnings = payValue
       data.market_place_fee = marketfee
       setLoadingOffer(true)
-      if(userType == 'scout'){
       await dispatch(OfferPlayApi(data))
-      }
       setLoadingOffer(false)
       handleHide()
       // console.log('data ', data)
@@ -102,6 +99,11 @@ const HomePagePitchOffer = ({show, loader, handleSubmit, handleChange, title, ha
         <AiOutlineInfoCircle style={{fontSize:'20px', marginLeft:'10px'}} />
        </div>
        <div style={{margin:'15px 25px'}}>
+       <p style={{fontWeight:'600'}}>What type of Video are you interested in?</p>
+       <div className='VideoRequest_MidalVideoDiv'>
+          <p>Video, Photo</p>
+       <p className='MakeARequest_InitialChangeText' >Change</p>
+       </div>
         <p style={{fontWeight: '600'}}>Provide Details on Your Offer</p>
         <p style={{fontSize:'13px', }}>Offer Name</p>
         <input type='text' name='name' onChange={handleOfferChange} className='OfferModal_TitleInput' />
@@ -145,4 +147,4 @@ const HomePagePitchOffer = ({show, loader, handleSubmit, handleChange, title, ha
   )
 }
 
-export default HomePagePitchOffer
+export default VideoRequestModal

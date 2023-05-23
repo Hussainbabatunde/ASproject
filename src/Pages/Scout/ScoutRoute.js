@@ -19,6 +19,10 @@ import PlayerPayment from '../../Components/Player/PlayerPayment';
 import PlayerViewProfile from '../../Components/Player/PlayerViewProfile';
 import PlayerDealsMade from '../../Components/Player/PlayerDealsMade';
 import PlayerHomePage from '../../Components/Player/PlayerHomePage';
+import FanProfile from '../../Components/Fan/FanProfile';
+import FanDeal from '../../Components/Fan/FanDeal';
+import FanViewProfile from '../../Components/Fan/FanViewProfile';
+import ScoutDealsMade from '../../Components/Scout/ScoutDealsMade';
 
 const ScoutRoute = () => {
     const dispatch = useDispatch()
@@ -53,14 +57,19 @@ const ScoutRoute = () => {
             <Route path='/scout/views' element={<ScoutViews />} />
             <Route path='/scout/payment' element={<ScoutPayment />} />
             <Route path='/scout/viewprofile' element={<ScoutViewProfile />} />
+            <Route path='/scout/dealsmade/:id' element={<ScoutDealsMade />} />
             
             <Route path='/player/profile' element={<PlayerProfile />} />
             <Route path='/player/deal' element={<PlayerDeal />} />
             <Route path='/player/views' element={<PlayerViews />} />
             <Route path='/player/payment' element={<PlayerPayment />} />
             <Route path='/player/viewprofile' element={<PlayerViewProfile />} />
-            <Route path='/player/dealsmade' element={<PlayerDealsMade />} />
+            <Route path='/player/dealsmade/:id' element={<PlayerDealsMade />} />
             <Route path='/player/homepage' element={<PlayerHomePage />}/>
+
+            <Route path='/fan/profile' element={<FanProfile />} />
+            <Route path='/fan/deal' element={<FanDeal />} />
+            <Route path='/fan/viewprofile' element={<FanViewProfile />} />
         </Routes>
         {/* </div> */}
     <Footer />

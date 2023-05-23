@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import {GrFormNext} from 'react-icons/gr'
-import './PlayersDeals.css'
+import '../Player/PlayersDeals.css'
 import {FaDownload} from 'react-icons/fa'
 import imgRecipient from '../../assets/imgRecipient.png'
 import { useDispatch, useSelector } from 'react-redux'
 import { GetPlayerOfferDetailsApi, GetPlayerOfferDownloadApi } from '../../Slice/Player/PlayerDeal/PlayerDealSlice'
 import { PulseLoader } from 'react-spinners'
+import { GetScoutOfferDetailsApi, GetScoutOfferDownloadApi } from '../../Slice/Scout/ScoutDealsApiPage/ScoutDealSlice'
 
-const PlayerDealsMade = () => {
+const ScoutDealsMade = () => {
   const {id} = useParams()
   const dispatch = useDispatch()
   const [loading, setLoading] = useState(false)
@@ -20,7 +21,7 @@ const PlayerDealsMade = () => {
   useEffect(()=>{
     const offerDetails = async()=>{
       setLoading(true)
-      await dispatch(GetPlayerOfferDetailsApi({id, userId}))
+      await dispatch(GetScoutOfferDetailsApi({id, userId}))
       setLoading(false)
     }
     offerDetails()
@@ -28,19 +29,19 @@ const PlayerDealsMade = () => {
 
   const handleDownload = async() =>{
     setDownloadPage(true)
-    await dispatch(GetPlayerOfferDownloadApi(id, userId))
+    await dispatch(GetScoutOfferDownloadApi(id, userId))
     setDownloadPage(false)
   }
-  const gottenDetails = useSelector((state)=> state.reducer?.GetAllPlayerDealSlice?.getOfferDetailsData)
+  const gottenDetails = useSelector((state)=> state.reducer?.ScoutDealsSlice?.getOfferDetailsData)
   const expireData = gottenDetails?.data?.expiration.slice(0,11);
   return (
     <div className='PlayersViewDeals_Container'>
         <div className='PlayersDealsMade_Page'>
-        <div className='ScoutViewProfile_navigationprogress'>
+        {/* <div className='ScoutViewProfile_navigationprogress'>
                 <Link to='/afrisport/player/deal' className='ScoutViewProfile_navigationback'>Deals</Link>
                 <GrFormNext style={{fontSize:'16px'}} />
                 <p className='ScoutViewProfile_navigationprofile'>Details</p>
-            </div>
+            </div> */}
             <div className='PlayerViewDeals_InfoSection'>
             <div className='PlayerViewDeals_InfoSection_UpperSegment'>
               <div className='PlayerViewdetails_TopicSec'>                
@@ -123,4 +124,4 @@ const PlayerDealsMade = () => {
   )
 }
 
-export default PlayerDealsMade
+export default ScoutDealsMade
