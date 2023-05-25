@@ -14,6 +14,7 @@ import { TbCurrencyNaira } from "react-icons/tb";
 
 import {
   Admin_Get_ScoutsDetails_fun,
+  Single_Scout_Negotiations_Detail_fun,
   reset__Admin_Scouts_Slice,
 } from "../../../Slice/Admin/Admin_Scouts_Slice";
 import { FiMail, FiPhoneCall } from "react-icons/fi";
@@ -25,11 +26,8 @@ function ScoutDetails() {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const { Admin_Get_ScoutsDetails } = useSelector(
-    (state) => state.reducer.Admin_Scouts_Slice
-  );
-
-  console.log(Admin_Get_ScoutsDetails);
+  const { Admin_Get_ScoutsDetails, Single_Scout_Negotiations_Detail } =
+    useSelector((state) => state.reducer.Admin_Scouts_Slice);
 
   let user_Data = Admin_Get_ScoutsDetails?.data;
   let PlayerDetails = user_Data;
@@ -38,6 +36,7 @@ function ScoutDetails() {
   useEffect(() => {
     dispatch(Admin_Get_ScoutsDetails_fun(id));
     dispatch(reset__Admin_Scouts_Slice());
+    dispatch(Single_Scout_Negotiations_Detail_fun(id));
 
     return () => {};
   }, []);

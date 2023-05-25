@@ -13,14 +13,11 @@ import AdminUserSlice from "./Admin/AdminAllAdmins/AdminUserSlice";
 import AdminPrivilageSlice from "./Admin/AdminAllAdmins/AdminPrivilageSlice";
 import AuthorizeSlice from "./Admin/AuthorizeSlice";
 import AdminUpdate_profileSlice from "./Admin/AdminUpdate_profileSlice";
-<<<<<<< HEAD
-import ScoutDealsSlice from './Scout/ScoutDealsApiPage/ScoutDealSlice'
-=======
+import ScoutDealsSlice from "./Scout/ScoutDealsApiPage/ScoutDealSlice";
 import AdminDashboardSlice from "./Admin/AdminDashboardSlice";
 import Admin_Scouts_Slice from "./Admin/Admin_Scouts_Slice";
 import Admin_NegotiationsSlice from "./Admin/Admin_NegotiationsSlice";
 import Admin_FanData_Slice from "./Admin/Admin_FanData_Slice";
->>>>>>> master
 
 const reducers = combineReducers({
   LoginSlice: LoginSlice,
@@ -35,16 +32,10 @@ const reducers = combineReducers({
   AdminPrivilageSlice: AdminPrivilageSlice,
   AuthorizeSlice: AuthorizeSlice,
   AdminUpdate_profileSlice: AdminUpdate_profileSlice,
-<<<<<<< HEAD
-  ScoutDealsSlice: ScoutDealsSlice
-  });
-=======
+  ScoutDealsSlice: ScoutDealsSlice,
   AdminDashboardSlice: AdminDashboardSlice,
   Admin_Scouts_Slice: Admin_Scouts_Slice,
-
   Admin_NegotiationsSlice: Admin_NegotiationsSlice,
->>>>>>> master
-
   Admin_FanData_Slice: Admin_FanData_Slice,
 });
 

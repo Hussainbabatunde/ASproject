@@ -111,7 +111,7 @@ const AdminPlayerAllNegotiate = ({
         </div>
       </div>
       <div className="AdminTable_NegotiateTable">
-        {Admin_Get_All_Player?.data?.length === 0 ? (
+        {Admin_Get_All_Player?.length === 0 ? (
           <div
             style={{
               display: "flex",
@@ -128,7 +128,7 @@ const AdminPlayerAllNegotiate = ({
         ) : (
           <AdminUseTable
             header={header}
-            data={Admin_Get_All_Player?.data}
+            data={Admin_Get_All_Player}
             handleEdit={handleEdit}
           />
         )}

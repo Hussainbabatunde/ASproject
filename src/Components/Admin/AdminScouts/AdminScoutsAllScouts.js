@@ -137,7 +137,7 @@ const AdminScoutsAllScouts = ({
           </span>
         </div>
         <div className="AdminTable_NegotiateTable">
-          {Admin_Get_All_Scouts.length === 0 ? (
+          {Admin_Get_All_Scouts?.length === 0 ? (
             <div
               style={{
                 display: "flex",

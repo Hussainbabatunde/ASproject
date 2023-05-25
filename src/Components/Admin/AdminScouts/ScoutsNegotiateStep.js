@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import Lottie from "lottie-react";
 import AdminUseTable from "../../Table/AdminUseTable";
@@ -6,9 +6,33 @@ import AdminUseTable from "../../Table/AdminUseTable";
 import empty from "../../../assets/lottie/emptyState.json";
 import imgRecipient from "../../../assets/imgRecipient.png";
 import ChatCircle from "../../../assets/ChatsCircle.png";
+import { useDispatch, useSelector } from "react-redux";
+import { Single_Scout_Negotiations_Detail_fun } from "../../../Slice/Admin/Admin_Scouts_Slice";
+import { useParams } from "react-router-dom";
 
 function ScoutsNegotiateStep() {
+  const dispatch = useDispatch();
+  const { id } = useParams();
+
+  console.log(id);
+
+  useEffect(() => {
+    dispatch(Single_Scout_Negotiations_Detail_fun(id));
+
+    return () => {};
+  }, []);
+
+  const { Admin_Get_ScoutsDetails, Single_Scout_Negotiations_Detail } =
+    useSelector((state) => state.reducer.Admin_Scouts_Slice);
   const [step, setStep] = useState(1);
+
+  let active_negotiations_data =
+    Single_Scout_Negotiations_Detail?.active_negotiations_data?.data;
+  let close_negotiations_data =
+    Single_Scout_Negotiations_Detail?.close_negotiations_data?.data;
+
+  console.log(active_negotiations_data);
+  // console.log(close_negotiations_data);
 
   const handleAllNegotiate = () => {
     setStep(1);
@@ -98,7 +122,7 @@ function ScoutsNegotiateStep() {
 
       {step === 1 && (
         <div className="AdminTable_NegotiateTable">
-          {dataTable?.length === 0 ? (
+          {active_negotiations_data?.length === 0 ? (
             <div
               style={{
                 display: "flex",
@@ -113,7 +137,7 @@ function ScoutsNegotiateStep() {
               />
             </div>
           ) : (
-            <AdminUseTable header={header} data={dataTable} />
+            <AdminUseTable header={header} data={active_negotiations_data} />
           )}
         </div>
       )}
@@ -142,7 +166,7 @@ function ScoutsNegotiateStep() {
 
       {step === 3 && (
         <div className="AdminTable_NegotiateTable">
-          {dataTable?.length === 0 ? (
+          {close_negotiations_data?.length === 0 ? (
             <div
               style={{
                 display: "flex",
@@ -157,7 +181,7 @@ function ScoutsNegotiateStep() {
               />
             </div>
           ) : (
-            <AdminUseTable header={header} data={dataTable} />
+            <AdminUseTable header={header} data={close_negotiations_data} />
           )}
         </div>
       )}

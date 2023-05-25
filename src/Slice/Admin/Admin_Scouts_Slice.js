@@ -10,6 +10,7 @@ const initialState = {
   Admin_Get_All_Scouts_message: null,
 
   Admin_Get_ScoutsDetails: null,
+  Single_Scout_Negotiations_Detail: null,
 };
 
 let baseURL = process.env.REACT_APP_AFRISPORTURL;
@@ -66,6 +67,53 @@ export const Admin_Get_ScoutsDetails_fun = createAsyncThunk(
     try {
       const token = thunkAPI.getState().reducer.LoginSlice.logindata.data.token;
       return await Admin_Get_ScoutsDetails_fun_Service(data, token);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+const Single_Scout_Negotiations_Detail_fun_Service = async (data, token) => {
+  let API_URL_active = `${baseURL}admin/scout/active-negotiations/${data}`;
+
+  let API_URL_close = `${baseURL}admin/scout/closed-negotiations/${data}`;
+
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  const active = await axios.get(API_URL_active, config);
+  const close = await axios.get(API_URL_close, config);
+
+  // return response.data;
+
+  let active_negotiations_data = active.data;
+  let close_negotiations_data = close.data;
+
+  let negotiations_data = {
+    active_negotiations_data,
+
+    close_negotiations_data,
+  };
+
+  console.log(negotiations_data);
+  return negotiations_data;
+};
+
+export const Single_Scout_Negotiations_Detail_fun = createAsyncThunk(
+  "Admin_Scouts_Slice/Single_Scout_Negotiations_Detail_fun",
+  async (data, thunkAPI) => {
+    try {
+      const token = thunkAPI.getState().reducer.LoginSlice.logindata.data.token;
+      return await Single_Scout_Negotiations_Detail_fun_Service(data, token);
     } catch (error) {
       const message =
         (error.response &&
@@ -142,7 +190,38 @@ export const Admin_Scouts_Slice = createSlice({
           theme: "light",
           className: "Forbidden403",
         });
-      });
+      })
+
+      .addCase(Single_Scout_Negotiations_Detail_fun.pending, (state) => {
+        state.Admin_Get_All_Scouts_isLoading = true;
+      })
+      .addCase(
+        Single_Scout_Negotiations_Detail_fun.fulfilled,
+        (state, action) => {
+          state.Single_Scout_Negotiations_Detail = action.payload;
+          state.Admin_Get_All_Scouts_isSuccess = true;
+          state.Admin_Get_All_Scouts_isLoading = false;
+        }
+      )
+      .addCase(
+        Single_Scout_Negotiations_Detail_fun.rejected,
+        (state, action) => {
+          state.Admin_Get_All_Scouts_isError = true;
+          state.Admin_Get_All_Scouts_message = action.payload;
+          state.Admin_Get_All_Scouts_isLoading = false;
+          toast.error(`${state.Admin_Get_All_Scouts_message}`, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            className: "Forbidden403",
+          });
+        }
+      );
   },
 });
 
