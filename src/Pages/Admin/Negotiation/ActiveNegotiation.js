@@ -101,9 +101,6 @@ const ActiveNegotiation = ({}) => {
     setShow(false);
   };
 
-  console.log(Admin___Negotiations);
-  console.log("rhisii");
-
   useEffect(() => {
     dispatch(Admin___Negotiations_fun());
 
@@ -225,7 +222,7 @@ const ActiveNegotiation = ({}) => {
                 </div>
 
                 <div className="AdminTable_NegotiateTable">
-                  {Admin___Negotiations?.Admin__Active_Negotiations?.data
+                  {Admin___Negotiations?.Admin__Suspended_Negotiations?.data
                     .length === 0 ? (
                     <div
                       style={{
@@ -244,7 +241,8 @@ const ActiveNegotiation = ({}) => {
                     <AdminUseTable
                       header={header}
                       data={
-                        Admin___Negotiations?.Admin__Active_Negotiations?.data
+                        Admin___Negotiations?.Admin__Suspended_Negotiations
+                          ?.data
                       }
                     />
                   )}
@@ -262,7 +260,10 @@ const ActiveNegotiation = ({}) => {
                   </span>
                 </div>
                 <div className="AdminPage_TableTitleandLink">
-                  <button className="AdminPage_NegotiateCreateButton">
+                  <button
+                    className="AdminPage_NegotiateCreateButton"
+                    onClick={handleShow}
+                  >
                     Create Negotiate
                   </button>
                   <div className="AdminDashboard_Search">
@@ -275,7 +276,7 @@ const ActiveNegotiation = ({}) => {
                   </div>
                 </div>
                 <div className="AdminTable_NegotiateTable">
-                  {Admin___Negotiations?.Admin__Active_Negotiations?.data
+                  {Admin___Negotiations?.Admin__Close_Negotiations?.data
                     .length === 0 ? (
                     <div
                       style={{
@@ -294,7 +295,7 @@ const ActiveNegotiation = ({}) => {
                     <AdminUseTable
                       header={header}
                       data={
-                        Admin___Negotiations?.Admin__Active_Negotiations?.data
+                        Admin___Negotiations?.Admin__Close_Negotiations?.data
                       }
                     />
                   )}
@@ -312,7 +313,10 @@ const ActiveNegotiation = ({}) => {
                   </span>
                 </div>
                 <div className="AdminPage_TableTitleandLink">
-                  <button className="AdminPage_NegotiateCreateButton">
+                  <button
+                    className="AdminPage_NegotiateCreateButton"
+                    onClick={handleShow}
+                  >
                     Create Negotiate
                   </button>
                   <div className="AdminDashboard_Search">
@@ -325,7 +329,7 @@ const ActiveNegotiation = ({}) => {
                   </div>
                 </div>
                 <div className="AdminTable_NegotiateTable">
-                  {Admin___Negotiations?.Admin__Active_Negotiations?.data
+                  {Admin___Negotiations?.Admin__Terminate_Negotiations?.data
                     .length === 0 ? (
                     <div
                       style={{
@@ -344,7 +348,8 @@ const ActiveNegotiation = ({}) => {
                     <AdminUseTable
                       header={header}
                       data={
-                        Admin___Negotiations?.Admin__Active_Negotiations?.data
+                        Admin___Negotiations?.Admin__Terminate_Negotiations
+                          ?.data
                       }
                     />
                   )}

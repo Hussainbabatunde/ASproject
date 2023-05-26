@@ -13,7 +13,7 @@ import {
   Admin_Get_All_Suspended_Player_fun,
 } from "../../../Slice/Admin/AdminUpdate_profileSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
 
 let baseURL = process.env.REACT_APP_AFRISPORTURL;
@@ -32,7 +32,6 @@ const AdminPlayersSuspended = ({
   const dispatch = useDispatch();
 
   const [loading, setLoading] = useState(false);
-  console.log(Admin_Get_All_Suspended_Player);
 
   useEffect(() => {
     dispatch(Admin_Get_All_Suspended_Player_fun());
@@ -62,13 +61,7 @@ const AdminPlayersSuspended = ({
     },
   ];
 
-  // const handleEdit = (data) => {
-  //   console.log(data);
-  // };
-
   const handleEdit = async (data) => {
-    console.log(data);
-
     try {
       // Set the loading state to true before sending the request
 
@@ -136,70 +129,74 @@ const AdminPlayersSuspended = ({
     },
   ];
   return (
-    <div className="AdminPage_NegotiateTab">
-      <div className="AdminPage_NegotiateTabTitle">
-        <p
-          className="AdminPAge_Negotiate_TabNegotiateInactive"
-          onClick={handleAllNegotiate}
-        >
-          All Players
-        </p>
-        <p
-          className="AdminPAge_Negotiate_TabNegotiateInactive"
-          onClick={handleClosed}
-        >
-          Review <span className="AdminPage_NegotiateTab_TabNumber">4</span>
-        </p>
-        <p
-          className="AdminPAge_Negotiate_TabNegotiateActive"
-          onClick={handleSuspended}
-        >
-          Suspended
-        </p>
-        {/* <p className='AdminPAge_Negotiate_TabNegotiateInactive' onClick={handleTerminated}>Terminated</p> */}
-      </div>
+    <>
+      <ToastContainer />
 
-      <div className="AdminPage_TableTitleandLink">
-        <p className="AdminPage_NegotiateTitleText">Suspended</p>
-        <div className="AdminDashboard_Search">
-          <input
-            type="text"
-            placeholder="Search name"
-            className="AdminDashboard_SearchInput"
-          />
-          <RiSearchLine className="AdminDashboard_SearchIcon" />
+      <div className="AdminPage_NegotiateTab">
+        <div className="AdminPage_NegotiateTabTitle">
+          <p
+            className="AdminPAge_Negotiate_TabNegotiateInactive"
+            onClick={handleAllNegotiate}
+          >
+            All Players
+          </p>
+          <p
+            className="AdminPAge_Negotiate_TabNegotiateInactive"
+            onClick={handleClosed}
+          >
+            Review <span className="AdminPage_NegotiateTab_TabNumber">4</span>
+          </p>
+          <p
+            className="AdminPAge_Negotiate_TabNegotiateActive"
+            onClick={handleSuspended}
+          >
+            Suspended
+          </p>
+          {/* <p className='AdminPAge_Negotiate_TabNegotiateInactive' onClick={handleTerminated}>Terminated</p> */}
+        </div>
+
+        <div className="AdminPage_TableTitleandLink">
+          <p className="AdminPage_NegotiateTitleText">Suspended</p>
+          <div className="AdminDashboard_Search">
+            <input
+              type="text"
+              placeholder="Search name"
+              className="AdminDashboard_SearchInput"
+            />
+            <RiSearchLine className="AdminDashboard_SearchIcon" />
+          </div>
+        </div>
+        <div className="AdminPage_SuspendedTableInfo">
+          <AiOutlineInfoCircle style={{ fontSize: "18px" }} />
+          <span className="AdminPage_TableInfoText">
+            This is a table of Suspended Negotiates on the platform
+          </span>
+        </div>
+        <div className="AdminTable_NegotiateTable">
+          {Admin_Get_All_Suspended_Player?.data?.length === 0 ? (
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                width: "100%",
+              }}
+            >
+              <Lottie
+                style={{ width: "200px", height: "200px" }}
+                animationData={empty}
+              />
+            </div>
+          ) : (
+            <AdminUseTable
+              header={header}
+              data={Admin_Get_All_Suspended_Player?.data}
+              handleEdit={handleEdit}
+            />
+          )}
         </div>
       </div>
-      <div className="AdminPage_SuspendedTableInfo">
-        <AiOutlineInfoCircle style={{ fontSize: "18px" }} />
-        <span className="AdminPage_TableInfoText">
-          This is a table of Suspended Negotiates on the platform
-        </span>
-      </div>
-      <div className="AdminTable_NegotiateTable">
-        {dataTable?.length === 0 ? (
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              width: "100%",
-            }}
-          >
-            <Lottie
-              style={{ width: "200px", height: "200px" }}
-              animationData={empty}
-            />
-          </div>
-        ) : (
-          <AdminUseTable
-            header={header}
-            data={Admin_Get_All_Suspended_Player?.data}
-            handleEdit={handleEdit}
-          />
-        )}
-      </div>
-    </div>
+    </>
   );
 };
 

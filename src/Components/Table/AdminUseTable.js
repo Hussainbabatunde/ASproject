@@ -64,6 +64,74 @@ const AdminUseTable = ({
                       </td>
                     );
 
+                  case "Admin_talent_manager_Scout":
+                    return (
+                      <td className="useTable_tableDetails">
+                        <p className="AdminUse_TableComp">
+                          <img
+                            src={each?.user.profile_pics}
+                            className="useTable_ImageRecipient"
+                            alt="Recipient image"
+                          />
+                          <span>{` ${each?.user?.firstname}  ${each?.user?.surname}`}</span>
+                        </p>
+                      </td>
+                    );
+
+                  case "Admin_talent_manager_players":
+                    return (
+                      <td className="useTable_tableDetails">
+                        <p className="AdminUse_TableComp">
+                          {each?.number_of_players}
+                        </p>
+                      </td>
+                    );
+
+                  case "Admin_talent_manager_SuspendMessageView":
+                    return (
+                      <td
+                        className="useTable_ViewEditSuspendDetails"
+                        style={{ flex: 1 }}
+                      >
+                        <span
+                          className="Admin_playersSuspendprofile"
+                          onClick={() => handleDelete(each)}
+                        >
+                          Suspend
+                        </span>
+                        <span
+                          className="Admin_playersviewprofile"
+                          onClick={() => handleEdit(each)}
+                        >
+                          Message
+                        </span>
+                        <Link className="Admin_playersEditprofile">View</Link>
+                      </td>
+                    );
+
+                  case "Admin_talent_manager_Closed_Negotiate":
+                    return (
+                      <td className="useTable_tableDetails">
+                        <p className="AdminUse_TableComp">
+                          {each?.closed_negotiations}
+                        </p>
+                      </td>
+                    );
+
+                  case "Admin_fan_scout_suspend":
+                    return (
+                      <td className="useTable_tableDetails">
+                        <p className="AdminUse_TableComp">
+                          <img
+                            src={each?.profile_pics}
+                            className="useTable_ImageRecipient"
+                            alt="Recipient image"
+                          />
+                          <span>{` ${each?.firstname}  ${each?.surname}`}</span>
+                        </p>
+                      </td>
+                    );
+
                   case "Admin_fan_Acitive_Negotiate":
                     return (
                       <td className="useTable_tableDetails">
@@ -107,15 +175,18 @@ const AdminUseTable = ({
                         style={{ flex: 1 }}
                       >
                         <Link
-                          to={`/admin/scouts/${each?.id}`}
+                          to={`/admin/scouts/${each?.User}`}
                           className="Admin_playersviewprofile"
                         >
                           View
                         </Link>
                         {/* <Link className="Admin_playersEditprofile">Edit</Link> */}
-                        <Link className="Admin_playersSuspendprofile">
+                        <span
+                          onClick={() => handleEdit(each)}
+                          className="Admin_playersSuspendprofile"
+                        >
                           Un-Suspend
-                        </Link>
+                        </span>
                       </td>
                     );
                   case "Admin_Scout":
@@ -123,7 +194,7 @@ const AdminUseTable = ({
                       <td className="useTable_tableDetails">
                         <p className="AdminUse_TableComp">
                           <img
-                            src={each?.profile_pics}
+                            src={each?.user[0]?.profile_pics}
                             className="useTable_ImageRecipient"
                             alt="Recipient image"
                           />
@@ -181,7 +252,7 @@ const AdminUseTable = ({
                         style={{ flex: 1 }}
                       >
                         <span
-                          onClick={() => handleEdit(each)}
+                          onClick={() => handleDelete(each)}
                           className="Admin_playersviewprofile"
                         >
                           Suspend
@@ -194,6 +265,33 @@ const AdminUseTable = ({
                         </span>
                         <Link
                           to={`/admin/fans/${each?.user[0]?.id}`}
+                          className="Admin_playersEditprofile"
+                        >
+                          View
+                        </Link>
+                      </td>
+                    );
+
+                  case "Admin_fan_Suspend_message_view_suspend_header":
+                    return (
+                      <td
+                        className="useTable_ViewEditSuspendDetails"
+                        style={{ flex: 1 }}
+                      >
+                        <span
+                          onClick={() => handleDelete(each)}
+                          className="Admin_playersviewprofile"
+                        >
+                          UnSuspend
+                        </span>
+                        <span
+                          onClick={() => handleEdit(each)}
+                          className="Admin_playersviewprofile"
+                        >
+                          Message
+                        </span>
+                        <Link
+                          to={`/admin/fans/${each?.User}`}
                           className="Admin_playersEditprofile"
                         >
                           View

@@ -59,8 +59,6 @@ const tokengot = localStorage.getItem("token");
 const Admin_Get_All_Review_Player_fun_Service = async (token) => {
   let API_URL = `${baseURL}admin/player/review`;
 
-  console.log(API_URL);
-
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -68,7 +66,6 @@ const Admin_Get_All_Review_Player_fun_Service = async (token) => {
   };
 
   const response = await axios.get(API_URL, config);
-  console.log(response.data);
   return response.data;
 };
 
@@ -129,8 +126,6 @@ export const Admin_Get_All_Suspended_Player_fun = createAsyncThunk(
 const Admin_Get_ALLPlayers_fun_Service = async (token) => {
   let API_URL = `${baseURL}admin/player/players`;
 
-  console.log(API_URL);
-
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -138,7 +133,6 @@ const Admin_Get_ALLPlayers_fun_Service = async (token) => {
   };
 
   const response = await axios.get(API_URL, config);
-  console.log(response.data);
   return response.data;
 };
 
@@ -164,9 +158,6 @@ export const Admin_Get_ALLPlayers_fun = createAsyncThunk(
 const Admin_Get_Players_Profile_detailsfun_Service = async (data, token) => {
   let API_URL = `${baseURL}admin/player/profile/${data}`;
 
-  console.log(API_URL);
-  console.log(data);
-
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -174,7 +165,6 @@ const Admin_Get_Players_Profile_detailsfun_Service = async (data, token) => {
   };
 
   const response = await axios.get(API_URL, config);
-  console.log(response.data);
   return response.data;
 };
 

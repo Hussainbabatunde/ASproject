@@ -11,10 +11,11 @@ import ChatCircle from "../../../assets/ChatsCircle.png";
 import { useDispatch, useSelector } from "react-redux";
 import {
   Admin_Get_All_Scouts_fun,
-  reset__Admin_Scouts_Slice,
+  reset__Admin_Scouts_fun,
 } from "../../../Slice/Admin/Admin_Scouts_Slice";
-import Scout_message_modal from "../../../Pages/Scout/Scout_message_modal";
+
 import { Admin_dashboard_approved_player_fun } from "../../../Slice/Admin/AdminDashboardSlice";
+import Scout_message_modal from "../../../Pages/Admin/Souts/Scout_message_modal";
 
 const AdminScoutsAllScouts = ({
   handleAllNegotiate,
@@ -26,7 +27,6 @@ const AdminScoutsAllScouts = ({
     (state) => state.reducer.Admin_Scouts_Slice
   );
 
-  console.log(Admin_Get_All_Scouts);
   const dispatch = useDispatch();
 
   const header = [
@@ -56,12 +56,10 @@ const AdminScoutsAllScouts = ({
     dispatch(Admin_Get_All_Scouts_fun());
 
     return () => {
-      dispatch(reset__Admin_Scouts_Slice());
+      dispatch(reset__Admin_Scouts_fun());
     };
   }, []);
-  let Admi = Admin_Get_All_Scouts?.plus;
 
-  console.log(Admi);
   const dataTable = [
     {
       id: 1,
@@ -86,8 +84,8 @@ const AdminScoutsAllScouts = ({
 
   const handleEdit = (data) => {
     console.log(data);
-    setIsModalOpen(true);
     setScout_email(data);
+    setIsModalOpen(true);
   };
 
   const handleDelete = (data) => {
@@ -140,7 +138,7 @@ const AdminScoutsAllScouts = ({
           </span>
         </div>
         <div className="AdminTable_NegotiateTable">
-          {Admin_Get_All_Scouts.length === 0 ? (
+          {Admin_Get_All_Scouts?.length === 0 ? (
             <div
               style={{
                 display: "flex",
