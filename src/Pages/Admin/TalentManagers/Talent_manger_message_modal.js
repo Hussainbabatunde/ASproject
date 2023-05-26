@@ -5,12 +5,11 @@ import { ToastContainer, toast } from "react-toastify";
 
 let baseURL = process.env.REACT_APP_AFRISPORTURL;
 
-const Scout_message_modal = ({ scout_email, isOpen, onClose }) => {
-  console.log(scout_email);
+const Talent_manger_message_modal = ({ scout_email, isOpen, onClose }) => {
   const [message_data, setMessage_data] = useState({
+    email: scout_email,
     title: "",
     message: "",
-    email: scout_email?.email,
   });
 
   const [loading, setLoading] = useState(false);
@@ -24,9 +23,8 @@ const Scout_message_modal = ({ scout_email, isOpen, onClose }) => {
     e.preventDefault();
     // Handle form submission here
 
-    console.log(message_data);
     const handleSuspend_Unsuspend = async (data, id) => {
-      let API_URL = `${baseURL}admin/player/message`;
+      let API_URL = `${baseURL}admin/talent-manager/message`;
 
       const tokengot = localStorage.getItem("token");
 
@@ -40,6 +38,8 @@ const Scout_message_modal = ({ scout_email, isOpen, onClose }) => {
             Authorization: `Bearer ${tokengot}`,
           },
         };
+
+        console.log(message_data);
 
         const response = await axios.post(
           API_URL,
@@ -223,4 +223,4 @@ const Scout_message_modal = ({ scout_email, isOpen, onClose }) => {
   );
 };
 
-export default Scout_message_modal;
+export default Talent_manger_message_modal;

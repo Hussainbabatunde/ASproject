@@ -26,9 +26,6 @@ function Profile_review() {
     Admin_update_user_image_isSuccess,
   } = useSelector((state) => state.reducer.AdminUpdate_profileSlice);
 
-  console.log(Admin_Get_Players_Profile_details);
-  console.log(Admin_Get_Players_Profile_details);
-
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(Admin_Get_Players_Profile_detailsfun(id));

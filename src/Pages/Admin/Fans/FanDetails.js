@@ -20,8 +20,12 @@ import { Admin_Get_ScoutsDetails_fun } from "../../../Slice/Admin/Admin_Scouts_S
 import { FiMail, FiPhoneCall } from "react-icons/fi";
 import AdminNegotiateStep from "../../../Components/Admin/AdminNegotiate/AdminNegotiateStep";
 import ScoutsNegotiateStep from "../../../Components/Admin/AdminScouts/ScoutsNegotiateStep";
-import { Single_Admin_Fan__fun } from "../../../Slice/Admin/Admin_FanData_Slice";
+import {
+  Admin_fan_get_negotiations_fun,
+  Single_Admin_Fan__fun,
+} from "../../../Slice/Admin/Admin_FanData_Slice";
 import Fan_message_modal from "./FanComponent/Fan_message_modal";
+import FanNegotiateStep from "./FanComponent/FanNegotiateStep";
 
 let baseURL = process.env.REACT_APP_AFRISPORTURL;
 
@@ -29,11 +33,9 @@ function FanDetails() {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const { Single_Admin_Fan } = useSelector(
+  const { Single_Admin_Fan, Admin_fan_get_negotiations } = useSelector(
     (state) => state.reducer.Admin_FanData_Slice
   );
-
-  console.log(Single_Admin_Fan);
 
   let user_Data = Single_Admin_Fan?.data;
   let PlayerDetails = user_Data;
@@ -167,7 +169,7 @@ function FanDetails() {
             <div className="ScoutViewProfile_navigation">
               <div className="ScoutViewProfile_navigationprogress">
                 <Link
-                  to={`/admin/scouts`}
+                  to={`/admin/fans`}
                   className="ScoutViewProfile_navigationback"
                 >
                   Back
@@ -301,7 +303,7 @@ function FanDetails() {
           <h1>sam</h1>
         </div> */}
 
-          <ScoutsNegotiateStep />
+          <FanNegotiateStep />
         </div>
       </div>
     </>

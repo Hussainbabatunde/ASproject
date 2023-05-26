@@ -11,10 +11,11 @@ import ChatCircle from "../../../assets/ChatsCircle.png";
 import { useDispatch, useSelector } from "react-redux";
 import {
   Admin_Get_All_Scouts_fun,
-  reset__Admin_Scouts_Slice,
+  reset__Admin_Scouts_fun,
 } from "../../../Slice/Admin/Admin_Scouts_Slice";
-import Scout_message_modal from "../../../Pages/Scout/Scout_message_modal";
+
 import { Admin_dashboard_approved_player_fun } from "../../../Slice/Admin/AdminDashboardSlice";
+import Scout_message_modal from "../../../Pages/Admin/Souts/Scout_message_modal";
 
 const AdminScoutsAllScouts = ({
   handleAllNegotiate,
@@ -55,7 +56,7 @@ const AdminScoutsAllScouts = ({
     dispatch(Admin_Get_All_Scouts_fun());
 
     return () => {
-      dispatch(reset__Admin_Scouts_Slice());
+      dispatch(reset__Admin_Scouts_fun());
     };
   }, []);
 
@@ -83,8 +84,8 @@ const AdminScoutsAllScouts = ({
 
   const handleEdit = (data) => {
     console.log(data);
-    setIsModalOpen(true);
     setScout_email(data);
+    setIsModalOpen(true);
   };
 
   const handleDelete = (data) => {

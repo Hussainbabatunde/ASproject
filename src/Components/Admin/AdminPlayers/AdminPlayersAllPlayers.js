@@ -28,8 +28,6 @@ const AdminPlayerAllNegotiate = ({
     return () => {};
   }, []);
 
-  console.log(Admin_Get_All_Player);
-
   const header = [
     {
       id: 19,
@@ -54,19 +52,6 @@ const AdminPlayerAllNegotiate = ({
     },
   ];
 
-  const handleEdit = (data) => {
-    console.log("this is data");
-  };
-
-  const dataTable = [
-    {
-      id: 1,
-      playerName: "mayana",
-      position: "striker",
-      club: "chelsea",
-      recentNegotiate: "league ball",
-    },
-  ];
   return (
     <div className="AdminPage_NegotiateTab">
       <div className="AdminPage_NegotiateTabTitle">
@@ -129,7 +114,7 @@ const AdminPlayerAllNegotiate = ({
           <AdminUseTable
             header={header}
             data={Admin_Get_All_Player}
-            handleEdit={handleEdit}
+            // handleEdit={handleEdit}
           />
         )}
       </div>

@@ -164,18 +164,6 @@ const AdminDashboard = () => {
     },
   ];
 
-  const dataPlayers = [
-    {
-      id: 1,
-      playerName: "mayana",
-      position: "striker",
-      club: "chelsea",
-      images: "4",
-      nationality: "Nigerian",
-      videos: "8",
-    },
-  ];
-
   return (
     <div className="AdminDashboard">
       {/* <AdminHeader /> */}
