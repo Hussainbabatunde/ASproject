@@ -21,6 +21,10 @@ import { FiMail, FiPhoneCall } from "react-icons/fi";
 import AdminNegotiateStep from "../../../Components/Admin/AdminNegotiate/AdminNegotiateStep";
 import ScoutsNegotiateStep from "../../../Components/Admin/AdminScouts/ScoutsNegotiateStep";
 import TalentManagerNegotiateStep from "./TalentManagerNegotiateStep";
+import {
+  Admin_talent_get_negotiations_fun,
+  Admin_talent_manager_single_fun,
+} from "../../../Slice/Admin/AdminTalentMangerSlice";
 
 let baseURL = process.env.REACT_APP_AFRISPORTURL;
 
@@ -32,13 +36,18 @@ function TalentManagerDetail() {
     (state) => state.reducer.Admin_Scouts_Slice
   );
 
-  let user_Data = Admin_Get_ScoutsDetails?.data;
+  const { Admin_talent_manager_single, Admin_talent_manager_negotiation } =
+    useSelector((state) => state.reducer.AdminTalentMangerSlice);
+
+  let user_Data = Admin_talent_manager_single?.data;
   let PlayerDetails = user_Data;
+
+  console.log(Admin_talent_manager_negotiation);
 
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(Admin_Get_ScoutsDetails_fun(id));
-
+    dispatch(Admin_talent_manager_single_fun(id));
+    dispatch(Admin_talent_get_negotiations_fun(id));
     return () => {};
   }, []);
 
@@ -47,10 +56,10 @@ function TalentManagerDetail() {
   const handleSuspend_Unsuspend = async (data, id) => {
     let API_URL;
     if (data === "UnSuspend") {
-      API_URL = `${baseURL}admin/player/unsuspend`;
+      API_URL = `${baseURL}admin/talent-manager/unsuspend`;
     }
     if (data === "suspend") {
-      API_URL = `${baseURL}admin/player/suspend`;
+      API_URL = `${baseURL}admin/talent-manager/suspend`;
     }
 
     console.log(API_URL);
@@ -189,7 +198,7 @@ function TalentManagerDetail() {
 
                   <span className=" font-normal text-sm py-2 px-5">
                     {/* {user_Data?.bio?.position.toUpperCase()} */}
-                    Scout
+                    Talent manager
                   </span>
                 </div>
               </div>

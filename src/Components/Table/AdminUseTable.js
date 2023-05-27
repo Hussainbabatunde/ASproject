@@ -88,6 +88,7 @@ const AdminUseTable = ({
                     );
 
                   case "Admin_talent_manager_SuspendMessageView":
+                    console.log(each);
                     return (
                       <td
                         className="useTable_ViewEditSuspendDetails"
@@ -105,7 +106,12 @@ const AdminUseTable = ({
                         >
                           Message
                         </span>
-                        <Link className="Admin_playersEditprofile">View</Link>
+                        <Link
+                          to={`/admin/talentManager/${each?.user?.id}`}
+                          className="Admin_playersEditprofile"
+                        >
+                          View
+                        </Link>
                       </td>
                     );
 
