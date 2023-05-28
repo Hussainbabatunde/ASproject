@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import Lottie from "lottie-react";
 
@@ -6,9 +6,34 @@ import empty from "../../../assets/lottie/emptyState.json";
 import imgRecipient from "../../../assets/imgRecipient.png";
 import ChatCircle from "../../../assets/ChatsCircle.png";
 import AdminUseTable from "../../../Components/Table/AdminUseTable";
+import { Admin_talent_get_negotiations_fun } from "../../../Slice/Admin/AdminTalentMangerSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 
 function TalentManagerNegotiateStep() {
+  const dispatch = useDispatch();
+
+  const { id } = useParams();
+
   const [step, setStep] = useState(1);
+  const { Admin_talent_manager_single, Admin_talent_manager_negotiation } =
+    useSelector((state) => state.reducer.AdminTalentMangerSlice);
+
+  useEffect(() => {
+    dispatch(Admin_talent_get_negotiations_fun(id));
+
+    return () => {};
+  }, []);
+
+  console.log(Admin_talent_manager_negotiation);
+  console.log(
+    Admin_talent_manager_negotiation?.Admin__Talent__Active_Negotiations
+  );
+
+  console.log(
+    Admin_talent_manager_negotiation?.Admin__Talent__Active_Negotiations?.data
+      ?.data
+  );
 
   const handleAllNegotiate = () => {
     setStep(1);
@@ -88,7 +113,7 @@ function TalentManagerNegotiateStep() {
               : "AdminPAge_Negotiate_TabNegotiateInactive"
           }`}
         >
-          Suspended
+          Negotiate
         </p>
 
         <p
@@ -105,7 +130,8 @@ function TalentManagerNegotiateStep() {
 
       {step === 1 && (
         <div className="AdminTable_NegotiateTable">
-          {dataTable?.length === 0 ? (
+          {Admin_talent_manager_negotiation?.Admin__Talent__Active_Negotiations
+            ?.data?.data?.length === 0 ? (
             <div
               style={{
                 display: "flex",
@@ -120,14 +146,21 @@ function TalentManagerNegotiateStep() {
               />
             </div>
           ) : (
-            <AdminUseTable header={header} data={dataTable} />
+            <AdminUseTable
+              header={header}
+              data={
+                Admin_talent_manager_negotiation
+                  ?.Admin__Talent__Active_Negotiations?.data?.data
+              }
+            />
           )}
         </div>
       )}
 
       {step === 2 && (
         <div className="AdminTable_NegotiateTable">
-          {dataTable?.length === 0 ? (
+          {Admin_talent_manager_negotiation?.Admin__Talent__Active_Negotiations
+            ?.data?.data?.length === 0 ? (
             <div
               style={{
                 display: "flex",
@@ -142,14 +175,21 @@ function TalentManagerNegotiateStep() {
               />
             </div>
           ) : (
-            <AdminUseTable header={header} data={dataTable} />
+            <AdminUseTable
+              header={header}
+              data={
+                Admin_talent_manager_negotiation
+                  ?.Admin__Talent__Active_Negotiations?.data?.data
+              }
+            />
           )}
         </div>
       )}
 
       {step === 3 && (
         <div className="AdminTable_NegotiateTable">
-          {dataTable?.length === 0 ? (
+          {Admin_talent_manager_negotiation?.Admin__Talent__Active_Negotiations
+            ?.data?.data?.length === 0 ? (
             <div
               style={{
                 display: "flex",
@@ -164,7 +204,13 @@ function TalentManagerNegotiateStep() {
               />
             </div>
           ) : (
-            <AdminUseTable header={header} data={dataTable} />
+            <AdminUseTable
+              header={header}
+              data={
+                Admin_talent_manager_negotiation
+                  ?.Admin__Talent__Active_Negotiations?.data?.data
+              }
+            />
           )}
         </div>
       )}

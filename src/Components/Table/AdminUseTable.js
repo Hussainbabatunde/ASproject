@@ -17,6 +17,7 @@ const AdminUseTable = ({
   deleteinfo,
   handleEdit,
   HandlePermision,
+  handleRestpassword,
 }) => {
   return (
     <table className="AdminUserTable">
@@ -88,7 +89,6 @@ const AdminUseTable = ({
                     );
 
                   case "Admin_talent_manager_SuspendMessageView":
-                    console.log(each);
                     return (
                       <td
                         className="useTable_ViewEditSuspendDetails"
@@ -421,36 +421,16 @@ const AdminUseTable = ({
                         >
                           <span>Edit</span>
                         </button>
-                        <button
-                          onClick={() => handleDelete(each)}
-                          className="Admin_playersSuspendprofile"
-                        >
-                          {deletingIndex === index ? (
-                            <PulseLoader
-                              color="#7F351D"
-                              size={13}
-                              aria-label="Loading Spinner"
-                              data-testid="loader"
-                            />
-                          ) : (
-                            <span>Delete</span>
-                          )}
-                        </button>
 
                         <button
-                          onClick={() => HandlePermision(each)}
-                          className="Admin_playersSuspendprofile"
+                          className="border border-[#1D217F] px-2 py-1 bg-[#F2F3FE] text-[#1D217F]-500 font-bold rounded-md mr-2"
+                          onClick={() => handleRestpassword(each)}
                         >
-                          {deletingIndex === index ? (
-                            <PulseLoader
-                              color="#7F351D"
-                              size={13}
-                              aria-label="Loading Spinner"
-                              data-testid="loader"
-                            />
-                          ) : (
-                            <span>Permision</span>
-                          )}
+                          <span>Reset Password</span>
+                        </button>
+
+                        <button className="border border-[#1D217F] px-2 py-1 bg-green-50 text-[#1D217F]-500 font-bold rounded-md mr-2">
+                          Disable
                         </button>
                       </td>
                     );
