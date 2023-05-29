@@ -29,8 +29,6 @@ const AdminTalentManagerAllManagers = ({
     (state) => state.reducer.AdminTalentMangerSlice
   );
 
-  console.log(Admin_talent_manager?.Admin__TalentManger__Active_Negotiations);
-
   const header = [
     {
       id: 1,

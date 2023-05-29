@@ -32,13 +32,10 @@ const Create__Admin_fun_Service = async (token, data) => {
   };
 
   if (data.id) {
-    console.log("theis wht");
     API_URL = `${baseURL}admin/user/update`;
 
     let fullName = data.fullname;
     let nameParts = fullName.split(" ");
-
-    console.log(data);
 
     let update_Data = {
       id: data.id,
@@ -48,14 +45,10 @@ const Create__Admin_fun_Service = async (token, data) => {
       email: data.email,
     };
 
-    console.log(update_Data);
-
     const response = await axios.put(API_URL, update_Data, config);
 
-    console.log(response.data);
     return response.data;
   } else {
-    console.log("this is for create");
     API_URL = `${baseURL}admin/user/create`;
     let creat_Data = {
       role: data.role,
@@ -65,7 +58,6 @@ const Create__Admin_fun_Service = async (token, data) => {
     };
 
     const response = await axios.post(API_URL, creat_Data, config);
-    console.log(response.data);
     return response.data;
   }
 };
@@ -88,10 +80,39 @@ export const Create__Admin_fun = createAsyncThunk(
   }
 );
 
+const Reset__Admin_fun_Service = async (data, token) => {
+  let API_URL = `${baseURL}set-new-password`;
+
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  const response = await axios.post(API_URL, data, config);
+  return response.data;
+};
+
+export const Reset__Admin_fun = createAsyncThunk(
+  "role_fun/Reset__Admin_fun",
+  async (data, thunkAPI) => {
+    try {
+      const token = thunkAPI.getState().reducer.LoginSlice.logindata.data.token;
+      return await Reset__Admin_fun_Service(data, token);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
 const Delete__Admin_fun_Service = async (token, data) => {
   let API_URL = `${baseURL}admin/user/delete/${data}`;
-
-  console.log(API_URL);
 
   const config = {
     headers: {
@@ -101,9 +122,7 @@ const Delete__Admin_fun_Service = async (token, data) => {
 
   const response = await axios.delete(API_URL, config);
 
-  console.log(response.data);
-
-  //   return response.data;
+  return response.data;
 };
 
 export const Delete__Admin_fun = createAsyncThunk(
@@ -127,7 +146,6 @@ export const Delete__Admin_fun = createAsyncThunk(
 const get_All_Admin_fun_Service = async (token) => {
   let API_URL = `${baseURL}admin/user/all`;
 
-  console.log(API_URL);
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -135,8 +153,6 @@ const get_All_Admin_fun_Service = async (token) => {
   };
 
   const response = await axios.get(API_URL, config);
-
-  //   console.log(response.data);
 
   return response.data;
 };
@@ -166,11 +182,9 @@ const Update_permission___Admin_fun_Service = async (token, data) => {
       Authorization: `Bearer ${token}`,
     },
   };
-  console.log(data);
 
   API_URL = `${baseURL}admin/user/change-permission`;
   const response = await axios.put(API_URL, data, config);
-  console.log(response.data);
   return response.data;
 };
 
@@ -199,13 +213,6 @@ export const AdminUserSlice = createSlice({
 
   reducers: {
     reset_role: (state) => initialState,
-
-    // reset_role_options: (state, action) => {
-    //   state.Role_isError = false;
-    //   state.Role_isSuccess = false;
-    //   state.Role_isLoading = false;
-    //   state.Role_message = null;
-    // },
 
     reset_Create__Admin_options: (state, action) => {
       state.Create__Admin_isError = false;
@@ -297,6 +304,41 @@ export const AdminUserSlice = createSlice({
         });
       })
       .addCase(Create__Admin_fun.rejected, (state, action) => {
+        state.Create__Admin_isError = true;
+        state.Create__Admin_message = action.payload;
+        state.Create__Admin_isLoading = false;
+        toast.error(`${state.Create__Admin_message}`, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          className: "Forbidden403",
+        });
+      })
+
+      .addCase(Reset__Admin_fun.pending, (state) => {
+        state.Create__Admin_isLoading = true;
+      })
+      .addCase(Reset__Admin_fun.fulfilled, (state, action) => {
+        state.Create__Admin = action.payload;
+        state.Create__Admin_isSuccess = true;
+        state.Create__Admin_isLoading = false;
+        toast.success("successful", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      })
+      .addCase(Reset__Admin_fun.rejected, (state, action) => {
         state.Create__Admin_isError = true;
         state.Create__Admin_message = action.payload;
         state.Create__Admin_isLoading = false;
