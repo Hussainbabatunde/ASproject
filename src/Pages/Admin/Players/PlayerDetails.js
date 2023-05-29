@@ -153,35 +153,23 @@ function PlayerDetails() {
   return (
     <>
       <ToastContainer />
-      <div className="AdminDashboard">
+      <div className="AdminDashboard ">
         <div className="AdminPage_Dashboard">
-          <div>
+          <div className=" w-[70%] xl:ml-[10%]">
             <div className="ScoutViewProfile_navigation">
               <div className="ScoutViewProfile_navigationprogress">
                 <Link
                   to={`/admin/players`}
                   className="ScoutViewProfile_navigationback"
                 >
-                  Back
+                  Player-list
                 </Link>
                 <GrFormNext style={{ fontSize: "16px" }} />
-                <p className="ScoutViewProfile_navigationprofile">Profile</p>
+                <p className="ScoutViewProfile_navigationprofile">details</p>
               </div>
-              <Link className="ScoutViewProfile_share">
-                {" "}
-                <BsShareFill style={{ color: "rgba(150, 150, 150, 1)" }} />{" "}
-                <span
-                  style={{
-                    color: "rgba(150, 150, 150, 1)",
-                    marginLeft: "10px",
-                  }}
-                >
-                  Share
-                </span>
-              </Link>
             </div>
 
-            <div className="ScoutViewProfile_AboutSection bg-white flex justify-between px-5 py-5 rounded-xl">
+            <div className="ScoutViewProfile_AboutSection bg-white flex justify-between px-5 py-5 rounded-xl w-full">
               {/* <div className="bg-white  "> */}
               <div className="flex gap-2 font-normal items-center">
                 <img
@@ -250,15 +238,15 @@ function PlayerDetails() {
               </div>
               {/* </div> */}
             </div>
-            <div className="ScoutViewProfile_AboutSection bg-white">
+            <div className="ScoutViewProfile_AboutSection bg-white w-full">
               <p className="ScoutViewProfile_AboutTopicText">About</p>
               <div className="ScoutViewProfile_AboutSectionInfo">
                 <p className="ScoutViewProfile_AboutSectionIcon">66</p>
-                <div>
+                <div className="max-w-full ">
                   <p className="ScoutViewProfile_AboutSectionIconTopic">
                     Biography
                   </p>
-                  <p className="ScoutViewProfile_AboutSectionIconText">
+                  <p className="ScoutViewProfile_AboutSectionIconText ">
                     {loading == true ? (
                       <Skeleton variant="rounded" width="90%" height={22} />
                     ) : (
