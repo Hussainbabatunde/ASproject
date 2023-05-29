@@ -9,7 +9,6 @@ import AdminUseTable from "../../../Components/Table/AdminUseTable";
 import { useDispatch, useSelector } from "react-redux";
 
 import { Admin_FanData__fun } from "../../../Slice/Admin/Admin_FanData_Slice";
-import Fan_message_modal from "./FanComponent/Fan_message_modal";
 import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
 import FanSuspended from "./FanComponent/FanSuspended";
@@ -32,6 +31,8 @@ const Admin_Fans = ({}) => {
   const { Admin_Fan } = useSelector(
     (state) => state.reducer.Admin_FanData_Slice
   );
+
+  console.log(Admin_Fan);
 
   const header = [
     {

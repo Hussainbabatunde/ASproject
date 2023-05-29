@@ -56,11 +56,11 @@ const AdminUseTable = ({
                       <td className="useTable_tableDetails">
                         <p className="AdminUse_TableComp">
                           <img
-                            src={each?.user[0].profile_pics}
+                            src={each?.user.profile_pics}
                             className="useTable_ImageRecipient"
                             alt="Recipient image"
                           />
-                          <span>{` ${each?.user[0]?.firstname}  ${each?.user[0]?.surname}`}</span>
+                          <span>{` ${each?.user?.firstname}  ${each?.user?.surname}`}</span>
                         </p>
                       </td>
                     );
@@ -200,12 +200,12 @@ const AdminUseTable = ({
                       <td className="useTable_tableDetails">
                         <p className="AdminUse_TableComp">
                           <img
-                            src={each?.user[0]?.profile_pics}
+                            src={each?.user?.profile_pics}
                             className="useTable_ImageRecipient"
                             alt="Recipient image"
                           />
 
-                          <span>{` ${each?.user[0]?.firstname}  ${each?.user[0]?.surname}`}</span>
+                          <span>{` ${each?.user?.firstname}  ${each?.user?.surname}`}</span>
 
                           {/* <span>{` ${each?.firstname}  ${each?.surname}`}</span> */}
                         </p>
@@ -270,7 +270,7 @@ const AdminUseTable = ({
                           Message
                         </span>
                         <Link
-                          to={`/admin/fans/${each?.user[0]?.id}`}
+                          to={`/admin/fans/${each?.user?.id}`}
                           className="Admin_playersEditprofile"
                         >
                           View

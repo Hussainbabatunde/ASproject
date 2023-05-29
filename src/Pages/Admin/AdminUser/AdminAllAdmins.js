@@ -371,7 +371,7 @@ const AdminAllAdmins = () => {
       <div className="AdminDashboard">
         <div className="AdminPage_Dashboard">
           <div className="AdminPage_DashboardTAbleCat">
-            {/* {modal && <AdminUser__modal />} */}
+            {modal && <AdminUser__modal />}
 
             <button
               className="Adminpage_CreateAdmins "

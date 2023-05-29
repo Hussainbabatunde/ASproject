@@ -160,7 +160,7 @@ function TalentManagerDetail() {
             <div className="ScoutViewProfile_navigation">
               <div className="ScoutViewProfile_navigationprogress">
                 <Link
-                  to={`/admin/scouts`}
+                  to={`/admin/talentManager`}
                   className="ScoutViewProfile_navigationback"
                 >
                   Back
