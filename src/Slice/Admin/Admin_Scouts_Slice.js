@@ -10,14 +10,57 @@ const initialState = {
   Admin_Get_All_Scouts_message: null,
 
   Admin_Get_All_Suspended_Scouts: null,
-
   Admin_Get_ScoutsDetails: null,
   Single_Scout_Negotiations_Detail: null,
+  Details_Of_Scout_Negotiations_Detail: null,
 };
 
 let baseURL = process.env.REACT_APP_AFRISPORTURL;
 
 const tokengot = localStorage.getItem("token");
+const Details_Of_Scout_Negotiations_Detail_fun_Service = async (
+  data,
+  token
+) => {
+  if (data === null || data === undefined) {
+    console.log("error");
+  } else {
+    let API_URL = `${baseURL}admin/scout/negotiation-detail/${data?.User}/${data?.OfferId}`;
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    const response = await axios.get(API_URL, config);
+
+    console.log(response.data);
+
+    return response.data;
+  }
+};
+
+export const Details_Of_Scout_Negotiations_Detail_fun = createAsyncThunk(
+  "Admin_Scouts_Slice/Details_Of_Scout_Negotiations_Detail_fun",
+  async (data, thunkAPI) => {
+    try {
+      const token = thunkAPI.getState().reducer.LoginSlice.logindata.data.token;
+
+      return await Details_Of_Scout_Negotiations_Detail_fun_Service(
+        data,
+        token
+      );
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
 
 const Admin_Get_All_Suspended_Scouts_fun_Service = async (token) => {
   let API_URL = `${baseURL}admin/scout/all-suspended`;
@@ -189,6 +232,10 @@ export const Admin_Scouts_Slice = createSlice({
     reset__Admin_Get_All_Suspended_Scouts_fun: (state, action) => {
       state.Admin_Get_All_Suspended_Scouts = null;
     },
+
+    reset_Details_Of_Scout_Negotiations_Detail_fun: (state, action) => {
+      state.Details_Of_Scout_Negotiations_Detail = null;
+    },
   },
 
   extraReducers: (builder) => {
@@ -243,6 +290,37 @@ export const Admin_Scouts_Slice = createSlice({
           className: "Forbidden403",
         });
       })
+
+      .addCase(Details_Of_Scout_Negotiations_Detail_fun.pending, (state) => {
+        state.Admin_Get_All_Scouts_isLoading = true;
+      })
+      .addCase(
+        Details_Of_Scout_Negotiations_Detail_fun.fulfilled,
+        (state, action) => {
+          state.Details_Of_Scout_Negotiations_Detail = action.payload;
+          state.Admin_Get_All_Scouts_isSuccess = true;
+          state.Admin_Get_All_Scouts_isLoading = false;
+        }
+      )
+      .addCase(
+        Details_Of_Scout_Negotiations_Detail_fun.rejected,
+        (state, action) => {
+          state.Admin_Get_All_Scouts_isError = true;
+          state.Admin_Get_All_Scouts_message = action.payload;
+          state.Admin_Get_All_Scouts_isLoading = false;
+          toast.error(`${state.Admin_Get_All_Scouts_message}`, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            className: "Forbidden403",
+          });
+        }
+      )
 
       .addCase(Single_Scout_Negotiations_Detail_fun.pending, (state) => {
         state.Admin_Get_All_Scouts_isLoading = true;
@@ -309,5 +387,6 @@ export const {
   reset__Admin_Get_All_Suspended_Scouts_fun,
   reset__Admin_Scouts_fun,
   reset__Admin_Scouts_Details_fun,
+  reset_Details_Of_Scout_Negotiations_Detail_fun,
 } = Admin_Scouts_Slice.actions;
 export default Admin_Scouts_Slice.reducer;

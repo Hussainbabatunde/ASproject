@@ -438,7 +438,6 @@ const AdminUseTable = ({
                     );
 
                   case "scout_Deal_name":
-                    console.log(each);
                     return (
                       <td className="useTable_tableDetails">
                         {each?.DealName}
@@ -462,16 +461,21 @@ const AdminUseTable = ({
                   case "scout_All_Negotiaties":
                     return (
                       <td className="useTable_tableDetails">
-                        <p className="AdminUse_TableComp">
-                          <img
-                            src={ChatCircle}
-                            style={{ marginRight: "10px" }}
-                            width="25px"
-                            height="25px"
-                            alt="Recipient image"
-                          />
-                          {each?.number}
-                        </p>
+                        <Link
+                          to="/admin/scouts/negotiation-detail"
+                          state={each}
+                        >
+                          <p className="AdminUse_TableComp">
+                            <img
+                              src={ChatCircle}
+                              style={{ marginRight: "10px" }}
+                              width="25px"
+                              height="25px"
+                              alt="Recipient image"
+                            />
+                            {each?.number}
+                          </p>
+                        </Link>
                       </td>
                     );
                 }

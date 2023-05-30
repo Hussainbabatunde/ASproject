@@ -191,7 +191,9 @@ function FanDetails() {
               </Link>
             </div>
 
-            <div className="ScoutViewProfile_AboutSection bg-white flex justify-between px-5 py-5 rounded-xl items-center">
+            {/* <div className="ScoutViewProfile_AboutSection bg-white flex justify-between px-5 py-5 rounded-xl items-center"> */}
+
+            <div className="  mt-1 border border-[#D0D4D9]  flex justify-between px-5 py-5 rounded-xl items-center">
               {/* <div className="bg-white  "> */}
               <div className="flex gap-2 font-normal items-center">
                 <img
@@ -247,15 +249,16 @@ function FanDetails() {
               </div>
               {/* </div> */}
             </div>
-            <div className="ScoutViewProfile_AboutSection bg-white">
+
+            <div className=" bg-white  mt-1 border border-[#D0D4D9] px-8 py-4 rounded-xl">
               <p className="ScoutViewProfile_AboutTopicText">About</p>
               <div className="ScoutViewProfile_AboutSectionInfo">
                 <p className="ScoutViewProfile_AboutSectionIcon">
                   <FiMail />
                 </p>
                 <div>
-                  <p className="ScoutViewProfile_AboutSectionIconTopic">
-                    <span className="block"> Email</span>
+                  <p className="ScoutViewProfile_AboutSectionIconTopic ">
+                    <span className="block "> Email</span>
                     <span> {user_Data?.email}</span>
                   </p>
                   <p className="ScoutViewProfile_AboutSectionIconText">

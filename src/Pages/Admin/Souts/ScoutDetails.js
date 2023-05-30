@@ -246,7 +246,8 @@ function ScoutDetails() {
               </div>
               {/* </div> */}
             </div>
-            <div className="ScoutViewProfile_AboutSection bg-white w-full debug">
+
+            <div className=" bg-white  mt-1 border border-[#D0D4D9] px-8 py-4 rounded-xl">
               <p className="ScoutViewProfile_AboutTopicText">About</p>
               <div className="ScoutViewProfile_AboutSectionInfo">
                 <p className="ScoutViewProfile_AboutSectionIcon">
