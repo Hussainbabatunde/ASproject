@@ -42,6 +42,7 @@ function TalentManagerDetail() {
   let user_Data = Admin_talent_manager_single?.data;
   let PlayerDetails = user_Data;
 
+  console.log(Admin_talent_manager_single);
   console.log(Admin_talent_manager_negotiation);
 
   const dispatch = useDispatch();
@@ -182,7 +183,7 @@ function TalentManagerDetail() {
               </Link>
             </div>
 
-            <div className="ScoutViewProfile_AboutSection bg-white flex justify-between px-5 py-5 rounded-xl items-center">
+            <div className="  mt-1 border border-[#D0D4D9]  flex justify-between px-5 py-5 rounded-xl items-center">
               {/* <div className="bg-white  "> */}
               <div className="flex gap-2 font-normal items-center">
                 <img
@@ -238,7 +239,8 @@ function TalentManagerDetail() {
               </div>
               {/* </div> */}
             </div>
-            <div className="ScoutViewProfile_AboutSection bg-white">
+
+            <div className=" bg-white  mt-1 border border-[#D0D4D9] px-8 py-4 rounded-xl">
               <p className="ScoutViewProfile_AboutTopicText">About</p>
               <div className="ScoutViewProfile_AboutSectionInfo">
                 <p className="ScoutViewProfile_AboutSectionIcon">

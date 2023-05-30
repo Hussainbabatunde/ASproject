@@ -43,6 +43,8 @@ const ActiveNegotiation = ({}) => {
     Admin___Negotiations_message,
   } = useSelector((state) => state.reducer.Admin_NegotiationsSlice);
 
+  console.log(Admin___Negotiations);
+
   const header = [
     {
       id: 1,
@@ -184,8 +186,8 @@ const ActiveNegotiation = ({}) => {
                 </div>
 
                 <div className="AdminTable_NegotiateTable">
-                  {Admin___Negotiations?.Admin__Active_Negotiations?.data
-                    .length === 0 ? (
+                  {Admin___Negotiations?.Admin__Active_Negotiations.length ===
+                  0 ? (
                     <div
                       style={{
                         display: "flex",
@@ -202,9 +204,7 @@ const ActiveNegotiation = ({}) => {
                   ) : (
                     <AdminUseTable
                       header={header}
-                      data={
-                        Admin___Negotiations?.Admin__Active_Negotiations?.data
-                      }
+                      data={Admin___Negotiations?.Admin__Active_Negotiations}
                     />
                   )}
                 </div>
