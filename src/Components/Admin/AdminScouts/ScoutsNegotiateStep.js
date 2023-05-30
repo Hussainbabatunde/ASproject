@@ -28,6 +28,11 @@ function ScoutsNegotiateStep() {
 
   console.log(Single_Scout_Negotiations_Detail);
 
+  let All_negotiations_data =
+    Single_Scout_Negotiations_Detail?.All_negotiations_data?.data;
+
+  console.log(All_negotiations_data);
+
   let active_negotiations_data =
     Single_Scout_Negotiations_Detail?.active_negotiations_data?.data;
   let close_negotiations_data =
@@ -62,41 +67,46 @@ function ScoutsNegotiateStep() {
   const header = [
     {
       id: 1,
-      name: "Deal name",
+      name: "Deal Name",
+      case: "scout_Deal_name",
     },
     {
       id: 2,
       name: "Scout",
+      case: "scout_ne_name",
     },
+    // {
+    //   id: 3,
+    //   name: "Initial Offer",
+    // },
+    // {
+    //   id: 4,
+    //   name: "Current Offer",
+    // },
     {
       id: 3,
-      name: "Initial Offer",
-    },
-    {
-      id: 4,
-      name: "Current Offer",
-    },
-    {
-      id: 5,
       name: "Payment",
+      case: "scout_ne_Payment",
     },
     {
       id: 6,
       name: "Active Negotiaties",
+      case: "scout_All_Negotiaties",
     },
   ];
 
   const dataTable = [
     {
-      id: 1,
-      dealname: "5 Season Deal",
-      imgRecip: imgRecipient,
-      scoutname: "David Dada",
-      InitialOffer: "$12,000",
-      CurrentOffer: "$15,000",
-      surname: "Not paid",
-      chat: ChatCircle,
-      number: "8",
+      Amount: "54000.00",
+      DealName: "ahmed",
+      OfferId: "21",
+      Payment: "0",
+      User: "32",
+      firstname: "scout",
+      profile_pics:
+        "https://certificate.bcodestech.com/images/profile-picture/1684843109-603956709976634-editprofile.PNG",
+      status: "pending",
+      surname: "unknown",
     },
   ];
 
@@ -147,7 +157,7 @@ function ScoutsNegotiateStep() {
 
       {step === 1 && (
         <div className="AdminTable_NegotiateTable">
-          {active_negotiations_data?.length === 0 ? (
+          {All_negotiations_data?.length === 0 ? (
             <div
               style={{
                 display: "flex",
@@ -162,7 +172,7 @@ function ScoutsNegotiateStep() {
               />
             </div>
           ) : (
-            <AdminUseTable header={header} data={active_negotiations_data} />
+            <AdminUseTable header={header} data={All_negotiations_data} />
           )}
         </div>
       )}

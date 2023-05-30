@@ -113,6 +113,8 @@ export const Admin_Get_ScoutsDetails_fun = createAsyncThunk(
 );
 
 const Single_Scout_Negotiations_Detail_fun_Service = async (data, token) => {
+  let API_URL = `${baseURL}admin/scout/negotiations/${data}`;
+
   let API_URL_active = `${baseURL}admin/scout/active-negotiations/${data}`;
 
   let API_URL_close = `${baseURL}admin/scout/closed-negotiations/${data}`;
@@ -124,6 +126,7 @@ const Single_Scout_Negotiations_Detail_fun_Service = async (data, token) => {
       Authorization: `Bearer ${token}`,
     },
   };
+  const ALL = await axios.get(API_URL, config);
 
   const active = await axios.get(API_URL_active, config);
   const close = await axios.get(API_URL_close, config);
@@ -131,6 +134,7 @@ const Single_Scout_Negotiations_Detail_fun_Service = async (data, token) => {
   const terminated = await axios.get(API_URL_terminated, config);
 
   // return response.data;
+  let All_negotiations_data = ALL.data;
 
   let active_negotiations_data = active.data;
   let close_negotiations_data = close.data;
@@ -138,6 +142,7 @@ const Single_Scout_Negotiations_Detail_fun_Service = async (data, token) => {
   let terminated_negotiations_data = terminated.data;
 
   let negotiations_data = {
+    All_negotiations_data,
     active_negotiations_data,
     close_negotiations_data,
     suspended_negotiations_data,

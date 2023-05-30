@@ -115,11 +115,6 @@ function ScoutDetails() {
     }
   };
 
-  // this is for the new
-
-  //   const dispatch = useDispatch()
-  //   const [loading, setLoading] = useState(false)
-
   const VerifiedStatus = useSelector(
     (state) => state.reducer?.PlayerProfileSlice?.VerificationStatusData?.data
   );
