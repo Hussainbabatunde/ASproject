@@ -1,7 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { createAction } from '@reduxjs/toolkit';
 
 const initialState = {
     user: null,
@@ -9,23 +8,22 @@ const initialState = {
     isSuccess: false,
     isLoading: false,
     message: null,
-    ProfilePicturedata: null,
-    ProfileProfileformdata: null,
-    ProfilePhysicalStatsdata: null,
-    ProfileBusinessServicedata: null,
-    ProfileUploadIddata: null,
-    ProfileYourImagesdata: null,
-    VerificationStatusData:null,
-    AllProfileDetailsData: null,
-    ProfileVideoLinksData: null,
-    ProfileSetcoverImgData: null,
-    ProfileDeleteImgData: null,
-    ProfileDeleteVideoData: null
+    fanPicturedata: null,
+    fanProfileformdata: null,
+    fanPhysicalStatsdata: null,
+    fanBusinessServicedata: null,
+    fanUploadIddata: null,
+    fanYourImagesdata: null,
+    fanVerificationStatusData:null,
+    fanAllProfileDetailsData: null,
+    fanVideoLinksData: null,
+    fanSetcoverImgData: null,
+    fanDeleteImgData: null
   };
 
 
-  export const ProfileDetailsPlayer = createAsyncThunk(
-    "playerProfileDetailsScreen/userPlayerProfileDetailsScreen",
+  export const ProfileDetailsfan = createAsyncThunk(
+    "fanProfileDetailsScreen/userfanProfileDetailsScreen",
     async (id, { rejectWithValue }) => {
         
     // for (const [name, value] of details.entries()) {
@@ -60,8 +58,8 @@ const initialState = {
   );
 
 
-  export const PlayerProfileVerificationStatus = createAsyncThunk(
-    "playerVerificationStatus/userPlayerVerificationStatus",
+  export const fanProfileVerificationStatus = createAsyncThunk(
+    "fanVerificationStatus/userfanVerificationStatus",
     async (id, { rejectWithValue }) => {
         
     // for (const [name, value] of details.entries()) {
@@ -80,7 +78,7 @@ const initialState = {
         },
       });
       return await instance
-        .get(`player/profile-progress-bar/${id}`)
+        .get(`fan/profile-progress-bar/${id}`)
         .then(async (response) => {
             // console.log('progress bar ',response.data)
           return response.data;
@@ -95,8 +93,8 @@ const initialState = {
     }
   );
 
-  export const PlayerProfilePicture = createAsyncThunk(
-    "playerprofilepicture/userPlayerProfilePicture",
+  export const fanProfilePicture = createAsyncThunk(
+    "fanprofilepicture/userfanProfilePicture",
     async (details, { rejectWithValue }) => {
         
     // for (const [name, value] of details.entries()) {
@@ -115,7 +113,7 @@ const initialState = {
         },
       });
       return await instance
-        .post("player/profile-picture", details)
+        .post("fan/profile-picture", details)
         .then(async (response) => {
             // console.log('profile picture ',response.data)
           return response.data;
@@ -130,8 +128,8 @@ const initialState = {
     }
   );
 
-  export const PlayerSetCoverImg = createAsyncThunk(
-    "playersetcoverimg/userPlayerSetCoverImg",
+  export const fanSetCoverImg = createAsyncThunk(
+    "fansetcoverimg/userfanSetCoverImg",
     async (details, { rejectWithValue }) => {
         
     // for (const [name, value] of details.entries()) {
@@ -150,9 +148,9 @@ const initialState = {
         },
       });
       return await instance
-        .post("player/make-cover-page", details)
+        .post("fan/make-cover-page", details)
         .then(async (response) => {
-            console.log('cover image set ',response.data)
+            // console.log('cover image set ',response.data)
           return response.data;
         })
   
@@ -165,8 +163,8 @@ const initialState = {
     }
   );
 
-  export const PlayerDeleteImgApi = createAsyncThunk(
-    "playerdeleteimg/userPlayerDeleteImg",
+  export const fanDeleteImgApi = createAsyncThunk(
+    "fandeleteimg/userfanDeleteImg",
     async ({id, user_id}, { rejectWithValue }) => {
         
     // for (const [name, value] of details.entries()) {
@@ -185,7 +183,7 @@ const initialState = {
         },
       });
       return await instance
-        .delete(`player/remove-image/${id}/${user_id}`)
+        .delete(`fan/remove-image/${id}/${user_id}`)
         .then(async (response) => {
             // console.log('deleted img ',response.data)
           return response.data;
@@ -200,46 +198,8 @@ const initialState = {
     }
   );
 
-  export const PlayerDeleteVideoApi = createAsyncThunk(
-    "playerdeletevideo/userPlayerDeleteVideo",
-    async ({id, user_id}, { rejectWithValue }) => {
-        
-    // for (const [name, value] of details.entries()) {
-    //     console.log(`${name}: ${value}`);
-    //   }
-      const tokengot = localStorage.getItem("token");
-      const infoneeded = `Bearer ${tokengot}`;
-      const instance = axios.create({
-        baseURL: process.env.REACT_APP_AFRISPORTURL ,
-        timeout: 20000,
-  
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-          Authorization: infoneeded
-        },
-      });
-      return await instance
-        .delete(`player/remove-video-url/${id}/${user_id}`)
-        .then(async (response) => {
-            console.log('deleted video ',response.data)
-          return response.data;
-        })
-  
-        .catch((err) => {
-          let errdata = err.response.data;
-          console.log('error ', errdata)
-          return rejectWithValue(errdata);
-          // console.log(err)
-        });
-    }
-  );
-
-
-
-
-  export const PlayerProfileVideoLink = createAsyncThunk(
-    "playerprofilevideos/userPlayerProfileVideos",
+  export const fanProfileVideoLink = createAsyncThunk(
+    "fanprofilevideos/userfanProfileVideos",
     async (details, { rejectWithValue }) => {
         
     // for (const [name, value] of details.entries()) {
@@ -258,7 +218,7 @@ const initialState = {
         },
       });
       return await instance
-        .post("player/video_text_url", details)
+        .post("fan/video_text_url", details)
         .then(async (response) => {
             // console.log('Video links ',response.data)
           return response.data;
@@ -273,8 +233,8 @@ const initialState = {
     }
   );
 
-  export const PlayerYourImagesApi = createAsyncThunk(
-    "playeryourimages/userPlayerYourImages",
+  export const fanYourImagesApi = createAsyncThunk(
+    "fanyourimages/userfanYourImages",
     async (details, { rejectWithValue }) => {
         
     // for (const [name, value] of details.entries()) {
@@ -293,7 +253,7 @@ const initialState = {
         },
       });
       return await instance
-        .post("player/images", details)
+        .post("fan/images", details)
         .then(async (response) => {
             console.log('your images ',response.data)
           return response.data;
@@ -308,8 +268,8 @@ const initialState = {
     }
   );
 
-  export const PlayerProfileProfileformApi = createAsyncThunk(
-    "playerprofileProfileform/userPlayerprofileProfileform",
+  export const fanProfileProfileformApi = createAsyncThunk(
+    "fanprofileProfileform/userfanprofileProfileform",
     async (details, { rejectWithValue }) => {
         
     // for (const [name, value] of details.entries()) {
@@ -328,7 +288,7 @@ const initialState = {
         },
       });
       return await instance
-        .post("player/bio", details)
+        .post("fan/bio", details)
         .then(async (response) => {
           console.log('response gotten ', response.data)
           return response.data;
@@ -344,8 +304,8 @@ const initialState = {
   );
 
 
-  export const PlayerProfilePhysicalStatsApi = createAsyncThunk(
-    "playerprofilePhysicalStats/userPlayerprofilePhysicalStats",
+  export const fanProfilePhysicalStatsApi = createAsyncThunk(
+    "fanprofilePhysicalStats/userfanprofilePhysicalStats",
     async (details, { rejectWithValue }) => {
         
     // for (const [name, value] of details.entries()) {
@@ -364,7 +324,7 @@ const initialState = {
         },
       });
       return await instance
-        .post("player/physical_stat", details)
+        .post("fan/physical_stat", details)
         .then(async (response) => {
           // console.log('profile physical stats ', response.data)
           return response.data;
@@ -379,8 +339,8 @@ const initialState = {
     }
   );
 
-  export const PlayerProfileBusinessServiceApi = createAsyncThunk(
-    "playerprofileBusinessStats/userPlayerprofileBusinessStats",
+  export const fanProfileBusinessServiceApi = createAsyncThunk(
+    "fanprofileBusinessStats/userfanprofileBusinessStats",
     async (details, { rejectWithValue }) => {
         
     // for (const [name, value] of details.entries()) {
@@ -399,7 +359,7 @@ const initialState = {
         },
       });
       return await instance
-        .post("player/service-type", details)
+        .post("fan/service-type", details)
         .then(async (response) => {
           // console.log('profile business service ', response.data)
           return response.data;
@@ -415,13 +375,13 @@ const initialState = {
   );
 
 
-  export const PlayerProfileUploadIdApi = createAsyncThunk(
-    "playerprofileUploadId/userPlayerprofileUploadId",
+  export const fanProfileUploadIdApi = createAsyncThunk(
+    "fanprofileUploadId/userfanprofileUploadId",
     async (details, { rejectWithValue }) => {
         
-    for (const [name, value] of details.entries()) {
-        console.log(`${name}: ${value}`);
-      }
+    // for (const [name, value] of details.entries()) {
+    //     console.log(`${name}: ${value}`);
+    //   }
       const tokengot = localStorage.getItem("token");
       const infoneeded = `Bearer ${tokengot}`;
       const instance = axios.create({
@@ -435,7 +395,7 @@ const initialState = {
         },
       });
       return await instance
-        .post("player/identification", details)
+        .post("fan/identification", details)
         .then(async (response) => {
           console.log('identification ', response.data)
           return response.data;
@@ -450,44 +410,40 @@ const initialState = {
     }
   );
 
-  
-  export const resetState = createAction('resetState');
 
-
-
-  export const PlayerProfileSlice = createSlice({
-    name: "playerprofile",
+  export const fanProfileSlice = createSlice({
+    name: "fanprofile",
     initialState,
     reducers: {
       reset: (state) => initialState,
     },
     extraReducers: (builder) => {
       builder
-      .addCase(ProfileDetailsPlayer.pending, (state) => {
+      .addCase(ProfileDetailsfan.pending, (state) => {
         state.isLoading = true;
         state.null = true;
       })
-      .addCase(ProfileDetailsPlayer.fulfilled, (state, action) => {
+      .addCase(ProfileDetailsfan.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
         state.user = true;
-        state.AllProfileDetailsData = action.payload;
+        state.fanAllProfileDetailsData = action.payload;
         
       })
-      .addCase(ProfileDetailsPlayer.rejected, (state, action) => {
+      .addCase(ProfileDetailsfan.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;
       })
-      .addCase(PlayerProfilePicture.pending, (state) => {
+      .addCase(fanProfilePicture.pending, (state) => {
           state.isLoading = true;
           state.null = true;
         })
-        .addCase(PlayerProfilePicture.fulfilled, (state, action) => {
+        .addCase(fanProfilePicture.fulfilled, (state, action) => {
           state.isLoading = false;
           state.isSuccess = true;
           state.user = true;
-          state.ProfilePicturedata = action.payload;
+          state.fanPicturedata = action.payload;
           if(action.payload?.message == "Profile Photo Uploaded"){
           toast.success("Profile Photo Uploaded", {
             position: "top-right",
@@ -513,20 +469,20 @@ const initialState = {
               });
             }
         })
-        .addCase(PlayerProfilePicture.rejected, (state, action) => {
+        .addCase(fanProfilePicture.rejected, (state, action) => {
           state.isLoading = false;
           state.isError = true;
           state.message = action.payload;
         })
-        .addCase(PlayerSetCoverImg.pending, (state) => {
+        .addCase(fanSetCoverImg.pending, (state) => {
           state.isLoading = true;
           state.null = true;
         })
-        .addCase(PlayerSetCoverImg.fulfilled, (state, action) => {
+        .addCase(fanSetCoverImg.fulfilled, (state, action) => {
           state.isLoading = false;
           state.isSuccess = true;
           state.user = true;
-          state.ProfileSetcoverImgData = action.payload;
+          state.fanSetcoverImgData = action.payload;
           if(action.payload?.message == "New Cover Page set"){
           toast.success("New Cover Page set", {
             position: "top-right",
@@ -540,20 +496,20 @@ const initialState = {
             });
           }
         })
-        .addCase(PlayerSetCoverImg.rejected, (state, action) => {
+        .addCase(fanSetCoverImg.rejected, (state, action) => {
           state.isLoading = false;
           state.isError = true;
           state.message = action.payload;
         })
-        .addCase(PlayerDeleteImgApi.pending, (state) => {
+        .addCase(fanDeleteImgApi.pending, (state) => {
           state.isLoading = true;
           state.null = true;
         })
-        .addCase(PlayerDeleteImgApi.fulfilled, (state, action) => {
+        .addCase(fanDeleteImgApi.fulfilled, (state, action) => {
           state.isLoading = false;
           state.isSuccess = true;
           state.user = true;
-          state.ProfileDeleteImgData = action.payload;
+          state.fanDeleteImgData = action.payload;
           if(action.payload?.message == "Image deleted"){
           toast.success("Image deleted", {
             position: "top-right",
@@ -567,63 +523,36 @@ const initialState = {
             });
           }
         })
-        .addCase(PlayerDeleteImgApi.rejected, (state, action) => {
+        .addCase(fanDeleteImgApi.rejected, (state, action) => {
           state.isLoading = false;
           state.isError = true;
           state.message = action.payload;
         })
-        .addCase(PlayerDeleteVideoApi.pending, (state) => {
+        .addCase(fanProfileVerificationStatus.pending, (state) => {
           state.isLoading = true;
           state.null = true;
         })
-        .addCase(PlayerDeleteVideoApi.fulfilled, (state, action) => {
+        .addCase(fanProfileVerificationStatus.fulfilled, (state, action) => {
           state.isLoading = false;
           state.isSuccess = true;
           state.user = true;
-          state.ProfileDeleteImgData = action.payload;
-          if(action.payload?.message == "Video deleted"){
-          toast.success("Video deleted", {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-            });
-          }
-        })
-        .addCase(PlayerDeleteVideoApi.rejected, (state, action) => {
-          state.isLoading = false;
-          state.isError = true;
-          state.message = action.payload;
-        })
-        .addCase(PlayerProfileVerificationStatus.pending, (state) => {
-          state.isLoading = true;
-          state.null = true;
-        })
-        .addCase(PlayerProfileVerificationStatus.fulfilled, (state, action) => {
-          state.isLoading = false;
-          state.isSuccess = true;
-          state.user = true;
-          state.VerificationStatusData = action.payload;
+          state.fanVerificationStatusData = action.payload;
           
         })
-        .addCase(PlayerProfileVerificationStatus.rejected, (state, action) => {
+        .addCase(fanProfileVerificationStatus.rejected, (state, action) => {
           state.isLoading = false;
           state.isError = true;
           state.message = action.payload;
         })
-        .addCase(PlayerYourImagesApi.pending, (state) => {
+        .addCase(fanYourImagesApi.pending, (state) => {
           state.isLoading = true;
           state.null = true;
         })
-        .addCase(PlayerYourImagesApi.fulfilled, (state, action) => {
+        .addCase(fanYourImagesApi.fulfilled, (state, action) => {
           state.isLoading = false;
           state.isSuccess = true;
           state.user = true;
-          state.ProfileYourImagesdata = action.payload;
+          state.fanYourImagesdata = action.payload;
           if(action.payload?.message == "Image(s) Uploaded"){
           toast.success("Image(s) Uploaded", {
             position: "top-right",
@@ -649,20 +578,20 @@ const initialState = {
               });
             }
         })
-        .addCase(PlayerYourImagesApi.rejected, (state, action) => {
+        .addCase(fanYourImagesApi.rejected, (state, action) => {
           state.isLoading = false;
           state.isError = true;
           state.message = action.payload;
         })
-        .addCase(PlayerProfileProfileformApi.pending, (state) => {
+        .addCase(fanProfileProfileformApi.pending, (state) => {
           state.isLoading = true;
           state.null = true;
         })
-        .addCase(PlayerProfileProfileformApi.fulfilled, (state, action) => {
+        .addCase(fanProfileProfileformApi.fulfilled, (state, action) => {
           state.isLoading = false;
           state.isSuccess = true;
           state.user = true;
-          state.ProfileProfileformdata = action.payload;
+          state.fanProfileformdata = action.payload;
           if(action.payload?.message == "Successful"){
           toast.success("Profile Details Updated", {
             position: "top-right",
@@ -676,20 +605,20 @@ const initialState = {
             });
           }
         })
-        .addCase(PlayerProfileProfileformApi.rejected, (state, action) => {
+        .addCase(fanProfileProfileformApi.rejected, (state, action) => {
           state.isLoading = false;
           state.isError = true;
           state.message = action.payload;
         })
-        .addCase(PlayerProfilePhysicalStatsApi.pending, (state) => {
+        .addCase(fanProfilePhysicalStatsApi.pending, (state) => {
           state.isLoading = true;
           state.null = true;
         })
-        .addCase(PlayerProfilePhysicalStatsApi.fulfilled, (state, action) => {
+        .addCase(fanProfilePhysicalStatsApi.fulfilled, (state, action) => {
           state.isLoading = false;
           state.isSuccess = true;
           state.user = true;
-          state.ProfilePhysicalStatsdata = action.payload;
+          state.fanPhysicalStatsdata = action.payload;
           if(action.payload?.message == "Successful"){
           toast.success("Physical Stats Updated", {
             position: "top-right",
@@ -703,20 +632,20 @@ const initialState = {
             });
           }
         })
-        .addCase(PlayerProfilePhysicalStatsApi.rejected, (state, action) => {
+        .addCase(fanProfilePhysicalStatsApi.rejected, (state, action) => {
           state.isLoading = false;
           state.isError = true;
           state.message = action.payload;
         })
-        .addCase(PlayerProfileBusinessServiceApi.pending, (state) => {
+        .addCase(fanProfileBusinessServiceApi.pending, (state) => {
           state.isLoading = true;
           state.null = true;
         })
-        .addCase(PlayerProfileBusinessServiceApi.fulfilled, (state, action) => {
+        .addCase(fanProfileBusinessServiceApi.fulfilled, (state, action) => {
           state.isLoading = false;
           state.isSuccess = true;
           state.user = true;
-          state.ProfileBusinessServicedata = action.payload;
+          state.fanBusinessServicedata = action.payload;
           if(action.payload?.message == "Successful"){
           toast.success("Business service Updated", {
             position: "top-right",
@@ -730,20 +659,20 @@ const initialState = {
             });
           }
         })
-        .addCase(PlayerProfileBusinessServiceApi.rejected, (state, action) => {
+        .addCase(fanProfileBusinessServiceApi.rejected, (state, action) => {
           state.isLoading = false;
           state.isError = true;
           state.message = action.payload;
         })
-        .addCase(PlayerProfileUploadIdApi.pending, (state) => {
+        .addCase(fanProfileUploadIdApi.pending, (state) => {
           state.isLoading = true;
           state.null = true;
         })
-        .addCase(PlayerProfileUploadIdApi.fulfilled, (state, action) => {
+        .addCase(fanProfileUploadIdApi.fulfilled, (state, action) => {
           state.isLoading = false;
           state.isSuccess = true;
           state.user = true;
-          state.ProfileUploadIddata = action.payload;
+          state.fanUploadIddata = action.payload;
           if(action.payload?.message == 
             "Image Uploaded"){
           toast.success("Upload Id Updated", {
@@ -758,20 +687,20 @@ const initialState = {
             });
           }
         })
-        .addCase(PlayerProfileUploadIdApi.rejected, (state, action) => {
+        .addCase(fanProfileUploadIdApi.rejected, (state, action) => {
           state.isLoading = false;
           state.isError = true;
           state.message = action.payload;
         })
-        .addCase(PlayerProfileVideoLink.pending, (state) => {
+        .addCase(fanProfileVideoLink.pending, (state) => {
           state.isLoading = true;
           state.null = true;
         })
-        .addCase(PlayerProfileVideoLink.fulfilled, (state, action) => {
+        .addCase(fanProfileVideoLink.fulfilled, (state, action) => {
           state.isLoading = false;
           state.isSuccess = true;
           state.user = true;
-          state.ProfileVideoLinksData = action.payload;
+          state.fanVideoLinksData = action.payload;
           if(action.payload?.message == "Video(s) Uploaded"){
           toast.success("Video(s) Uploaded", {
             position: "top-right",
@@ -785,21 +714,16 @@ const initialState = {
             });
           }
         })
-        .addCase(PlayerProfileVideoLink.rejected, (state, action) => {
+        .addCase(fanProfileVideoLink.rejected, (state, action) => {
           state.isLoading = false;
           state.isError = true;
           state.message = action.payload;
         })
-        .addCase(resetState, (state) => {
-          Object.assign(state, initialState);
-        });
     },
   });
   
-  // export const { reset } = PlayerProfileSlice.actions;
-  export const { reducer, actions } = PlayerProfileSlice;
-
+  export const { reset } = fanProfileSlice.actions;
   
-  export const selectPlayerProfileSlice = (state) => state.PlayerProfileSlice;
-  export default PlayerProfileSlice.reducer;
+  export const selectfanProfileSlice = (state) => state.fanProfileSlice;
+  export default fanProfileSlice.reducer;
   

@@ -17,6 +17,7 @@ import { PlayerDealsApi } from '../../Slice/Player/PlayerDeal/PlayerDealSlice';
 import { reset as resetPlayerProfileSlice } from "../../Slice/Player/Playerprofile/PlayerProfileSlice";
 import {reset as resetGetAllPlayerDealSlice} from "../../Slice/Player/PlayerDeal/PlayerDealSlice"
 import { UserLogout } from '../Player/UserLogOut';
+import { fanDealsApi } from '../../Slice/Fan/FanDealsApiPage/FanDealSlice';
 
 const FanDeal = () => {
     const dispatch = useDispatch()
@@ -79,7 +80,7 @@ const FanDeal = () => {
   useEffect(()=>{
     const DealSlice = async ()=>{
         setShow(true)
-        await dispatch(PlayerDealsApi())
+        await dispatch(fanDealsApi())
         setShow(false)
     }
     DealSlice()
@@ -91,7 +92,7 @@ const FanDeal = () => {
 //     }
 // ]
 
-const dataTable = useSelector((state)=> state?.reducer?.GetAllPlayerDealSlice?.PlayerDealData)
+const dataTable = useSelector((state)=> state?.reducer?.FanDealsSlice?.fanDealData)
 
   return (
     <div  className='Scoutpage_contents'>

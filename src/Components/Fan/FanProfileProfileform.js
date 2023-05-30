@@ -3,11 +3,12 @@ import '../Scout/profileform.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { CircularProgress } from '@mui/material'
 import { ProfileDetailsScout, ScoutProfileProfileformApi, ScoutProfileVerificationStatus } from '../../Slice/Scout/ProfileScoutSlice/ProfileScoutSlice'
+import { ProfileDetailsfan, fanProfileProfileformApi, fanProfileVerificationStatus } from '../../Slice/Fan/ProfileFanSlice/ProfileFanSlice'
 
 const FanProfileProfileform = ({userId}) => {
 
 
-  const PlayerDetails = useSelector((state)=>state?.reducer?.ScoutProfileAction?.ScoutAllProfileDetailsData?.data)
+  const PlayerDetails = useSelector((state)=>state?.reducer?.FanProfileSlice?.fanAllProfileDetailsData?.data)
 // console.log(PlayerDetails)
 
   const [profileInfo, setProfileInfo] = useState({})
@@ -59,9 +60,9 @@ const FanProfileProfileform = ({userId}) => {
     profileInfo.age = age
     setLoadProfileform(true)
     // console.log('profile info submitted ', profileInfo)
-    await dispatch(ScoutProfileProfileformApi(profileInfo))
-    await dispatch(ProfileDetailsScout())
-    await dispatch(ScoutProfileVerificationStatus(userId))
+    await dispatch(fanProfileProfileformApi(profileInfo))
+    await dispatch(ProfileDetailsfan())
+    await dispatch(fanProfileVerificationStatus(userId))
     setLoadProfileform(false)
   }
   const available_form = 1
@@ -109,8 +110,8 @@ const FanProfileProfileform = ({userId}) => {
         <input type='text' className='Scoutpage_Profile_ProfileformlabelInput' value={age} onChange={handleAgeClick} placeholder='age' />
         {/* <p className='Scoutpage_Profile_Profileformlabelnexttext'>Position</p>
         <input type='text' className='Scoutpage_Profile_ProfileformlabelInput' value={position} onChange={handlePositionClick} placeholder='position' /> */}
-        <p className='Scoutpage_Profile_Profileformlabelnexttext'>Company or Club</p>
-        <input type='text' className='Scoutpage_Profile_ProfileformlabelInput' value={current_club}  onChange={handleCurrentClubClick} name='current_club' placeholder='Name of Club' required/>
+        {/* <p className='Scoutpage_Profile_Profileformlabelnexttext'>Company or Club</p>
+        <input type='text' className='Scoutpage_Profile_ProfileformlabelInput' value={current_club}  onChange={handleCurrentClubClick} name='current_club' placeholder='Name of Club' required/> */}
         {/* <p className='Scoutpage_Profile_Profileformlabelnexttext'>Availability</p> */}
         {/* <select required name='available' value={available} onChange={handleAvailableClick} className='Scoutpage_Profile_ProfileformlabelInput'>
         <option disabled></option>

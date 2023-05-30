@@ -90,3 +90,8 @@
     border-radius: 5px;
     margin-right: 10px;
 }
+@media(max-width: 1050px){
+    .AdminUserTable{
+        width: 870px;
+    }
+}

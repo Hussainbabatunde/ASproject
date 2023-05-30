@@ -33,7 +33,8 @@ const PlayerViewProfile = () => {
   const [loadingIndex, setLoadingIndex] = useState(null);
 
   // console.log('PlayerDetails ', PlayerDetails)
-
+  const originalString = PlayerDetails?.bio?.position;
+  const positionPlayed = originalString.replace(/_/g, ' ');
   //set cover img
   const handleSetCoverImg = async (id) =>{
     coverimg.user_id = userId
@@ -86,8 +87,7 @@ const PlayerViewProfile = () => {
               <p className='ScoutViewProfile_UserProfileScore'>Score: {progress}/100</p>
               {loading == true ? <Skeleton variant="rounded" width='90%' height={22} />  : <p className='ScoutViewProfile_UserProfileCurrentlyAvailable'>{PlayerDetails?.bio?.available == 0 ? `Not Available` : `Currently Available`}</p>}
               <div className='ScoutViewProfile_UserProfilePositionSection'>
-                <p className='ScoutViewProfile_UserProfilePosition'>Striker</p>
-                <p className='ScoutViewProfile_UserProfilePosition'>Midfielders</p>
+              {loading? <Skeleton variant="rounded" width={105} height={22} />:<p className='ScoutViewProfile_UserProfilePosition'>{positionPlayed}</p>}
                 </div>
 
                 <p className='ScoutViewProfile_UserProfilePricerange'>Contract: {loading == true? <Skeleton variant="rounded" width='90%' height={20} /> : <span style={{display:'flex', alignItems:'center'}}><TbCurrencyNaira style={{fontSize:"18px"}} />{PlayerDetails?.price?.minimum} - {PlayerDetails?.price?.maximum}</span>}</p>

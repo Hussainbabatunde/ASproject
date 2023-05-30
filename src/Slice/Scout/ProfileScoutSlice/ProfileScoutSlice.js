@@ -42,7 +42,7 @@ const initialState = {
         },
       });
       return await instance
-        .get(`player/profile/${id}`)
+        .get(`user/profile/${id}`)
         .then(async (response) => {
             // console.log('profile details ',response.data)
           return response.data;

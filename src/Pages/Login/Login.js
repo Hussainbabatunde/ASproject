@@ -53,7 +53,10 @@ const Login = () => {
       navigate("/admin/dashboard");
     } else if (userData?.data?.user_type == "scout") {
       navigate("/afrisport/scout/profile");
-    }    
+    }  
+    else if (userData?.data?.user_type == "fan") {
+      navigate("/afrisport/fan/profile");
+    }  
     else if(userData?.data?.user_type == 'manager'){
       navigate('/afrisport/manager/profile')
     }
