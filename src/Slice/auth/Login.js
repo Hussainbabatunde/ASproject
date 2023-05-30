@@ -89,37 +89,36 @@ export const loginAuth = createAsyncThunk(
         return rejectWithValue(errdata);
         // console.log(err)
       });
-    }
-  );
+  }
+);
 
+export const ForgotPasswordAuth = createAsyncThunk(
+  "forgotpassword/userForgotPassword",
+  async (details, { rejectWithValue }) => {
+    const instance = axios.create({
+      baseURL: process.env.REACT_APP_AFRISPORTURL,
+      timeout: 20000,
 
-  export const ForgotPasswordAuth = createAsyncThunk(
-    "forgotpassword/userForgotPassword",
-    async (details, { rejectWithValue }) => {
-      const instance = axios.create({
-        baseURL: process.env.REACT_APP_AFRISPORTURL ,
-        timeout: 20000,
-  
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+    });
+    return await instance
+      .post("forgot-password", details)
+      .then(async (response) => {
+        console.log(response.data);
+        return response.data;
+      })
+
+      .catch((err) => {
+        let errdata = err.response.data;
+        console.log("error ", errdata);
+        return rejectWithValue(errdata);
+        // console.log(err)
       });
-      return await instance
-        .post("forgot-password", details)
-        .then(async (response) => {
-            console.log(response.data)
-          return response.data;
-        })
-  
-        .catch((err) => {
-          let errdata = err.response.data;
-          console.log('error ', errdata)
-          return rejectWithValue(errdata);
-          // console.log(err)
-        });
-    }
-  );
+  }
+);
 
 export const LogoutAuth = createAsyncThunk(
   "logout/userLogout",

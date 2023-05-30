@@ -16,6 +16,10 @@ import {
 
 import { Admin_dashboard_approved_player_fun } from "../../../Slice/Admin/AdminDashboardSlice";
 import Scout_message_modal from "../../../Pages/Admin/Souts/Scout_message_modal";
+import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+
+let baseURL = process.env.REACT_APP_AFRISPORTURL;
 
 const AdminScoutsAllScouts = ({
   handleAllNegotiate,
@@ -26,6 +30,8 @@ const AdminScoutsAllScouts = ({
   const { Admin_Get_All_Scouts } = useSelector(
     (state) => state.reducer.Admin_Scouts_Slice
   );
+
+  console.log(Admin_Get_All_Scouts);
 
   const dispatch = useDispatch();
 
@@ -88,12 +94,77 @@ const AdminScoutsAllScouts = ({
     setIsModalOpen(true);
   };
 
+  const [loading, setLoading] = useState(false);
+
+  const handleSuspend_Unsuspend = async (id) => {
+    let API_URL = `${baseURL}admin/scout/suspend`;
+
+    const tokengot = localStorage.getItem("token");
+
+    try {
+      // Set the loading state to true before sending the request
+      console.log("Sending POST request...");
+      setLoading(true);
+
+      const config = {
+        headers: {
+          Authorization: `Bearer ${tokengot}`,
+        },
+      };
+
+      const response = await axios.post(
+        API_URL,
+        {
+          user_id: id,
+        },
+        config
+      );
+
+      // Reset the loading state to false after receiving the response
+      setLoading(false);
+      console.log("POST request successful");
+      console.log("Response:", response.data.message);
+
+      toast.success(`${response.data.message} `, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    } catch (error) {
+      console.log(error);
+      // Reset the loading state to false in case of an error
+      setLoading(false);
+      console.error("Error:", error.message);
+
+      toast.error(`${error.message}`, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        className: "Forbidden403",
+      });
+    }
+  };
+
   const handleDelete = (data) => {
-    console.log(data);
+    console.log(data?.user?.id);
+
+    handleSuspend_Unsuspend(data?.user?.id);
   };
 
   return (
     <>
+      <ToastContainer />
+
       {isModalOpen && (
         <Scout_message_modal
           scout_email={scout_email}

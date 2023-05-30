@@ -115,11 +115,6 @@ function ScoutDetails() {
     }
   };
 
-  // this is for the new
-
-  //   const dispatch = useDispatch()
-  //   const [loading, setLoading] = useState(false)
-
   const VerifiedStatus = useSelector(
     (state) => state.reducer?.PlayerProfileSlice?.VerificationStatusData?.data
   );
@@ -251,7 +246,7 @@ function ScoutDetails() {
               </div>
               {/* </div> */}
             </div>
-            <div className="ScoutViewProfile_AboutSection bg-white">
+            <div className="ScoutViewProfile_AboutSection bg-white w-full debug">
               <p className="ScoutViewProfile_AboutTopicText">About</p>
               <div className="ScoutViewProfile_AboutSectionInfo">
                 <p className="ScoutViewProfile_AboutSectionIcon">

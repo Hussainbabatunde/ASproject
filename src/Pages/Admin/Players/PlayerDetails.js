@@ -40,6 +40,8 @@ function PlayerDetails() {
     return () => {};
   }, [Admin_update_user_image_isSuccess]);
 
+  console.log(Admin_Get_Players_Profile_details);
+
   const [loading, setLoading] = useState(false);
 
   const handleSuspend_Unsuspend = async (data, id) => {
@@ -197,7 +199,18 @@ function PlayerDetails() {
                   </span>
 
                   <span className="block  rounded-lg border-2 mt-4 pl-2 py-2 ">
-                    Contract: $30000 - $6000
+                    Contract:
+                    {`  $${user_Data?.price?.minimum}
+                    -
+                    $${user_Data?.price?.maximum}
+                    
+                    `}
+                    {user_Data?.price?.service_type === "open" ||
+                    user_Data?.price?.service_type === "free" ? (
+                      <>{user_Data?.price?.service_type} Transfer</>
+                    ) : (
+                      " "
+                    )}
                   </span>
                 </div>
               </div>
@@ -379,7 +392,7 @@ function PlayerDetails() {
 
             {/* <div className="ScoutViewProfile_ImageSection"></div> */}
 
-            <div className=" bg-white w-[720px] rounded pl-5 flex flex-wrap mb-5 py-5 gap-2">
+            <div className=" bg-white rounded pl-5 flex flex-wrap mb-5 py-5 gap-2  w-[700px] mt-4">
               {PlayerDetails?.images.map((each, index) => (
                 <>
                   <img
@@ -391,9 +404,9 @@ function PlayerDetails() {
               ))}
             </div>
 
-            <div className=" bg-white w-[720px] rounded pl-5">
+            <div className=" bg-white rounded pl-5 flex flex-wrap mb-5 py-5 gap-2  w-[700px] mt-4">
               {PlayerDetails?.videos.map((each, index) => (
-                <li className="">
+                <li className=" cursor-pointer">
                   <a
                     href={each?.video_url}
                     target="_blank"
@@ -405,11 +418,6 @@ function PlayerDetails() {
               ))}
             </div>
           </div>
-
-          {/* <div className="AdminPage_DashboardTAbleCat">
-
-          <h1>sam</h1>
-        </div> */}
         </div>
       </div>
     </>

@@ -566,6 +566,7 @@ export const Admin_PlayerProfileBusinessService = ({
   const dispatch = useDispatch();
   const [loadBusinessService, setLoadBusinessService] = useState(false);
 
+  const [loading, setLoading] = useState(false);
   let PlayerDetails = Admin_Get_Players_Profile_details?.data;
   // const PlayerDetails = useSelector(
   //   (state) => state?.reducer?.PlayerProfileSlice?.AllProfileDetailsData?.data
@@ -574,8 +575,10 @@ export const Admin_PlayerProfileBusinessService = ({
   // const handleChangeBusinessPricing = (e) =>{
   //   setAmtStated({...amtStated, [e.target.name]: e.target.value})
   // }
-  const handleSubmitPhysicalStats = async (event) => {
+  const handleSubmitPhysicalStats = (event) => {
     event.preventDefault();
+    setLoadBusinessService(true);
+
     pricingBusiness.user_id =
       Admin_Get_Players_Profile_details?.data?.bio?.user_id;
     pricingBusiness.service_type = priceType;
@@ -590,10 +593,50 @@ export const Admin_PlayerProfileBusinessService = ({
       pricingBusiness.amount = "";
     }
     // console.log(pricingBusiness)
-    setLoadBusinessService(true);
+
     console.log(pricingBusiness);
 
-    dispatch(Admin_update_user_BusinessService_fun(pricingBusiness));
+    let submited_data;
+
+    if (pricingBusiness.service_type == "actual") {
+      submited_data = {
+        user_id: pricingBusiness.user_id,
+        service_type: pricingBusiness.service_type,
+        minimum: pricingBusiness.amount,
+        maximum: pricingBusiness.amount,
+      };
+    }
+
+    if (pricingBusiness.service_type == "range") {
+      submited_data = {
+        user_id: pricingBusiness.user_id,
+        service_type: pricingBusiness.service_type,
+        minimum: pricingBusiness.minimum,
+        maximum: pricingBusiness.maximum,
+      };
+    }
+
+    if (pricingBusiness.service_type == "free") {
+      submited_data = {
+        user_id: pricingBusiness.user_id,
+        service_type: pricingBusiness.service_type,
+        minimum: 0,
+        maximum: 0,
+      };
+    }
+
+    if (pricingBusiness.service_type == "open") {
+      submited_data = {
+        user_id: pricingBusiness.user_id,
+        service_type: pricingBusiness.service_type,
+        minimum: "",
+        maximum: "",
+      };
+    }
+
+    console.log(submited_data);
+
+    dispatch(Admin_update_user_BusinessService_fun(submited_data));
 
     // await dispatch(PlayerProfileBusinessServiceApi(pricingBusiness));
     // await dispatch(PlayerProfileVerificationStatus());
