@@ -189,8 +189,7 @@ function ScoutDetails() {
                 </span>
               </Link>
             </div>
-
-            <div className="ScoutViewProfile_AboutSection bg-white flex justify-between px-5 py-5 rounded-xl items-center">
+            <div className="  mt-1 border border-[#D0D4D9]  flex justify-between px-5 py-5 rounded-xl items-center">
               {/* <div className="bg-white  "> */}
               <div className="flex gap-2 font-normal items-center">
                 <img
