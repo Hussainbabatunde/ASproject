@@ -41,12 +41,12 @@ const AdminPlayerAllNegotiate = ({
       id: 3,
       name: "Club",
     },
+    // {
+    //   id: 4,
+    //   name: "Recent Negotiate",
+    // },
     {
       id: 4,
-      name: "Recent Negotiate",
-    },
-    {
-      id: 5,
       name: "  ",
       case: "Admin_All_player_ViewEditSuspend",
     },
