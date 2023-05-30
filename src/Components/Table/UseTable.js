@@ -55,17 +55,19 @@ const UseTable = ({header, data, handleShowEdit}) => {
             {header?.map((item)=>{
                 switch(item?.name) {
                     case 'Deal name':
-                        return (<td  className='useTable_tableDetails'>{each?.name}</td>);
+                        return (<td  className='useTable_tableDetails'>{each?.offer?.deal?.DealName}</td>);
                     case 'Recipient':
-                        return (<td className='useTable_tableDetails'><div style={{display:'flex', alignItems:'center'}}><img src={each?.profile_pics} className='useTable_ImageRecipient' alt='Recipient image'/>{each?.firstname} {each?.surname}</div></td>);
+                        return (<td className='useTable_tableDetails'><div style={{display:'flex', alignItems:'center'}}><img src={each?.offer?.player?.profile_pics} className='useTable_ImageRecipient' alt='Recipient image'/>{each?.offer?.player?.firstname} {each?.offer?.player?.surname}</div></td>);
+                    case 'Sender':
+                          return (<td className='useTable_tableDetails'><div style={{display:'flex', alignItems:'center'}}><img src={each?.offer?.sender?.profile_pics} className='useTable_ImageRecipient' alt='Recipient image'/>{each?.offer?.sender?.firstname} {each?.offer?.sender?.surname}</div></td>);
                     case 'Details':
-                        return (<td className='useTable_tableDetails'>{each?.about}</td>);
+                        return (<td className='useTable_tableDetails'>{each?.offer?.deal?.about || each?.offer?.deal?.detail}</td>);
                     case 'Amount':
-                        return (<td className='useTable_tableDetails'>{each?.value}</td>);
+                        return (<td className='useTable_tableDetails'>{each?.offer?.deal?.value}</td>);
                     case 'Payment':
-                        return (<td className='useTable_tableDetails'>{each?.surname}</td>);
+                        return (<td className='useTable_tableDetails'>{each?.offer?.deal?.surname}</td>);
                     case 'Status':
-                        return (<td className='useTable_tableDetails'>{each?.status}</td>);
+                        return (<td className='useTable_tableDetails'>{each?.offer?.deal?.offerStatus || each?.offer?.deal?.status}</td>);
                     
                     case "AcceptDeclineOffer":
                       return (
@@ -74,16 +76,16 @@ const UseTable = ({header, data, handleShowEdit}) => {
                           style={{ flex: 1, width: "200px" }}
                         >
                           {/* <Link className="Admin_playersviewprofile">Edit</Link> */}
-                        {each?.status == 'accepted' ? 
+                        {each?.offer?.deal?.offerStatus == 'accepted' ? 
                         <button className='AcceptedPlayerUseTable'>Accepted</button>
-                        : each?.status == 'rejected' ?
+                        : each?.offer?.deal?.offerStatus == 'rejected' ?
                         <button className='RejectedPlayerUseTable'>Rejected</button> 
                         :<>
                           <button
                             className="Admin_playersviewprofile"
-                            onClick={()=> handleAcceptOffer(each?.offerId)}
+                            onClick={()=> handleAcceptOffer(each?.offer?.deal?.offerId)}
                           >
-                            {acceptIndex == each?.offerId? 
+                            {acceptIndex == each?.offer?.deal?.offerId? 
                             <PulseLoader
                               color="#1D7F33"
                               size={13}
@@ -94,9 +96,9 @@ const UseTable = ({header, data, handleShowEdit}) => {
                           </button>
                           <button
                             className="Admin_playersSuspendprofile"
-                            onClick={()=> handleDeleteOffer(each?.offerId)}
+                            onClick={()=> handleDeleteOffer(each?.offer?.deal?.offerId)}
                           >
-                              {deleteIndex == each?.offerId? 
+                              {deleteIndex == each?.offer?.deal?.offerId? 
                             <PulseLoader
                               color="#7F351D"
                               size={13}
@@ -110,11 +112,11 @@ const UseTable = ({header, data, handleShowEdit}) => {
                       );
                       case '':
                           return (<>
-                          <td className='useTable_tableDetails'><Link to={`/afrisport/player/dealsmade/${each?.offerId}`} style={{color:'white'}} className='useTable_tableDetailsLink'>Details</Link></td>
+                          <td className='useTable_tableDetails'><Link to={`/afrisport/player/dealsmade/${each?.offer?.deal?.offerId}`} style={{color:'white'}} className='useTable_tableDetailsLink'>Details</Link></td>
                           </>);
                       case 'Scout Deals':
                           return (<>
-                          <td className='useTable_tableDetails'><Link to={`/afrisport/scout/dealsmade/${each?.offerId}`} style={{color:'white'}} className='useTable_tableDetailsLink'>Details</Link></td>
+                          <td className='useTable_tableDetails'><Link to={`/afrisport/scout/dealsmade/${each?.offer?.deal?.offerId}`} style={{color:'white'}} className='useTable_tableDetailsLink'>Details</Link></td>
                           </>);
                 }
             })}

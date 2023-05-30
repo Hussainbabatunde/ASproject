@@ -74,6 +74,7 @@ const ScoutProfile = () => {
     const userDataInfo = useSelector((state)=> state?.reducer?.LoginSlice?.logindata?.data?.user)
 
     const PlayerDetails = useSelector((state)=>state?.reducer?.ScoutProfileAction?.ScoutAllProfileDetailsData?.data)
+
     useEffect(()=>{
       const checkingVerification = async() =>{
         await dispatch(ProfileDetailsScout(userId))
@@ -82,6 +83,12 @@ const ScoutProfile = () => {
       }
       checkingVerification()
     },[])
+
+    useEffect(()=>{
+      if(PlayerDetails){
+      setFile(PlayerDetails?.profile_pics)
+      }
+    },[PlayerDetails])
 
     const handleImgSubmit = async (e) =>{
       e.preventDefault()

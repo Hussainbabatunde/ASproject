@@ -23,6 +23,7 @@ import { ToastContainer } from "react-toastify";
 import { reset as resetPlayerProfileSlice } from "../../Slice/Player/Playerprofile/PlayerProfileSlice";
 import { reset as resetGetAllPlayerDealSlice } from "../../Slice/Player/PlayerDeal/PlayerDealSlice";
 import { UserLogout } from "./UserLogOut";
+import PlayerProfileFanService from "./PlayerFanServicePrice";
 
 const PlayerProfile = () => {
   const VerifiedStatus = useSelector(
@@ -251,6 +252,7 @@ const PlayerProfile = () => {
           <PlayerProfileProfileform userId={userId} />
           <PlayerProfilePhysicalStats userId={userId} />
           <PlayerProfileBusinessService userId={userId} />
+          <PlayerProfileFanService userId={userId} />
           <PlayerProfileUploadId userId={userId} />
           <PlayerProfileYourImages userId={userId} />
           <PlayerProfileVideo

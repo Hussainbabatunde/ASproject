@@ -22,7 +22,7 @@ const PlayerProfileProfileform = ({userId}) => {
   const [position, setPosition] = useState('')
 
 
-  const UserProfileLogin = useSelector((state)=> state?.reducer?.LoginSlice?.logindata?.message)
+  const UserProfileLogin = useSelector((state)=> state?.reducer?.LoginSlice?.logindata?.data?.user)
   useEffect(()=>{
     setFullname(`${UserProfileLogin?.firstname} ${UserProfileLogin?.surname}`)
     setPhone(UserProfileLogin?.phone)
@@ -60,8 +60,9 @@ const PlayerProfileProfileform = ({userId}) => {
     profileInfo.phone = phone
     profileInfo.age = age
     profileInfo.position= position
+    profileInfo.user_type = 'player'
     setLoadProfileform(true)
-    // console.log('profile info submitted ', profileInfo)
+    console.log('profile info submitted ', profileInfo)
     await dispatch(PlayerProfileProfileformApi(profileInfo))
     await dispatch(ProfileDetailsPlayer())
     await dispatch(PlayerProfileVerificationStatus(userId))
@@ -105,13 +106,23 @@ const PlayerProfileProfileform = ({userId}) => {
         <p className='Scoutpage_Profile_Profileformlabeltext'>Full Name</p>
         <input type='text' className='Scoutpage_Profile_ProfileformlabelInput' value={fullname} onChange={handleFullnameClick} placeholder='first name and last name' />
         <p className='Scoutpage_Profile_Profileformlabelnexttext'>Email Address</p>
-        <input type='email' className='Scoutpage_Profile_ProfileformlabelInput' value={userDataLogin?.email} placeholder='abc@mail.com' />
+        <input type='email' className='Scoutpage_Profile_ProfileformlabelInput' value={UserProfileLogin?.email} placeholder='abc@mail.com' />
         <p className='Scoutpage_Profile_Profileformlabelnexttext'>Phone Number</p>
         <input type='text' className='Scoutpage_Profile_ProfileformlabelInput' value={phone} onChange={handlePhoneClick} placeholder='08000000000000' />
         <p className='Scoutpage_Profile_Profileformlabelnexttext'>Age</p>
         <input type='text' className='Scoutpage_Profile_ProfileformlabelInput' value={age} onChange={handleAgeClick} placeholder='age' />
         <p className='Scoutpage_Profile_Profileformlabelnexttext'>Position</p>
-        <input type='text' className='Scoutpage_Profile_ProfileformlabelInput' value={position} onChange={handlePositionClick} placeholder='position' />
+        <select type='text' className='Scoutpage_Profile_ProfileformlabelInput' value={position} onChange={handlePositionClick} placeholder='position' >
+          <option></option>
+          <option value='goalkeeper'>Goalkeeper</option>
+          <option value='centerback_defender'>Center Back(Defenders)</option>
+          <option value='fullback_defender'>Full Back(Defenders)</option>
+          <option value='central_midfielders'>Central midfielders</option>
+          <option value='attacking_midfielders'>Attacking midfielders</option>
+          <option value='defensive_midfielders'>Defensive midfielders</option>
+          <option value='wingers'>Wingers</option>
+          <option value='striker'>Striker</option>
+          </select>
         <p className='Scoutpage_Profile_Profileformlabelnexttext'>Current Club</p>
         <input type='text' className='Scoutpage_Profile_ProfileformlabelInput' value={current_club}  onChange={handleCurrentClubClick} name='current_club' placeholder='Name of Club' required/>
         <p className='Scoutpage_Profile_Profileformlabelnexttext'>Availability</p>

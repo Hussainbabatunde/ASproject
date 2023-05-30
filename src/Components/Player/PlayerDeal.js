@@ -45,7 +45,7 @@ const PlayerDeal = () => {
       },
       {
           id: 2,
-          name: "Recipient"
+          name: "Sender"
       },
       {
           id:3,
@@ -101,7 +101,7 @@ const PlayerDeal = () => {
 // ]
 
 const dataTable = useSelector((state)=> state?.reducer?.GetAllPlayerDealSlice?.PlayerDealData?.data)
-// console.log('deals ', dataTable)
+console.log('deals ', dataTable)
   return (
     <div  className='Scoutpage_contents'>
         <ToastContainer />

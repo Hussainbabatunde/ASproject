@@ -35,3 +35,8 @@
     padding: 1rem;
     border-top: 1px solid rgba(177, 177, 177, 1);
 }
+@media(max-width: 1050px){
+    .Scoutpage_DealContent{
+        overflow-x: scroll;
+    }
+}
