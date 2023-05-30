@@ -7,9 +7,10 @@ let baseURL = process.env.REACT_APP_AFRISPORTURL;
 
 const Fan_message_modal = ({ scout_email, isOpen, onClose }) => {
   const [message_data, setMessage_data] = useState({
+    email: scout_email,
+
     title: "",
     message: "",
-    email: scout_email?.email,
   });
 
   const [loading, setLoading] = useState(false);
@@ -38,6 +39,8 @@ const Fan_message_modal = ({ scout_email, isOpen, onClose }) => {
             Authorization: `Bearer ${tokengot}`,
           },
         };
+
+        console.log(message_data);
 
         const response = await axios.post(
           API_URL,

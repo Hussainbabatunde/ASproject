@@ -134,7 +134,7 @@ const AdminSidebar = () => {
     },
     {
       id: 9,
-      pathTo: "/admin/admin/finance",
+      pathTo: "/admin/finance",
       pathName: "Finance",
       pathIcon: <AiFillBank />,
       children: [],

@@ -20,6 +20,7 @@ import AdminDashboardSlice from "./Admin/AdminDashboardSlice";
 import Admin_Scouts_Slice from "./Admin/Admin_Scouts_Slice";
 import Admin_NegotiationsSlice from "./Admin/Admin_NegotiationsSlice";
 import Admin_FanData_Slice from "./Admin/Admin_FanData_Slice";
+import AdminTalentMangerSlice from "./Admin/AdminTalentMangerSlice";
 
 const reducers = combineReducers({
   LoginSlice: LoginSlice,
@@ -40,7 +41,8 @@ const reducers = combineReducers({
   Admin_NegotiationsSlice: Admin_NegotiationsSlice,
   Admin_FanData_Slice: Admin_FanData_Slice,
   FanDealsSlice: FanDealsSlice,
-  FanProfileSlice: FanProfileSlice
+  FanProfileSlice: FanProfileSlice,
+  AdminTalentMangerSlice: AdminTalentMangerSlice
 });
 
 const persistConfig = {

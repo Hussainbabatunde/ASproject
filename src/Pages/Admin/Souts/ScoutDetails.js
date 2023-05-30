@@ -14,10 +14,13 @@ import { TbCurrencyNaira } from "react-icons/tb";
 
 import {
   Admin_Get_ScoutsDetails_fun,
-  reset__Admin_Scouts_Slice,
+  Single_Scout_Negotiations_Detail_fun,
+  reset__Admin_Scouts_Details_fun,
+  reset__Admin_Scouts_fun,
 } from "../../../Slice/Admin/Admin_Scouts_Slice";
 import { FiMail, FiPhoneCall } from "react-icons/fi";
 import ScoutsNegotiateStep from "../../../Components/Admin/AdminScouts/ScoutsNegotiateStep";
+import Scout_message_modal from "./Scout_message_modal";
 
 let baseURL = process.env.REACT_APP_AFRISPORTURL;
 
@@ -25,11 +28,8 @@ function ScoutDetails() {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const { Admin_Get_ScoutsDetails } = useSelector(
-    (state) => state.reducer.Admin_Scouts_Slice
-  );
-
-  console.log(Admin_Get_ScoutsDetails);
+  const { Admin_Get_ScoutsDetails, Single_Scout_Negotiations_Detail } =
+    useSelector((state) => state.reducer.Admin_Scouts_Slice);
 
   let user_Data = Admin_Get_ScoutsDetails?.data;
   let PlayerDetails = user_Data;
@@ -37,9 +37,13 @@ function ScoutDetails() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(Admin_Get_ScoutsDetails_fun(id));
-    dispatch(reset__Admin_Scouts_Slice());
+    dispatch(reset__Admin_Scouts_fun());
+    dispatch(Single_Scout_Negotiations_Detail_fun(id));
 
-    return () => {};
+    return () => {
+      dispatch(reset__Admin_Scouts_fun());
+      dispatch(reset__Admin_Scouts_Details_fun());
+    };
   }, []);
 
   const [loading, setLoading] = useState(false);
@@ -111,11 +115,6 @@ function ScoutDetails() {
     }
   };
 
-  // this is for the new
-
-  //   const dispatch = useDispatch()
-  //   const [loading, setLoading] = useState(false)
-
   const VerifiedStatus = useSelector(
     (state) => state.reducer?.PlayerProfileSlice?.VerificationStatusData?.data
   );
@@ -142,9 +141,27 @@ function ScoutDetails() {
     setIsPlaying(false);
   };
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
   return (
     <>
       <ToastContainer />
+
+      {isModalOpen && (
+        <Scout_message_modal
+          scout_email={user_Data?.email}
+          isOpen={isModalOpen}
+          onClose={closeModal}
+        />
+      )}
       <div className="AdminDashboard">
         <div className="AdminPage_Dashboard">
           <div>
@@ -221,7 +238,7 @@ function ScoutDetails() {
                 <div>
                   <button
                     className="Admin_playersviewprofile"
-                    // onClick={() => navigate(`/admin/players/profile/19`)}
+                    onClick={() => setIsModalOpen(true)}
                   >
                     message
                   </button>
@@ -229,7 +246,7 @@ function ScoutDetails() {
               </div>
               {/* </div> */}
             </div>
-            <div className="ScoutViewProfile_AboutSection bg-white">
+            <div className="ScoutViewProfile_AboutSection bg-white w-full debug">
               <p className="ScoutViewProfile_AboutTopicText">About</p>
               <div className="ScoutViewProfile_AboutSectionInfo">
                 <p className="ScoutViewProfile_AboutSectionIcon">
@@ -264,26 +281,9 @@ function ScoutDetails() {
             </div>
 
             <div className="ScoutViewProfile_PhysicalStatsText">
-              <div className="flex flex-wrap gap-3">
-                {/* {PlayerDetails?.videos.map((each, index) => (
-                  <>
-                    <a
-                      href={each?.video_url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      {each?.video_url}
-                    </a>
-                  </>
-                ))} */}
-              </div>
+              <div className="flex flex-wrap gap-3"></div>
             </div>
           </div>
-
-          {/* <div className="AdminPage_DashboardTAbleCat">
-
-          <h1>sam</h1>
-        </div> */}
 
           <ScoutsNegotiateStep />
         </div>

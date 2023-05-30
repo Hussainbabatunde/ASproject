@@ -19,8 +19,7 @@ const Admin__Active_Negotiations_fun_Service = async (token) => {
   let API_URL = `${baseURL}admin/negotiations/active`;
   let API_URL_close = `${baseURL}admin/negotiations/closed`;
   let API_URL_terminante = `${baseURL}admin/negotiations/terminated`;
-
-  // let API_URL = `${baseURL}admin/negotiations/active`;
+  let API_URL_suspend = `${baseURL}admin/negotiations/suspended`;
 
   const config = {
     headers: {
@@ -31,15 +30,18 @@ const Admin__Active_Negotiations_fun_Service = async (token) => {
   const Active = await axios.get(API_URL, config);
   const Close = await axios.get(API_URL_close, config);
   const Terminate = await axios.get(API_URL_terminante, config);
+  const Suspended = await axios.get(API_URL_suspend, config);
 
   let Admin__Active_Negotiations = Active.data;
   let Admin__Close_Negotiations = Close.data;
   let Admin__Terminate_Negotiations = Terminate.data;
+  let Admin__Suspended_Negotiations = Suspended.data;
 
   let Admin___Negotiations = {
     Admin__Active_Negotiations,
     Admin__Close_Negotiations,
     Admin__Terminate_Negotiations,
+    Admin__Suspended_Negotiations,
   };
 
   return Admin___Negotiations;

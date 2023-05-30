@@ -2,7 +2,10 @@ import React, { useState } from "react";
 
 import imgPlaceHolder from "../../../../assets/imageplaceholder.png";
 import { useDispatch, useSelector } from "react-redux";
-import { Admin_update_user_image_fun } from "../../../../Slice/Admin/AdminUpdate_profileSlice";
+import {
+  Admin_Aprove_decline_Player_fun,
+  Admin_update_user_image_fun,
+} from "../../../../Slice/Admin/AdminUpdate_profileSlice";
 import { CircularProgress } from "@mui/material";
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -19,11 +22,9 @@ function UploadImage({ Admin_Get_Players_Profile_details }) {
 
   const userDataInfo = Admin_Get_Players_Profile_details?.data;
 
-  console.log(userDataInfo);
-
   let img_Data = userDataInfo?.profile_pics;
 
-  const [file, setFile] = useState(img_Data);
+  const [file, setFile] = useState(img_Data || imgPlaceHolder);
   const [picFile, setPicFile] = useState(null);
 
   function handleChange(e) {
@@ -51,14 +52,18 @@ function UploadImage({ Admin_Get_Players_Profile_details }) {
     if (data === "decline") {
       API_URL = `${baseURL}admin/player/decline-review`;
     }
-    console.log(API_URL);
-    const tokengot = localStorage.getItem("token");
 
     let user_Data = {
       user_id: userDataInfo.id,
     };
 
-    console.log(user_Data);
+    let api_object = { data, API_URL, user_Data };
+
+    console.log(api_object);
+    const tokengot = localStorage.getItem("token");
+
+    // dispatch(Admin_Aprove_decline_Player_fun(api_object));
+
     try {
       // Set the loading state to true before sending the request
       console.log("Sending POST request...");
@@ -70,9 +75,9 @@ function UploadImage({ Admin_Get_Players_Profile_details }) {
       };
       const response = await axios.post(
         API_URL,
-        {
-          user_Data,
-        },
+
+        user_Data,
+
         config
       );
 
@@ -115,10 +120,7 @@ function UploadImage({ Admin_Get_Players_Profile_details }) {
       <div>
         <div className="upload_img flex items-center lg:justify-between">
           <label for="imagePlcholder" className="block">
-            <img
-              src={file || imgPlaceHolder}
-              className="w-[128px] h-[128px] rounded-[50%]"
-            />
+            <img src={file} className="w-[128px] h-[128px] rounded-[50%]" />
             <input
               type="file"
               id="imagePlcholder"
@@ -143,6 +145,8 @@ function UploadImage({ Admin_Get_Players_Profile_details }) {
             type="submit"
             className="w-32 h-10 text-white bg-[#1B8550]  text-base rounded-md border-none"
             onClick={() => handleAprove_decline("approved")}
+
+            // onClick={}
           >
             <span>
               {" "}

@@ -2,38 +2,47 @@ import React, { useEffect, useState } from "react";
 
 import Lottie from "lottie-react";
 
-import empty from "../../../assets/lottie/emptyState.json";
-import imgRecipient from "../../../assets/imgRecipient.png";
-import ChatCircle from "../../../assets/ChatsCircle.png";
-import AdminUseTable from "../../../Components/Table/AdminUseTable";
-import { Admin_talent_get_negotiations_fun } from "../../../Slice/Admin/AdminTalentMangerSlice";
+import empty from "../../../../assets/lottie/emptyState.json";
+import imgRecipient from "../../../../assets/imgRecipient.png";
+import ChatCircle from "../../../../assets/ChatsCircle.png";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import AdminUseTable from "../../../../Components/Table/AdminUseTable";
+import { Admin_fan_get_negotiations_fun } from "../../../../Slice/Admin/Admin_FanData_Slice";
 
-function TalentManagerNegotiateStep() {
+function FanNegotiateStep() {
   const dispatch = useDispatch();
-
   const { id } = useParams();
 
-  const [step, setStep] = useState(1);
-  const { Admin_talent_manager_single, Admin_talent_manager_negotiation } =
-    useSelector((state) => state.reducer.AdminTalentMangerSlice);
+  console.log(id);
+
+  const { Single_Admin_Fan, Admin_fan_get_negotiations } = useSelector(
+    (state) => state.reducer.Admin_FanData_Slice
+  );
+
+  console.log(Admin_fan_get_negotiations);
 
   useEffect(() => {
-    dispatch(Admin_talent_get_negotiations_fun(id));
-
+    dispatch(Admin_fan_get_negotiations_fun(id));
     return () => {};
   }, []);
 
-  console.log(Admin_talent_manager_negotiation);
-  console.log(
-    Admin_talent_manager_negotiation?.Admin__Talent__Active_Negotiations
-  );
+  const [step, setStep] = useState(1);
 
-  console.log(
-    Admin_talent_manager_negotiation?.Admin__Talent__Active_Negotiations?.data
-      ?.data
-  );
+  //   let active_negotiations_data =
+  //     Single_Scout_Negotiations_Detail?.active_negotiations_data?.data;
+  //   let close_negotiations_data =
+  //     Single_Scout_Negotiations_Detail?.close_negotiations_data?.data;
+
+  //   let suspended_negotiations_data =
+  //     Single_Scout_Negotiations_Detail?.suspended_negotiations_data?.data;
+
+  //   let terminated_negotiations_data =
+  //     Single_Scout_Negotiations_Detail?.terminated_negotiations_data?.data;
+
+  //   console.log(suspended_negotiations_data);
+  //   console.log(terminated_negotiations_data);
+  // console.log(close_negotiations_data);
 
   const handleAllNegotiate = () => {
     setStep(1);
@@ -96,42 +105,51 @@ function TalentManagerNegotiateStep() {
     <div className="AdminPage_NegotiateTab bg-white px-5 py-5">
       <div className="AdminPage_NegotiateTabTitle">
         <p
+          onClick={handleAllNegotiate}
           className={`${
             step === 1
               ? "AdminPAge_Negotiate_TabNegotiateActive"
               : "AdminPAge_Negotiate_TabNegotiateInactive"
           }`}
-          onClick={handleAllNegotiate}
         >
           All Negotiate
         </p>
         <p
-          onClick={handleSuspended}
           className={`${
             step === 2
               ? "AdminPAge_Negotiate_TabNegotiateActive"
               : "AdminPAge_Negotiate_TabNegotiateInactive"
           }`}
+          onClick={handleSuspended}
         >
-          Negotiate
+          Suspended
         </p>
-
         <p
-          onClick={handleClosed}
           className={`${
             step === 3
               ? "AdminPAge_Negotiate_TabNegotiateActive"
               : "AdminPAge_Negotiate_TabNegotiateInactive"
           }`}
+          onClick={handleClosed}
         >
           Closed <span className="AdminPage_NegotiateTab_TabNumber">10k</span>
+        </p>
+        <p
+          className={`${
+            step === 4
+              ? "AdminPAge_Negotiate_TabNegotiateActive"
+              : "AdminPAge_Negotiate_TabNegotiateInactive"
+          }`}
+          onClick={handleTerminated}
+        >
+          Terminated
         </p>
       </div>
 
       {step === 1 && (
         <div className="AdminTable_NegotiateTable">
-          {Admin_talent_manager_negotiation?.Admin__Talent__Active_Negotiations
-            ?.data?.data?.length === 0 ? (
+          {Admin_fan_get_negotiations?.Admin__Fan__Active_Negotiations?.data
+            ?.length === 0 ? (
             <div
               style={{
                 display: "flex",
@@ -149,8 +167,8 @@ function TalentManagerNegotiateStep() {
             <AdminUseTable
               header={header}
               data={
-                Admin_talent_manager_negotiation
-                  ?.Admin__Talent__Active_Negotiations?.data?.data
+                Admin_fan_get_negotiations?.Admin__Fan__Active_Negotiations
+                  ?.data
               }
             />
           )}
@@ -159,8 +177,8 @@ function TalentManagerNegotiateStep() {
 
       {step === 2 && (
         <div className="AdminTable_NegotiateTable">
-          {Admin_talent_manager_negotiation?.Admin__Talent__Active_Negotiations
-            ?.data?.data?.length === 0 ? (
+          {Admin_fan_get_negotiations?.Admin__Fan__Suspended_Negotiations?.data
+            ?.length === 0 ? (
             <div
               style={{
                 display: "flex",
@@ -178,8 +196,8 @@ function TalentManagerNegotiateStep() {
             <AdminUseTable
               header={header}
               data={
-                Admin_talent_manager_negotiation
-                  ?.Admin__Talent__Active_Negotiations?.data?.data
+                Admin_fan_get_negotiations?.Admin__Fan__Suspended_Negotiations
+                  ?.data
               }
             />
           )}
@@ -188,8 +206,8 @@ function TalentManagerNegotiateStep() {
 
       {step === 3 && (
         <div className="AdminTable_NegotiateTable">
-          {Admin_talent_manager_negotiation?.Admin__Talent__Active_Negotiations
-            ?.data?.data?.length === 0 ? (
+          {Admin_fan_get_negotiations?.Admin__Fan__Close_Negotiations?.data
+            ?.length === 0 ? (
             <div
               style={{
                 display: "flex",
@@ -207,8 +225,36 @@ function TalentManagerNegotiateStep() {
             <AdminUseTable
               header={header}
               data={
-                Admin_talent_manager_negotiation
-                  ?.Admin__Talent__Active_Negotiations?.data?.data
+                Admin_fan_get_negotiations?.Admin__Fan__Close_Negotiations?.data
+              }
+            />
+          )}
+        </div>
+      )}
+
+      {step === 3 && (
+        <div className="AdminTable_NegotiateTable">
+          {Admin_fan_get_negotiations?.Admin__Fan__Terminate_Negotiations?.data
+            ?.length === 0 ? (
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                width: "100%",
+              }}
+            >
+              <Lottie
+                style={{ width: "200px", height: "200px" }}
+                animationData={empty}
+              />
+            </div>
+          ) : (
+            <AdminUseTable
+              header={header}
+              data={
+                Admin_fan_get_negotiations?.Admin__Fan__Terminate_Negotiations
+                  ?.data
               }
             />
           )}
@@ -218,4 +264,4 @@ function TalentManagerNegotiateStep() {
   );
 }
 
-export default TalentManagerNegotiateStep;
+export default FanNegotiateStep;

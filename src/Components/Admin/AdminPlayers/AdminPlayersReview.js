@@ -24,9 +24,9 @@ const AdminPlayersReview = ({
     (state) => state.reducer.AdminUpdate_profileSlice
   );
 
-  const dispatch = useDispatch();
-
   console.log(Admin_Get_All_Review_Player);
+
+  const dispatch = useDispatch();
 
   const header = [
     {
@@ -101,7 +101,7 @@ const AdminPlayersReview = ({
         </span>
       </div>
       <div className="AdminTable_NegotiateTable">
-        {Admin_Get_All_Review_Player?.length === 0 ? (
+        {Admin_Get_All_Review_Player?.plus?.length === 0 ? (
           <div
             style={{
               display: "flex",

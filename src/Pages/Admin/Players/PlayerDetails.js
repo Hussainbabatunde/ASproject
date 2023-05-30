@@ -40,6 +40,8 @@ function PlayerDetails() {
     return () => {};
   }, [Admin_update_user_image_isSuccess]);
 
+  console.log(Admin_Get_Players_Profile_details);
+
   const [loading, setLoading] = useState(false);
 
   const handleSuspend_Unsuspend = async (data, id) => {
@@ -153,35 +155,23 @@ function PlayerDetails() {
   return (
     <>
       <ToastContainer />
-      <div className="AdminDashboard">
+      <div className="AdminDashboard ">
         <div className="AdminPage_Dashboard">
-          <div>
+          <div className=" w-[70%] xl:ml-[10%]">
             <div className="ScoutViewProfile_navigation">
               <div className="ScoutViewProfile_navigationprogress">
                 <Link
                   to={`/admin/players`}
                   className="ScoutViewProfile_navigationback"
                 >
-                  Back
+                  Player-list
                 </Link>
                 <GrFormNext style={{ fontSize: "16px" }} />
-                <p className="ScoutViewProfile_navigationprofile">Profile</p>
+                <p className="ScoutViewProfile_navigationprofile">details</p>
               </div>
-              <Link className="ScoutViewProfile_share">
-                {" "}
-                <BsShareFill style={{ color: "rgba(150, 150, 150, 1)" }} />{" "}
-                <span
-                  style={{
-                    color: "rgba(150, 150, 150, 1)",
-                    marginLeft: "10px",
-                  }}
-                >
-                  Share
-                </span>
-              </Link>
             </div>
 
-            <div className="ScoutViewProfile_AboutSection bg-white flex justify-between px-5 py-5 rounded-xl">
+            <div className="ScoutViewProfile_AboutSection bg-white flex justify-between px-5 py-5 rounded-xl w-full">
               {/* <div className="bg-white  "> */}
               <div className="flex gap-2 font-normal items-center">
                 <img
@@ -209,7 +199,18 @@ function PlayerDetails() {
                   </span>
 
                   <span className="block  rounded-lg border-2 mt-4 pl-2 py-2 ">
-                    Contract: $30000 - $6000
+                    Contract:
+                    {`  $${user_Data?.price?.minimum}
+                    -
+                    $${user_Data?.price?.maximum}
+                    
+                    `}
+                    {user_Data?.price?.service_type === "open" ||
+                    user_Data?.price?.service_type === "free" ? (
+                      <>{user_Data?.price?.service_type} Transfer</>
+                    ) : (
+                      " "
+                    )}
                   </span>
                 </div>
               </div>
@@ -250,15 +251,15 @@ function PlayerDetails() {
               </div>
               {/* </div> */}
             </div>
-            <div className="ScoutViewProfile_AboutSection bg-white">
+            <div className="ScoutViewProfile_AboutSection bg-white w-full">
               <p className="ScoutViewProfile_AboutTopicText">About</p>
               <div className="ScoutViewProfile_AboutSectionInfo">
                 <p className="ScoutViewProfile_AboutSectionIcon">66</p>
-                <div>
+                <div className="max-w-full ">
                   <p className="ScoutViewProfile_AboutSectionIconTopic">
                     Biography
                   </p>
-                  <p className="ScoutViewProfile_AboutSectionIconText">
+                  <p className="ScoutViewProfile_AboutSectionIconText ">
                     {loading == true ? (
                       <Skeleton variant="rounded" width="90%" height={22} />
                     ) : (
@@ -391,7 +392,7 @@ function PlayerDetails() {
 
             {/* <div className="ScoutViewProfile_ImageSection"></div> */}
 
-            <div className=" bg-white w-[720px] rounded pl-5 flex flex-wrap mb-5 py-5 gap-2">
+            <div className=" bg-white rounded pl-5 flex flex-wrap mb-5 py-5 gap-2  w-[700px] mt-4">
               {PlayerDetails?.images.map((each, index) => (
                 <>
                   <img
@@ -403,9 +404,9 @@ function PlayerDetails() {
               ))}
             </div>
 
-            <div className=" bg-white w-[720px] rounded pl-5">
+            <div className=" bg-white rounded pl-5 flex flex-wrap mb-5 py-5 gap-2  w-[700px] mt-4">
               {PlayerDetails?.videos.map((each, index) => (
-                <li className="">
+                <li className=" cursor-pointer">
                   <a
                     href={each?.video_url}
                     target="_blank"
@@ -417,11 +418,6 @@ function PlayerDetails() {
               ))}
             </div>
           </div>
-
-          {/* <div className="AdminPage_DashboardTAbleCat">
-
-          <h1>sam</h1>
-        </div> */}
         </div>
       </div>
     </>
