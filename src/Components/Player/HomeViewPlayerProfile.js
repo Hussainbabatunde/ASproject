@@ -30,6 +30,7 @@ const HomeViewPlayerProfile = () => {
     const [showOffer, setShowOffer] = useState(false);
     const [loader, setLoader] = useState(false)
     const [videoLoader, setVideoLoader] = useState(false)
+    const [requestType, setRequestType] = useState(null)
     const [showVideoRequest, setShowVideoRequest] = useState(false)
   
   
@@ -62,6 +63,15 @@ const HomeViewPlayerProfile = () => {
       const handleHideVideoRequest = () =>{
         setShowVideoRequest(false)
       }
+      const handleRequestType = ()=>{
+         setRequestType('Photo'); 
+        handleShowVideoRequest()
+      }
+      const handleVideoRequestType= async ()=>{
+         setRequestType('Video');
+        handleShowVideoRequest()
+      }
+
 
       const handleUserProfile = () =>{
         if(userData?.data?.user_type == 'player'){
@@ -207,9 +217,9 @@ const HomeViewPlayerProfile = () => {
         </div>
         </div>
     </div>
-    <MakeARequest loader={loader} show={show} handleShow={handleShow} handleShowOffer={handleShowOffer} handleShowVideoRequest={handleShowVideoRequest} handleHide={handleHide}/>
+    <MakeARequest loader={loader} handleRequestType={handleRequestType} handleVideoRequestType={handleVideoRequestType} PlayerDetails={PlayerDetails} setRequestType={setRequestType} show={show} handleShow={handleShow} handleShowOffer={handleShowOffer} handleShowVideoRequest={handleShowVideoRequest} handleHide={handleHide}/>
     <HomePagePitchOffer loader={loader} show={showOffer} handleShow={handleShowOffer} handleHide={handleHideOffer} />
-    <VideoRequestModal loader={videoLoader} show={showVideoRequest} handleHide={handleHideVideoRequest} />
+    <VideoRequestModal loader={videoLoader} setRequestType={setRequestType} requestType={requestType} show={showVideoRequest} handleHide={handleHideVideoRequest} />
     <Footer />
     </div>
   )

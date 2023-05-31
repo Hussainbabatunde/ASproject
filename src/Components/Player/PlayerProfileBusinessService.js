@@ -19,7 +19,7 @@ const PlayerProfileBusinessService = ({userId}) => {
     const [loadBusinessService, setLoadBusinessService] = useState(false)
 
     const PlayerDetails = useSelector((state)=>state?.reducer?.PlayerProfileSlice?.AllProfileDetailsData?.data)
-
+console.log('player details ', PlayerDetails)
    
 
     // const handleChangeBusinessPricing = (e) =>{
@@ -45,7 +45,7 @@ const PlayerProfileBusinessService = ({userId}) => {
       // console.log(pricingBusiness)
       setLoadBusinessService(true)
       await dispatch(PlayerProfileBusinessServiceApi(pricingBusiness))
-      await dispatch(PlayerProfileVerificationStatus())
+      await dispatch(PlayerProfileVerificationStatus(userId))
       await dispatch(ProfileDetailsPlayer())
       setLoadBusinessService(false)
     }
@@ -187,3 +187,6 @@ const PlayerProfileBusinessService = ({userId}) => {
 }
 
 export default PlayerProfileBusinessService
+
+
+

@@ -71,7 +71,7 @@ const PlayerHomePage = () => {
                 <p className='Homepage_PlayerStatus'>{each?.market_place_fee}</p>
                 <p className='Homepage_PlayersName'>{each?.firstname} {each?.surname}</p>
                 <div className='Homepage_playersPosition'>
-                  <p>{each?.position}</p>
+                  <p>{each?.position.replace(/_/g, ' ')}</p>
                   <RxDotFilled />
                   <p>{each?.current_club}</p>
                 </div>
