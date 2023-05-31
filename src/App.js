@@ -11,7 +11,10 @@ import ForgotPassword from "./Pages/ForgotPassword/ForgotPassword";
 import ScoutDeal from "./Components/Scout/ScoutDeal";
 import "react-toastify/dist/ReactToastify.css";
 import ResetPassword from "./Pages/ResetPassword/ResetPassword";
-import PrivateRoute from "./Pages/PrivateRoutes.js/PrivateRoute";
+import PrivateRoute, {
+  Admin_PrivateRoute,
+  Clinet_PrivateRoute,
+} from "./Pages/PrivateRoutes.js/PrivateRoute";
 import ScoutRoute from "./Pages/Scout/ScoutRoute";
 import AdminRote from "./Pages/Admin/AdminRote";
 import AOS from "aos";
@@ -46,7 +49,9 @@ function App() {
             path="/admin/*"
             element={
               <PrivateRoute>
-                <AdminRote />
+                <Admin_PrivateRoute>
+                  <AdminRote />
+                </Admin_PrivateRoute>
               </PrivateRoute>
             }
           />
@@ -54,15 +59,12 @@ function App() {
             path="/afrisport/*"
             element={
               <PrivateRoute>
-                <ScoutRoute />
+                <Clinet_PrivateRoute>
+                  <ScoutRoute />
+                </Clinet_PrivateRoute>
               </PrivateRoute>
             }
           />
-          {/* <Route path='/afrisports/*' element={
-        <PrivateRoute>
-          <Scout />
-        </PrivateRoute>
-        } /> */}
         </Routes>
       </BrowserRouter>
     </GoogleOAuthProvider>

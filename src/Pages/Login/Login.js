@@ -31,33 +31,33 @@ const Login = () => {
 
   const userData = useSelector((state) => state.reducer.LoginSlice?.logindata);
 
-    // useEffect( ()=>{
-    //     if(userData?.data?.user_type == 'player'){
-    //       navigate('/afrisport/player/profile')
-    //     }
-    //     else if(userData?.data?.user_type == 'admin'){
-    //       navigate('/admin/admin/dashboard')
-    //     }
-    //     else if(userData?.data?.user_type == 'scout'){
-    //       navigate('/afrisport/scout/profile')
-    //     }
-    //     else if(userData?.data?.user_type == 'manager'){
-    //       navigate('/afrisport/manager/profile')
-    //     }
-    //   }, [userData, navigate])
+  // useEffect( ()=>{
+  //     if(userData?.data?.user_type == 'player'){
+  //       navigate('/afrisport/player/profile')
+  //     }
+  //     else if(userData?.data?.user_type == 'admin'){
+  //       navigate('/admin/admin/dashboard')
+  //     }
+  //     else if(userData?.data?.user_type == 'scout'){
+  //       navigate('/afrisport/scout/profile')
+  //     }
+  //     else if(userData?.data?.user_type == 'manager'){
+  //       navigate('/afrisport/manager/profile')
+  //     }
+  //   }, [userData, navigate])
 
   useEffect(() => {
     if (userData?.data?.user_type == "player") {
+      console.log("player");
       navigate("/afrisport/player/profile");
     } else if (userData?.data?.user_type == "admin") {
       navigate("/admin/dashboard");
     } else if (userData?.data?.user_type == "scout") {
       navigate("/afrisport/scout/profile");
-    }    
-    else if(userData?.data?.user_type == 'manager'){
-      navigate('/afrisport/manager/profile')
+    } else if (userData?.data?.user_type == "talent-manager") {
+      navigate("/afrisport/talent-manager/profile");
     }
-  }, [userData, navigate]);
+  }, []);
 
   const [show, setShow] = useState(false);
 

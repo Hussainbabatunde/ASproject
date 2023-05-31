@@ -43,7 +43,6 @@ function TalentManagerDetail() {
   let PlayerDetails = user_Data;
 
   console.log(Admin_talent_manager_single);
-  console.log(Admin_talent_manager_negotiation);
 
   const dispatch = useDispatch();
   useEffect(() => {

@@ -30,10 +30,12 @@ export const RegisterAuth = createAsyncThunk(
         Accept: "application/json",
       },
     });
+
+    console.log({ name: details });
     return await instance
       .post("signup", details)
       .then(async (response) => {
-        // console.log('signup ',response.data)
+        console.log("signup ", response.data);
         return response.data;
       })
 
