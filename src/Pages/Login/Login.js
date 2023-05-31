@@ -61,7 +61,7 @@ const Login = () => {
     } else if (userData?.data?.user_type == "manager") {
       navigate("/afrisport/manager/profile");
     }
-  }, []);
+  }, [userData, navigate]);
 
   const [show, setShow] = useState(false);
 

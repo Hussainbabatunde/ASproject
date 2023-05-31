@@ -29,6 +29,9 @@ const ScoutHeader = () => {
     else if(userData?.data?.user_type == 'scout'){
       navigate('/afrisport/scout/profile')
     }
+    else if(userData?.data?.user_type == 'fan'){
+      navigate('/afrisport/fan/profile')
+    }
   }
 
   const handleClose = () =>{

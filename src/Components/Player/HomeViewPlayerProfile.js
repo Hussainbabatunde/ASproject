@@ -38,7 +38,7 @@ const HomeViewPlayerProfile = () => {
     const PlayerDetails = useSelector((state)=>state?.reducer?.PlayerProfileSlice?.AllProfileDetailsData?.data)
     // console.log('Player details ', PlayerDetails)
     const originalString = PlayerDetails?.bio?.position;
-    const positionPlayed = originalString.replace(/_/g, ' ');
+    const positionPlayed = originalString?.replace(/_/g, ' ');
     // const userId = useSelector((state)=> state?.reducer?.LoginSlice?.logindata?.message?.id)
 
     const handleHide = () => {
@@ -200,12 +200,14 @@ const HomeViewPlayerProfile = () => {
         </div>
         </div>
         <div className='HomepageViewProfile_OfferRequest'>
-            <div className='HomepageViewProfile_MakeRequestSec'>                
+        {userData?.data?.user_type == 'fan' && 
+        <div className='HomepageViewProfile_MakeRequestSec'>                
             <p className='ScoutViewProfile_AboutTopicText'>For Fans</p>
             <p className='ScoutViewProfile_UserProfileCurrentlyAvailable'>Request for personalized Video or Photo Content</p>
             <button className='HomepageViewProfile_requestButton' onClick={handleShow}>Make a request</button>
-            </div>
-            {userData?.data?.user_type != 'player' && <div className='HomepageViewProfile_MakeRequestSec'>                
+            </div>}
+            {userData?.data?.user_type != 'player' && 
+            <div className='HomepageViewProfile_MakeRequestSec'>                
             <p className='ScoutViewProfile_AboutTopicText'>Negotiate this Player</p>
             <p className='ScoutViewProfile_UserProfileCurrentlyAvailable'>For Business, Pitch your business offer to the player/talent manager.</p>
             <div style={{marginTop: '20px'}}>
