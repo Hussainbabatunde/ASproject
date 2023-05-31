@@ -20,7 +20,8 @@ const initialState = {
     ProfileVideoLinksData: null,
     ProfileSetcoverImgData: null,
     ProfileDeleteImgData: null,
-    ProfileDeleteVideoData: null
+    ProfileDeleteVideoData: null,
+    ProfileFanServiceData: null
   };
 
 
@@ -118,6 +119,41 @@ const initialState = {
         .post("player/profile-picture", details)
         .then(async (response) => {
             // console.log('profile picture ',response.data)
+          return response.data;
+        })
+  
+        .catch((err) => {
+          let errdata = err.response.data;
+          console.log('error ', errdata)
+          return rejectWithValue(errdata);
+          // console.log(err)
+        });
+    }
+  );
+
+  export const PlayerProfileFanServiceApi = createAsyncThunk(
+    "playerprofilefanservice/userPlayerProfileFanService",
+    async (details, { rejectWithValue }) => {
+        
+    // for (const [name, value] of details.entries()) {
+    //     console.log(`${name}: ${value}`);
+    //   }
+      const tokengot = localStorage.getItem("token");
+      const infoneeded = `Bearer ${tokengot}`;
+      const instance = axios.create({
+        baseURL: process.env.REACT_APP_AFRISPORTURL ,
+        timeout: 20000,
+  
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: infoneeded
+        },
+      });
+      return await instance
+        .post("player/fan-service-price", details)
+        .then(async (response) => {
+            // console.log('fan service ',response.data)
           return response.data;
         })
   
@@ -514,6 +550,33 @@ const initialState = {
             }
         })
         .addCase(PlayerProfilePicture.rejected, (state, action) => {
+          state.isLoading = false;
+          state.isError = true;
+          state.message = action.payload;
+        })
+        .addCase(PlayerProfileFanServiceApi.pending, (state) => {
+          state.isLoading = true;
+          state.null = true;
+        })
+        .addCase(PlayerProfileFanServiceApi.fulfilled, (state, action) => {
+          state.isLoading = false;
+          state.isSuccess = true;
+          state.user = true;
+          state.ProfileFanServiceData = action.payload;
+          if(action.payload?.message == "Player service successfully updated"){
+          toast.success("Fan service price Updated successfully", {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            });
+          }
+        })
+        .addCase(PlayerProfileFanServiceApi.rejected, (state, action) => {
           state.isLoading = false;
           state.isError = true;
           state.message = action.payload;

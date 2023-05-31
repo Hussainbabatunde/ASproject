@@ -86,7 +86,6 @@ const initialState = {
   export const DealCommentsApi = createAsyncThunk(
     "playerDealsCommentsApi/userPlayerDealsCommentsApi",
     async ({id, userId, senderId}, { rejectWithValue }) => {
-        console.log('print out',id, userId, senderId)
         const tokengot = localStorage.getItem("token");
         const infoneeded = `Bearer ${tokengot}`;
       const instance = axios.create({
@@ -102,7 +101,7 @@ const initialState = {
       return await instance
         .get(`player/offer/interaction/${id}/${userId}/${senderId}`)
         .then(async (response) => {
-            console.log('comments made details ',response)
+            // console.log('comments made details ',response)
           return response;
         })
   

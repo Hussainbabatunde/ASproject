@@ -170,13 +170,13 @@ const Admin_Fans = ({}) => {
     <>
       <ToastContainer />
 
-      {isModalOpen && (
+      {/* {isModalOpen && (
         <Fan_message_modal
           scout_email={scout_email}
           isOpen={isModalOpen}
           onClose={closeModal}
         />
-      )}
+      )} */}
 
       <div className="AdminDashboard">
         <div className="AdminPage_Dashboard">

@@ -20,7 +20,7 @@ const style = {
     borderRadius: '20px'
   };
 
-const MakeARequest = ({show, loader, handleShowOffer, handleChange, handleShowVideoRequest, handleHide}) => {
+const MakeARequest = ({show, loader,handleRequestType,handleVideoRequestType, requestType,PlayerDetails , handleShowOffer, handleChange, handleShowVideoRequest, handleHide}) => {
 
     const customStyles = {
             
@@ -33,6 +33,8 @@ const MakeARequest = ({show, loader, handleShowOffer, handleChange, handleShowVi
         }),
         singleValue: (defaultStyles) => ({ ...defaultStyles, color: "#fff" }),
       }
+
+      
 
   return (
     <Modal
@@ -51,19 +53,19 @@ const MakeARequest = ({show, loader, handleShowOffer, handleChange, handleShowVi
        </div>
        <div className='MakeaRequest_HowitWorksContent'>
         <p>What type of Video are you interested in?</p>
-        <div onClick={handleShowVideoRequest} className='MakeaRequest_HowitWorksContentInnerDiv'>
+        <div onClick={handleVideoRequestType} className='MakeaRequest_HowitWorksContentInnerDiv'>
           <div style={{display:'flex', alignItems:'center'}}>
           <div style={{border:'2px solid rgba(204, 204, 204, 1)', borderRadius:'50%', padding:'15px'}}></div>
-          <p style={{marginLeft:'15px'}}>Video, or Photo</p>
+          <p style={{marginLeft:'15px'}}>Video</p>
           </div>
-          <p>$1,000+</p>
+          <p>${PlayerDetails?.fanprice?.video_price}</p>
         </div>
-        <div className='MakeaRequest_HowitWorksContentInnerDiv'>
+        <div onClick={handleRequestType} className='MakeaRequest_HowitWorksContentInnerDiv'>
           <div style={{display:'flex', alignItems:'center'}}>
           <div style={{border:'2px solid rgba(204, 204, 204, 1)', borderRadius:'50%', padding:'15px'}}></div>
-          <p style={{marginLeft:'15px'}}>Youtube Post</p>
+          <p style={{marginLeft:'15px'}}>Photo</p>
           </div>
-          <p>$1,000+</p>
+          <p>${PlayerDetails?.fanprice?.image_price}</p>
         </div>
        </div>
        </div>

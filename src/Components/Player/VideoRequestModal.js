@@ -25,26 +25,29 @@ const style = {
   };
 
 
-const VideoRequestModal = ({show, loader, handleSubmit, handleChange, title, handleHide}) => {
+const VideoRequestModal = ({show,setRequestType, loader,requestType , handleSubmit, handleChange, title, handleHide}) => {
 
     const [payValue, setPayValue] = useState('')
     const { id } = useParams();
     const [data, setData] = useState({})
     const [change, setChange] = useState(false)
+    const [changeReq, setChangeReq] = useState(false)
     const PlayerDetails = useSelector((state)=>state?.reducer?.PlayerProfileSlice?.AllProfileDetailsData?.data)
     const userId = useSelector((state)=> state?.reducer?.LoginSlice?.logindata?.data?.user?.id)
     const [loadingOffer, setLoadingOffer] = useState(false)
     const dispatch = useDispatch()
+    console.log(requestType)
 
     useEffect(()=>{
       if(PlayerDetails){
-        if(PlayerDetails?.price?.minimum == ''){
-          setPayValue(0)
-        }else{
-      setPayValue(PlayerDetails?.price?.minimum)
+        if(requestType == 'Photo'){
+          setPayValue(PlayerDetails?.fanprice?.image_price)
+        }
+        else if(requestType == 'Video'){
+          setPayValue(PlayerDetails?.fanprice?.video_price)
         }
     }
-    },[PlayerDetails])
+    },[requestType])
 
     const marketfee = 10/100 * Number(payValue);
     const TotalFee = marketfee + Number(payValue);
@@ -56,15 +59,17 @@ const VideoRequestModal = ({show, loader, handleSubmit, handleChange, title, han
       setData({...data, [e.target.name]: e.target.value})
     }
 
-    const handleSubmitOffer = async (e) =>{
+    const handleSubmitRequest = async (e) =>{
       e.preventDefault()
       data.to = id;
       data.from = userId;
+      data.type= requestType
       data.value = payValue
       data.recipient_earnings = payValue
       data.market_place_fee = marketfee
+      console.log(data)
       setLoadingOffer(true)
-      await dispatch(OfferPlayApi(data))
+      // await dispatch(OfferPlayApi(data))
       setLoadingOffer(false)
       handleHide()
       // console.log('data ', data)
@@ -91,7 +96,7 @@ const VideoRequestModal = ({show, loader, handleSubmit, handleChange, title, han
   >
     <div className='HomePage_ViewProfileModal'>
       <ToastContainer />
-      <form onSubmit={handleSubmitOffer} className='offeraRequest_ModalView'>
+      <form onSubmit={handleSubmitRequest} className='offeraRequest_ModalView'>
        <div className='MakeaRequest_Modal'>
         <IoMdArrowBack style={{fontSize:'25px'}} onClick={handleHide} />
         <img src={imgPlaceholder} width='50px' height='50px' style={{marginLeft:'10px'}} />
@@ -99,11 +104,17 @@ const VideoRequestModal = ({show, loader, handleSubmit, handleChange, title, han
         <AiOutlineInfoCircle style={{fontSize:'20px', marginLeft:'10px'}} />
        </div>
        <div style={{margin:'15px 25px'}}>
-       <p style={{fontWeight:'600'}}>What type of Video are you interested in?</p>
+       <p style={{fontWeight:'600'}}>What type of media are you interested in?</p>
+       {changeReq ? 
+       <select onChange={(e)=> setRequestType(e.target.value)} className='OfferModal_PriceInput'>
+        <option value='Video'>Video</option>
+        <option value='Photo'>Photo</option>
+     </select> 
+       :
        <div className='VideoRequest_MidalVideoDiv'>
-          <p>Video, Photo</p>
-       <p className='MakeARequest_InitialChangeText' >Change</p>
-       </div>
+          <p>{requestType}</p>
+       <p onClick={()=> setChangeReq(true)} className='MakeARequest_InitialChangeText' >Change</p>
+       </div>}
         <p style={{fontWeight: '600'}}>Provide Details on Your Offer</p>
         <p style={{fontSize:'13px', }}>Offer Name</p>
         <input type='text' name='name' onChange={handleOfferChange} className='OfferModal_TitleInput' />

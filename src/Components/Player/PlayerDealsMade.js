@@ -19,26 +19,34 @@ const PlayerDealsMade = () => {
   const [downloadPage, setDownloadPage] = useState(false)
   const [comment, setComment] = useState('')
   const [commentload, setCommentLoad] = useState(false)
+  const [senderload, setSenderLoad] = useState(false)
   // console.log('id ', id)
   // console.log('user id', userId)
 
   const gottenDetails = useSelector((state)=> state.reducer?.GetAllPlayerDealSlice?.getOfferDetailsData)
   const senderId = useSelector((state)=> state.reducer?.GetAllPlayerDealSlice?.getOfferDetailsData?.data?.offers?.from)
-  // console.log('gotten deatils ', gottenDetails)
+  console.log('gotten deatils ', gottenDetails)
   const expireData = gottenDetails?.data?.offers?.expiration.slice(0,11);
   const senderInfo = useSelector((state)=> state.reducer?.GetAllPlayerDealSlice?.detailsDealData?.data)
   const CommentsGotten = useSelector((state)=> state.reducer?.GetAllPlayerDealSlice?.commentsOfferData)
-  console.log('comments ', gottenDetails)
 
   useEffect(()=>{
     const offerDetails = async()=>{
       setLoading(true)
       await dispatch(GetPlayerOfferDetailsApi({id, userId}))
-      await dispatch(PlayerDealsDetailsApi(senderId))
       setLoading(false)
     }
     offerDetails()
   },[])
+
+  useEffect(()=>{
+    const fetchSender = async() =>{
+      setSenderLoad(true)
+      await dispatch(PlayerDealsDetailsApi(senderId))
+      setSenderLoad(false)
+    }
+    fetchSender()
+  },[senderId])
 
   useEffect(()=>{
     const offerDetails = async()=>{
@@ -105,8 +113,8 @@ const PlayerDealsMade = () => {
               <div className='PlayerViewdetails_LabelAndAnswer'>
                 <label className='PlayerViewdetails_LabelText'>Sent By:</label>
                 <p className='PlayerViewdetails_labelresponse'>
-                  {loading? <Skeleton variant="circular" width={35} height={32} /> :<img src={senderInfo?.profile_pics}  className='useTable_ImageRecipient' />}
-                {loading?  <Skeleton variant="rounded" width={105} height={22} /> : <span className='PlayerViewdetails_sendername'> {senderInfo?.firstname} {senderInfo?.surname}</span>}
+                  {senderload? <Skeleton variant="circular" width={35} height={32} /> :<img src={senderInfo?.profile_pics}  className='useTable_ImageRecipient' />}
+                {senderload?  <Skeleton variant="rounded" width={105} height={22} /> : <span className='PlayerViewdetails_sendername'> {senderInfo?.firstname} {senderInfo?.surname}</span>}
                 </p>
               </div>
               <div className='PlayerViewdetails_LabelAndAnswer'>
