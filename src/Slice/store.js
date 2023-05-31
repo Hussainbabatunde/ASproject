@@ -13,7 +13,9 @@ import AdminUserSlice from "./Admin/AdminAllAdmins/AdminUserSlice";
 import AdminPrivilageSlice from "./Admin/AdminAllAdmins/AdminPrivilageSlice";
 import AuthorizeSlice from "./Admin/AuthorizeSlice";
 import AdminUpdate_profileSlice from "./Admin/AdminUpdate_profileSlice";
-import ScoutDealsSlice from "./Scout/ScoutDealsApiPage/ScoutDealSlice";
+import ScoutDealsSlice from './Scout/ScoutDealsApiPage/ScoutDealSlice'
+import FanDealsSlice from './Fan/FanDealsApiPage/FanDealSlice'
+import FanProfileSlice from './Fan/ProfileFanSlice/ProfileFanSlice'
 import AdminDashboardSlice from "./Admin/AdminDashboardSlice";
 import Admin_Scouts_Slice from "./Admin/Admin_Scouts_Slice";
 import Admin_NegotiationsSlice from "./Admin/Admin_NegotiationsSlice";
@@ -38,7 +40,9 @@ const reducers = combineReducers({
   Admin_Scouts_Slice: Admin_Scouts_Slice,
   Admin_NegotiationsSlice: Admin_NegotiationsSlice,
   Admin_FanData_Slice: Admin_FanData_Slice,
-  AdminTalentMangerSlice: AdminTalentMangerSlice,
+  FanDealsSlice: FanDealsSlice,
+  FanProfileSlice: FanProfileSlice,
+  AdminTalentMangerSlice: AdminTalentMangerSlice
 });
 
 const persistConfig = {

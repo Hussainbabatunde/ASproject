@@ -8,18 +8,15 @@ const initialState = {
     isSuccess: false,
     isLoading: false,
     message: null,
-    ScoutDealData: null,
+    fanDealData: null,
     getOfferDetailsData: null,
-    acceptScoutOfferDetails: null,
-    deleteScoutOfferDetails: null,
-    downloadScoutOfferDetails: null,
-    scoutMakeCommentData: null,
-    scoutcommentsOfferData: null,
-    updateScoutOfferData: null
+    acceptfanOfferDetails: null,
+    deletefanOfferDetails: null,
+    downloadfanOfferDetails: null
   };
 
-  export const ScoutDealsApi = createAsyncThunk(
-    "scoutDealsApi/userScoutDealsApi",
+  export const fanDealsApi = createAsyncThunk(
+    "fanDealsApi/userfanDealsApi",
     async (_, { rejectWithValue }) => {
         
         const tokengot = localStorage.getItem("token");
@@ -35,7 +32,7 @@ const initialState = {
         },
       });
       return await instance
-        .get('scout/offer')
+        .get('fan/offer')
         .then(async (response) => {
             console.log('gotten deals ',response.data)
           return response.data;
@@ -50,8 +47,8 @@ const initialState = {
     }
   );
 
-  export const GetScoutOfferDetailsApi = createAsyncThunk(
-    "scoutOfferDeatilsApi/userScoutOfferDeatilsApi",
+  export const GetfanOfferDetailsApi = createAsyncThunk(
+    "fanOfferDeatilsApi/userfanOfferDeatilsApi",
     async ({id, userId}, { rejectWithValue }) => {
         
         const tokengot = localStorage.getItem("token");
@@ -67,7 +64,7 @@ const initialState = {
         },
       });
       return await instance
-        .get(`scout/offer/detail/${id}/${userId}`)
+        .get(`fan/offer/detail/${id}/${userId}`)
         .then(async (response) => {
             // console.log('offer details deals ',response.data)
           return response.data;
@@ -82,103 +79,8 @@ const initialState = {
     }
   );
 
-  export const ScoutMakeCommentApi = createAsyncThunk(
-    "scoutMakeCommentApi/userscoutMakeCommentApi",
-    async (data, { rejectWithValue }) => {
-        
-        const tokengot = localStorage.getItem("token");
-        const infoneeded = `Bearer ${tokengot}`;
-      const instance = axios.create({
-        baseURL: process.env.REACT_APP_AFRISPORTURL ,
-        timeout: 20000,
-  
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-          Authorization: infoneeded
-        },
-      });
-      return await instance
-        .post('scout/offer/comments', data)
-        .then(async (response) => {
-            // console.log('comment shown ',response.data)
-          return response.data;
-        })
-  
-        .catch((err) => {
-          let errdata = err.response.data;
-          console.log('error ', errdata)
-          return rejectWithValue(errdata);
-          // console.log(err)
-        });
-    }
-  );
-
-  export const ScoutUpdateOfferApi = createAsyncThunk(
-    "scoutUpdateOfferApi/userscoutUpdateOfferApi",
-    async (data, { rejectWithValue }) => {
-        
-        const tokengot = localStorage.getItem("token");
-        const infoneeded = `Bearer ${tokengot}`;
-      const instance = axios.create({
-        baseURL: process.env.REACT_APP_AFRISPORTURL ,
-        timeout: 20000,
-  
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-          Authorization: infoneeded
-        },
-      });
-      return await instance
-        .put('scout/offer/update', data)
-        .then(async (response) => {
-            console.log('updated offer  ',response.data)
-          return response.data;
-        })
-  
-        .catch((err) => {
-          let errdata = err.response.data;
-          console.log('error ', errdata)
-          return rejectWithValue(errdata);
-          // console.log(err)
-        });
-    }
-  );
-
-  export const ScoutDealCommentsApi = createAsyncThunk(
-    "scoutDealsCommentsApi/userScoutDealsCommentsApi",
-    async ({id, userId, senderId}, { rejectWithValue }) => {
-        const tokengot = localStorage.getItem("token");
-        const infoneeded = `Bearer ${tokengot}`;
-      const instance = axios.create({
-        baseURL: process.env.REACT_APP_AFRISPORTURL ,
-        timeout: 20000,
-  
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-          Authorization: infoneeded
-        },
-      });
-      return await instance
-        .get(`scout/offer/interaction/${id}/${senderId}/${userId}`)
-        .then(async (response) => {
-            // console.log('comments made details ',response)
-          return response;
-        })
-  
-        .catch((err) => {
-          let errdata = err.response.data;
-          console.log('error ', errdata)
-          return rejectWithValue(errdata);
-          // console.log(err)
-        });
-    }
-  );
-
-  export const GetScoutOfferDownloadApi = createAsyncThunk(
-    'scoutOfferDownloadApi/userScoutOfferDownloadApi',
+  export const GetfanOfferDownloadApi = createAsyncThunk(
+    'fanOfferDownloadApi/userfanOfferDownloadApi',
     async ({ id, userId }, { rejectWithValue }) => {
       try {
         const tokengot = localStorage.getItem('token');
@@ -195,7 +97,7 @@ const initialState = {
           responseType: 'blob', // Set the response type to 'blob' for downloading files
         });
   
-        const response = await instance.get(`scout/offer/download/${id}/${userId}`);
+        const response = await instance.get(`fan/offer/download/${id}/${userId}`);
   
         // Create a temporary URL for the downloaded file
         const url = window.URL.createObjectURL(new Blob([response.data]));
@@ -219,8 +121,40 @@ const initialState = {
     }
   );
 
-  export const ScoutAcceptOfferDetailsApi = createAsyncThunk(
-    "scoutAcceptOfferDeatilsApi/userScoutAcceptOfferDeatilsApi",
+  export const FanDealsApi = createAsyncThunk(
+    "fanDealsApi/userFanDealsApi",
+    async (_, { rejectWithValue }) => {
+        
+        const tokengot = localStorage.getItem("token");
+        const infoneeded = `Bearer ${tokengot}`;
+      const instance = axios.create({
+        baseURL: process.env.REACT_APP_AFRISPORTURL ,
+        timeout: 20000,
+  
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: infoneeded
+        },
+      });
+      return await instance
+        .get('fan/offers')
+        .then(async (response) => {
+            // console.log('gotten deals ',response.data)
+          return response.data;
+        })
+  
+        .catch((err) => {
+          let errdata = err.response.data;
+          console.log('error ', errdata)
+          return rejectWithValue(errdata);
+          // console.log(err)
+        });
+    }
+  );
+
+  export const fanAcceptOfferDetailsApi = createAsyncThunk(
+    "fanAcceptOfferDeatilsApi/userfanAcceptOfferDeatilsApi",
     async (data, { rejectWithValue }) => {
         // console.log(data)
         const tokengot = localStorage.getItem("token");
@@ -236,7 +170,7 @@ const initialState = {
         },
       });
       return await instance
-        .post('scout/offer/accept', data)
+        .post('fan/offer/accept', data)
         .then(async (response) => {
             console.log('accept deals ',response.data)
           return response.data;
@@ -251,8 +185,8 @@ const initialState = {
     }
   );
 
-  export const ScoutDeleteOfferDetailsApi = createAsyncThunk(
-    "scoutDeleteOfferDeatilsApi/userScoutDeleteOfferDeatilsApi",
+  export const fanDeleteOfferDetailsApi = createAsyncThunk(
+    "fanDeleteOfferDeatilsApi/userfanDeleteOfferDeatilsApi",
     async (data, { rejectWithValue }) => {
         // console.log(data)
         const tokengot = localStorage.getItem("token");
@@ -268,7 +202,7 @@ const initialState = {
         },
       });
       return await instance
-        .post('scout/offer/decline', data)
+        .post('fan/offer/decline', data)
         .then(async (response) => {
             console.log('decline deals ',response.data)
           return response.data;
@@ -284,53 +218,53 @@ const initialState = {
   );
 
 
-  export const GetAllScoutDealSlice = createSlice({
-    name: "GetAllScoutDeals",
+  export const GetAllfanDealSlice = createSlice({
+    name: "GetAllfanDeals",
     initialState,
     reducers: {
       reset: (state) => initialState,
     },
     extraReducers: (builder) => {
       builder
-      .addCase(ScoutDealsApi.pending, (state) => {
+      .addCase(fanDealsApi.pending, (state) => {
         state.isLoading = true;
         state.null = true;
       })
-      .addCase(ScoutDealsApi.fulfilled, (state, action) => {
+      .addCase(fanDealsApi.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
         state.user = true;
-        state.ScoutDealData = action.payload;        
+        state.fanDealData = action.payload;        
       })
-      .addCase(ScoutDealsApi.rejected, (state, action) => {
+      .addCase(fanDealsApi.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;
       })
-      .addCase(GetScoutOfferDetailsApi.pending, (state) => {
+      .addCase(GetfanOfferDetailsApi.pending, (state) => {
         state.isLoading = true;
         state.null = true;
       })
-      .addCase(GetScoutOfferDetailsApi.fulfilled, (state, action) => {
+      .addCase(GetfanOfferDetailsApi.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
         state.user = true;
         state.getOfferDetailsData = action.payload;        
       })
-      .addCase(GetScoutOfferDetailsApi.rejected, (state, action) => {
+      .addCase(GetfanOfferDetailsApi.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;
       })
-      .addCase(ScoutAcceptOfferDetailsApi.pending, (state) => {
+      .addCase(fanAcceptOfferDetailsApi.pending, (state) => {
         state.isLoading = true;
         state.null = true;
       })
-      .addCase(ScoutAcceptOfferDetailsApi.fulfilled, (state, action) => {
+      .addCase(fanAcceptOfferDetailsApi.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
         state.user = true;
-        state.acceptScoutOfferDetails = action.payload;
+        state.acceptfanOfferDetails = action.payload;
         if (action.payload?.message == "Offer Accepted") {
           toast.success("Offer Accepted", {
             position: "top-right",
@@ -344,45 +278,20 @@ const initialState = {
           });
         }        
       })
-      .addCase(ScoutAcceptOfferDetailsApi.rejected, (state, action) => {
+      .addCase(fanAcceptOfferDetailsApi.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;
       })
-      .addCase(ScoutUpdateOfferApi.pending, (state) => {
+      .addCase(GetfanOfferDownloadApi.pending, (state) => {
         state.isLoading = true;
         state.null = true;
       })
-      .addCase(ScoutUpdateOfferApi.fulfilled, (state, action) => {
+      .addCase(GetfanOfferDownloadApi.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
         state.user = true;
-        state.updateScoutOfferData = action.payload;
-          toast.success("Offer Details Updated", {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-          });   
-      })
-      .addCase(ScoutUpdateOfferApi.rejected, (state, action) => {
-        state.isLoading = false;
-        state.isError = true;
-        state.message = action.payload;
-      })
-      .addCase(GetScoutOfferDownloadApi.pending, (state) => {
-        state.isLoading = true;
-        state.null = true;
-      })
-      .addCase(GetScoutOfferDownloadApi.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.isSuccess = true;
-        state.user = true;
-        state.downloadScoutOfferDetails = action.payload;
+        state.downloadfanOfferDetails = action.payload;
         if (action.payload?.message == "Offer Accepted") {
           toast.success("Offer Accepted", {
             position: "top-right",
@@ -396,20 +305,20 @@ const initialState = {
           });
         }        
       })
-      .addCase(GetScoutOfferDownloadApi.rejected, (state, action) => {
+      .addCase(GetfanOfferDownloadApi.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;
       })
-      .addCase(ScoutDeleteOfferDetailsApi.pending, (state) => {
+      .addCase(fanDeleteOfferDetailsApi.pending, (state) => {
         state.isLoading = true;
         state.null = true;
       })
-      .addCase(ScoutDeleteOfferDetailsApi.fulfilled, (state, action) => {
+      .addCase(fanDeleteOfferDetailsApi.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
         state.user = true;
-        state.deleteScoutOfferDetails = action.payload;
+        state.deletefanOfferDetails = action.payload;
         if (action.payload?.message == "Offer Accepted") {
           toast.success("Offer Accepted", {
             position: "top-right",
@@ -423,37 +332,7 @@ const initialState = {
           });
         }        
       })
-      .addCase(ScoutDeleteOfferDetailsApi.rejected, (state, action) => {
-        state.isLoading = false;
-        state.isError = true;
-        state.message = action.payload;
-      })
-      .addCase(ScoutMakeCommentApi.pending, (state) => {
-        state.isLoading = true;
-        state.null = true;
-      })
-      .addCase(ScoutMakeCommentApi.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.isSuccess = true;
-        state.user = true;
-        state.scoutMakeCommentData = action.payload;        
-      })
-      .addCase(ScoutMakeCommentApi.rejected, (state, action) => {
-        state.isLoading = false;
-        state.isError = true;
-        state.message = action.payload;
-      })
-      .addCase(ScoutDealCommentsApi.pending, (state) => {
-        state.isLoading = true;
-        state.null = true;
-      })
-      .addCase(ScoutDealCommentsApi.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.isSuccess = true;
-        state.user = true;
-        state.scoutcommentsOfferData = action.payload;        
-      })
-      .addCase(ScoutDealCommentsApi.rejected, (state, action) => {
+      .addCase(fanDeleteOfferDetailsApi.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;
@@ -461,8 +340,8 @@ const initialState = {
     },
   });
   
-  export const { reset } = GetAllScoutDealSlice.actions;
+  export const { reset } = GetAllfanDealSlice.actions;
   
-  export const selectPlayerProfileSlice = (state) => state.GetAllScoutDealSlice;
-  export default GetAllScoutDealSlice.reducer;
+  export const selectPlayerProfileSlice = (state) => state.GetAllfanDealSlice;
+  export default GetAllfanDealSlice.reducer;
   

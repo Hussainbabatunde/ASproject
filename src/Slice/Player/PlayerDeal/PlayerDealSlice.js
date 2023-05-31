@@ -12,7 +12,10 @@ const initialState = {
     getOfferDetailsData: null,
     acceptPlayerOfferDetails: null,
     deletePlayerOfferDetails: null,
-    downloadPlayerOfferDetails: null
+    downloadPlayerOfferDetails: null,
+    detailsDealData: null,
+    commentMadeData: null,
+    commentsOfferData: null
   };
 
   export const PlayerDealsApi = createAsyncThunk(
@@ -46,6 +49,104 @@ const initialState = {
         });
     }
   );
+
+
+  export const PlayerDealsDetailsApi = createAsyncThunk(
+    "playerDealsDetailsApi/userPlayerDealsDetailsApi",
+    async (id, { rejectWithValue }) => {
+        
+        const tokengot = localStorage.getItem("token");
+        const infoneeded = `Bearer ${tokengot}`;
+      const instance = axios.create({
+        baseURL: process.env.REACT_APP_AFRISPORTURL ,
+        timeout: 20000,
+  
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: infoneeded
+        },
+      });
+      return await instance
+        .get(`user/profile/${id}`)
+        .then(async (response) => {
+            // console.log('deals details ',response.data)
+          return response.data;
+        })
+  
+        .catch((err) => {
+          let errdata = err.response.data;
+          console.log('error ', errdata)
+          return rejectWithValue(errdata);
+          // console.log(err)
+        });
+    }
+  );
+
+  export const DealCommentsApi = createAsyncThunk(
+    "playerDealsCommentsApi/userPlayerDealsCommentsApi",
+    async ({id, userId, senderId}, { rejectWithValue }) => {
+        console.log('print out',id, userId, senderId)
+        const tokengot = localStorage.getItem("token");
+        const infoneeded = `Bearer ${tokengot}`;
+      const instance = axios.create({
+        baseURL: process.env.REACT_APP_AFRISPORTURL ,
+        timeout: 20000,
+  
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: infoneeded
+        },
+      });
+      return await instance
+        .get(`player/offer/interaction/${id}/${userId}/${senderId}`)
+        .then(async (response) => {
+            console.log('comments made details ',response)
+          return response;
+        })
+  
+        .catch((err) => {
+          let errdata = err.response.data;
+          console.log('error ', errdata)
+          return rejectWithValue(errdata);
+          // console.log(err)
+        });
+    }
+  );
+
+  export const MakeCommentApi = createAsyncThunk(
+    "makeCommentApi/usermakeCommentApi",
+    async (data, { rejectWithValue }) => {
+        
+        const tokengot = localStorage.getItem("token");
+        const infoneeded = `Bearer ${tokengot}`;
+      const instance = axios.create({
+        baseURL: process.env.REACT_APP_AFRISPORTURL ,
+        timeout: 20000,
+  
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: infoneeded
+        },
+      });
+      return await instance
+        .post('player/offer/comments', data)
+        .then(async (response) => {
+            // console.log('comment shown ',response.data)
+          return response.data;
+        })
+  
+        .catch((err) => {
+          let errdata = err.response.data;
+          console.log('error ', errdata)
+          return rejectWithValue(errdata);
+          // console.log(err)
+        });
+    }
+  );
+
 
   export const GetPlayerOfferDetailsApi = createAsyncThunk(
     "playerOfferDeatilsApi/userPlayerOfferDeatilsApi",
@@ -301,6 +402,54 @@ const initialState = {
         }        
       })
       .addCase(PlayerDeleteOfferDetailsApi.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+      })
+      .addCase(PlayerDealsDetailsApi.pending, (state) => {
+        state.isLoading = true;
+        state.null = true;
+      })
+      .addCase(PlayerDealsDetailsApi.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.user = true;
+        state.detailsDealData = action.payload;
+                
+      })
+      .addCase(PlayerDealsDetailsApi.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+      })
+      .addCase(MakeCommentApi.pending, (state) => {
+        state.isLoading = true;
+        state.null = true;
+      })
+      .addCase(MakeCommentApi.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.user = true;
+        state.commentMadeData = action.payload;
+                
+      })
+      .addCase(MakeCommentApi.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+      })
+      .addCase(DealCommentsApi.pending, (state) => {
+        state.isLoading = true;
+        state.null = true;
+      })
+      .addCase(DealCommentsApi.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.user = true;
+        state.commentsOfferData = action.payload;
+                
+      })
+      .addCase(DealCommentsApi.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;

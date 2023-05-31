@@ -6,6 +6,7 @@ import {FaRegImages} from 'react-icons/fa'
 import { CircularProgress } from '@mui/material'
 import { useDispatch } from 'react-redux'
 import { ScoutProfileUploadIdApi, ScoutProfileVerificationStatus } from '../../Slice/Scout/ProfileScoutSlice/ProfileScoutSlice'
+import { fanProfileUploadIdApi, fanProfileVerificationStatus } from '../../Slice/Fan/ProfileFanSlice/ProfileFanSlice'
 
 const FanProfileUploadId = ({userId}) => {
 
@@ -27,8 +28,8 @@ const FanProfileUploadId = ({userId}) => {
         formData.append('id', userId)
         
         setLoadUploadId(true)
-          await dispatch(ScoutProfileUploadIdApi(formData))
-          await dispatch(ScoutProfileVerificationStatus(userId))
+          await dispatch(fanProfileUploadIdApi(formData))
+          await dispatch(fanProfileVerificationStatus(userId))
           setLoadUploadId(false)
       }
 
@@ -42,7 +43,7 @@ const FanProfileUploadId = ({userId}) => {
     <form onSubmit={handleUploadIdSubmit} className='Scoutpage_ProfileforContent'>
         <p className='Scoutpage_Profile_Profiledetailstext'>Upload ID</p>
         <p className='Scoutpage_Profile_filldetailstext'>Verification by means of ID, International Passport, NIN</p>
-        <label for='UploadId' className='Scoutpage_Profileform_SelectImage' >Select Image</label>
+        <label for='UploadId' className='Scoutpage_Profileform_savebutton' >Select Image</label>
         <input type='file' id='UploadId' onChange={handleUploadIdChange} className='Scoutpage_Profile_ImagePlaceInput' />
         
         {uploaded && <div className='Scoutpage_Profileform_ImgIploaded'>

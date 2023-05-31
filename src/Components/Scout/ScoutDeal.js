@@ -93,6 +93,7 @@ const ScoutDeal = () => {
 // ]
 
 const dataTable = useSelector((state)=> state?.reducer?.ScoutDealsSlice?.ScoutDealData)
+console.log('dataTable ', dataTable)
 
   return (
     <div  className='Scoutpage_contents'>

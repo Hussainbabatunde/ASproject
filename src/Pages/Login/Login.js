@@ -56,6 +56,10 @@ const Login = () => {
       navigate("/afrisport/scout/profile");
     } else if (userData?.data?.user_type == "talent-manager") {
       navigate("/afrisport/talent-manager/profile");
+    } else if (userData?.data?.user_type == "fan") {
+      navigate("/afrisport/fan/profile");
+    } else if (userData?.data?.user_type == "manager") {
+      navigate("/afrisport/manager/profile");
     }
   }, []);
 

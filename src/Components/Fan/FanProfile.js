@@ -12,6 +12,7 @@ import { ProfileDetailsScout, ScoutProfilePicture, ScoutProfileVerificationStatu
 import { UserLogout } from '../Player/UserLogOut'
 import FanProfileProfileform from './FanProfileProfileform'
 import FanProfileUploadId from './FanProfileUploadId'
+import { ProfileDetailsfan, fanProfilePicture } from '../../Slice/Fan/ProfileFanSlice/ProfileFanSlice'
 
 const FanProfile = () => {
 
@@ -58,8 +59,8 @@ const FanProfile = () => {
         window.location.reload();
     }
     const data = [
-        {id: 1, pathTo: '/afrisport/scout/profile', pathName: 'Profile'},
-        {id: 2, pathTo: '/afrisport/scout/deal', pathName: 'Deals'}
+        {id: 1, pathTo: '/afrisport/fan/profile', pathName: 'Profile'},
+        {id: 2, pathTo: '/afrisport/fan/deal', pathName: 'Deals'}
     ]
     function handleChange(e) {
       // console.log(e.target.files[0])
@@ -73,10 +74,10 @@ const FanProfile = () => {
     const userId = useSelector((state)=> state?.reducer?.LoginSlice?.logindata?.data?.user?.id)
     const userDataInfo = useSelector((state)=> state?.reducer?.LoginSlice?.logindata?.data?.user)
 
-    const PlayerDetails = useSelector((state)=>state?.reducer?.ScoutProfileAction?.ScoutAllProfileDetailsData?.data)
+    const PlayerDetails = useSelector((state)=>state?.reducer?.FanProfileSlice?.fanAllProfileDetailsData?.data)
     useEffect(()=>{
       const checkingVerification = async() =>{
-        await dispatch(ProfileDetailsScout(userId))
+        await dispatch(ProfileDetailsfan(userId))
         // await dispatch(ScoutProfileVerificationStatus(userId))
         setFile(PlayerDetails?.profile_pics)
       }
@@ -90,7 +91,7 @@ const FanProfile = () => {
       formData.append('id', userId)
       
         setImgLoader(true)
-        await dispatch(ScoutProfilePicture(formData))
+        await dispatch(fanProfilePicture(formData))
         // await dispatch(ScoutProfileVerificationStatus())
         setImgLoader(false)
     }
@@ -125,7 +126,7 @@ const FanProfile = () => {
           </form>
           <div className='Scoutpage_Profile_nameVerify'>
             <p className='Scoutpage_profile_Username'>{`${userDataInfo?.firstname } ${userDataInfo?.surname }`}</p>
-            <p className='Scoutpage_profile_Usertype'>Scout Account</p>
+            <p className='Scoutpage_profile_Usertype'>Fan Account</p>
           </div>
           </div>
           {/* <Link to='/afrisport/player/viewprofile' className='Scoutpage_Profile_Viewprofilebutton'>View Profile</Link> */}
