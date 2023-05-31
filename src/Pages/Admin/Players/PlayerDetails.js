@@ -394,13 +394,13 @@ function PlayerDetails() {
 
             <div className=" bg-white rounded pl-5 flex flex-wrap mb-5 py-5 gap-2  w-[700px] mt-4">
               {PlayerDetails?.images.map((each, index) => (
-                <>
+                <div class="shadow-lg border-2 border-blue-500 rounded-lg  w-[30%]">
                   <img
                     src={each?.image_url}
                     key={index}
-                    className="ScoutViewProfile_Image "
+                    className="h-[200px] w-full"
                   />
-                </>
+                </div>
               ))}
             </div>
 
