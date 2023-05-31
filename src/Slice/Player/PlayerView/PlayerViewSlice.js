@@ -9,7 +9,8 @@ const initialState = {
     isLoading: false,
     message: null,
     ProfileVisitsdata: null,
-    offerDetailsData: null
+    offerDetailsData: null,
+    requestDetailData: null
   };
 
   export const ProfileVisitsNumber = createAsyncThunk(
@@ -79,6 +80,38 @@ const initialState = {
     }
   );
 
+  export const MakeRequestDetailApi = createAsyncThunk(
+    "makeRequestApi/userMakeRequestApi",
+    async (data, { rejectWithValue }) => {
+       
+      const tokengot = localStorage.getItem("token");
+      const infoneeded = `Bearer ${tokengot}`;
+      const instance = axios.create({
+        baseURL: process.env.REACT_APP_AFRISPORTURL ,
+        timeout: 20000,
+  
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: infoneeded
+        },
+      });
+      return await instance
+        .post('fan/make-request', data)
+        .then(async (response) => {
+            // console.log('request details ',response.data)
+          return response.data;
+        })
+  
+        .catch((err) => {
+          let errdata = err.response.data;
+          console.log('error ', errdata)
+          return rejectWithValue(errdata);
+          // console.log(err)
+        });
+    }
+  );
+
 
   export const PlayerVisitSlice = createSlice({
     name: "playerVisits",
@@ -124,6 +157,31 @@ const initialState = {
             });
       })
       .addCase(OfferPlayApi.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+      })
+      .addCase(MakeRequestDetailApi.pending, (state) => {
+        state.isLoading = true;
+        state.null = true;
+      })
+      .addCase(MakeRequestDetailApi.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.user = true;
+        state.offerDetailsData = action.payload;     
+          toast.success("Request sent", {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            });
+      })
+      .addCase(MakeRequestDetailApi.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;

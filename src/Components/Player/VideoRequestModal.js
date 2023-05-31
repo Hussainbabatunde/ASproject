@@ -10,7 +10,7 @@ import {AiOutlineInfoCircle} from 'react-icons/ai'
 import './MakeARequest.css'
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { OfferPlayApi } from '../../Slice/Player/PlayerView/PlayerViewSlice';
+import { MakeRequestDetailApi, OfferPlayApi } from '../../Slice/Player/PlayerView/PlayerViewSlice';
 import { ToastContainer } from 'react-toastify';
 
 const style = {
@@ -67,9 +67,9 @@ const VideoRequestModal = ({show,setRequestType, loader,requestType , handleSubm
       data.value = payValue
       data.recipient_earnings = payValue
       data.market_place_fee = marketfee
-      console.log(data)
+      // console.log(data)
       setLoadingOffer(true)
-      // await dispatch(OfferPlayApi(data))
+      await dispatch(MakeRequestDetailApi(data))
       setLoadingOffer(false)
       handleHide()
       // console.log('data ', data)
