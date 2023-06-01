@@ -296,7 +296,7 @@ const initialState = {
       return await instance
         .post("player/video_text_url", details)
         .then(async (response) => {
-            // console.log('Video links ',response.data)
+            console.log('Video links ',response.data)
           return response.data;
         })
   
@@ -420,7 +420,7 @@ const initialState = {
     async (details, { rejectWithValue }) => {
         
     // for (const [name, value] of details.entries()) {
-    //     console.log(`${name}: ${value}`);
+        // console.log(details);
     //   }
       const tokengot = localStorage.getItem("token");
       const infoneeded = `Bearer ${tokengot}`;

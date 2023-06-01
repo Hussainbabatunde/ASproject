@@ -37,7 +37,7 @@ const initialState = {
       return await instance
         .get('player/offers')
         .then(async (response) => {
-            // console.log('gotten deals ',response.data)
+            console.log('gotten deals ',response.data)
           return response.data;
         })
   

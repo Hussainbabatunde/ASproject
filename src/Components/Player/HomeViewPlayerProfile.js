@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import '../../Pages/Scout/ScoutViewProfile.css'
-import { Link, useNavigate, useParams } from 'react-router-dom'
+import { Link, useNavigate, useNavigation, useParams } from 'react-router-dom'
 import {GrFormNext} from 'react-icons/gr'
 import {BsShareFill} from 'react-icons/bs'
 import imgPlaceholder from '../../assets/imgPlaceholder.png'
@@ -20,6 +20,7 @@ import HomePagePitchOffer from './HomePagePitchOffer'
 import ReactPlayer from 'react-player'
 import { ToastContainer } from 'react-toastify'
 import VideoRequestModal from './VideoRequestModal'
+import Header from '../Header/Header'
 
 const HomeViewPlayerProfile = () => {
   const { id } = useParams();
@@ -33,7 +34,9 @@ const HomeViewPlayerProfile = () => {
     const [requestType, setRequestType] = useState(null)
     const [showVideoRequest, setShowVideoRequest] = useState(false)
   
-  
+    const logindata = useSelector(
+      (state) => state?.reducer?.LoginSlice?.logindata
+    );
     const userData = useSelector((state)=> state.reducer.LoginSlice?.logindata )
     const PlayerDetails = useSelector((state)=>state?.reducer?.PlayerProfileSlice?.AllProfileDetailsData?.data)
     // console.log('Player details ', PlayerDetails)
@@ -45,15 +48,25 @@ const HomeViewPlayerProfile = () => {
         setShow(false)
       }
       const handleShow= ()=>{
+        if(logindata != null){
         setShow(true)
+      }
+      else{
+       navigate('/login')
+      }
       }
 
       const handleHideOffer = () => {
         setShowOffer(false)
       }
       const handleShowOffer= ()=>{
+        if(logindata != null){
         setShow(false)
         setShowOffer(true)
+        }
+        else{
+         navigate('/login')
+        }
       }
 
       const handleShowVideoRequest = () =>{
@@ -97,7 +110,7 @@ const HomeViewPlayerProfile = () => {
 
   return (
     <div>
-        <ScoutHeader />
+        {logindata != null ? <ScoutHeader />: <Header />}
     <div className='ScoutViewProfile'>
       <ToastContainer />
         {/* <div className='ScoutViewProfile_navigation'>
@@ -200,7 +213,7 @@ const HomeViewPlayerProfile = () => {
         </div>
         </div>
         <div className='HomepageViewProfile_OfferRequest'>
-        {userData?.data?.user_type == 'fan' && 
+        {userData?.data?.user_type == 'fan' || logindata == null && 
         <div className='HomepageViewProfile_MakeRequestSec'>                
             <p className='ScoutViewProfile_AboutTopicText'>For Fans</p>
             <p className='ScoutViewProfile_UserProfileCurrentlyAvailable'>Request for personalized Video or Photo Content</p>

@@ -39,7 +39,7 @@ const HomePagePitchOffer = ({show, loader, handleSubmit, handleChange, title, ha
 
     useEffect(()=>{
       if(PlayerDetails){
-        if(PlayerDetails?.price?.minimum == ''){
+        if(PlayerDetails?.price?.minimum == 'free' || PlayerDetails?.price?.minimum == 'open'){
           setPayValue(0)
         }else{
       setPayValue(PlayerDetails?.price?.minimum)
