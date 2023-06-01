@@ -1,0 +1,74 @@
+import React, { useEffect } from "react";
+import { RxExit } from "react-icons/rx";
+import { LogoutAuth } from "../../Slice/auth/Login";
+import { UserLogout } from "../Player/UserLogOut";
+import { useDispatch, useSelector } from "react-redux";
+import { NavLink } from "react-router-dom";
+import { ProfileDetailsfan } from "../../Slice/Fan/ProfileFanSlice/ProfileFanSlice";
+import { Talent_manager_details_fun } from "../../Slice/Talent_Manager/Talent_manager_slice";
+
+function Talent_Header() {
+  const dispatch = useDispatch();
+
+  const userId = useSelector(
+    (state) => state?.reducer?.LoginSlice?.logindata?.data?.user?.id
+  );
+
+  const fanAllProfileDetailsData = useSelector(
+    (state) => state?.reducer?.fanProfileSlice
+  );
+
+  const handleLogout = async () => {
+    dispatch(LogoutAuth());
+    // await dispatch(resetScoutProfileSlice())
+    UserLogout();
+    localStorage.clear();
+    sessionStorage.clear();
+    window.location.reload();
+    dispatch(dispatch({ type: "RESET" }));
+  };
+
+  useEffect(() => {
+    if (userId) {
+      dispatch(Talent_manager_details_fun(userId));
+    }
+    return () => {};
+  }, []);
+
+  const data = [
+    { id: 1, pathTo: "/afrisport/talent-manager/profile", pathName: "Profile" },
+    { id: 2, pathTo: "/afrisport/talent-manager/deal", pathName: "Deals" },
+    { id: 3, pathTo: "/afrisport/talent-manager/deal", pathName: "Player" },
+    { id: 4, pathTo: "/afrisport/talent-manager/deal", pathName: "Payment" },
+  ];
+  return (
+    <>
+      <div className="Scoutpage_AccountLogout_div">
+        <p className="Scoutpage_AccountWord">Account</p>
+        <p
+          className="Scoutpage_AccountWord"
+          style={{ cursor: "pointer" }}
+          onClick={handleLogout}
+        >
+          Logout <RxExit />
+        </p>
+      </div>
+
+      <div className="Scoutpage_LinkPages">
+        {data.map((each, index) => (
+          <NavLink
+            to={each?.pathTo}
+            key={index}
+            className={({ isActive }) =>
+              isActive ? "Scoutpage_Profileactivepage" : "Scoutpage_Profilepage"
+            }
+          >
+            {each?.pathName}
+          </NavLink>
+        ))}
+      </div>
+    </>
+  );
+}
+
+export default Talent_Header;

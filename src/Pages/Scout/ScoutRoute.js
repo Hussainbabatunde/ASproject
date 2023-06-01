@@ -70,8 +70,6 @@ const ScoutRoute = () => {
         <Route path="/fan/profile" element={<FanProfile />} />
         <Route path="/fan/deal" element={<FanDeal />} />
         <Route path="/fan/viewprofile" element={<FanViewProfile />} />
-
-        <Route path="/talent-manager/profile" element={<h1>aksjaskasj</h1>} />
       </Routes>
       {/* </div> */}
       <Footer />

@@ -81,10 +81,12 @@ const AdminDashboard = () => {
     {
       id: 1,
       name: "Deal name",
+      case: "scout_Deal_name",
     },
     {
       id: 2,
       name: "Scout",
+      case: "scout_ne_name",
     },
     {
       id: 3,
@@ -96,11 +98,13 @@ const AdminDashboard = () => {
     },
     {
       id: 5,
-      name: "Payment",
+      name: "Payments",
+      case: "dash_ne_Payment",
     },
     {
       id: 6,
       name: "Active Negotiaties",
+      case: "scout_All_Negotiaties",
     },
   ];
 
