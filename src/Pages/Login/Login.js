@@ -50,7 +50,10 @@ const Login = () => {
     if (userData?.data?.user_type == "player") {
       console.log("player");
       navigate("/afrisport/player/profile");
-    } else if (userData?.data?.user_type == "admin") {
+    } else if (
+      userData?.data?.user_type == "admin" ||
+      userData?.data?.user_type == "super-admin"
+    ) {
       navigate("/admin/dashboard");
     } else if (userData?.data?.user_type == "scout") {
       navigate("/afrisport/scout/profile");

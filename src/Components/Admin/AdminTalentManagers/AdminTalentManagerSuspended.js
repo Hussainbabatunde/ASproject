@@ -56,15 +56,6 @@ const AdminTalentManagerSuspended = ({
     },
   ];
 
-  const dataTable = [
-    {
-      id: 1,
-      playerName: "mayana",
-      position: "striker",
-      club: "chelsea",
-      recentNegotiate: "league ball",
-    },
-  ];
   return (
     <div className="AdminPage_NegotiateTab">
       <div className="AdminPage_NegotiateTabTitle">

@@ -5,7 +5,10 @@ import { Navigate } from "react-router-dom";
 export const Admin_PrivateRoute = ({ children }) => {
   const { logindata } = useSelector((state) => state.reducer.LoginSlice);
 
-  if (logindata?.data?.user_type === "admin") {
+  if (
+    logindata?.data?.user_type === "admin" ||
+    logindata?.data?.user_type === "super-admin"
+  ) {
     return children;
   } else {
     return <Navigate to={`/afrisport/${logindata?.data?.user_type}/profile`} />;
