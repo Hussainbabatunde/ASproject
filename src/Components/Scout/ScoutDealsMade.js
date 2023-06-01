@@ -173,7 +173,7 @@ const ScoutDealsMade = () => {
               </div>
             </div>
             </div>
-            <UpdateOfferDetail show={show} handleHide={handleHide} userId= {userId} id={id} />
+            <UpdateOfferDetail show={show} setShow={setShow} handleHide={handleHide} userId= {userId} id={id} />
     </div>
   )
 }

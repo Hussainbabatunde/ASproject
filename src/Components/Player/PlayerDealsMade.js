@@ -25,7 +25,7 @@ const PlayerDealsMade = () => {
 
   const gottenDetails = useSelector((state)=> state.reducer?.GetAllPlayerDealSlice?.getOfferDetailsData)
   const senderId = useSelector((state)=> state.reducer?.GetAllPlayerDealSlice?.getOfferDetailsData?.data?.offers?.from)
-  console.log('gotten deatils ', gottenDetails)
+  // console.log('gotten deatils ', gottenDetails)
   const expireData = gottenDetails?.data?.offers?.expiration.slice(0,11);
   const senderInfo = useSelector((state)=> state.reducer?.GetAllPlayerDealSlice?.detailsDealData?.data)
   const CommentsGotten = useSelector((state)=> state.reducer?.GetAllPlayerDealSlice?.commentsOfferData)

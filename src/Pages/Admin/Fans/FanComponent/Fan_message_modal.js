@@ -3,9 +3,9 @@ import axios from "axios";
 import React, { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 
-let baseURL = process.env.REACT_APP_AFRISPORTURL;
-
 const Fan_message_modal = ({ scout_email, isOpen, onClose }) => {
+  let baseURL = process.env.REACT_APP_AFRISPORTURL;
+
   const [message_data, setMessage_data] = useState({
     email: scout_email,
 
