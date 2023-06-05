@@ -44,6 +44,7 @@ const Talent_manager_Add_player_fun_Service = async (data, id, token) => {
 
   const response = await axios.post(API_URL, userData, config);
 
+  // console.log(response.data);
   return response.data;
 };
 
@@ -74,7 +75,9 @@ const Talent_manager_details_Get_all_player_fun_Service = async (
   data,
   token
 ) => {
-  let API_URL = `${baseURL}players`;
+  let All_Player_API_URL = `${baseURL}talent-manager/players/expcept-manager-players`;
+
+  let exact_manager_players_API_URL = `${baseURL}talent-manager/players`;
 
   const config = {
     headers: {
@@ -82,9 +85,18 @@ const Talent_manager_details_Get_all_player_fun_Service = async (
     },
   };
 
-  const response = await axios.get(API_URL, config);
+  const All_Player__data = await axios.get(All_Player_API_URL, config);
+  const exact_manager_players__data = await axios.get(
+    exact_manager_players_API_URL,
+    config
+  );
 
-  return response.data;
+  const talent_Object = {
+    All_Player_api: All_Player__data.data,
+    exact_manager_players__api: exact_manager_players__data.data,
+  };
+
+  return talent_Object;
 };
 
 export const Talent_manager_details_Get_all_player_fun = createAsyncThunk(

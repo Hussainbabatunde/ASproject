@@ -118,6 +118,35 @@ const UseTable = ({
                       </td>
                     );
 
+                  case "Admin_fan_Suspend_message_view":
+                    return (
+                      <td
+                        className="useTable_ViewEditSuspendDetails"
+                        style={{ flex: 1 }}
+                      >
+                        <Link
+                          to={`/admin/fans/${each?.user?.id}`}
+                          className="Admin_playersEditprofile cursor-pointer"
+                        >
+                          View
+                        </Link>
+
+                        <span
+                          onClick={() => handleEdit(each)}
+                          className="Admin_playersviewprofile cursor-pointer"
+                        >
+                          Edit
+                        </span>
+
+                        <span
+                          onClick={() => handleDelete(each)}
+                          className="border border-solid border-[#7F351D] px-5 py-2 bg-white text-[#7F351D] font-bold rounded-md mr-4"
+                        >
+                          Remove
+                        </span>
+                      </td>
+                    );
+
                   case "talent_player_Negotiate":
                     return <td className="useTable_tableDetails">NONE</td>;
                 }

@@ -58,14 +58,7 @@ function Talent_Add_Player() {
     },
 
     {
-      id: 5,
-      name: "Status",
-
-      case: "talent_player_status",
-    },
-
-    {
-      id: 6,
+      id: 7,
       name: "",
 
       case: "talent_player_Add",
@@ -116,7 +109,8 @@ function Talent_Add_Player() {
 
               <input type="text" />
             </div>
-            {Talent_manager_details_Get_all_player?.data?.data?.length === 0 ? (
+            {Talent_manager_details_Get_all_player?.All_Player_api?.data
+              ?.length === 0 ? (
               <div
                 style={{
                   display: "flex",
@@ -134,7 +128,7 @@ function Talent_Add_Player() {
               <UseTable
                 handleEdit={handleEdit}
                 header={header}
-                data={Talent_manager_details_Get_all_player?.data?.data}
+                data={Talent_manager_details_Get_all_player?.All_Player_api}
               />
             )}
           </div>
