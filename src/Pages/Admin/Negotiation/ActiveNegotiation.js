@@ -49,10 +49,12 @@ const ActiveNegotiation = ({}) => {
     {
       id: 1,
       name: "Deal name",
+      case: "Neg_Deal_name",
     },
     {
       id: 2,
       name: "Scout",
+      case: "Neg_Scout",
     },
     {
       id: 3,
@@ -65,11 +67,12 @@ const ActiveNegotiation = ({}) => {
     {
       id: 5,
       name: "Payments",
-      case: "All_negotiate_payment",
+      case: "Neg_Payment",
     },
     {
       id: 6,
       name: "Active Negotiaties",
+      case: "scout_All_Negotiaties",
     },
   ];
 
@@ -161,7 +164,9 @@ const ActiveNegotiation = ({}) => {
 
             {step === 1 && (
               <>
-                <p className="AdminPage_NegotiateTitleText">All Negotiates</p>
+                <p className="AdminPage_NegotiateTitleText">
+                  Active Negotiates
+                </p>
                 <div className="AdminPage_TableInfo">
                   <AiOutlineInfoCircle style={{ fontSize: "18px" }} />
                   <span className="AdminPage_TableInfoText">
