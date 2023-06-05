@@ -12,159 +12,142 @@ import {
   fanProfileProfileformApi,
   fanProfileVerificationStatus,
 } from "../../Slice/Fan/ProfileFanSlice/ProfileFanSlice";
+import {
+  Talent_manager_details_Bio_uplaod_fun,
+  Talent_manager_details_fun,
+} from "../../Slice/Talent_Manager/Talent_manager_slice";
+import { ToastContainer } from "react-toastify";
 
 const Talent_Profileform = ({ userId }) => {
-  const PlayerDetails = useSelector(
-    (state) => state?.reducer?.FanProfileSlice?.fanAllProfileDetailsData?.data
-  );
-  // console.log(PlayerDetails)
-
-  const [profileInfo, setProfileInfo] = useState({});
-  const [fullname, setFullname] = useState("");
-  const [phone, setPhone] = useState("");
-  const [current_club, setCurrentClub] = useState("");
-  const [available, setAvailable] = useState("");
-  const [about, setAbout] = useState("");
-  const [location, setLocation] = useState("");
-  const [home_town, setHomeTown] = useState("");
-  const [age, setAge] = useState("");
-  const [position, setPosition] = useState("");
-
-  const UserProfileLogin = useSelector(
-    (state) => state?.reducer?.LoginSlice?.logindata?.data?.user
-  );
-  useEffect(() => {
-    setFullname(`${UserProfileLogin?.firstname} ${UserProfileLogin?.surname}`);
-    setPhone(UserProfileLogin?.phone);
-  }, []);
-  useEffect(() => {
-    if (PlayerDetails) {
-      setCurrentClub(PlayerDetails?.bio?.current_club);
-      setAvailable(PlayerDetails?.bio?.available);
-      setAge(PlayerDetails?.bio?.age);
-      setAbout(PlayerDetails?.bio?.about);
-      setLocation(PlayerDetails?.bio?.location);
-      setHomeTown(PlayerDetails?.bio?.home_town);
-      setFullname(`${PlayerDetails?.firstname} ${PlayerDetails?.surname}`);
-      setPhone(PlayerDetails?.phone);
-    }
-  }, [PlayerDetails]);
-
   const dispatch = useDispatch();
-  const [loadProfileform, setLoadProfileform] = useState(false);
-  const handleProfileform = (e) => {
-    setProfileInfo({ ...profileInfo, [e.target.name]: e.target.value });
-  };
-  const userDataLogin = useSelector(
+
+  const { id } = useSelector(
     (state) => state?.reducer?.LoginSlice?.logindata?.data?.user
   );
+
+  const { Talent_manager_details } = useSelector(
+    (state) => state?.reducer?.Talent_manager_slice
+  );
+
+  let PlayerDetails = Talent_manager_details?.data;
+
+  const [profileInfo, setProfileInfo] = useState({
+    user_id: id,
+    age: PlayerDetails?.bio?.age,
+    user_type: "talent-manager",
+    fullname: `${PlayerDetails?.firstname} ${PlayerDetails?.surname}`,
+    phone: PlayerDetails?.phone,
+    location: PlayerDetails?.bio?.location,
+    home_town: PlayerDetails?.bio?.home_town,
+    email: PlayerDetails?.email,
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setProfileInfo((prevProfileInfo) => ({
+      ...prevProfileInfo,
+      [name]: value,
+    }));
+  };
+
+  const [loadProfileform, setLoadProfileform] = useState(false);
 
   const handleSubmitProfileform = async (event) => {
     event.preventDefault();
-    profileInfo.user_id = userId;
-    profileInfo.current_club = current_club;
-    profileInfo.location = location;
-    profileInfo.home_town = home_town;
-    profileInfo.fullname = fullname;
-    profileInfo.user_type = "scout";
-    profileInfo.phone = phone;
-    profileInfo.age = age;
     setLoadProfileform(true);
-    // console.log('profile info submitted ', profileInfo)
-    await dispatch(fanProfileProfileformApi(profileInfo));
-    await dispatch(ProfileDetailsfan());
-    await dispatch(fanProfileVerificationStatus(userId));
+
+    dispatch(Talent_manager_details_Bio_uplaod_fun(profileInfo));
+
     setLoadProfileform(false);
-  };
-  const available_form = 1;
-  const notavailable_form = 0;
-  const handleCurrentClubClick = (e) => {
-    setCurrentClub(e.target.value);
-  };
-  const handleAvailableClick = (e) => {
-    setAvailable(e.target.value);
-  };
-  const handleAboutClick = (e) => {
-    setAbout(e.target.value);
-  };
-  const handleLocationClick = (e) => {
-    setLocation(e.target.value);
-  };
-  const handleHometownClick = (e) => {
-    setHomeTown(e.target.value);
-  };
-  const handleFullnameClick = (e) => {
-    setFullname(e.target.value);
-  };
-  const handlePhoneClick = (e) => {
-    setPhone(e.target.value);
-  };
-  const handleAgeClick = (e) => {
-    setAge(e.target.value);
-  };
-  const handlePositionClick = (e) => {
-    setPosition(e.target.value);
+    dispatch(Talent_manager_details_fun());
   };
 
   return (
-    <form
-      onSubmit={handleSubmitProfileform}
-      className="Scoutpage_ProfileforContent"
-    >
-      <p className="Scoutpage_Profile_Profiledetailstext">Profile Details</p>
-      <p className="Scoutpage_Profile_filldetailstext">
-        Fill in the following details
-      </p>
-      <p className="Scoutpage_Profile_Profileformlabeltext">Full Name</p>
-      <input
-        type="text"
-        className="Scoutpage_Profile_ProfileformlabelInput"
-        value={fullname}
-        onChange={handleFullnameClick}
-        placeholder="first name and last name"
-      />
-      <p className="Scoutpage_Profile_Profileformlabelnexttext">
-        Email Address
-      </p>
-      <input
-        type="email"
-        className="Scoutpage_Profile_ProfileformlabelInput"
-        value={userDataLogin?.email}
-        placeholder="abc@mail.com"
-      />
-      <p className="Scoutpage_Profile_Profileformlabelnexttext">Phone Number</p>
-      <input
-        type="text"
-        className="Scoutpage_Profile_ProfileformlabelInput"
-        value={phone}
-        onChange={handlePhoneClick}
-        placeholder="08000000000000"
-      />
-      <p className="Scoutpage_Profile_Profileformlabelnexttext">Location</p>
-      <input
-        type="text"
-        className="Scoutpage_Profile_ProfileformlabelInput"
-        value={location}
-        name="location"
-        onChange={handleLocationClick}
-        placeholder="Country of Residence"
-        required
-      />
-      <p className="Scoutpage_Profile_Profileformlabelnexttext">Home Town</p>
-      <input
-        type="text"
-        className="Scoutpage_Profile_ProfileformlabelInput"
-        value={home_town}
-        name="home_town"
-        onChange={handleHometownClick}
-        placeholder="---"
-        required
-      />
+    <>
+      {PlayerDetails && (
+        <form
+          onSubmit={handleSubmitProfileform}
+          className="Scoutpage_ProfileforContent"
+        >
+          <p className="Scoutpage_Profile_Profiledetailstext">
+            Profile Details
+          </p>
+          <p className="Scoutpage_Profile_filldetailstext">
+            Fill in the following details
+          </p>
+          <p className="Scoutpage_Profile_Profileformlabeltext">Full Name</p>
+          <input
+            type="text"
+            className="Scoutpage_Profile_ProfileformlabelInput"
+            value={profileInfo?.fullname}
+            onChange={handleChange}
+            placeholder="first name and last name"
+            name="fullname"
+          />
+          <p className="Scoutpage_Profile_Profileformlabelnexttext">
+            Email Address
+          </p>
+          <input
+            type="email"
+            className="Scoutpage_Profile_ProfileformlabelInput"
+            value={profileInfo?.email}
+            onChange={handleChange}
+            placeholder="abc@mail.com"
+            name="email"
+          />
+          <p className="Scoutpage_Profile_Profileformlabelnexttext">
+            Phone Number
+          </p>
+          <input
+            type="tel"
+            className="Scoutpage_Profile_ProfileformlabelInput"
+            value={profileInfo?.phone}
+            onChange={handleChange}
+            placeholder="08000000000000"
+            name="phone"
+          />
 
-      <button type="submit" className="Scoutpage_Profileform_savebutton">
-        {loadProfileform ? <CircularProgress size={15} /> : <span>Save</span>}
-      </button>
-    </form>
+          <p className="Scoutpage_Profile_Profileformlabelnexttext">Age</p>
+          <input
+            type="number"
+            className="Scoutpage_Profile_ProfileformlabelInput"
+            value={profileInfo?.age}
+            onChange={handleChange}
+            name="age"
+          />
+          <p className="Scoutpage_Profile_Profileformlabelnexttext">Location</p>
+          <input
+            type="text"
+            className="Scoutpage_Profile_ProfileformlabelInput"
+            value={profileInfo?.location}
+            onChange={handleChange}
+            placeholder="Country of Residence"
+            name="location"
+            required
+          />
+          <p className="Scoutpage_Profile_Profileformlabelnexttext">
+            Home Town
+          </p>
+          <input
+            type="text"
+            className="Scoutpage_Profile_ProfileformlabelInput"
+            value={profileInfo?.home_town}
+            name="home_town"
+            onChange={handleChange}
+            placeholder="---"
+            required
+          />
+
+          <button type="submit" className="Scoutpage_Profileform_savebutton">
+            {loadProfileform ? (
+              <CircularProgress size={15} />
+            ) : (
+              <span>Save</span>
+            )}
+          </button>
+        </form>
+      )}
+    </>
   );
 };
 

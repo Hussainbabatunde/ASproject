@@ -9,12 +9,10 @@ import CircularProgress from "@mui/material/CircularProgress";
 import imgPlaceHolder from "../../assets/imageplaceholder.png";
 
 import { ToastContainer } from "react-toastify";
-import { NavLink, Route, Routes } from "react-router-dom";
-import { UserLogout } from "../../Components/Player/UserLogOut";
-import FanProfileUploadId from "../../Components/Fan/FanProfileUploadId";
-import FanProfileProfileform from "../../Components/Fan/FanProfileProfileform";
 import Talent_Header from "../../Components/TalentManagersCompnente/Talent_Header";
 import Talent_Profileform from "../../Components/TalentManagersCompnente/Talent_Profileform";
+import { Talent_manager_details_Image_uplaod_fun } from "../../Slice/Talent_Manager/Talent_manager_slice";
+import TalentProfileUploadId from "../../Components/TalentManagersCompnente/TalentProfileUploadId";
 
 const Talent_manager_Profile = () => {
   const { Talent_manager_details } = useSelector(
@@ -23,55 +21,16 @@ const Talent_manager_Profile = () => {
 
   let userDataInfo = Talent_manager_details?.data;
 
-  const VerifiedStatus = useSelector(
-    (state) => state.reducer?.ScoutProfileSlice?.VerificationStatusData?.data
-  );
-  // console.log('verification ', VerifiedStatus)
-  let progress =
-    VerifiedStatus?.identification +
-    VerifiedStatus?.profile_pics +
-    VerifiedStatus?.physical_stat +
-    VerifiedStatus?.images +
-    VerifiedStatus?.videos;
-  useEffect(() => {
-    if (VerifiedStatus?.videos == 20) {
-      setCheckedVideoLink(true);
-    }
-    if (VerifiedStatus?.physical_stat == 20) {
-      setCheckedPhysicalStats(true);
-    }
-    if (VerifiedStatus?.images == 20) {
-      setCheckedUploadPics(true);
-    }
-    if (VerifiedStatus?.identification == 20) {
-      setCheckedMeansofID(true);
-    }
-    if (VerifiedStatus?.profile_pics == 20) {
-      setCheckedProfilePic(true);
-    }
-  }, [VerifiedStatus]);
-
   const [imgloader, setImgLoader] = useState(false);
 
-  const [file, setFile] = useState(userDataInfo || imgPlaceHolder);
+  const [file, setFile] = useState(
+    userDataInfo?.profile_pics || imgPlaceHolder
+  );
   const [picFile, setPicFile] = useState(null);
-  const [checkedVideoLink, setCheckedVideoLink] = useState(false);
-  const [checkedProfilePic, setCheckedProfilePic] = useState(false);
-  const [checkedPhysicalStats, setCheckedPhysicalStats] = useState(false);
-  const [checkedUploadPics, setCheckedUploadPics] = useState(false);
-  const [checkedMeansofID, setCheckedMeansofID] = useState(false);
+
   const dispatch = useDispatch();
-  const handleLogout = async () => {
-    await dispatch(LogoutAuth());
-    // await dispatch(resetScoutProfileSlice())
-    UserLogout();
-    localStorage.clear();
-    sessionStorage.clear();
-    window.location.reload();
-  };
 
   function handleChange(e) {
-    // console.log(e.target.files[0])
     setPicFile(e.target.files[0]);
     setFile(URL.createObjectURL(e.target.files[0]));
   }
@@ -80,15 +39,6 @@ const Talent_manager_Profile = () => {
     (state) => state?.reducer?.LoginSlice?.logindata?.data?.user?.id
   );
 
-  const PlayerDetails = useSelector(
-    (state) => state?.reducer?.FanProfileSlice?.fanAllProfileDetailsData?.data
-  );
-
-  useEffect(() => {
-    dispatch(ProfileDetailsfan(userId));
-    return () => {};
-  }, []);
-
   const handleImgSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData();
@@ -96,8 +46,8 @@ const Talent_manager_Profile = () => {
     formData.append("id", userId);
 
     setImgLoader(true);
-    await dispatch(fanProfilePicture(formData));
-    // await dispatch(ScoutProfileVerificationStatus())
+    dispatch(Talent_manager_details_Image_uplaod_fun(formData));
+
     setImgLoader(false);
   };
 
@@ -154,7 +104,8 @@ const Talent_manager_Profile = () => {
           </div>
 
           <Talent_Profileform userId={userId} />
-          <FanProfileUploadId userId={userId} />
+
+          <TalentProfileUploadId userId={userId} />
         </div>
       </div>
     </div>

@@ -5,10 +5,16 @@ import { UserLogout } from "../Player/UserLogOut";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { ProfileDetailsfan } from "../../Slice/Fan/ProfileFanSlice/ProfileFanSlice";
-import { Talent_manager_details_fun } from "../../Slice/Talent_Manager/Talent_manager_slice";
+import {
+  Talent_manager_details_fun,
+  reset_CreateTalent,
+} from "../../Slice/Talent_Manager/Talent_manager_slice";
 
 function Talent_Header() {
   const dispatch = useDispatch();
+
+  const { Talent_manager_details, Talent_manager_details_create_isSuccess } =
+    useSelector((state) => state?.reducer?.Talent_manager_slice);
 
   const userId = useSelector(
     (state) => state?.reducer?.LoginSlice?.logindata?.data?.user?.id
@@ -29,17 +35,18 @@ function Talent_Header() {
   };
 
   useEffect(() => {
-    if (userId) {
-      dispatch(Talent_manager_details_fun(userId));
-    }
+    dispatch(Talent_manager_details_fun());
+
+    dispatch(reset_CreateTalent());
+
     return () => {};
-  }, []);
+  }, [Talent_manager_details_create_isSuccess]);
 
   const data = [
     { id: 1, pathTo: "/afrisport/talent-manager/profile", pathName: "Profile" },
     { id: 2, pathTo: "/afrisport/talent-manager/deal", pathName: "Deals" },
-    { id: 3, pathTo: "/afrisport/talent-manager/deal", pathName: "Player" },
-    { id: 4, pathTo: "/afrisport/talent-manager/deal", pathName: "Payment" },
+    { id: 3, pathTo: "/afrisport/talent-manager/players", pathName: "Player" },
+    { id: 4, pathTo: "/afrisport/talent-manager/Payment", pathName: "Payment" },
   ];
   return (
     <>
