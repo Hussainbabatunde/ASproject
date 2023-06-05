@@ -25,6 +25,7 @@ import Scout from "./Pages/Scout/Scout";
 import HomepageFilterView from "./Pages/LandingHomepage/HomepageFilterView";
 import HomeViewPlayerProfile from "./Components/Player/HomeViewPlayerProfile";
 import VerifiedSignup from "./Pages/SignUp/VerifiedSignup";
+import TalentmanagerRoute from "./Pages/TalentManagers/TalentmanagerRoute";
 
 function App() {
   useEffect(() => {
@@ -63,6 +64,17 @@ function App() {
               <PrivateRoute>
                 <Clinet_PrivateRoute>
                   <ScoutRoute />
+                </Clinet_PrivateRoute>
+              </PrivateRoute>
+            }
+          />
+
+          <Route
+            path="/afrisport/talent-manager/*"
+            element={
+              <PrivateRoute>
+                <Clinet_PrivateRoute>
+                  <TalentmanagerRoute />
                 </Clinet_PrivateRoute>
               </PrivateRoute>
             }

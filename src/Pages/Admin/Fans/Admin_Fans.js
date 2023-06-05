@@ -163,7 +163,7 @@ const Admin_Fans = ({}) => {
   };
 
   const handleDelete = (data) => {
-    handleSuspend_Unsuspend(data?.user[0]?.id);
+    handleSuspend_Unsuspend(data?.user?.id);
   };
 
   return (

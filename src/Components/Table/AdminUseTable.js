@@ -96,21 +96,31 @@ const AdminUseTable = ({
                         className="useTable_ViewEditSuspendDetails"
                         style={{ flex: 1 }}
                       >
+                        {each?.user?.status === "suspended" ? (
+                          <span
+                            onClick={() => handleDelete(each)}
+                            className="Admin_playersSuspendprofile cursor-pointer"
+                          >
+                            UnSuspend
+                          </span>
+                        ) : (
+                          <span
+                            className="Admin_playersSuspendprofile cursor-pointer"
+                            onClick={() => handleDelete(each)}
+                          >
+                            Suspend
+                          </span>
+                        )}
+
                         <span
-                          className="Admin_playersSuspendprofile"
-                          onClick={() => handleDelete(each)}
-                        >
-                          Suspend
-                        </span>
-                        <span
-                          className="Admin_playersviewprofile"
+                          className="Admin_playersviewprofile cursor-pointer"
                           onClick={() => handleEdit(each)}
                         >
                           Message
                         </span>
                         <Link
                           to={`/admin/talentManager/${each?.user?.id}`}
-                          className="Admin_playersEditprofile"
+                          className="Admin_playersEditprofile cursor-pointer"
                         >
                           View
                         </Link>
@@ -254,6 +264,7 @@ const AdminUseTable = ({
                     );
 
                   case "Admin_fan_Suspend_message_view":
+                    console.log(each);
                     return (
                       <td
                         className="useTable_ViewEditSuspendDetails"
@@ -261,19 +272,19 @@ const AdminUseTable = ({
                       >
                         <span
                           onClick={() => handleDelete(each)}
-                          className="Admin_playersviewprofile"
+                          className="Admin_playersviewprofile cursor-pointer"
                         >
                           Suspend
                         </span>
                         <span
                           onClick={() => handleEdit(each)}
-                          className="Admin_playersviewprofile"
+                          className="Admin_playersviewprofile cursor-pointer"
                         >
                           Message
                         </span>
                         <Link
                           to={`/admin/fans/${each?.user?.id}`}
-                          className="Admin_playersEditprofile"
+                          className="Admin_playersEditprofile cursor-pointer"
                         >
                           View
                         </Link>
@@ -437,6 +448,38 @@ const AdminUseTable = ({
                       </td>
                     );
 
+                  case "Neg_Deal_name":
+                    return (
+                      <td className="useTable_tableDetails">
+                        {each?.comments?.active_offers?.DealName}
+                      </td>
+                    );
+
+                  case "Neg_Scout":
+                    return (
+                      <td className="useTable_tableDetails">
+                        <div className="flex gap-2 items-center">
+                          <div>
+                            <img
+                              src={each?.comments?.active_offers?.profile_pics}
+                              alt=""
+                              className="border-1 border-black shadow-md w-[35px] h-[35px] rounded-[50%] block"
+                            />
+                          </div>
+                          <span className="f text-xs font-normal">
+                            {`${each?.comments?.active_offers?.firstname}  ${each?.comments?.active_offers?.surname}`}
+                          </span>
+                        </div>
+                      </td>
+                    );
+
+                  case "Neg_Payment":
+                    return (
+                      <td className="useTable_tableDetails">
+                        {`${each?.comments?.active_offers?.Payment} `}
+                      </td>
+                    );
+
                   case "scout_Deal_name":
                     return (
                       <td className="useTable_tableDetails">
@@ -447,7 +490,18 @@ const AdminUseTable = ({
                   case "scout_ne_name":
                     return (
                       <td className="useTable_tableDetails">
-                        {`${each?.firstname}  ${each?.surname}`}
+                        <div className="flex gap-2 items-center">
+                          <div>
+                            <img
+                              src={each?.profile_pics}
+                              alt=""
+                              className="border-1 border-black shadow-md w-[35px] h-[35px] rounded-[50%] block"
+                            />
+                          </div>
+                          <span className="f text-xs font-normal">
+                            {each?.firstname} {each?.surname}
+                          </span>
+                        </div>
                       </td>
                     );
 
@@ -455,6 +509,13 @@ const AdminUseTable = ({
                     return (
                       <td className="useTable_tableDetails">
                         {`${each?.Payment} `}
+                      </td>
+                    );
+
+                  case "dash_ne_Payment":
+                    return (
+                      <td className="useTable_tableDetails">
+                        {`${each?.payment_state} `}
                       </td>
                     );
 

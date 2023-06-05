@@ -14,15 +14,15 @@ import AdminUserSlice from "./Admin/AdminAllAdmins/AdminUserSlice";
 import AdminPrivilageSlice from "./Admin/AdminAllAdmins/AdminPrivilageSlice";
 import AuthorizeSlice from "./Admin/AuthorizeSlice";
 import AdminUpdate_profileSlice from "./Admin/AdminUpdate_profileSlice";
-import ScoutDealsSlice from './Scout/ScoutDealsApiPage/ScoutDealSlice'
-import FanDealsSlice from './Fan/FanDealsApiPage/FanDealSlice'
-import FanProfileSlice from './Fan/ProfileFanSlice/ProfileFanSlice'
+import ScoutDealsSlice from "./Scout/ScoutDealsApiPage/ScoutDealSlice";
+import FanDealsSlice from "./Fan/FanDealsApiPage/FanDealSlice";
+import FanProfileSlice from "./Fan/ProfileFanSlice/ProfileFanSlice";
 import AdminDashboardSlice from "./Admin/AdminDashboardSlice";
 import Admin_Scouts_Slice from "./Admin/Admin_Scouts_Slice";
 import Admin_NegotiationsSlice from "./Admin/Admin_NegotiationsSlice";
 import Admin_FanData_Slice from "./Admin/Admin_FanData_Slice";
 import AdminTalentMangerSlice from "./Admin/AdminTalentMangerSlice";
-
+import Talent_manager_slice from "./Talent_Manager/Talent_manager_slice";
 const reducers = combineReducers({
   LoginSlice: LoginSlice,
   PlayerProfileSlice: PlayerProfileSlice,
@@ -44,7 +44,9 @@ const reducers = combineReducers({
   Admin_FanData_Slice: Admin_FanData_Slice,
   FanDealsSlice: FanDealsSlice,
   FanProfileSlice: FanProfileSlice,
-  AdminTalentMangerSlice: AdminTalentMangerSlice
+  AdminTalentMangerSlice: AdminTalentMangerSlice,
+
+  Talent_manager_slice: Talent_manager_slice,
 });
 
 const persistConfig = {

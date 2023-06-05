@@ -10,12 +10,12 @@ import { CircularProgress } from '@mui/material';
 import { PulseLoader } from "react-spinners";
 import { PlayerAcceptRequestDetailsApi, PlayerDeleteRequestDetailsApi, PlayerFanDealsApi } from '../../Slice/Player/PlayerDeal/PlayerFanDealSlice';
 
-const UseTable = ({header, data, handleShowEdit}) => {
+const UseTable = ({header, data, handleShowEdit, handleDelete,handleEdit,}) => {
 
   const [acceptIndex, setAcceptIndex] = useState(null)
-  const [acceptRequestIndex, setAcceptRequestIndex] = useState(null)
   const [deleteIndex, setDeleteIndex] = useState(null)
   const [deleteRequestIndex, setDeleteRequestIndex] = useState(null)
+  const [acceptRequestIndex, setAcceptRequestIndex] = useState(null)
   const sentData = {}
   const dispatch = useDispatch()
   const userId = useSelector((state)=> state?.reducer?.LoginSlice?.logindata?.data?.user?.id)
@@ -64,8 +64,7 @@ const UseTable = ({header, data, handleShowEdit}) => {
       <thead>
         <tr>
             {header?.map((item, index)=>(
-                <th key={index} colSpan={item?.name== "Actions" && 2} className="UseTable_tableheader">{item?.name == "AcceptDeclineOffer" 
-                || item?.name == "FanAcceptDeclineOffer" ? "Actions" : item?.name}</th>
+                <th key={index} colSpan={item?.name== "Actions" && 2} className="UseTable_tableheader">{item?.name == "AcceptDeclineOffer"  || item?.name == "FanAcceptDeclineOffer" ? "Actions" : item?.name}</th>
             ))}
           {/* <th className="UseTable_tableheader">First Name</th>
           <th className="UseTable_tableheader">Last Name</th>
@@ -77,23 +76,101 @@ const UseTable = ({header, data, handleShowEdit}) => {
              return(
              <tr key={index}>
             {header?.map((item)=>{
+              switch (item?.case) {
+                case "talent_players_name":
+                  return (
+                    <td className="useTable_tableDetails">
+                      <div style={{ display: "flex", alignItems: "center" }}>
+                        <img
+                          src={each?.profile_pics}
+                          className="useTable_ImageRecipient"
+                          alt="Recipient image"
+                        />
+                        {each?.firstname}
+                        {each?.surname}
+                      </div>
+                    </td>
+                  );
+                case "talent_player_Position":
+                  return (
+                    <td className="useTable_tableDetails">
+                      {each?.position}
+                    </td>
+                  );
+
+                case "talent_player_Club":
+                  return (
+                    <td className="useTable_tableDetails">
+                      {each?.current_club}
+                    </td>
+                  );
+
+                case "talent_player_status":
+                  return (
+                    <td className="useTable_tableDetails">{each?.status}</td>
+                  );
+
+                case "talent_player_Add":
+                  return (
+                    <td
+                      className="useTable_ViewEditSuspendDetails"
+                      style={{ flex: 1 }}
+                    >
+                      <span
+                        className="Admin_playersviewprofile cursor-pointer"
+                        onClick={() => handleEdit(each)}
+                      >
+                        Add
+                      </span>
+                    </td>
+                  );
+
+                case "Admin_fan_Suspend_message_view":
+                  return (
+                    <td
+                      className="useTable_ViewEditSuspendDetails"
+                      style={{ flex: 1 }}
+                    >
+                      <Link
+                        to={`/admin/fans/${each?.user?.id}`}
+                        className="Admin_playersEditprofile cursor-pointer"
+                      >
+                        View
+                      </Link>
+
+                      <span
+                        onClick={() => handleEdit(each)}
+                        className="Admin_playersviewprofile cursor-pointer"
+                      >
+                        Edit
+                      </span>
+
+                      <span
+                        onClick={() => handleDelete(each)}
+                        className="border border-solid border-[#7F351D] px-5 py-2 bg-white text-[#7F351D] font-bold rounded-md mr-4"
+                      >
+                        Remove
+                      </span>
+                    </td>
+                  );
+
+                case "talent_player_Negotiate":
+                  return <td className="useTable_tableDetails">NONE</td>;
+              }
+
                 switch(item?.name) {
                     case 'Deal name':
                         return (<td  className='useTable_tableDetails'>{each?.offer?.deal?.DealName || each?.request?.deal?.fanRequest}</td>);
                     case 'Recipient':
                         return (<td className='useTable_tableDetails'><div style={{display:'flex', alignItems:'center'}}><img src={each?.offer?.player?.profile_pics} className='useTable_ImageRecipient' alt='Recipient image'/>{each?.offer?.player?.firstname} {each?.offer?.player?.surname}</div></td>);
                     case 'Sender':
-                          return (<td className='useTable_tableDetails'>
-                            <div style={{display:'flex', alignItems:'center'}}>
-                              <img src={each?.offer?.sender?.profile_pics  || each?.request?.sender?.profile_pics} className='useTable_ImageRecipient' alt='Recipient image'/>{each?.offer?.sender?.firstname || each?.request?.sender?.firstname} {each?.offer?.sender?.surname || each?.request?.sender?.surname}
-                            </div>
-                            </td>);
+                          return (<td className='useTable_tableDetails'><div style={{display:'flex', alignItems:'center'}}><img src={each?.offer?.sender?.profile_pics || each?.request?.sender?.profile_pics} className='useTable_ImageRecipient' alt='Recipient image'/>{each?.offer?.sender?.firstname || each?.request?.sender?.firstname} {each?.offer?.sender?.surname || each?.request?.sender?.surname}</div></td>);
                     case 'Details':
                         return (<td className='useTable_tableDetails'>{each?.offer?.deal?.about || each?.offer?.deal?.detail || each?.request?.deal?.detail}</td>);
                     case 'Amount':
-                        return (<td className='useTable_tableDetails'>${each?.offer?.deal?.value || each?.request?.deal?.value}</td>);
+                        return (<td className='useTable_tableDetails'>{each?.offer?.deal?.value || each?.request?.deal?.value}</td>);
                     case 'Payment':
-                        return (<td className='useTable_tableDetails'>{each?.offer?.deal?.surname || each?.request?.deal?.detail}</td>);
+                        return (<td className='useTable_tableDetails'>{each?.offer?.deal?.surname}</td>);
                     case 'Status':
                         return (<td className='useTable_tableDetails'>{each?.offer?.deal?.offerStatus || each?.offer?.deal?.status || each?.request?.deal?.requestStatus}</td>);
                     
@@ -139,49 +216,49 @@ const UseTable = ({header, data, handleShowEdit}) => {
                         </td>
                       );
                       case "FanAcceptDeclineOffer":
-                      return (
-                        <td
-                          className="useTable_ViewEditSuspendDetails"
-                          style={{ flex: 1, width: "200px" }}
-                        >
-                          {/* <Link className="Admin_playersviewprofile">Edit</Link> */}
-                        {each?.request?.deal?.requestStatus == 'accepted' ? 
-                        <button className='AcceptedPlayerUseTable'>Accepted</button>
-                        : each?.request?.deal?.requestStatus == 'rejected' ?
-                        <button className='RejectedPlayerUseTable'>Rejected</button> 
-                        :<>
-                          <button
-                            className="Admin_playersviewprofile"
-                            onClick={()=> handleAcceptRequest(each?.request?.deal?.requestId)}
+                        return (
+                          <td
+                            className="useTable_ViewEditSuspendDetails"
+                            style={{ flex: 1, width: "200px" }}
                           >
-                            {acceptRequestIndex == each?.request?.deal?.requestId ? 
-                            <PulseLoader
-                              color="#1D7F33"
-                              size={13}
-                              aria-label="Loading Spinner"
-                              data-testid="loader"
-                            />
-                            : <span>Accept</span>}
-                          </button>
-                          <button
-                            className="Admin_playersSuspendprofile"
-                            onClick={()=> handleDeleteRequest(each?.request?.deal?.requestId)}
-                          >
-                              {deleteRequestIndex == each?.request?.deal?.requestId? 
-                            <PulseLoader
-                              color="#7F351D"
-                              size={13}
-                              aria-label="Loading Spinner"
-                              data-testid="loader"
-                            />
-                            : <span>Decline</span>}
-                          </button>
-                          </>}
-                        </td>
-                      );
+                            {/* <Link className="Admin_playersviewprofile">Edit</Link> */}
+                          {each?.request?.deal?.requestStatus == 'accepted' ? 
+                          <button className='AcceptedPlayerUseTable'>Accepted</button>
+                          : each?.request?.deal?.requestStatus == 'rejected' ?
+                          <button className='RejectedPlayerUseTable'>Rejected</button> 
+                          :<>
+                            <button
+                              className="Admin_playersviewprofile"
+                              onClick={()=> handleAcceptRequest(each?.request?.deal?.requestId)}
+                            >
+                              {acceptRequestIndex == each?.request?.deal?.requestId ? 
+                              <PulseLoader
+                                color="#1D7F33"
+                                size={13}
+                                aria-label="Loading Spinner"
+                                data-testid="loader"
+                              />
+                              : <span>Accept</span>}
+                            </button>
+                            <button
+                              className="Admin_playersSuspendprofile"
+                              onClick={()=> handleDeleteRequest(each?.request?.deal?.requestId)}
+                            >
+                                {deleteRequestIndex == each?.request?.deal?.requestId? 
+                              <PulseLoader
+                                color="#7F351D"
+                                size={13}
+                                aria-label="Loading Spinner"
+                                data-testid="loader"
+                              />
+                              : <span>Decline</span>}
+                            </button>
+                            </>}
+                          </td>
+                        );
                       case '':
                           return (<>
-                          <td className='useTable_tableDetails'><Link to={`/afrisport/player/dealsmade/${each?.offer?.deal?.offerId || each?.request?.deal?.requestId}`} style={{color:'white'}} className='useTable_tableDetailsLink'>Details</Link></td>
+                          <td className='useTable_tableDetails'><Link to={`/afrisport/player/dealsmade/${each?.offer?.deal?.offerId}`} style={{color:'white'}} className='useTable_tableDetailsLink'>Details</Link></td>
                           </>);
                       case 'Scout Deals':
                           return (<>
