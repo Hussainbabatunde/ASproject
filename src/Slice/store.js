@@ -6,6 +6,7 @@ import AdminAllAdminSlice from "./Admin/AdminAllAdmins/AdminPermissionSlice";
 import PlayerVisitSlice from "./Player/PlayerView/PlayerViewSlice";
 import GetPlayerSlice from "./Player/PlayerHomePage/GetAllPlayersHomePage";
 import GetAllPlayerDealSlice from "./Player/PlayerDeal/PlayerDealSlice";
+import PlayerFanSlice from "./Player/PlayerDeal/PlayerFanDealSlice";
 import storage from "redux-persist/lib/storage";
 import { persistReducer, persistStore } from "redux-persist";
 import RoleSlice from "./Admin/AdminAllAdmins/RoleSlice";
@@ -29,6 +30,7 @@ const reducers = combineReducers({
   PlayerVisitSlice: PlayerVisitSlice,
   GetPlayerSlice: GetPlayerSlice,
   GetAllPlayerDealSlice: GetAllPlayerDealSlice,
+  PlayerFanSlice: PlayerFanSlice,
   ScoutProfileAction: ScoutProfileAction,
   RoleSlice: RoleSlice,
   AdminUserSlice: AdminUserSlice,

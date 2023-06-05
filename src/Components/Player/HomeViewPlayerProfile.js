@@ -21,6 +21,7 @@ import ReactPlayer from 'react-player'
 import { ToastContainer } from 'react-toastify'
 import VideoRequestModal from './VideoRequestModal'
 import Header from '../Header/Header'
+import ModalImgViewProfile from './ModalImgViewProfile'
 
 const HomeViewPlayerProfile = () => {
   const { id } = useParams();
@@ -33,6 +34,8 @@ const HomeViewPlayerProfile = () => {
     const [videoLoader, setVideoLoader] = useState(false)
     const [requestType, setRequestType] = useState(null)
     const [showVideoRequest, setShowVideoRequest] = useState(false)
+    const [imgModal, setImgModal] = useState(null)
+    const [showImgModal, setShowImgModal] = useState(false)
   
     const logindata = useSelector(
       (state) => state?.reducer?.LoginSlice?.logindata
@@ -83,6 +86,15 @@ const HomeViewPlayerProfile = () => {
       const handleVideoRequestType= async ()=>{
          setRequestType('Video');
         handleShowVideoRequest()
+      }
+
+      const handleImageClicked = (img) =>{
+        console.log(img)
+        setImgModal(img)
+        setShowImgModal(true)
+      }
+      const handleCloseImageClicked = () =>{
+        setShowImgModal(false)
       }
 
 
@@ -194,8 +206,11 @@ const HomeViewPlayerProfile = () => {
         </div>
         <p className='ScoutViewProfile_PhysicalStatsText'>Images <BsDot style={{fontSize:'25px'}}/> {PlayerDetails?.images.length} </p>
         <div className='ScoutViewProfile_ImageSection'>
-        {PlayerDetails?.images.map((each, index) =>( 
-        <img src={each?.image_url}  key={index} className='ScoutViewProfile_Image' />
+        {PlayerDetails?.images.map((each, index) =>(
+          <div key={index}  className='ScoutViewProfile_ImageDiv'> 
+        <img src={each?.image_url} className='ScoutViewProfile_Image' />
+        <button  onClick={()=> handleImageClicked(each?.image_url)} className='bg-green-400 text-white px-1 my-1 rounded'>View</button>
+        </div>
         ))}
             {/* <img src={PlayerImg} className='ScoutViewProfile_Image' />
             <img src={PlayerImg} className='ScoutViewProfile_Image' />
@@ -213,13 +228,29 @@ const HomeViewPlayerProfile = () => {
         </div>
         </div>
         <div className='HomepageViewProfile_OfferRequest'>
-        {userData?.data?.user_type == 'fan' || logindata == null && 
+        {userData?.data?.user_type == 'fan'  && 
         <div className='HomepageViewProfile_MakeRequestSec'>                
             <p className='ScoutViewProfile_AboutTopicText'>For Fans</p>
             <p className='ScoutViewProfile_UserProfileCurrentlyAvailable'>Request for personalized Video or Photo Content</p>
             <button className='HomepageViewProfile_requestButton' onClick={handleShow}>Make a request</button>
             </div>}
-            {userData?.data?.user_type != 'player' && 
+            {logindata == null  && 
+        <div className='HomepageViewProfile_MakeRequestSec'>                
+            <p className='ScoutViewProfile_AboutTopicText'>For Fans</p>
+            <p className='ScoutViewProfile_UserProfileCurrentlyAvailable'>Request for personalized Video or Photo Content</p>
+            <button className='HomepageViewProfile_requestButton' onClick={handleShow}>Make a request</button>
+            </div>}
+            {userData?.data?.user_type != 'player' && userData?.data?.user_type != 'fan' && logindata != null && 
+            <div className='HomepageViewProfile_MakeRequestSec'>                
+            <p className='ScoutViewProfile_AboutTopicText'>Negotiate this Player</p>
+            <p className='ScoutViewProfile_UserProfileCurrentlyAvailable'>For Business, Pitch your business offer to the player/talent manager.</p>
+            <div style={{marginTop: '20px'}}>
+            <p style={{fontSize: '13px'}}>Ranging from $400</p>
+            <p style={{fontSize: '13px', marginTop:"5px"}}>Open for negotiation</p>
+            </div>
+            <button className='HomepageViewProfile_requestButton' onClick={handleShowOffer}>Pitch offer</button>
+            </div>}
+            {logindata == null  && 
             <div className='HomepageViewProfile_MakeRequestSec'>                
             <p className='ScoutViewProfile_AboutTopicText'>Negotiate this Player</p>
             <p className='ScoutViewProfile_UserProfileCurrentlyAvailable'>For Business, Pitch your business offer to the player/talent manager.</p>
@@ -235,6 +266,7 @@ const HomeViewPlayerProfile = () => {
     <MakeARequest loader={loader} handleRequestType={handleRequestType} handleVideoRequestType={handleVideoRequestType} PlayerDetails={PlayerDetails} setRequestType={setRequestType} show={show} handleShow={handleShow} handleShowOffer={handleShowOffer} handleShowVideoRequest={handleShowVideoRequest} handleHide={handleHide}/>
     <HomePagePitchOffer loader={loader} show={showOffer} handleShow={handleShowOffer} handleHide={handleHideOffer} />
     <VideoRequestModal loader={videoLoader} setRequestType={setRequestType} requestType={requestType} show={showVideoRequest} handleHide={handleHideVideoRequest} />
+    <ModalImgViewProfile showImgModal={showImgModal} imgModal={imgModal} handleCloseImageClicked={handleCloseImageClicked} />
     <Footer />
     </div>
   )

@@ -18,8 +18,9 @@ import { reset as resetPlayerProfileSlice } from "../../Slice/Player/Playerprofi
 import {reset as resetGetAllPlayerDealSlice} from "../../Slice/Player/PlayerDeal/PlayerDealSlice"
 import { UserLogout } from './UserLogOut';
 import { ToastContainer } from 'react-toastify';
+import { PlayerFanDealsApi } from '../../Slice/Player/PlayerDeal/PlayerFanDealSlice';
 
-const PlayerDeal = () => {
+const PlayerFanDeal = () => {
     const dispatch = useDispatch()
     const handleLogout = async () =>{
         await dispatch(LogoutAuth())
@@ -35,7 +36,7 @@ const PlayerDeal = () => {
         {id: 2, pathTo: '/afrisport/player/deal', pathName: 'Scout Deals'},
         {id: 2, pathTo: '/afrisport/player/fandeal', pathName: 'Fan Deals'},
         {id: 3, pathTo: '/afrisport/player/views', pathName: 'Views'},
-        {id: 4, pathTo: '/afrisport/player/payment', pathName: 'Payment'}
+        {id: 4, pathTo: '/afrisport/player/payment', pathName: 'Payment'},
     ]
 
     const header= [
@@ -66,7 +67,7 @@ const PlayerDeal = () => {
       },
       {
         id: 8,
-        name: 'AcceptDeclineOffer'
+        name: 'FanAcceptDeclineOffer'
       },
       {
           id:7,
@@ -88,8 +89,8 @@ const PlayerDeal = () => {
   useEffect(()=>{
     const DealSlice = async ()=>{
         setShow(true)
-        await dispatch(PlayerDealsApi())
-        await dispatch(GetPlayerOfferDetailsApi())
+        await dispatch(PlayerFanDealsApi())
+        // await dispatch(GetPlayerOfferDetailsApi())
         setShow(false)
     }
     DealSlice()
@@ -101,8 +102,8 @@ const PlayerDeal = () => {
 //     }
 // ]
 
-const dataTable = useSelector((state)=> state?.reducer?.GetAllPlayerDealSlice?.PlayerDealData?.data)
-console.log('deals ', dataTable)
+const dataTable = useSelector((state)=> state?.reducer?.PlayerFanSlice?.PlayerFanDealData?.data)
+console.log('fan deals ', dataTable)
   return (
     <div  className='Scoutpage_contents'>
         <ToastContainer />
@@ -139,4 +140,4 @@ console.log('deals ', dataTable)
   )
 }
 
-export default PlayerDeal
+export default PlayerFanDeal

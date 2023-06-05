@@ -15,6 +15,9 @@ import { PlayerDeleteImgApi, PlayerDeleteVideoApi, PlayerProfileVerificationStat
 import { CircularProgress, Skeleton } from '@mui/material'
 import ReactPlayer from 'react-player'
 import { ToastContainer } from 'react-toastify'
+import ModalImgViewProfile from './ModalImgViewProfile'
+import {AiFillDelete, AiFillStar} from 'react-icons/ai'
+import AdvertisePlayerModal from './AdvertisePlayerModal'
 
 
 const PlayerViewProfile = () => {
@@ -31,6 +34,9 @@ const PlayerViewProfile = () => {
   const [deleteimgIndex, setDeleteImgIndex] = useState({})
   const [deleteVideoIndex, setDeleteVideoIndex] = useState({})
   const [loadingIndex, setLoadingIndex] = useState(null);
+  const [imgModal, setImgModal] = useState(null)
+  const [showImgModal, setShowImgModal] = useState(false)
+  const [show, setShow] = useState(false)
 
   // console.log('PlayerDetails ', PlayerDetails)
   const originalString = PlayerDetails?.bio?.position;
@@ -45,6 +51,8 @@ const PlayerViewProfile = () => {
     // console.log('cover img ', coverimg)
   }
 
+  const hideAdvertiseProfile = () => setShow(false)
+
   const handleDeleteImg = async (id) =>{
     setDeleteImgIndex(id);
     await dispatch(PlayerDeleteImgApi({id, userId}))
@@ -57,6 +65,15 @@ const PlayerViewProfile = () => {
     await dispatch(PlayerDeleteVideoApi({id, userId}))
     await dispatch(ProfileDetailsPlayer(userId))
     setDeleteVideoIndex(null)
+  }
+
+  const handleImageClicked = (img) =>{
+    console.log(img)
+    setImgModal(img)
+    setShowImgModal(true)
+  }
+  const handleCloseImageClicked = () =>{
+    setShowImgModal(false)
   }
 
   useEffect(()=>{
@@ -94,7 +111,7 @@ const PlayerViewProfile = () => {
             </div>
           </div>
 
-          <button className='ScoutViewProfile_AdvertiseProfile'>Advertise Profile</button>
+          <button onClick={()=> setShow(true)} className='ScoutViewProfile_AdvertiseProfile'>Advertise Profile</button>
         </div>
         <div className='ScoutViewProfile_AboutSection'>
             <p className='ScoutViewProfile_AboutTopicText'>About</p>
@@ -146,22 +163,22 @@ const PlayerViewProfile = () => {
         <p className='ScoutViewProfile_PhysicalStatsText'>Images <BsDot style={{fontSize:'25px'}}/> {PlayerDetails?.images.length} </p>
         <div className='ScoutViewProfile_ImageSection'>
         {PlayerDetails?.images.map((each, index) =>( 
-          <div key={index} className='ScoutViewProfile_ImageDiv'>
-        <img src={each?.image_url}  className='ScoutViewProfile_Image' />
+          <div key={index}  className='ScoutViewProfile_ImageDiv'>
+        <img src={each?.image_url} onClick={()=> handleImageClicked(each?.image_url)} className='ScoutViewProfile_Image' />
+
+        <div className='Button_Imgdiv_ModalView'>
         <button className='ScoutViewProfile_Image_CoverImg' onClick={()=> handleSetCoverImg(each?.id)}>
-        {loadingIndex == each?.id ? <CircularProgress size={15} /> : <span>Set as Cover Image</span>}
+        {loadingIndex == each?.id ? <CircularProgress size={15} /> : <span style={{display: 'flex', alignItems:'center'}}> <AiFillStar style={{marginRight: '5px', color: 'gray'}} />Set as Cover Image</span>}
         </button>
         <button className='ScoutViewProfile_Image_DeleteImg' onClick={()=> handleDeleteImg(each?.id)}>
-        {deleteimgIndex == each?.id ? <CircularProgress size={15} /> : <span>Delete</span>}
+        {deleteimgIndex == each?.id ? <CircularProgress size={15} /> : <span style={{display: 'flex', alignItems:'center'}}> <AiFillDelete style={{marginRight: '5px'}} />Delete</span>}
         </button>
         </div>
-        ))}
-            {/* <img src={PlayerImg} className='ScoutViewProfile_Image' />
-            <img src={PlayerImg} className='ScoutViewProfile_Image' />
-            <img src={PlayerImg} className='ScoutViewProfile_Image' />
-            <img src={PlayerImg} className='ScoutViewProfile_Image' />
-            <img src={PlayerImg} className='ScoutViewProfile_Image' /> */}
         </div>
+        ))}
+        </div>
+
+
         <p className='ScoutViewProfile_PhysicalStatsText'>Video <BsDot style={{fontSize:'25px'}}/> {PlayerDetails?.videos?.length} </p>
         <div className='ScoutViewProfile_VideoSection'>
         {PlayerDetails?.videos.map((each, index) =>( 
@@ -173,7 +190,8 @@ const PlayerViewProfile = () => {
         </div>
         ))}
         </div>
-
+        <ModalImgViewProfile showImgModal={showImgModal} imgModal={imgModal} handleCloseImageClicked={handleCloseImageClicked} />
+          <AdvertisePlayerModal show={show} progress={progress} hideAdvertiseProfile={hideAdvertiseProfile} positionPlayed={positionPlayed} />
     </div>
   )
 }

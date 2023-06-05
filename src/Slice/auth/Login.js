@@ -31,7 +31,7 @@ export const RegisterAuth = createAsyncThunk(
       },
     });
 
-    console.log({ name: details });
+    // console.log({ name: details });
     return await instance
       .post("signup", details)
       .then(async (response) => {

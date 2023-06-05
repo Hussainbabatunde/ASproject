@@ -96,7 +96,8 @@ const PlayerProfile = () => {
   };
   const data = [
     { id: 1, pathTo: "/afrisport/player/profile", pathName: "Profile" },
-    { id: 2, pathTo: "/afrisport/player/deal", pathName: "Deals" },
+    { id: 2, pathTo: "/afrisport/player/deal", pathName: "Scout Deals" },
+    {id: 2, pathTo: '/afrisport/player/fandeal', pathName: 'Fan Deals'},
     { id: 3, pathTo: "/afrisport/player/views", pathName: "Views" },
     { id: 4, pathTo: "/afrisport/player/payment", pathName: "Payment" },
   ];
@@ -133,7 +134,7 @@ const PlayerProfile = () => {
 
     setImgLoader(true);
     await dispatch(PlayerProfilePicture(formData));
-    await dispatch(PlayerProfileVerificationStatus());
+    await dispatch(PlayerProfileVerificationStatus(userId));
     setImgLoader(false);
   };
 
@@ -165,6 +166,7 @@ const PlayerProfile = () => {
     e.preventDefault();
     setVideoLoader(true);
     await dispatch(PlayerProfileVideoLink(videoData));
+    await dispatch(PlayerProfileVerificationStatus(userId))
     setVideoLoader(false);
     // console.log('inputs ', inputs)
   };
