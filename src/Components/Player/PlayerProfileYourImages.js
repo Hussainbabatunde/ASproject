@@ -49,29 +49,28 @@ const PlayerProfileYourImages = ({userId}) => {
       const handleYourImagesSubmit = async (e) =>{
         e.preventDefault()
         const formData = new FormData();
-        if (images.length < 5){
-          toast.error("Upload 5 pictures of Yourself", {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-            });
-        }else{
+        // if (images.length < 5){
+        //   toast.error("Upload 5 pictures of Yourself", {
+        //     position: "top-right",
+        //     autoClose: 5000,
+        //     hideProgressBar: false,
+        //     closeOnClick: true,
+        //     pauseOnHover: true,
+        //     draggable: true,
+        //     progress: undefined,
+        //     theme: "light",
+        //     });
+        // }else{
         for(let i =0; i < images.length; i++){
         formData.append('user_images[]', images[i])
-    }
+    // }
   
         formData.append('id', userId)
-        // for (const [name, value] of formData.entries()) {
-        //     console.log(`${name}: ${value}`);
-        //   }
         setLoadYourImages(true)
           await dispatch(PlayerYourImagesApi(formData))
           await dispatch(PlayerProfileVerificationStatus(userId))
+          setImages([])
+          setPreviewUrls([])
           setLoadYourImages(false)
   }
       }

@@ -85,9 +85,7 @@ const ScoutProfile = () => {
     },[])
 
     useEffect(()=>{
-      if(PlayerDetails){
       setFile(PlayerDetails?.profile_pics)
-      }
     },[PlayerDetails])
 
     const handleImgSubmit = async (e) =>{

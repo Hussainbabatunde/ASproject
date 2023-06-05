@@ -19,7 +19,7 @@ const PlayerProfileBusinessService = ({userId}) => {
     const [loadBusinessService, setLoadBusinessService] = useState(false)
 
     const PlayerDetails = useSelector((state)=>state?.reducer?.PlayerProfileSlice?.AllProfileDetailsData?.data)
-console.log('player details ', PlayerDetails)
+// console.log('player details ', PlayerDetails)
    
 
     // const handleChangeBusinessPricing = (e) =>{
@@ -34,15 +34,18 @@ console.log('player details ', PlayerDetails)
         pricingBusiness.maximum = amtStatedTo
       }
       else if(priceType == 'actual'){
-        pricingBusiness.amount = `${amtActual}`
+        pricingBusiness.minimum = `${amtActual}`
+        pricingBusiness.maximum = `${amtActual}`
       }
       else if(priceType == 'open'){
-        pricingBusiness.amount = ''
+        pricingBusiness.minimum = 'open'
+        pricingBusiness.maximum = 'open'
       }
       else if(priceType == 'free'){
-        pricingBusiness.amount = ''
+        pricingBusiness.minimum = 'free'
+        pricingBusiness.maximum = 'free'
       }
-      // console.log(pricingBusiness)
+      // console.log('tunde ',pricingBusiness)
       setLoadBusinessService(true)
       await dispatch(PlayerProfileBusinessServiceApi(pricingBusiness))
       await dispatch(PlayerProfileVerificationStatus(userId))

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import '../../Pages/Scout/ScoutViewProfile.css'
-import { Link, useNavigate, useParams } from 'react-router-dom'
+import { Link, useNavigate, useNavigation, useParams } from 'react-router-dom'
 import {GrFormNext} from 'react-icons/gr'
 import {BsShareFill} from 'react-icons/bs'
 import imgPlaceholder from '../../assets/imgPlaceholder.png'
@@ -20,6 +20,8 @@ import HomePagePitchOffer from './HomePagePitchOffer'
 import ReactPlayer from 'react-player'
 import { ToastContainer } from 'react-toastify'
 import VideoRequestModal from './VideoRequestModal'
+import Header from '../Header/Header'
+import ModalImgViewProfile from './ModalImgViewProfile'
 
 const HomeViewPlayerProfile = () => {
   const { id } = useParams();
@@ -32,8 +34,12 @@ const HomeViewPlayerProfile = () => {
     const [videoLoader, setVideoLoader] = useState(false)
     const [requestType, setRequestType] = useState(null)
     const [showVideoRequest, setShowVideoRequest] = useState(false)
+    const [imgModal, setImgModal] = useState(null)
+    const [showImgModal, setShowImgModal] = useState(false)
   
-  
+    const logindata = useSelector(
+      (state) => state?.reducer?.LoginSlice?.logindata
+    );
     const userData = useSelector((state)=> state.reducer.LoginSlice?.logindata )
     const PlayerDetails = useSelector((state)=>state?.reducer?.PlayerProfileSlice?.AllProfileDetailsData?.data)
     // console.log('Player details ', PlayerDetails)
@@ -45,15 +51,25 @@ const HomeViewPlayerProfile = () => {
         setShow(false)
       }
       const handleShow= ()=>{
+        if(logindata != null){
         setShow(true)
+      }
+      else{
+       navigate('/login')
+      }
       }
 
       const handleHideOffer = () => {
         setShowOffer(false)
       }
       const handleShowOffer= ()=>{
+        if(logindata != null){
         setShow(false)
         setShowOffer(true)
+        }
+        else{
+         navigate('/login')
+        }
       }
 
       const handleShowVideoRequest = () =>{
@@ -70,6 +86,15 @@ const HomeViewPlayerProfile = () => {
       const handleVideoRequestType= async ()=>{
          setRequestType('Video');
         handleShowVideoRequest()
+      }
+
+      const handleImageClicked = (img) =>{
+        console.log(img)
+        setImgModal(img)
+        setShowImgModal(true)
+      }
+      const handleCloseImageClicked = () =>{
+        setShowImgModal(false)
       }
 
 
@@ -97,7 +122,7 @@ const HomeViewPlayerProfile = () => {
 
   return (
     <div>
-        <ScoutHeader />
+        {logindata != null ? <ScoutHeader />: <Header />}
     <div className='ScoutViewProfile'>
       <ToastContainer />
         {/* <div className='ScoutViewProfile_navigation'>
@@ -181,8 +206,11 @@ const HomeViewPlayerProfile = () => {
         </div>
         <p className='ScoutViewProfile_PhysicalStatsText'>Images <BsDot style={{fontSize:'25px'}}/> {PlayerDetails?.images.length} </p>
         <div className='ScoutViewProfile_ImageSection'>
-        {PlayerDetails?.images.map((each, index) =>( 
-        <img src={each?.image_url}  key={index} className='ScoutViewProfile_Image' />
+        {PlayerDetails?.images.map((each, index) =>(
+          <div key={index}  className='ScoutViewProfile_ImageDiv'> 
+        <img src={each?.image_url} className='ScoutViewProfile_Image' />
+        <button  onClick={()=> handleImageClicked(each?.image_url)} className='bg-green-400 text-white px-1 my-1 rounded'>View</button>
+        </div>
         ))}
             {/* <img src={PlayerImg} className='ScoutViewProfile_Image' />
             <img src={PlayerImg} className='ScoutViewProfile_Image' />
@@ -200,13 +228,29 @@ const HomeViewPlayerProfile = () => {
         </div>
         </div>
         <div className='HomepageViewProfile_OfferRequest'>
-        {userData?.data?.user_type == 'fan' && 
+        {userData?.data?.user_type == 'fan'  && 
         <div className='HomepageViewProfile_MakeRequestSec'>                
             <p className='ScoutViewProfile_AboutTopicText'>For Fans</p>
             <p className='ScoutViewProfile_UserProfileCurrentlyAvailable'>Request for personalized Video or Photo Content</p>
             <button className='HomepageViewProfile_requestButton' onClick={handleShow}>Make a request</button>
             </div>}
-            {userData?.data?.user_type != 'player' && 
+            {logindata == null  && 
+        <div className='HomepageViewProfile_MakeRequestSec'>                
+            <p className='ScoutViewProfile_AboutTopicText'>For Fans</p>
+            <p className='ScoutViewProfile_UserProfileCurrentlyAvailable'>Request for personalized Video or Photo Content</p>
+            <button className='HomepageViewProfile_requestButton' onClick={handleShow}>Make a request</button>
+            </div>}
+            {userData?.data?.user_type != 'player' && userData?.data?.user_type != 'fan' && logindata != null && 
+            <div className='HomepageViewProfile_MakeRequestSec'>                
+            <p className='ScoutViewProfile_AboutTopicText'>Negotiate this Player</p>
+            <p className='ScoutViewProfile_UserProfileCurrentlyAvailable'>For Business, Pitch your business offer to the player/talent manager.</p>
+            <div style={{marginTop: '20px'}}>
+            <p style={{fontSize: '13px'}}>Ranging from $400</p>
+            <p style={{fontSize: '13px', marginTop:"5px"}}>Open for negotiation</p>
+            </div>
+            <button className='HomepageViewProfile_requestButton' onClick={handleShowOffer}>Pitch offer</button>
+            </div>}
+            {logindata == null  && 
             <div className='HomepageViewProfile_MakeRequestSec'>                
             <p className='ScoutViewProfile_AboutTopicText'>Negotiate this Player</p>
             <p className='ScoutViewProfile_UserProfileCurrentlyAvailable'>For Business, Pitch your business offer to the player/talent manager.</p>
@@ -222,6 +266,7 @@ const HomeViewPlayerProfile = () => {
     <MakeARequest loader={loader} handleRequestType={handleRequestType} handleVideoRequestType={handleVideoRequestType} PlayerDetails={PlayerDetails} setRequestType={setRequestType} show={show} handleShow={handleShow} handleShowOffer={handleShowOffer} handleShowVideoRequest={handleShowVideoRequest} handleHide={handleHide}/>
     <HomePagePitchOffer loader={loader} show={showOffer} handleShow={handleShowOffer} handleHide={handleHideOffer} />
     <VideoRequestModal loader={videoLoader} setRequestType={setRequestType} requestType={requestType} show={showVideoRequest} handleHide={handleHideVideoRequest} />
+    <ModalImgViewProfile showImgModal={showImgModal} imgModal={imgModal} handleCloseImageClicked={handleCloseImageClicked} />
     <Footer />
     </div>
   )

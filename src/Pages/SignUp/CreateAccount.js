@@ -35,11 +35,11 @@ const CreateAccount = () => {
     const navigate = useNavigate();
     const userData = useSelector((state)=> state.reducer.LoginSlice?.registerData )
 
-    // useEffect( ()=>{
-    //     if(userData?.message == 'Registration Successful. Email Verification Link sent to your email'){
-    //       navigate('/login')
-    //     }
-    //   }, [userData, navigate])
+    useEffect( ()=>{
+        if(userData?.message == 'Registration Successful. Email Verification Link sent to your email'){
+          navigate('/verify')
+        }
+      }, [userData, navigate])
 
     
       const formSchema = Yup.object().shape({
