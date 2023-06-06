@@ -28,6 +28,9 @@ const HomepageFilterView = () => {
     const [foot, setFoot] = useState('')
 
     const [data, setData] = useState({})
+    const logindata = useSelector(
+        (state) => state?.reducer?.LoginSlice?.logindata
+      );
 
     useEffect(()=>{
         const getPlayerDataHome = async () =>{
@@ -89,7 +92,7 @@ const HomepageFilterView = () => {
 
   return (
     <div>
-        <ScoutHeader />
+        {logindata != null ? <ScoutHeader />: <Header />}
         <div className='Homepage_contents'>
             <FilterHeroSection />
             <div className='FilterPage_ContentSection'>

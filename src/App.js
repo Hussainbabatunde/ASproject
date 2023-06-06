@@ -24,6 +24,7 @@ import ScoutViewProfile from "./Pages/Scout/ScoutViewProfile";
 import Scout from "./Pages/Scout/Scout";
 import HomepageFilterView from "./Pages/LandingHomepage/HomepageFilterView";
 import HomeViewPlayerProfile from "./Components/Player/HomeViewPlayerProfile";
+import VerifiedSignup from "./Pages/SignUp/VerifiedSignup";
 import TalentmanagerRoute from "./Pages/TalentManagers/TalentmanagerRoute";
 
 function App() {
@@ -35,6 +36,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="" element={<HomePage />} />
+          <Route path='/verify' element={<VerifiedSignup />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/create-account/:id" element={<CreateAccount />} />

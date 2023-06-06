@@ -3,51 +3,83 @@ import axios from "axios";
 import { toast } from "react-toastify";
 
 const initialState = {
-  user: null,
-  isError: false,
-  isSuccess: false,
-  isLoading: false,
-  message: null,
-  PlayerDealData: null,
-  getOfferDetailsData: null,
-  acceptPlayerOfferDetails: null,
-  deletePlayerOfferDetails: null,
-  downloadPlayerOfferDetails: null,
-  detailsDealData: null,
-  commentMadeData: null,
-  commentsOfferData: null,
-};
+    user: null,
+    isError: false,
+    isSuccess: false,
+    isLoading: false,
+    message: null,
+    PlayerDealData: null,
+    getOfferDetailsData: null,
+    acceptPlayerOfferDetails: null,
+    deletePlayerOfferDetails: null,
+    downloadPlayerOfferDetails: null,
+    detailsDealData: null,
+    commentMadeData: null,
+    commentsOfferData: null
+  };
 
-export const PlayerDealsApi = createAsyncThunk(
-  "playerDealsApi/userPlayerDealsApi",
-  async (_, { rejectWithValue }) => {
-    const tokengot = localStorage.getItem("token");
-    const infoneeded = `Bearer ${tokengot}`;
-    const instance = axios.create({
-      baseURL: process.env.REACT_APP_AFRISPORTURL,
-      timeout: 20000,
-
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        Authorization: infoneeded,
-      },
-    });
-    return await instance
-      .get("player/offers")
-      .then(async (response) => {
-        console.log("gotten deals ", response.data);
-        return response.data;
-      })
-
-      .catch((err) => {
-        let errdata = err.response.data;
-        console.log("error ", errdata);
-        return rejectWithValue(errdata);
-        // console.log(err)
+  export const PlayerDealsApi = createAsyncThunk(
+    "playerDealsApi/userPlayerDealsApi",
+    async (_, { rejectWithValue }) => {
+        
+        const tokengot = localStorage.getItem("token");
+        const infoneeded = `Bearer ${tokengot}`;
+      const instance = axios.create({
+        baseURL: process.env.REACT_APP_AFRISPORTURL ,
+        timeout: 20000,
+  
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: infoneeded
+        },
       });
-  }
-);
+      return await instance
+        .get('player/offers')
+        .then(async (response) => {
+            console.log('gotten deals ',response.data)
+          return response.data;
+        })
+  
+        .catch((err) => {
+          let errdata = err.response.data;
+          console.log('error ', errdata)
+          return rejectWithValue(errdata);
+          // console.log(err)
+        });
+    }
+  );
+
+// export const PlayerDealsApi = createAsyncThunk(
+//   "playerDealsApi/userPlayerDealsApi",
+//   async (_, { rejectWithValue }) => {
+//     const tokengot = localStorage.getItem("token");
+//     const infoneeded = `Bearer ${tokengot}`;
+//     const instance = axios.create({
+//       baseURL: process.env.REACT_APP_AFRISPORTURL,
+//       timeout: 20000,
+
+//       headers: {
+//         "Content-Type": "application/json",
+//         Accept: "application/json",
+//         Authorization: infoneeded,
+//       },
+//     });
+//     return await instance
+//       .get("player/offers")
+//       .then(async (response) => {
+//         console.log("gotten deals ", response.data);
+//         return response.data;
+//       })
+
+//       .catch((err) => {
+//         let errdata = err.response.data;
+//         console.log("error ", errdata);
+//         return rejectWithValue(errdata);
+//         // console.log(err)
+//       });
+//   }
+// );
 
 export const PlayerDealsDetailsApi = createAsyncThunk(
   "playerDealsDetailsApi/userPlayerDealsDetailsApi",

@@ -32,29 +32,25 @@ const HomePagePitchOffer = ({
   title,
   handleHide,
 }) => {
-  const [payValue, setPayValue] = useState("");
-  const { id } = useParams();
-  const [data, setData] = useState({});
-  const [change, setChange] = useState(false);
-  const PlayerDetails = useSelector(
-    (state) => state?.reducer?.PlayerProfileSlice?.AllProfileDetailsData?.data
-  );
-  const userId = useSelector(
-    (state) => state?.reducer?.LoginSlice?.logindata?.data?.user?.id
-  );
-  const userType = useSelector(
-    (state) => state?.reducer?.LoginSlice?.logindata?.data?.user_type
-  );
-  const [loadingOffer, setLoadingOffer] = useState(false);
-  const dispatch = useDispatch();
 
-  useEffect(() => {
-    if (PlayerDetails) {
-      if (PlayerDetails?.price?.minimum == "") {
-        setPayValue(0);
-      } else {
-        setPayValue(PlayerDetails?.price?.minimum);
-      }
+
+    const [payValue, setPayValue] = useState('')
+    const { id } = useParams();
+    const [data, setData] = useState({})
+    const [change, setChange] = useState(false)
+    const PlayerDetails = useSelector((state)=>state?.reducer?.PlayerProfileSlice?.AllProfileDetailsData?.data)
+    const userId = useSelector((state)=> state?.reducer?.LoginSlice?.logindata?.data?.user?.id)
+    const userType = useSelector((state)=> state?.reducer?.LoginSlice?.logindata?.data?.user_type)
+    const [loadingOffer, setLoadingOffer] = useState(false)
+    const dispatch = useDispatch()
+
+    useEffect(()=>{
+      if(PlayerDetails){
+        if(PlayerDetails?.price?.minimum == 'free' || PlayerDetails?.price?.minimum == 'open'){
+          setPayValue(0)
+        }else{
+      setPayValue(PlayerDetails?.price?.minimum)
+        }
     }
   }, [PlayerDetails]);
 

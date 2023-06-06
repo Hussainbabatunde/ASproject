@@ -31,7 +31,7 @@ export const RegisterAuth = createAsyncThunk(
       },
     });
 
-    console.log({ name: details });
+    // console.log({ name: details });
     return await instance
       .post("signup", details)
       .then(async (response) => {
@@ -207,6 +207,18 @@ export const LoginSlice = createSlice({
           });
         } else if (action.payload?.message == "Invalid username or password") {
           toast.error("Invalid username or password", {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
+        }
+        else if (action.payload?.message) {
+          toast.error(` ${action.payload?.message}`, {
             position: "top-right",
             autoClose: 5000,
             hideProgressBar: false,
