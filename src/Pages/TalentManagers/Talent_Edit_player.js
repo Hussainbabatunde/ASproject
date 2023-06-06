@@ -8,80 +8,65 @@ import { LogoutAuth } from "../../Slice/auth/Login";
 import { RxExit } from "react-icons/rx";
 import { NavLink, Route, Routes } from "react-router-dom";
 
+import { useMutation } from "react-query";
+
 import {
   PlayerProfilePicture,
   PlayerProfileVerificationStatus,
   PlayerProfileVideoLink,
   ProfileDetailsPlayer,
 } from "../../Slice/Player/Playerprofile/PlayerProfileSlice";
-import { ToastContainer } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import { UserLogout } from "../../Components/Player/UserLogOut";
 // import { reset as resetPlayerProfileSlice } from "../../Slice/Player/Playerprofile/PlayerProfileSlice";
 // import { reset as resetGetAllPlayerDealSlice } from "../../Slice/Player/PlayerDeal/PlayerDealSlice";
 // import { UserLogout } from "./UserLogOut";
 // import PlayerProfileFanService from "./PlayerFanServicePrice";
+import { useLocation } from "react-router";
+import Talent_Header from "../../Components/TalentManagersCompnente/Talent_Header";
+import {
+  Talent_manager_Get_Single_player_fun,
+  reset_Single_manager_player,
+} from "../../Slice/Talent_Manager/Talent_manager_slice";
+import axios from "axios";
+import TalentPlayerProfileProfileform from "../../Components/TalentManagersCompnente/TalentPlayerProfileProfileform";
+import TalentPlayerProfilePhysicalStats from "../../Components/TalentManagersCompnente/TalentPlayerProfilePhysicalStats";
+import TalentPlayerProfileBusinessService from "../../Components/TalentManagersCompnente/TalentPlayerProfileBusinessService";
+import TalentPlayerProfileFanService from "../../Components/TalentManagersCompnente/TalentPlayerProfileFanService";
+import TalentPlayerProfileUploadId from "../../Components/TalentManagersCompnente/TalentPlayerProfileUploadId";
+import TalentPlayerProfileVideo from "../../Components/TalentManagersCompnente/TalentPlayerProfileVideo";
+
+let baseURL = process.env.REACT_APP_AFRISPORTURL;
 
 const Talent_Edit_player = () => {
-  const VerifiedStatus = useSelector(
-    (state) => state.reducer?.PlayerProfileSlice?.VerificationStatusData?.data
+  const dispatch = useDispatch();
+
+  let player_data = useLocation();
+
+  const { Talent_manager_Get_Single_player } = useSelector(
+    (state) => state?.reducer?.Talent_manager_slice
   );
-  // console.log('verification ', VerifiedStatus)
-  let progress =
-    VerifiedStatus?.identification +
-    VerifiedStatus?.profile_pics +
-    VerifiedStatus?.physical_stat +
-    VerifiedStatus?.images +
-    VerifiedStatus?.videos;
+  const { each } = player_data.state;
+
   useEffect(() => {
-    if (VerifiedStatus?.videos == 20) {
-      setCheckedVideoLink(true);
-    }
-    if (VerifiedStatus?.physical_stat == 20) {
-      setCheckedPhysicalStats(true);
-    }
-    if (VerifiedStatus?.images == 20) {
-      setCheckedUploadPics(true);
-    }
-    if (VerifiedStatus?.identification == 20) {
-      setCheckedMeansofID(true);
-    }
-    if (VerifiedStatus?.profile_pics == 20) {
-      setCheckedProfilePic(true);
-    }
-  }, [VerifiedStatus]);
+    dispatch(Talent_manager_Get_Single_player_fun(each?.user_id));
+    return () => {
+      dispatch(reset_Single_manager_player());
+    };
+  }, []);
 
-  const Parentdiv = {
-    height: "1rem",
-    width: "100%",
-    backgroundColor: "whitesmoke",
-    borderRadius: 40,
-  };
-
-  const Childdiv = {
-    height: "100%",
-    width: `${progress}%`,
-    backgroundColor: "#91BE3F",
-    borderRadius: 40,
-    textAlign: "right",
-    marginTop: 10,
-  };
-
-  const progresstext = {
-    padding: 10,
-    color: "black",
-    fontWeight: 900,
-  };
+  let Player_Details = Talent_manager_Get_Single_player?.data;
 
   const [imgloader, setImgLoader] = useState(false);
 
-  const [file, setFile] = useState(imgPlaceHolder);
+  const [file, setFile] = useState(Player_Details?.profile_pics);
   const [picFile, setPicFile] = useState(null);
   const [checkedVideoLink, setCheckedVideoLink] = useState(false);
   const [checkedProfilePic, setCheckedProfilePic] = useState(false);
   const [checkedPhysicalStats, setCheckedPhysicalStats] = useState(false);
   const [checkedUploadPics, setCheckedUploadPics] = useState(false);
   const [checkedMeansofID, setCheckedMeansofID] = useState(false);
-  const dispatch = useDispatch();
+
   const handleLogout = async () => {
     await dispatch(LogoutAuth());
     // await dispatch(resetPlayerProfileSlice())
@@ -97,7 +82,6 @@ const Talent_Edit_player = () => {
     { id: 4, pathTo: "/afrisport/player/payment", pathName: "Payment" },
   ];
   function handleChange(e) {
-    // console.log(e.target.files[0])
     setPicFile(e.target.files[0]);
     setFile(URL.createObjectURL(e.target.files[0]));
   }
@@ -111,29 +95,9 @@ const Talent_Edit_player = () => {
   const userDataInfo = useSelector(
     (state) => state?.reducer?.LoginSlice?.logindata?.data?.user
   );
-  // console.log('user ', userId)
-
-  useEffect(() => {
-    const checkingVerification = async () => {
-      await dispatch(ProfileDetailsPlayer(userId));
-      await dispatch(PlayerProfileVerificationStatus(userId));
-    };
-    checkingVerification();
-  }, []);
-
-  const handleImgSubmit = async (e) => {
-    e.preventDefault();
-    const formData = new FormData();
-    formData.append("profile", picFile);
-    formData.append("id", userId);
-
-    setImgLoader(true);
-    await dispatch(PlayerProfilePicture(formData));
-    await dispatch(PlayerProfileVerificationStatus());
-    setImgLoader(false);
-  };
 
   //for the vieo upload
+
   const [inputs, setInputs] = useState([""]);
   const [videoLoader, setVideoLoader] = useState(false); // Initialize with one empty input
   const [videoData, setVideoData] = useState({});
@@ -155,46 +119,132 @@ const Talent_Edit_player = () => {
     setInputs(newInputs);
   };
 
+  const Profilevidoemutation = useMutation(
+    (formData) => {
+      // Your API request code here
+      // Use formData to send the image data to the API
+
+      let API_URL = `${baseURL}talent-manager/player/profile-picture`;
+      const tokengot = localStorage.getItem("token");
+
+      const config = {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Accept: "multipart/form-data",
+          Authorization: `Bearer ${tokengot}`,
+        },
+      };
+      return axios.post(API_URL, formData, config);
+    },
+    {
+      onSuccess: () => {
+        toast.success("Form submitted successfully!", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      },
+      onError: () => {
+        toast.error("Error occurred while submitting the form.", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          className: "Forbidden403",
+        });
+      },
+    }
+  );
+
   const handleSubmitVideos = async (e) => {
-    videoData.user_id = userId;
+    videoData.user_id = Player_Details?.id;
     videoData.videos_url = inputs;
     e.preventDefault();
+
     setVideoLoader(true);
-    await dispatch(PlayerProfileVideoLink(videoData));
+
+    console.log(videoData);
+
+    Profilevidoemutation.mutate(videoData);
+
+    // await dispatch(PlayerProfileVideoLink(videoData));
     setVideoLoader(false);
-    // console.log('inputs ', inputs)
   };
 
-  useEffect(() => {
-    setFile(PlayerDetails?.profile_pics);
-  }, [PlayerDetails]);
+  // useEffect(() => {
+  //   setFile(PlayerDetails?.profile_pics);
+  // }, [PlayerDetails]);
+
+  const ProfileImagemutation = useMutation(
+    (formData) => {
+      // Your API request code here
+      // Use formData to send the image data to the API
+
+      let API_URL = `${baseURL}talent-manager/player/profile-picture`;
+      const tokengot = localStorage.getItem("token");
+
+      const config = {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Accept: "multipart/form-data",
+          Authorization: `Bearer ${tokengot}`,
+        },
+      };
+      return axios.post(API_URL, formData, config);
+    },
+    {
+      onSuccess: () => {
+        toast.success("Form submitted successfully!", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      },
+      onError: () => {
+        toast.error("Error occurred while submitting the form.", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          className: "Forbidden403",
+        });
+      },
+    }
+  );
+
+  const handleImgSubmit = async (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append("profile", picFile);
+    formData.append("id", Player_Details?.id);
+
+    ProfileImagemutation.mutate(formData);
+  };
 
   return (
     <div className="Scoutpage_contents">
       <ToastContainer />
-      <div className="Scoutpage_AccountLogout_div">
-        <p className="Scoutpage_AccountWord">Account</p>
-        <p
-          className="Scoutpage_AccountWord"
-          style={{ cursor: "pointer" }}
-          onClick={handleLogout}
-        >
-          Logout <RxExit />
-        </p>
-      </div>
-      <div className="Scoutpage_LinkPages">
-        {data.map((each, index) => (
-          <NavLink
-            to={each?.pathTo}
-            key={index}
-            className={({ isActive }) =>
-              isActive ? "Scoutpage_Profileactivepage" : "Scoutpage_Profilepage"
-            }
-          >
-            {each?.pathName}
-          </NavLink>
-        ))}
-      </div>
+
+      <Talent_Header />
+
       <div className="Scoutpage_ProfileContent">
         <div className="Scoutpage_ProfileContent_editformside">
           <div className="Scoutpage_Profile_ImgVerificationSec">
@@ -208,7 +258,15 @@ const Talent_Edit_player = () => {
                 }}
               >
                 <label for="imagePlcholder">
-                  <img src={file} className="Scoutpage_Profile_placeholder" />
+                  {file === null ? (
+                    <img
+                      src={imgPlaceHolder}
+                      className="Scoutpage_Profile_placeholder"
+                    />
+                  ) : (
+                    <img src={file} className="Scoutpage_Profile_placeholder" />
+                  )}
+
                   <input
                     type="file"
                     id="imagePlcholder"
@@ -221,7 +279,7 @@ const Talent_Edit_player = () => {
                   type="submit"
                   className="Scoutpage_Profileform_savebutton"
                 >
-                  {imgloader ? (
+                  {ProfileImagemutation?.isLoading ? (
                     <CircularProgress size={15} />
                   ) : (
                     <span>Upload photo</span>
@@ -230,9 +288,11 @@ const Talent_Edit_player = () => {
               </form>
               <div className="Scoutpage_Profile_nameVerify">
                 <p className="Scoutpage_profile_Username">
-                  {`${userDataInfo?.firstname} ${userDataInfo?.surname}`}{" "}
+                  {`${Player_Details?.firstname} ${Player_Details?.surname}`}
                   <span className="Scoutpage_Profile_Verificationstatus">
-                    (not Verified)
+                    {Player_Details?.reviewed === "approved"
+                      ? " ( Verified)"
+                      : " (not Verified)"}
                   </span>
                 </p>
                 <p className="Scoutpage_profile_Usertype">Player Account</p>
@@ -245,9 +305,26 @@ const Talent_Edit_player = () => {
               View Profile
             </Link>
           </div>
-          {/* <PlayerProfileProfileform userId={userId} />
-          <PlayerProfilePhysicalStats userId={userId} />
-          <PlayerProfileBusinessService userId={userId} />
+
+          <TalentPlayerProfileProfileform user_data={Player_Details} />
+          <TalentPlayerProfilePhysicalStats user_data={Player_Details} />
+
+          <TalentPlayerProfileBusinessService user_data={Player_Details} />
+
+          {/* <TalentPlayerProfileFanService user_data={Player_Details} /> */}
+
+          <TalentPlayerProfileUploadId user_data={Player_Details} />
+          <TalentPlayerProfileVideo
+            user_data={Player_Details}
+            videoLoader={videoLoader}
+            handleSubmitVideos={handleSubmitVideos}
+            addInput={addInput}
+            handleInputChange={handleInputChange}
+            inputs={inputs}
+            removeInput={removeInput}
+          />
+
+          {/* 
           <PlayerProfileFanService userId={userId} />
           <PlayerProfileUploadId userId={userId} />
           <PlayerProfileYourImages userId={userId} />
@@ -260,54 +337,6 @@ const Talent_Edit_player = () => {
             inputs={inputs}
             removeInput={removeInput}
           /> */}
-        </div>
-        <div className="ScoutProfile_VerificationCol">
-          <div className="ScoutProfile_VerificationDiv">
-            <p className="Scoutpage_Profile_Profiledetailstext">
-              Verify Account
-            </p>
-            <p className="ScoutProfile_VerifyAccountText">
-              Your profile is not visible. Complete 3 more tasks to level up to
-            </p>
-            <div style={Parentdiv}>
-              <div style={Childdiv}>
-                <span style={progresstext}>{`${progress}%`}</span>
-              </div>
-            </div>
-            <div className="ScoutProfile_VerifyAccountCheckdiv">
-              <input type="radio" checked={checkedVideoLink} />
-              <p className="ScoutProfile_VerifyAccountCheck_Text">
-                Add a Youtube link to a Video of your showcasing skillsets
-              </p>
-            </div>
-            <div className="ScoutProfile_VerifyAccountCheckdiv">
-              <input type="radio" checked={checkedProfilePic} />
-              <p className="ScoutProfile_VerifyAccountCheck_Text">
-                Upload a Profile Picture of Your Actial face
-              </p>
-            </div>
-            <div className="ScoutProfile_VerifyAccountCheckdiv">
-              <input type="radio" checked={checkedPhysicalStats} />
-              <p className="ScoutProfile_VerifyAccountCheck_Text">
-                Add all Your Physical Stats
-              </p>
-            </div>
-            <div className="ScoutProfile_VerifyAccountCheckdiv">
-              <input type="radio" checked={checkedUploadPics} />
-              <p className="ScoutProfile_VerifyAccountCheck_Text">
-                Upload 5 pictures of yourself
-              </p>
-            </div>
-            <div className="ScoutProfile_VerifyAccountCheckdiv">
-              <input type="radio" checked={checkedMeansofID} />
-              <p className="ScoutProfile_VerifyAccountCheck_Text">
-                Upload Means of ID
-              </p>
-            </div>
-            <button className="ScoutProfile_Profileform_SendRequest">
-              Send Request
-            </button>
-          </div>
         </div>
       </div>
     </div>
