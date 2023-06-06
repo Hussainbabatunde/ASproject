@@ -131,12 +131,15 @@ const UseTable = ({
                           View
                         </Link>
 
-                        <span
-                          onClick={() => handleEdit(each)}
+                        <Link
+                          to="/afrisport/talent-manager/edit-player"
+                          state={{
+                            each,
+                          }}
                           className="Admin_playersviewprofile cursor-pointer"
                         >
                           Edit
-                        </span>
+                        </Link>
 
                         <span
                           onClick={() => handleDelete(each)}
