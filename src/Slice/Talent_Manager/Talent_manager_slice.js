@@ -44,6 +44,7 @@ const Talent_manager_Get_Single_player_fun_Service = async (data, token) => {
   };
 
   const response = await axios.get(API_URL, config);
+  console.log(response.data);
   return response.data;
 };
 
@@ -54,7 +55,7 @@ export const Talent_manager_Get_Single_player_fun = createAsyncThunk(
       const token = thunkAPI.getState().reducer.LoginSlice.logindata.data.token;
       const id =
         thunkAPI.getState().reducer.LoginSlice.logindata.data?.user?.id;
-
+      console.log(data);
       return await Talent_manager_Get_Single_player_fun_Service(data, token);
     } catch (error) {
       const message =
