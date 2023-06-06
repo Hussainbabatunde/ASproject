@@ -11,6 +11,12 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Talent_manager_details_Get_all_player_fun } from "../../Slice/Talent_Manager/Talent_manager_slice";
 import Create_players from "./Create_players";
+import { ToastContainer, toast } from "react-toastify";
+
+import axios from "axios";
+import { useMutation } from "react-query";
+
+let baseURL = process.env.REACT_APP_AFRISPORTURL;
 
 function Talent_manager_palyer() {
   const dispatch = useDispatch();
@@ -18,11 +24,11 @@ function Talent_manager_palyer() {
   const [show, setShow] = useState(false);
   const navigate = useNavigate();
 
+  const { logindata } = useSelector((state) => state.reducer.LoginSlice);
+
   const { Talent_manager_details_Get_all_player } = useSelector(
     (state) => state?.reducer?.Talent_manager_slice
   );
-
-  console.log(Talent_manager_details_Get_all_player);
 
   const header = [
     {
@@ -65,25 +71,6 @@ function Talent_manager_palyer() {
     p: 4,
   };
 
-  const dataTable = [
-    {
-      id: 1,
-      scoutname: "Jerry Oloti",
-      email: "tunde@mail.com",
-      phoneNumber: "12345678",
-      role: "manager",
-      enable: "enable",
-    },
-    {
-      id: 2,
-      scoutname: "Jerry Oloti",
-      email: "tunde@mail.com",
-      phoneNumber: "12345678",
-      role: "manager",
-      enable: "Disable",
-    },
-  ];
-
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [scout_email, setScout_email] = useState(null);
 
@@ -101,8 +88,62 @@ function Talent_manager_palyer() {
     setScout_email(data);
   };
 
+  const ProfileImagemutation = useMutation(
+    (formData) => {
+      // Your API request code here
+      // Use formData to send the image data to the API
+
+      let API_URL = `${baseURL}talent-manager/player/remove`;
+      const tokengot = localStorage.getItem("token");
+
+      const config = {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Accept: "multipart/form-data",
+          Authorization: `Bearer ${tokengot}`,
+        },
+      };
+      console.log(formData);
+
+      let data = {
+        manager_id: logindata?.data?.user?.id,
+        player_id: formData?.user_id,
+      };
+
+      // console.log(data);
+
+      return axios.post(API_URL, data, config);
+    },
+    {
+      onSuccess: () => {
+        toast.success("Removed successfully!", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      },
+      onError: () => {
+        toast.error("Error occurred while submitting the form.", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          className: "Forbidden403",
+        });
+      },
+    }
+  );
   const handleDelete = (data) => {
-    // handleSuspend_Unsuspend(data?.user?.id);
+    ProfileImagemutation.mutate(data);
   };
 
   useEffect(() => {
@@ -122,6 +163,8 @@ function Talent_manager_palyer() {
       )}
       <div className="Scoutpage_contents ">
         <Talent_Header />
+        <ToastContainer />
+
         <div className="Scoutpage_DealContent">
           <div className="Scoutpage_DealContent">
             <div>
