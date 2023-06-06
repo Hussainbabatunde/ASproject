@@ -22,11 +22,136 @@ const initialState = {
   Talent_manager_details_Get_all_player_message: null,
 
   Talent_manager_Add_player: null,
+
+  Talent_manager_Get_Single_player: null,
+  Talent_manager_Get_Single_player_isError: false,
+  Talent_manager_Get_Single_player_isSuccess: false,
+  Talent_manager_Get_Single_player_isLoading: false,
+  Talent_manager_Get_Single_player_message: null,
+
+  Talent_manager_Deals: null,
+  Talent_manager_Deals_isError: false,
+  Talent_manager_Deals_isSuccess: false,
+  Talent_manager_Deals_isLoading: false,
+  Talent_manager_Deals_message: null,
+
+  Talent_manager_requested_players: null,
 };
 
 const tokengot = localStorage.getItem("token");
 
 let baseURL = process.env.REACT_APP_AFRISPORTURL;
+
+const Talent_manager_requested_players_fun_Service = async (token) => {
+  let API_URL = `${baseURL}talent-manager/request`;
+
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  const response = await axios.get(API_URL, config);
+
+  console.log(response.data);
+  return response.data;
+};
+
+export const Talent_manager_requested_players_fun = createAsyncThunk(
+  "Talent_manager_slice/Talent_manager_requested_players_fun",
+  async (_, thunkAPI) => {
+    try {
+      const token = thunkAPI.getState().reducer.LoginSlice.logindata.data.token;
+      const id =
+        thunkAPI.getState().reducer.LoginSlice.logindata.data?.user?.id;
+      return await Talent_manager_requested_players_fun_Service(token);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+
+      console.log(message);
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+const Talent_manager_Deals_fun_Service = async (token) => {
+  let API_URL = `${baseURL}talent-manager/offer`;
+
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  const response = await axios.get(API_URL, config);
+  return response.data;
+};
+
+export const Talent_manager_Deals_fun = createAsyncThunk(
+  "Talent_manager_slice/Talent_manager_Deals_fun",
+  async (_, thunkAPI) => {
+    try {
+      const token = thunkAPI.getState().reducer.LoginSlice.logindata.data.token;
+      const id =
+        thunkAPI.getState().reducer.LoginSlice.logindata.data?.user?.id;
+
+      console.log("this is me");
+      return await Talent_manager_Deals_fun_Service(token);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+
+      console.log(message);
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+const Talent_manager_Get_Single_player_fun_Service = async (data, token) => {
+  let API_URL = `${baseURL}talent-manager/player/profile/${data}`;
+
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  const response = await axios.get(API_URL, config);
+  console.log(response.data);
+  return response.data;
+};
+
+export const Talent_manager_Get_Single_player_fun = createAsyncThunk(
+  "Talent_manager_slice/Talent_manager_Get_Single_player_fun",
+  async (data, thunkAPI) => {
+    try {
+      const token = thunkAPI.getState().reducer.LoginSlice.logindata.data.token;
+      const id =
+        thunkAPI.getState().reducer.LoginSlice.logindata.data?.user?.id;
+      console.log(data);
+      return await Talent_manager_Get_Single_player_fun_Service(data, token);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+
+      console.log(message);
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
 
 const Talent_manager_Add_player_fun_Service = async (data, id, token) => {
   let API_URL = `${baseURL}talent-manager/player/add`;
@@ -296,10 +421,87 @@ export const Talent_manager_slice = createSlice({
       state.Talent_manager_details_isLoading = false;
       state.Talent_manager_details_message = null;
     },
+
+    reset_Single_manager_player: (state, action) => {
+      state.Talent_manager_Get_Single_player_isError = false;
+      state.Talent_manager_Get_Single_player_isSuccess = false;
+      state.Talent_manager_Get_Single_player_isLoading = false;
+      state.Talent_manager_Get_Single_player = null;
+      state.Talent_manager_Get_Single_player_message = null;
+    },
+
+    reset_Talent_manager_Deals: (state, action) => {
+      state.Talent_manager_Deals_isError = false;
+      state.Talent_manager_Deals_message = null;
+      state.Talent_manager_Deals = null;
+      state.Talent_manager_requested_players = null;
+      state.Talent_manager_Deals_isLoading = false;
+      state.Talent_manager_Deals_isSuccess = false;
+    },
   },
 
   extraReducers: (builder) => {
     builder
+
+      .addCase(Talent_manager_requested_players_fun.pending, (state) => {
+        state.Talent_manager_Deals_isLoading = true;
+      })
+      .addCase(
+        Talent_manager_requested_players_fun.fulfilled,
+        (state, action) => {
+          state.Talent_manager_requested_players = action.payload;
+          state.Talent_manager_Deals_isSuccess = true;
+          state.Talent_manager_Deals_isLoading = false;
+        }
+      )
+      .addCase(
+        Talent_manager_requested_players_fun.rejected,
+        (state, action) => {
+          state.Talent_manager_Deals_isError = true;
+          state.Talent_manager_Deals_message = action.payload;
+          state.Talent_manager_Deals_isLoading = false;
+          state.Talent_manager_Deals_isSuccess = false;
+
+          toast.error(`${state.Talent_manager_Deals_message}`, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            className: "Forbidden403",
+          });
+        }
+      )
+
+      .addCase(Talent_manager_Deals_fun.pending, (state) => {
+        state.Talent_manager_Deals_isLoading = true;
+      })
+      .addCase(Talent_manager_Deals_fun.fulfilled, (state, action) => {
+        state.Talent_manager_Deals = action.payload;
+        state.Talent_manager_Deals_isSuccess = true;
+        state.Talent_manager_Deals_isLoading = false;
+      })
+      .addCase(Talent_manager_Deals_fun.rejected, (state, action) => {
+        state.Talent_manager_Deals_isError = true;
+        state.Talent_manager_Deals_message = action.payload;
+        state.Talent_manager_Deals_isLoading = false;
+        state.Talent_manager_Deals_isSuccess = false;
+
+        toast.error(`${state.Talent_manager_Deals_message}`, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          className: "Forbidden403",
+        });
+      })
 
       .addCase(Talent_manager_details_Get_all_player_fun.pending, (state) => {
         state.Talent_manager_details_Get_all_player_isLoading = true;
@@ -334,6 +536,39 @@ export const Talent_manager_slice = createSlice({
               className: "Forbidden403",
             }
           );
+        }
+      )
+
+      .addCase(Talent_manager_Get_Single_player_fun.pending, (state) => {
+        state.Talent_manager_Get_Single_player_isLoading = true;
+      })
+      .addCase(
+        Talent_manager_Get_Single_player_fun.fulfilled,
+        (state, action) => {
+          state.Talent_manager_Get_Single_player = action.payload;
+          state.Talent_manager_Get_Single_player_isSuccess = true;
+          state.Talent_manager_Get_Single_player_isLoading = false;
+        }
+      )
+      .addCase(
+        Talent_manager_Get_Single_player_fun.rejected,
+        (state, action) => {
+          state.Talent_manager_Get_Single_player_isError = true;
+          state.Talent_manager_Get_Single_player_message = action.payload;
+          state.Talent_manager_Get_Single_player_isLoading = false;
+          state.Talent_manager_Get_Single_player_isSuccess = false;
+
+          toast.error(`${state.Talent_manager_Get_Single_player_message}`, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            className: "Forbidden403",
+          });
         }
       )
 
@@ -538,5 +773,7 @@ export const {
   reset_CreateTalent,
   reset_Get_all_players,
   reset_Talent_manager_details,
+  reset_Single_manager_player,
+  reset_Talent_manager_Deals,
 } = Talent_manager_slice.actions;
 export default Talent_manager_slice.reducer;

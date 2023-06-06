@@ -36,7 +36,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="" element={<HomePage />} />
-          <Route path='/verify' element={<VerifiedSignup />} />
+          <Route path="/verify" element={<VerifiedSignup />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/create-account/:id" element={<CreateAccount />} />

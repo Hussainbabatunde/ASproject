@@ -1,33 +1,49 @@
-import React, { useState } from 'react'
-import './UseTable.css'
-import {FiEdit} from 'react-icons/fi'
-import {MdDelete} from 'react-icons/md'
-import Lottie from 'lottie-react';
-import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { GetPlayerOfferDetailsApi, PlayerAcceptOfferDetailsApi, PlayerDealsApi, PlayerDeleteOfferDetailsApi } from '../../Slice/Player/PlayerDeal/PlayerDealSlice';
-import { CircularProgress } from '@mui/material';
+import React, { useState } from "react";
+import "./UseTable.css";
+import { FiEdit } from "react-icons/fi";
+import { MdDelete } from "react-icons/md";
+import Lottie from "lottie-react";
+import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  GetPlayerOfferDetailsApi,
+  PlayerAcceptOfferDetailsApi,
+  PlayerDealsApi,
+  PlayerDeleteOfferDetailsApi,
+} from "../../Slice/Player/PlayerDeal/PlayerDealSlice";
+import { CircularProgress } from "@mui/material";
 import { PulseLoader } from "react-spinners";
-import { PlayerAcceptRequestDetailsApi, PlayerDeleteRequestDetailsApi, PlayerFanDealsApi } from '../../Slice/Player/PlayerDeal/PlayerFanDealSlice';
+import {
+  PlayerAcceptRequestDetailsApi,
+  PlayerDeleteRequestDetailsApi,
+  PlayerFanDealsApi,
+} from "../../Slice/Player/PlayerDeal/PlayerFanDealSlice";
 
-const UseTable = ({header, data, handleShowEdit, handleDelete,handleEdit,}) => {
+const UseTable = ({
+  header,
+  data,
+  handleShowEdit,
+  handleDelete,
+  handleEdit,
+}) => {
+  const [acceptIndex, setAcceptIndex] = useState(null);
+  const [deleteIndex, setDeleteIndex] = useState(null);
+  const [deleteRequestIndex, setDeleteRequestIndex] = useState(null);
+  const [acceptRequestIndex, setAcceptRequestIndex] = useState(null);
+  const sentData = {};
+  const dispatch = useDispatch();
+  const userId = useSelector(
+    (state) => state?.reducer?.LoginSlice?.logindata?.data?.user?.id
+  );
+  const handleAcceptOffer = async (id) => {
+    setAcceptIndex(id);
+    sentData.offer_id = id;
+    sentData.user_id = userId;
+    await dispatch(PlayerAcceptOfferDetailsApi(sentData));
+    await dispatch(PlayerDealsApi());
+    setAcceptIndex(null);
+  };
 
-  const [acceptIndex, setAcceptIndex] = useState(null)
-  const [deleteIndex, setDeleteIndex] = useState(null)
-  const [deleteRequestIndex, setDeleteRequestIndex] = useState(null)
-  const [acceptRequestIndex, setAcceptRequestIndex] = useState(null)
-  const sentData = {}
-  const dispatch = useDispatch()
-  const userId = useSelector((state)=> state?.reducer?.LoginSlice?.logindata?.data?.user?.id)
-  const handleAcceptOffer = async (id) =>{
-    setAcceptIndex(id)
-    sentData.offer_id = id
-    sentData.user_id = userId
-    // console.log('sent data ', sentData)
-    await dispatch(PlayerAcceptOfferDetailsApi(sentData))
-    await dispatch(PlayerDealsApi())
-    setAcceptIndex(null)
-  }
 
   const handleAcceptRequest = async (id) =>{
     setAcceptRequestIndex(id)
@@ -60,103 +76,118 @@ const UseTable = ({header, data, handleShowEdit, handleDelete,handleEdit,}) => {
   }
 
   return (
-    <table  className='AdminUserTable' >
+    <table className="AdminUserTable">
       <thead>
         <tr>
-            {header?.map((item, index)=>(
-                <th key={index} colSpan={item?.name== "Actions" && 2} className="UseTable_tableheader">{item?.name == "AcceptDeclineOffer"  || item?.name == "FanAcceptDeclineOffer" ? "Actions" : item?.name}</th>
-            ))}
+          {header?.map((item, index) => (
+            <th
+              key={index}
+              colSpan={item?.name == "Actions" && 2}
+              className="UseTable_tableheader"
+            >
+              {item?.name == "AcceptDeclineOffer" ||
+              item?.name == "FanAcceptDeclineOffer"
+                ? "Actions"
+                : item?.name}
+            </th>
+          ))}
           {/* <th className="UseTable_tableheader">First Name</th>
           <th className="UseTable_tableheader">Last Name</th>
           <th className="UseTable_tableheader">Username</th> */}
         </tr>
       </thead>
       <tbody>
-        {data?.map((each, index)=>{
-             return(
-             <tr key={index}>
-            {header?.map((item)=>{
-              switch (item?.case) {
-                case "talent_players_name":
-                  return (
-                    <td className="useTable_tableDetails">
-                      <div style={{ display: "flex", alignItems: "center" }}>
-                        <img
-                          src={each?.profile_pics}
-                          className="useTable_ImageRecipient"
-                          alt="Recipient image"
-                        />
-                        {each?.firstname}
-                        {each?.surname}
-                      </div>
-                    </td>
-                  );
-                case "talent_player_Position":
-                  return (
-                    <td className="useTable_tableDetails">
-                      {each?.position}
-                    </td>
-                  );
+        {data?.map((each, index) => {
+          return (
+            <tr key={index}>
+              {header?.map((item) => {
+                switch (item?.case) {
+                  case "talent_players_name":
+                    return (
+                      <td className="useTable_tableDetails">
+                        <div style={{ display: "flex", alignItems: "center" }}>
+                          <img
+                            src={each?.profile_pics}
+                            className="useTable_ImageRecipient"
+                            alt="Recipient image"
+                          />
+                          {each?.firstname}
+                          {each?.surname}
+                        </div>
+                      </td>
+                    );
+                  case "talent_player_Position":
+                    return (
+                      <td className="useTable_tableDetails">
+                        {each?.position}
+                      </td>
+                    );
 
-                case "talent_player_Club":
-                  return (
-                    <td className="useTable_tableDetails">
-                      {each?.current_club}
-                    </td>
-                  );
+                  case "talent_player_Club":
+                    return (
+                      <td className="useTable_tableDetails">
+                        {each?.current_club}
+                      </td>
+                    );
 
-                case "talent_player_status":
-                  return (
-                    <td className="useTable_tableDetails">{each?.status}</td>
-                  );
+                  case "talent_player_status":
+                    return (
+                      <td className="useTable_tableDetails">{each?.status}</td>
+                    );
 
-                case "talent_player_Add":
-                  return (
-                    <td
-                      className="useTable_ViewEditSuspendDetails"
-                      style={{ flex: 1 }}
-                    >
-                      <span
-                        className="Admin_playersviewprofile cursor-pointer"
-                        onClick={() => handleEdit(each)}
+                  case "talent_player_Add":
+                    return (
+                      <td
+                        className="useTable_ViewEditSuspendDetails"
+                        style={{ flex: 1 }}
                       >
-                        Add
-                      </span>
-                    </td>
-                  );
+                        <span
+                          className="Admin_playersviewprofile cursor-pointer"
+                          onClick={() => handleEdit(each)}
+                        >
+                          Add
+                        </span>
+                      </td>
+                    );
 
-                case "Admin_fan_Suspend_message_view":
-                  return (
-                    <td
-                      className="useTable_ViewEditSuspendDetails"
-                      style={{ flex: 1 }}
-                    >
-                      <Link
-                        to={`/admin/fans/${each?.user?.id}`}
-                        className="Admin_playersEditprofile cursor-pointer"
+                  case "Admin_fan_Suspend_message_view":
+                    return (
+                      <td
+                        className="useTable_ViewEditSuspendDetails"
+                        style={{ flex: 1 }}
                       >
-                        View
-                      </Link>
+                        <Link
+                          state={{
+                            each,
+                          }}
+                          to={`/afrisport/talent-manager/player`}
+                          className="Admin_playersEditprofile cursor-pointer"
+                        >
+                          View
+                        </Link>
 
-                      <span
-                        onClick={() => handleEdit(each)}
-                        className="Admin_playersviewprofile cursor-pointer"
-                      >
-                        Edit
-                      </span>
+                        <Link
+                          to="/afrisport/talent-manager/edit-player"
+                          state={{
+                            each,
+                          }}
+                          className="Admin_playersviewprofile cursor-pointer"
+                        >
+                          Edit
+                        </Link>
 
-                      <span
-                        onClick={() => handleDelete(each)}
-                        className="border border-solid border-[#7F351D] px-5 py-2 bg-white text-[#7F351D] font-bold rounded-md mr-4"
-                      >
-                        Remove
-                      </span>
-                    </td>
-                  );
+                        <span
+                          onClick={() => handleDelete(each)}
+                          className="border border-solid border-[#7F351D] px-5 py-2 bg-white text-[#7F351D] font-bold rounded-md mr-4"
+                        >
+                          Remove
+                        </span>
+                      </td>
+                    );
 
-                case "talent_player_Negotiate":
-                  return <td className="useTable_tableDetails">NONE</td>;
-              }
+                  case "talent_player_Negotiate":
+                    return <td className="useTable_tableDetails">NONE</td>;
+                }
 
                 switch(item?.name) {
                     case 'Deal name':
@@ -201,18 +232,9 @@ const UseTable = ({header, data, handleShowEdit, handleDelete,handleEdit,}) => {
                             />
                             : <span>Accept</span>}
                           </button>
-                          <button
-                            className="Admin_playersSuspendprofile"
-                            onClick={()=> handleDeleteOffer(each?.offer?.deal?.offerId)}
-                          >
-                              {deleteIndex == each?.offer?.deal?.offerId? 
-                            <PulseLoader
-                              color="#7F351D"
-                              size={13}
-                              aria-label="Loading Spinner"
-                              data-testid="loader"
-                            />
-                            : <span>Decline</span>}
+                        ) : each?.offer?.deal?.offerStatus == "rejected" ? (
+                          <button className="RejectedPlayerUseTable">
+                            Rejected
                           </button>
                           </>}
                         </td>
@@ -275,15 +297,13 @@ const UseTable = ({header, data, handleShowEdit, handleDelete,handleEdit,}) => {
                         <td className='useTable_tableDetails'><Link to={`/afrisport/player/fandealsmade/${each?.request?.requests?.requestId}`} state={{each}} style={{color:'white'}} className='useTable_tableDetailsLink'>Details</Link></td>
                         </>);
                 }
-            })}
-            
-          </tr>
-          )
-})}
-        
+              })}
+            </tr>
+          );
+        })}
       </tbody>
     </table>
-  )
-}
+  );
+};
 
-export default UseTable
+export default UseTable;

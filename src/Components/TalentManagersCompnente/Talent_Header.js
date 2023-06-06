@@ -46,7 +46,9 @@ function Talent_Header() {
     { id: 1, pathTo: "/afrisport/talent-manager/profile", pathName: "Profile" },
     { id: 2, pathTo: "/afrisport/talent-manager/deal", pathName: "Deals" },
     { id: 3, pathTo: "/afrisport/talent-manager/players", pathName: "Player" },
-    { id: 4, pathTo: "/afrisport/talent-manager/Payment", pathName: "Payment" },
+    { id: 4, pathTo: "/afrisport/talent-manager/request", pathName: "Request" },
+
+    { id: 5, pathTo: "/afrisport/talent-manager/Payment", pathName: "Payment" },
   ];
   return (
     <>

@@ -30,10 +30,8 @@ const AdminDashboard = () => {
 
   useEffect(() => {
     dispatch(Admin_Header_Summary_fun());
-
     dispatch(Admin_dashboard_approved_player_fun());
     dispatch(Admin_dashboard_active_negotiations_fun());
-
     return () => {};
   }, []);
 
@@ -43,39 +41,11 @@ const AdminDashboard = () => {
     Admin_dashboard_active_negotiations,
   } = useSelector((state) => state.reducer.AdminDashboardSlice);
 
-  let lastObject_Admin_dashboard_approved_player;
+  const last5Object_Admin_dashboard_approved_player =
+    Admin_dashboard_approved_player?.plus.slice(-5);
 
-  let lastObject_Admin_dashboard_active_negotiations;
-
-  if (Admin_dashboard_approved_player?.plus.length < 1) {
-    lastObject_Admin_dashboard_approved_player = [];
-  } else {
-    lastObject_Admin_dashboard_approved_player =
-      Admin_dashboard_approved_player?.plus.slice(-1);
-  }
-
-  const data___ = [
-    // {
-    //   Nationality: "Nigeria",
-    //   firstname: "unknown",
-    //   images_count: "6",
-    //   position: "chel",
-    //   profile_pics:
-    //     "https://certificate.bcodestech.com/storage/image/profile/1684488537-32069166806727-editprofile.PNG",
-    //   surname: "name",
-    //   videos_count: "0",
-    // },
-  ];
-
-  if (Admin_dashboard_active_negotiations?.plus.length < 1) {
-    lastObject_Admin_dashboard_active_negotiations = [];
-  } else {
-    // lastObject_Admin_dashboard_active_negotiations =
-    //   Admin_dashboard_approved_player?.plus?.data.slice(-1);
-
-    lastObject_Admin_dashboard_active_negotiations =
-      Admin_dashboard_active_negotiations?.plus?.data.slice();
-  }
+  const last5Object_Admin_dashboard_active_negotiations =
+    Admin_dashboard_active_negotiations?.plus.slice(-5);
 
   const header = [
     {
@@ -247,7 +217,7 @@ const AdminDashboard = () => {
               This is a table of recent Active negotiaties on this platform
             </span>
           </div>
-          {lastObject_Admin_dashboard_active_negotiations?.length === 0 ? (
+          {last5Object_Admin_dashboard_active_negotiations?.length === 0 ? (
             <div
               style={{
                 display: "flex",
@@ -264,7 +234,7 @@ const AdminDashboard = () => {
           ) : (
             <AdminUseTable
               header={header}
-              data={lastObject_Admin_dashboard_active_negotiations}
+              data={last5Object_Admin_dashboard_active_negotiations}
             />
           )}
         </div>
@@ -281,7 +251,8 @@ const AdminDashboard = () => {
               approval on the platform
             </span>
           </div>
-          {!lastObject_Admin_dashboard_approved_player ? (
+
+          {last5Object_Admin_dashboard_approved_player?.length === 0 ? (
             <div
               style={{
                 display: "flex",
@@ -298,7 +269,7 @@ const AdminDashboard = () => {
           ) : (
             <AdminUseTable
               header={Playerheader}
-              data={lastObject_Admin_dashboard_approved_player}
+              data={last5Object_Admin_dashboard_approved_player}
             />
           )}
         </div>
