@@ -12,7 +12,9 @@ const initialState = {
     getOfferDetailsData: null,
     acceptfanOfferDetails: null,
     deletefanOfferDetails: null,
-    downloadfanOfferDetails: null
+    downloadfanOfferDetails: null,
+    fancommentedData: null,
+    fanCommentMadePlayerData: null
   };
 
   export const fanDealsApi = createAsyncThunk(
@@ -32,9 +34,9 @@ const initialState = {
         },
       });
       return await instance
-        .get('fan/offer')
+        .get('fan/requests')
         .then(async (response) => {
-            console.log('gotten deals ',response.data)
+            // console.log('gotten deals ',response.data)
           return response.data;
         })
   
@@ -217,6 +219,69 @@ const initialState = {
     }
   );
 
+  export const FanMakeCommentApi = createAsyncThunk(
+    "fanMakeCommentApi/userfanMakeCommentApi",
+    async (data, { rejectWithValue }) => {
+        
+        const tokengot = localStorage.getItem("token");
+        const infoneeded = `Bearer ${tokengot}`;
+      const instance = axios.create({
+        baseURL: process.env.REACT_APP_AFRISPORTURL ,
+        timeout: 20000,
+  
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: infoneeded
+        },
+      });
+      return await instance
+        .post('fan/request/comments', data)
+        .then(async (response) => {
+            // console.log('fan comment shown ',response.data)
+          return response.data;
+        })
+  
+        .catch((err) => {
+          let errdata = err.response.data;
+          console.log('error ', errdata)
+          return rejectWithValue(errdata);
+          // console.log(err)
+        });
+    }
+  );
+
+  export const FanFanDealCommentsApi = createAsyncThunk(
+    "FanFanDealsCommentsApi/userFanFanDealsCommentsApi",
+    async ({ id, userId, senderId }, { rejectWithValue }) => {
+      const tokengot = localStorage.getItem("token");
+      const infoneeded = `Bearer ${tokengot}`;
+      const instance = axios.create({
+        baseURL: process.env.REACT_APP_AFRISPORTURL,
+        timeout: 20000,
+  
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: infoneeded,
+        },
+      });
+      return await instance
+        .get(`fan/request-interactions/${id}/${senderId}/${userId}`)
+        .then(async (response) => {
+          console.log(' fan comments made details lrt',response)
+          return response;
+        })
+  
+        .catch((err) => {
+          let errdata = err.response.data;
+          console.log("error ", errdata);
+          return rejectWithValue(errdata);
+          // console.log(err)
+        });
+    }
+  );
+
 
   export const GetAllfanDealSlice = createSlice({
     name: "GetAllfanDeals",
@@ -283,6 +348,31 @@ const initialState = {
         state.isError = true;
         state.message = action.payload;
       })
+      .addCase(FanMakeCommentApi.pending, (state) => {
+        state.isLoading = true;
+        state.null = true;
+      })
+      .addCase(FanMakeCommentApi.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.user = true;
+        state.fancommentedData = action.payload;
+          toast.success(`${action.payload.message}`, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });    
+      })
+      .addCase(FanMakeCommentApi.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+      })
       .addCase(GetfanOfferDownloadApi.pending, (state) => {
         state.isLoading = true;
         state.null = true;
@@ -333,6 +423,22 @@ const initialState = {
         }        
       })
       .addCase(fanDeleteOfferDetailsApi.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+      })
+      .addCase(FanFanDealCommentsApi.pending, (state) => {
+        state.isLoading = true;
+        state.null = true;
+      })
+      .addCase(FanFanDealCommentsApi.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.user = true;
+        state.fanCommentMadePlayerData = action.payload;
+               
+      })
+      .addCase(FanFanDealCommentsApi.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;

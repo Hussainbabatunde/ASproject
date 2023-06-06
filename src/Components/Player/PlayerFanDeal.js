@@ -55,7 +55,7 @@ const PlayerFanDeal = () => {
       },
       {
           id:4,
-          name:'Amount'
+          name:'Request Type'
       },
       {
           id: 5,
@@ -71,7 +71,7 @@ const PlayerFanDeal = () => {
       },
       {
           id:7,
-          name:''
+          name:'Fan Deal Detail'
       }
       
   ]
@@ -103,7 +103,7 @@ const PlayerFanDeal = () => {
 // ]
 
 const dataTable = useSelector((state)=> state?.reducer?.PlayerFanSlice?.PlayerFanDealData?.data)
-console.log('fan deals ', dataTable)
+// console.log('fan deals ', dataTable)
   return (
     <div  className='Scoutpage_contents'>
         <ToastContainer />

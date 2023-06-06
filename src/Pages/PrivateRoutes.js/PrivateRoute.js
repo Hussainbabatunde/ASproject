@@ -32,7 +32,7 @@ export const Clinet_PrivateRoute = ({ children }) => {
 function PrivateRoute({ children }) {
   const { logindata } = useSelector((state) => state.reducer.LoginSlice);
 
-  console.log(logindata);
+  // console.log(logindata);
 
   if (!logindata?.data?.token) {
     // not logged in so redirect to login page with the return url
