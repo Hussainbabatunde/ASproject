@@ -39,7 +39,6 @@ const UseTable = ({
     setAcceptIndex(id);
     sentData.offer_id = id;
     sentData.user_id = userId;
-    // console.log('sent data ', sentData)
     await dispatch(PlayerAcceptOfferDetailsApi(sentData));
     await dispatch(PlayerDealsApi());
     setAcceptIndex(null);
@@ -157,7 +156,10 @@ const UseTable = ({
                         style={{ flex: 1 }}
                       >
                         <Link
-                          to={`/admin/fans/${each?.user?.id}`}
+                          state={{
+                            each,
+                          }}
+                          to={`/afrisport/talent-manager/player`}
                           className="Admin_playersEditprofile cursor-pointer"
                         >
                           View

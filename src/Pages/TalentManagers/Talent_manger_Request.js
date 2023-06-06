@@ -21,15 +21,16 @@ import { UserLogout } from "../../Components/Player/UserLogOut";
 import Talent_Header from "../../Components/TalentManagersCompnente/Talent_Header";
 import {
   Talent_manager_Deals_fun,
+  Talent_manager_requested_players_fun,
   reset_Talent_manager_Deals,
 } from "../../Slice/Talent_Manager/Talent_manager_slice";
 
-const TalentManagerDeal = () => {
-  const { Talent_manager_Deals } = useSelector(
+const Talent_manger_Request = () => {
+  const { Talent_manager_requested_players } = useSelector(
     (state) => state?.reducer?.Talent_manager_slice
   );
 
-  console.log(Talent_manager_Deals);
+  console.log(Talent_manager_requested_players?.data);
   const dispatch = useDispatch();
 
   const data = [
@@ -40,31 +41,18 @@ const TalentManagerDeal = () => {
   const header = [
     {
       id: 1,
-      name: "Deal name",
+      name: "Player Name",
+      case: "talent_players_name",
     },
     {
       id: 2,
-      name: "Recipient",
+      name: "Position",
+      case: "talent_player_Position",
     },
     {
       id: 3,
-      name: "Details",
-    },
-    {
-      id: 4,
-      name: "Amount",
-    },
-    {
-      id: 5,
-      name: "Payment",
-    },
-    {
-      id: 6,
-      name: "Status",
-    },
-    {
-      id: 7,
-      name: "Scout Deals",
+      name: "Club",
+      case: "talent_player_Club",
     },
   ];
   const style = {
@@ -95,7 +83,7 @@ const TalentManagerDeal = () => {
   ];
 
   useEffect(() => {
-    dispatch(Talent_manager_Deals_fun());
+    dispatch(Talent_manager_requested_players_fun());
     return () => {
       dispatch(reset_Talent_manager_Deals());
     };
@@ -107,7 +95,7 @@ const TalentManagerDeal = () => {
         <Talent_Header />
 
         <div className="Scoutpage_DealContent">
-          {dataTable?.length === 0 ? (
+          {Talent_manager_requested_players?.data?.length === 0 ? (
             <div
               style={{
                 display: "flex",
@@ -122,7 +110,10 @@ const TalentManagerDeal = () => {
               />
             </div>
           ) : (
-            <UseTable header={header} data={dataTable} />
+            <UseTable
+              header={header}
+              data={Talent_manager_requested_players?.data}
+            />
           )}
         </div>
         <Modal
@@ -143,4 +134,4 @@ const TalentManagerDeal = () => {
   );
 };
 
-export default TalentManagerDeal;
+export default Talent_manger_Request;
