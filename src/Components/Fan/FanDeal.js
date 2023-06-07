@@ -31,8 +31,8 @@ const FanDeal = () => {
         window.location.reload();
     }
     const data = [
-        {id: 1, pathTo: '/afrisport/scout/profile', pathName: 'Profile'},
-        {id: 2, pathTo: '/afrisport/scout/deal', pathName: 'Deals'}
+        {id: 1, pathTo: '/afrisport/fan/profile', pathName: 'Profile'},
+        {id: 2, pathTo: '/afrisport/fan/deal', pathName: 'Deals'}
     ]
 
     const header= [
@@ -63,7 +63,7 @@ const FanDeal = () => {
       },
       {
           id:7,
-          name:''
+          name:'Fan Deals'
       }
   ]
   const style = {
@@ -92,7 +92,8 @@ const FanDeal = () => {
 //     }
 // ]
 
-const dataTable = useSelector((state)=> state?.reducer?.FanDealsSlice?.fanDealData)
+const dataTable = useSelector((state)=> state?.reducer?.FanDealsSlice?.fanDealData?.data)
+console.log(dataTable)
 
   return (
     <div  className='Scoutpage_contents'>

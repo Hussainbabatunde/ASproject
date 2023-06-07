@@ -508,7 +508,7 @@ const initialState = {
       return await instance
         .post("player/advertise", details)
         .then(async (response) => {
-            // console.log('advertise response ',response.data)
+            console.log('advertise response ',response.data)
           return response.data;
         })
   
@@ -542,8 +542,7 @@ const initialState = {
         state.isSuccess = true;
         state.user = true;
         state.ProfileAdvertisePlayerData = action.payload;
-        if(action.payload?.message == "Profile Photo Uploaded"){
-        toast.success("Profile Photo Uploaded", {
+        toast.success("Request sent", {
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,
@@ -553,19 +552,6 @@ const initialState = {
           progress: undefined,
           theme: "light",
           });
-        }
-        else if(action.payload?.message == "Select an image to upload"){
-          toast.error("Select an image to upload", {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-            });
-          }
       })
       .addCase(PlayerProfileAdvertiseApi.rejected, (state, action) => {
         state.isLoading = false;

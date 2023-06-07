@@ -184,8 +184,8 @@ const PlayerViewProfile = () => {
         {PlayerDetails?.videos.map((each, index) =>( 
           <div key={index} className='ScoutViewProfile_VideoDiv'>
         <ReactPlayer width='300px' height='300px' controls url={each?.video_url} />
-        <button  onClick={()=> handleDeleteVideo(each?.id)} className='ViewProfile_DeleteVideo'>
-        {deleteVideoIndex == each?.id ? <CircularProgress size={15} /> : <span>Delete</span>}
+        <button  onClick={()=> handleDeleteVideo(each?.id)} className='ScoutViewProfile_Image_DeleteImg'>
+        {deleteVideoIndex == each?.id ? <CircularProgress size={15} /> : <span style={{display: 'flex', alignItems:'center'}}> <AiFillDelete style={{marginRight: '5px'}} />Delete</span>}
           </button>
         </div>
         ))}
