@@ -30,6 +30,8 @@ const TalentManagerDeal = () => {
   );
 
   console.log(Talent_manager_Deals);
+  console.log(Talent_manager_Deals);
+
   const dispatch = useDispatch();
 
   const data = [

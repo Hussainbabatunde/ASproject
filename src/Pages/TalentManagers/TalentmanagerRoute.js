@@ -12,6 +12,7 @@ import PlayerViews from "../../Components/Player/PlayerView";
 import PlayerDetails from "../Admin/Players/PlayerDetails";
 import Talent_PlayerDetails from "./Talent_PlayerDetails";
 import Talent_manger_Request from "./Talent_manger_Request";
+import TalentManager_deal_detail from "./TalentManager_deal_detail";
 
 function TalentmanagerRoute() {
   return (
@@ -21,6 +22,7 @@ function TalentmanagerRoute() {
       <Routes>
         <Route path="/profile" element={<Talent_manager_Profile />} />
         <Route path="/deal" element={<TalentManagerDeal />} />
+
         <Route path="/request" element={<Talent_manger_Request />} />
 
         <Route path="/players" element={<Talent_manager_palyer />} />
@@ -28,6 +30,11 @@ function TalentmanagerRoute() {
 
         <Route path="/add-players" element={<Talent_Add_Player />} />
         <Route path="/player" element={<Talent_PlayerDetails />} />
+
+        <Route
+          path="/deal_detail/:id"
+          element={<TalentManager_deal_detail />}
+        />
       </Routes>
     </div>
   );
