@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import AdminUseTable from "../../../../Components/Table/AdminUseTable";
-import Lottie from "react-lottie";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import axios from "axios";
