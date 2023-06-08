@@ -13,6 +13,7 @@ import { UserLogout } from '../Player/UserLogOut'
 import FanProfileProfileform from './FanProfileProfileform'
 import FanProfileUploadId from './FanProfileUploadId'
 import { ProfileDetailsfan, fanProfilePicture } from '../../Slice/Fan/ProfileFanSlice/ProfileFanSlice'
+import { ProfileDetailsPlayer } from '../../Slice/Player/Playerprofile/PlayerProfileSlice'
 
 const FanProfile = () => {
 
@@ -125,7 +126,7 @@ const FanProfile = () => {
             </button>
           </form>
           <div className='Scoutpage_Profile_nameVerify'>
-            <p className='Scoutpage_profile_Username'>{`${userDataInfo?.firstname } ${userDataInfo?.surname }`}</p>
+            {PlayerDetails? <p className='Scoutpage_profile_Username'>{`${PlayerDetails?.firstname } ${PlayerDetails?.surname }`}</p> : <p className='Scoutpage_profile_Username'>{`${userDataInfo?.firstname } ${userDataInfo?.surname }`}</p>}
             <p className='Scoutpage_profile_Usertype'>Fan Account</p>
           </div>
           </div>
