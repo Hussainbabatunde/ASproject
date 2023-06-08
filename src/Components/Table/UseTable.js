@@ -98,6 +98,53 @@ const UseTable = ({
             <tr key={index}>
               {header?.map((item) => {
                 switch (item?.case) {
+                  case "talent_DealStatus":
+                    return (
+                      <td className="useTable_tableDetails">
+                        {each?.requests?.request?.status}
+                      </td>
+                    );
+                  case "talent_DealPayment":
+                    return (
+                      <td className="useTable_tableDetails">
+                        {each?.offer?.deal?.surname}
+                      </td>
+                    );
+                  case "talent_DealAmount":
+                    return (
+                      <td className="useTable_tableDetails">
+                        $ {each?.request?.deal?.value}
+                      </td>
+                    );
+                  case "talent_DealDetails":
+                    return (
+                      <td className="useTable_tableDetails">
+                        {each?.requests?.request?.detail}
+                      </td>
+                    );
+
+                  case "talent_DealSender":
+                    return (
+                      <td className="useTable_tableDetails">
+                        <div style={{ display: "flex", alignItems: "center" }}>
+                          <img
+                            src={each?.requests?.sender?.profile_pics}
+                            className="useTable_ImageRecipient"
+                            alt="Recipient image"
+                          />
+                          {each?.requests?.sender?.firstname}{" "}
+                          {each?.requests?.sender?.surname}
+                        </div>
+                      </td>
+                    );
+
+                  case "talent_Deal_name":
+                    console.log(each);
+                    return (
+                      <td className="useTable_tableDetails">
+                        {each?.requests?.request?.name}
+                      </td>
+                    );
                   case "Talent_AcceptDeclineOffer":
                     return (
                       <td className="useTable_ViewEditSuspendDetails">

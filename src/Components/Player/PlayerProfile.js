@@ -17,6 +17,7 @@ import {
   PlayerProfilePicture,
   PlayerProfileVerificationStatus,
   PlayerProfileVideoLink,
+  PlayerRequestApprovalApi,
   ProfileDetailsPlayer,
 } from "../../Slice/Player/Playerprofile/PlayerProfileSlice";
 import { ToastContainer } from "react-toastify";
@@ -85,6 +86,7 @@ const PlayerProfile = () => {
   const [checkedPhysicalStats, setCheckedPhysicalStats] = useState(false);
   const [checkedUploadPics, setCheckedUploadPics] = useState(false);
   const [checkedMeansofID, setCheckedMeansofID] = useState(false);
+  const [approval, setApproval] = useState(false)
   const dispatch = useDispatch();
   const handleLogout = async () => {
     await dispatch(LogoutAuth());
@@ -97,9 +99,10 @@ const PlayerProfile = () => {
   const data = [
     { id: 1, pathTo: "/afrisport/player/profile", pathName: "Profile" },
     { id: 2, pathTo: "/afrisport/player/deal", pathName: "Scout Deals" },
-    {id: 2, pathTo: '/afrisport/player/fandeal', pathName: 'Fan Deals'},
-    { id: 3, pathTo: "/afrisport/player/views", pathName: "Views" },
-    { id: 4, pathTo: "/afrisport/player/payment", pathName: "Payment" },
+    {id: 3, pathTo: '/afrisport/player/fandeal', pathName: 'Fan Deals'},
+    {id: 4, pathTo: '/afrisport/player/managerdeal', pathName: 'Talent Manager Request'},
+    { id: 5, pathTo: "/afrisport/player/views", pathName: "Views" },
+    { id: 6, pathTo: "/afrisport/player/payment", pathName: "Payment" },
   ];
   function handleChange(e) {
     // console.log(e.target.files[0])
@@ -137,6 +140,13 @@ const PlayerProfile = () => {
     await dispatch(PlayerProfileVerificationStatus(userId));
     setImgLoader(false);
   };
+
+  //send approval api
+  const handleRequestApproval = async() =>{
+    setApproval(true)
+    await dispatch(PlayerRequestApprovalApi())
+    setApproval(false)
+  }
 
   //for the vieo upload
   const [inputs, setInputs] = useState([""]);
@@ -214,7 +224,7 @@ const PlayerProfile = () => {
                 }}
               >
                 <label for="imagePlcholder">
-                  <img src={file} className="Scoutpage_Profile_placeholder" />
+                  {PlayerDetails?.profile_pics?  <img src={PlayerDetails?.profile_pics} className="Scoutpage_Profile_placeholder" /> : <img src={imgPlaceHolder} className="Scoutpage_Profile_placeholder" />}
                   <input
                     type="file"
                     id="imagePlcholder"
@@ -235,12 +245,19 @@ const PlayerProfile = () => {
                 </button>
               </form>
               <div className="Scoutpage_Profile_nameVerify">
+                {PlayerDetails? <p className="Scoutpage_profile_Username">
+                  {`${PlayerDetails?.firstname} ${PlayerDetails?.surname}`}{" "}
+                  {userDataInfo?.reviewed == 'pending' || userDataInfo?.reviewed == 'inactive' ?<span className="Scoutpage_Profile_Verificationstatus">
+                    (not Verified)
+                  </span>: <span className="Scoutpage_Profile_Verificationstatus">(Verified)</span>}
+                </p>
+                :
                 <p className="Scoutpage_profile_Username">
                   {`${userDataInfo?.firstname} ${userDataInfo?.surname}`}{" "}
-                  <span className="Scoutpage_Profile_Verificationstatus">
+                  {userDataInfo?.reviewed == 'pending' || userDataInfo?.reviewed == 'inactive' ?<span className="Scoutpage_Profile_Verificationstatus">
                     (not Verified)
-                  </span>
-                </p>
+                  </span>: <span className="Scoutpage_Profile_Verificationstatus">(Verified)</span>}
+                </p>}
                 <p className="Scoutpage_profile_Usertype">Player Account</p>
               </div>
             </div>
@@ -310,8 +327,8 @@ const PlayerProfile = () => {
                 Upload Means of ID
               </p>
             </div>
-            <button className="ScoutProfile_Profileform_SendRequest">
-              Send Request
+            <button onClick={handleRequestApproval} disabled={userDataInfo?.reviewed == 'pending' || userDataInfo?.reviewed == 'inactive' ? false : true} className={userDataInfo?.reviewed == 'pending' || userDataInfo?.reviewed == 'inactive' ? "ScoutProfile_Profileform_ActiveSendRequest":"ScoutProfile_Profileform_SendRequest"}>
+            {approval? <CircularProgress size={15} /> : <span>Send Request</span>}
             </button>
           </div>
         </div>

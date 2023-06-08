@@ -71,26 +71,32 @@ const TalentManagerDeal = () => {
     {
       id: 1,
       name: "Deal name",
+      case: "talent_Deal_name",
     },
     {
       id: 2,
       name: "Sender",
+      case: "talent_DealSender",
     },
     {
       id: 3,
       name: "Details",
+      case: "talent_DealDetails",
     },
     {
       id: 4,
       name: "Amount",
+      case: "talent_DealAmount",
     },
     {
       id: 5,
       name: "Payment",
+      case: "talent_DealPayment",
     },
     {
       id: 6,
       name: "Status",
+      case: "talent_DealStatus",
     },
     {
       id: 8,

@@ -33,9 +33,10 @@ const PlayerDeal = () => {
     const data = [
         {id: 1, pathTo: '/afrisport/player/profile', pathName: 'Profile'},
         {id: 2, pathTo: '/afrisport/player/deal', pathName: 'Scout Deals'},
-        {id: 2, pathTo: '/afrisport/player/fandeal', pathName: 'Fan Deals'},
-        {id: 3, pathTo: '/afrisport/player/views', pathName: 'Views'},
-        {id: 4, pathTo: '/afrisport/player/payment', pathName: 'Payment'}
+        {id: 3, pathTo: '/afrisport/player/fandeal', pathName: 'Fan Deals'},
+        {id: 4, pathTo: '/afrisport/player/managerdeal', pathName: 'Talent Manager Request'},
+        {id: 5, pathTo: '/afrisport/player/views', pathName: 'Views'},
+        {id: 6, pathTo: '/afrisport/player/payment', pathName: 'Payment'}
     ]
 
     const header= [

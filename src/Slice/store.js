@@ -23,6 +23,9 @@ import Admin_NegotiationsSlice from "./Admin/Admin_NegotiationsSlice";
 import Admin_FanData_Slice from "./Admin/Admin_FanData_Slice";
 import AdminTalentMangerSlice from "./Admin/AdminTalentMangerSlice";
 import Talent_manager_slice from "./Talent_Manager/Talent_manager_slice";
+import PlayerManagerSlice from './Player/PlayerManager/PlayerManagerSlice'
+
+
 const reducers = combineReducers({
   LoginSlice: LoginSlice,
   PlayerProfileSlice: PlayerProfileSlice,
@@ -45,7 +48,7 @@ const reducers = combineReducers({
   FanDealsSlice: FanDealsSlice,
   FanProfileSlice: FanProfileSlice,
   AdminTalentMangerSlice: AdminTalentMangerSlice,
-
+  PlayerManagerSlice: PlayerManagerSlice,
   Talent_manager_slice: Talent_manager_slice,
 });
 
