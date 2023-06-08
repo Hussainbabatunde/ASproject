@@ -47,6 +47,8 @@ const AdminDashboard = () => {
   const last5Object_Admin_dashboard_active_negotiations =
     Admin_dashboard_active_negotiations?.plus.slice(-5);
 
+  console.log(last5Object_Admin_dashboard_active_negotiations);
+
   const header = [
     {
       id: 1,
@@ -61,10 +63,12 @@ const AdminDashboard = () => {
     {
       id: 3,
       name: "Initial Offer",
+      case: "scout_Initial_Offer",
     },
     {
       id: 4,
       name: "Current Offer",
+      case: "scout_Current_Offer",
     },
     {
       id: 5,

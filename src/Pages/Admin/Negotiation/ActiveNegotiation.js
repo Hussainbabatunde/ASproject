@@ -43,7 +43,7 @@ const ActiveNegotiation = ({}) => {
     Admin___Negotiations_message,
   } = useSelector((state) => state.reducer.Admin_NegotiationsSlice);
 
-  console.log(Admin___Negotiations);
+  console.log(Admin___Negotiations?.Admin__Active_Negotiations);
 
   const header = [
     {
@@ -59,10 +59,12 @@ const ActiveNegotiation = ({}) => {
     {
       id: 3,
       name: "Initial Offer",
+      case: "Neg_Initial_Offer",
     },
     {
       id: 4,
       name: "Current Offer",
+      case: "Neg_Current_Offer",
     },
     {
       id: 5,
@@ -216,6 +218,8 @@ const ActiveNegotiation = ({}) => {
               </>
             )}
 
+            {console.log(Admin___Negotiations?.Admin__Suspended_Negotiations)}
+
             {step === 2 && (
               <>
                 <p className="AdminPage_NegotiateTitleText">Suspended</p>
@@ -227,8 +231,8 @@ const ActiveNegotiation = ({}) => {
                 </div>
 
                 <div className="AdminTable_NegotiateTable">
-                  {Admin___Negotiations?.Admin__Suspended_Negotiations?.data
-                    .length === 0 ? (
+                  {Admin___Negotiations?.Admin__Suspended_Negotiations
+                    ?.length === 0 ? (
                     <div
                       style={{
                         display: "flex",
@@ -281,8 +285,8 @@ const ActiveNegotiation = ({}) => {
                   </div>
                 </div>
                 <div className="AdminTable_NegotiateTable">
-                  {Admin___Negotiations?.Admin__Close_Negotiations?.data
-                    .length === 0 ? (
+                  {Admin___Negotiations?.Admin__Close_Negotiations?.length ===
+                  0 ? (
                     <div
                       style={{
                         display: "flex",
@@ -299,9 +303,7 @@ const ActiveNegotiation = ({}) => {
                   ) : (
                     <AdminUseTable
                       header={header}
-                      data={
-                        Admin___Negotiations?.Admin__Close_Negotiations?.data
-                      }
+                      data={Admin___Negotiations?.Admin__Close_Negotiations}
                     />
                   )}
                 </div>
@@ -334,8 +336,8 @@ const ActiveNegotiation = ({}) => {
                   </div>
                 </div>
                 <div className="AdminTable_NegotiateTable">
-                  {Admin___Negotiations?.Admin__Terminate_Negotiations?.data
-                    .length === 0 ? (
+                  {Admin___Negotiations?.Admin__Terminate_Negotiations
+                    ?.length === 0 ? (
                     <div
                       style={{
                         display: "flex",
@@ -352,10 +354,7 @@ const ActiveNegotiation = ({}) => {
                   ) : (
                     <AdminUseTable
                       header={header}
-                      data={
-                        Admin___Negotiations?.Admin__Terminate_Negotiations
-                          ?.data
-                      }
+                      data={Admin___Negotiations?.Admin__Terminate_Negotiations}
                     />
                   )}
                 </div>

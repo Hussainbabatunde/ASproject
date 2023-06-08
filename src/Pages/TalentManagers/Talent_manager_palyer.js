@@ -30,6 +30,8 @@ function Talent_manager_palyer() {
     (state) => state?.reducer?.Talent_manager_slice
   );
 
+  console.log(Talent_manager_details_Get_all_player);
+
   const header = [
     {
       id: 1,

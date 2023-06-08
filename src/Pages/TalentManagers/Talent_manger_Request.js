@@ -30,7 +30,7 @@ const Talent_manger_Request = () => {
     (state) => state?.reducer?.Talent_manager_slice
   );
 
-  console.log(Talent_manager_requested_players?.data);
+  console.log(Talent_manager_requested_players);
   const dispatch = useDispatch();
 
   const data = [
@@ -41,7 +41,7 @@ const Talent_manger_Request = () => {
   const header = [
     {
       id: 1,
-      name: "Player Name",
+      name: "Player Names",
       case: "talent_players_name",
     },
     {

@@ -252,7 +252,6 @@ const Admin_Fans = ({}) => {
                     </span>
                   </div>
                   {/* <FanSuspended /> */}
-
                   <div className="AdminTable_NegotiateTable">
                     {Admin_Fan?.suspendedFan_data?.data?.length === 0 ? (
                       <div
