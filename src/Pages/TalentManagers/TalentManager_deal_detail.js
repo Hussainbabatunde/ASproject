@@ -1,14 +1,63 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import { GrFormNext } from "react-icons/gr";
 import { BsPinAngleFill, BsShareFill } from "react-icons/bs";
 import { FaDownload } from "react-icons/fa";
 
 import imgRecipient from "../../assets/imgRecipient.png";
 import Talent_Header from "../../Components/TalentManagersCompnente/Talent_Header";
+import { useMutation } from "react-query";
+import axios from "axios";
+let baseURL = process.env.REACT_APP_AFRISPORTURL;
 
 function TalentManager_deal_detail() {
+  const Profilevidoemutation = useMutation(
+    (formData) => {
+      // Your API request code here
+      // Use formData to send the image data to the API
+
+      let API_URL = `${baseURL}talent-manager/player/profile-picture`;
+      const tokengot = localStorage.getItem("token");
+
+      const config = {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Accept: "multipart/form-data",
+          Authorization: `Bearer ${tokengot}`,
+        },
+      };
+      return axios.post(API_URL, formData, config);
+    },
+    {
+      onSuccess: () => {
+        toast.success("Form submitted successfully!", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      },
+      onError: () => {
+        toast.error("Error occurred while submitting the form.", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          className: "Forbidden403",
+        });
+      },
+    }
+  );
+
   return (
     <div className="Scoutpage_contents ">
       <Talent_Header />

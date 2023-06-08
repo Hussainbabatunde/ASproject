@@ -31,7 +31,6 @@ function Talent_manager_palyer() {
   );
 
   console.log(Talent_manager_details_Get_all_player);
-  console.log(Talent_manager_details_Get_all_player);
 
   const header = [
     {

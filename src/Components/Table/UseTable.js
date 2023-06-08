@@ -48,7 +48,6 @@ const UseTable = ({
     setAcceptRequestIndex(id);
     sentData.request_id = id;
     sentData.player_id = userId;
-    // console.log('sent data ', sentData)
     await dispatch(PlayerAcceptRequestDetailsApi(sentData));
     await dispatch(PlayerFanDealsApi());
     setAcceptRequestIndex(null);
@@ -58,7 +57,6 @@ const UseTable = ({
     setDeleteIndex(id);
     sentData.request_id = id;
     sentData.player_id = userId;
-    // console.log('sent data ', sentData)
     await dispatch(PlayerDeleteOfferDetailsApi(sentData));
     await dispatch(PlayerDealsApi());
     setDeleteIndex(null);
@@ -68,7 +66,6 @@ const UseTable = ({
     setDeleteRequestIndex(id);
     sentData.request_id = id;
     sentData.player_id = userId;
-    // console.log('sent data ', sentData)
     await dispatch(PlayerDeleteRequestDetailsApi(sentData));
     await dispatch(PlayerFanDealsApi());
     setDeleteRequestIndex(null);
@@ -101,18 +98,49 @@ const UseTable = ({
             <tr key={index}>
               {header?.map((item) => {
                 switch (item?.case) {
+                  case "Talent_AcceptDeclineOffer":
+                    return (
+                      <td className="useTable_ViewEditSuspendDetails">
+                        <div className="flex">
+                          {each?.requests?.request?.status === "pending" && (
+                            <>
+                              <button className="AcceptedPlayerUseTable">
+                                Accepted
+                              </button>
+                              <button className="RejectedPlayerUseTable">
+                                Rejected
+                              </button>
+                            </>
+                          )}
+                        </div>
+                      </td>
+                    );
+
+                  case "Talent_deal_Details":
+                    return (
+                      <td className="useTable_tableDetails">
+                        <Link
+                          to={`/afrisport/talent-manager/deal_detail`}
+                          style={{ color: "white" }}
+                          className="useTable_tableDetailsLink"
+                          state={{ data: each?.requests?.request }}
+                        >
+                          Details
+                        </Link>
+                      </td>
+                    );
+
                   case "talent_players_name":
-                    console.log(each?.requests?.player);
                     return (
                       <td className="useTable_tableDetails">
                         <div style={{ display: "flex", alignItems: "center" }}>
                           <img
-                            src={each?.requests?.player?.profile_pics}
+                            src={each?.profile_pics}
                             className="useTable_ImageRecipient"
                             alt="Recipient image"
                           />
-                          {each?.requests?.player?.firstname}
-                          {each?.requests?.player?.surname}
+                          {each?.firstname}
+                          {each?.surname}
                         </div>
                       </td>
                     );
@@ -191,11 +219,13 @@ const UseTable = ({
 
                 switch (item?.name) {
                   case "Deal name":
+                    console.log(each);
                     return (
                       <td className="useTable_tableDetails">
                         {each?.offer?.deal?.DealName ||
                           each?.request?.requests?.RequestName ||
-                          each?.request?.deal?.fanRequest}
+                          each?.request?.deal?.fanRequest ||
+                          each?.requests?.request?.name}
                       </td>
                     );
                   case "Recipient":
@@ -224,15 +254,18 @@ const UseTable = ({
                           <img
                             src={
                               each?.offer?.sender?.profile_pics ||
-                              each?.request?.requests?.profile_pics
+                              each?.request?.requests?.profile_pics ||
+                              each?.requests?.sender?.profile_pics
                             }
                             className="useTable_ImageRecipient"
                             alt="Recipient image"
                           />
                           {each?.offer?.sender?.firstname ||
-                            each?.request?.requests?.firstname}{" "}
+                            each?.request?.requests?.firstname ||
+                            each?.requests?.sender?.firstname}{" "}
                           {each?.offer?.sender?.surname ||
-                            each?.request?.requests?.surname}
+                            each?.request?.requests?.surname ||
+                            each?.requests?.sender?.surname}
                         </div>
                       </td>
                     );
@@ -242,7 +275,9 @@ const UseTable = ({
                         {each?.offer?.deal?.about ||
                           each?.offer?.deal?.detail ||
                           each?.request?.requests?.detail ||
-                          each?.request?.deal?.detail}
+                          each?.request?.deal?.detail ||
+                          each?.detail ||
+                          each?.requests?.request?.detail}
                       </td>
                     );
                   case "Amount":
@@ -272,7 +307,9 @@ const UseTable = ({
                         {each?.offer?.deal?.offerStatus ||
                           each?.offer?.deal?.status ||
                           each?.request?.requests?.status ||
-                          each?.request?.deal?.requestStatus}
+                          each?.request?.deal?.requestStatus ||
+                          each?.status ||
+                          each?.requests?.request?.status}
                       </td>
                     );
 
