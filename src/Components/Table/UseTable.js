@@ -18,6 +18,7 @@ import {
   PlayerDeleteRequestDetailsApi,
   PlayerFanDealsApi,
 } from "../../Slice/Player/PlayerDeal/PlayerFanDealSlice";
+import { PlayerAcceptManagerDetailsApi, PlayerDeleteManagerDetailsApi, PlayerManagerDealsApi } from "../../Slice/Player/PlayerManager/PlayerManagerSlice";
 
 const UseTable = ({
   header,
@@ -30,6 +31,8 @@ const UseTable = ({
   const [deleteIndex, setDeleteIndex] = useState(null);
   const [deleteRequestIndex, setDeleteRequestIndex] = useState(null);
   const [acceptRequestIndex, setAcceptRequestIndex] = useState(null);
+  const [deleteManagerRequestIndex, setDeleteManagerRequestIndex] = useState(null);
+  const [acceptManagerRequestIndex, setAcceptManagerRequestIndex] = useState(null);
   const sentData = {};
   const dispatch = useDispatch();
   const userId = useSelector(
@@ -55,10 +58,21 @@ const UseTable = ({
     setAcceptRequestIndex(null)
   }
 
+  const handleManagerAcceptRequest = async (id, index) =>{
+    setAcceptManagerRequestIndex(index)
+    // console.log(id, index)
+    sentData.manager_id = id
+    sentData.player_id = userId
+    // console.log('sent data ', sentData)
+    await dispatch(PlayerAcceptManagerDetailsApi(sentData))
+    await dispatch(PlayerManagerDealsApi())
+    setAcceptManagerRequestIndex(null)
+  }
+
   const handleDeleteOffer = async (id) =>{
     setDeleteIndex(id)
-    sentData.request_id = id
-    sentData.player_id = userId
+    sentData.offer_id = id
+    sentData.user_id = userId
     // console.log('sent data ', sentData)
     await dispatch(PlayerDeleteOfferDetailsApi(sentData))
     await dispatch(PlayerDealsApi())
@@ -75,6 +89,16 @@ const UseTable = ({
     setDeleteRequestIndex(null)
   }
 
+  const handleManagerDeleteRequest = async (id, index) =>{
+    setDeleteManagerRequestIndex(index)
+    sentData.manager_id = id
+    sentData.player_id = userId
+    // console.log('sent data ', sentData)
+    await dispatch(PlayerDeleteManagerDetailsApi(sentData))
+    await dispatch(PlayerManagerDealsApi())
+    setDeleteManagerRequestIndex(null)
+  }
+
   return (
     <table className="AdminUserTable">
       <thead>
@@ -86,7 +110,8 @@ const UseTable = ({
               className="UseTable_tableheader"
             >
               {item?.name == "AcceptDeclineOffer" ||
-              item?.name == "FanAcceptDeclineOffer"
+              item?.name == "FanAcceptDeclineOffer" ||
+              item?.name == "ManagerAcceptDeclineOffer"
                 ? "Actions"
                 : item?.name}
             </th>
@@ -196,8 +221,14 @@ const UseTable = ({
                         return (<td className='useTable_tableDetails'><div style={{display:'flex', alignItems:'center'}}><img src={each?.offer?.player?.profile_pics || each?.request?.player?.profile_pics} className='useTable_ImageRecipient' alt='Recipient image'/>{each?.offer?.player?.firstname || each?.request?.player?.firstname} {each?.offer?.player?.surname || each?.request?.player?.surname}</div></td>);
                     case 'Sender':
                           return (<td className='useTable_tableDetails'><div style={{display:'flex', alignItems:'center'}}><img src={each?.offer?.sender?.profile_pics || each?.request?.requests?.profile_pics} className='useTable_ImageRecipient' alt='Recipient image'/>{each?.offer?.sender?.firstname || each?.request?.requests?.firstname} {each?.offer?.sender?.surname || each?.request?.requests?.surname}</div></td>);
+                    case 'Manager':
+                          return (<td className='useTable_tableDetails'><div style={{display:'flex', alignItems:'center'}}><img src={each?.requests?.manager?.profile_pics} className='useTable_ImageRecipient' alt='Recipient image'/>{each?.requests?.manager?.firstname} {each?.requests?.manager?.surname}</div></td>);
                     case 'Details':
                         return (<td className='useTable_tableDetails'>{each?.offer?.deal?.about || each?.offer?.deal?.detail || each?.request?.requests?.detail || each?.request?.deal?.detail}</td>);
+                    case 'Phone number':
+                          return (<td className='useTable_tableDetails'>{each?.requests?.manager?.phone}</td>);
+                    case 'Email':
+                            return (<td className='useTable_tableDetails'>{each?.requests?.manager?.email}</td>);
                     case 'Amount':
                         return (<td className='useTable_tableDetails'>$ {each?.offer?.deal?.value || each?.request?.requests?.recipient_earnings || each?.request?.deal?.value}</td>);
                     case 'Request Type':
@@ -206,6 +237,8 @@ const UseTable = ({
                         return (<td className='useTable_tableDetails'>{each?.offer?.deal?.surname}</td>);
                     case 'Status':
                         return (<td className='useTable_tableDetails'>{each?.offer?.deal?.offerStatus || each?.offer?.deal?.status || each?.request?.requests?.status || each?.request?.deal?.requestStatus}</td>);
+                    case 'Request Status':
+                          return (<td className='useTable_tableDetails'>{each?.requests?.request?.manager_request}</td>);
                     
                     case "AcceptDeclineOffer":
                       return (
@@ -218,6 +251,8 @@ const UseTable = ({
                         <button className='AcceptedPlayerUseTable'>Accepted</button>
                         : each?.offer?.deal?.offerStatus == 'rejected' ?
                         <button className='RejectedPlayerUseTable'>Rejected</button> 
+                        : each?.offer?.deal?.offerStatus == 'expired' ?
+                        <button className='RejectedPlayerUseTable'>Expired</button> 
                         :<>
                           <button
                             className="Admin_playersviewprofile"
@@ -232,12 +267,21 @@ const UseTable = ({
                             />
                             : <span>Accept</span>}
                           </button>
-                        ) : each?.offer?.deal?.offerStatus == "rejected" ? (
-                          <button className="RejectedPlayerUseTable">
-                            Rejected
-                          </button>
-                          </>}
-                        </td>
+                            <button
+                              className="Admin_playersSuspendprofile"
+                              onClick={()=> handleDeleteOffer(each?.offer?.deal?.offerId)}
+                            >
+                                {deleteIndex == each?.offer?.deal?.offerId   ? 
+                              <PulseLoader
+                                color="#7F351D"
+                                size={13}
+                                aria-label="Loading Spinner"
+                                data-testid="loader"
+                              />
+                              : <span>Decline</span>}
+                            </button>
+                            </>}
+                          </td>
                       );
                       case "FanAcceptDeclineOffer":
                         return (
@@ -250,6 +294,8 @@ const UseTable = ({
                           <button className='AcceptedPlayerUseTable'>Accepted</button>
                           : each?.request?.requests?.status == 'rejected' ?
                           <button className='RejectedPlayerUseTable'>Rejected</button> 
+                          : each?.offer?.deal?.offerStatus == 'expired' ?
+                          <button className='RejectedPlayerUseTable'>Expired</button> 
                           :<>
                             <button
                               className="Admin_playersviewprofile"
@@ -269,6 +315,49 @@ const UseTable = ({
                               onClick={()=> handleDeleteRequest(each?.request?.requests?.requestId)}
                             >
                                 {deleteRequestIndex == each?.request?.requests?.requestId   ? 
+                              <PulseLoader
+                                color="#7F351D"
+                                size={13}
+                                aria-label="Loading Spinner"
+                                data-testid="loader"
+                              />
+                              : <span>Decline</span>}
+                            </button>
+                            </>}
+                          </td>
+                        );
+                        case "ManagerAcceptDeclineOffer":
+                        return (
+                          <td
+                            className="useTable_ViewEditSuspendDetails"
+                            style={{ flex: 1, width: "200px" }}
+                          >
+                            {/* <Link className="Admin_playersviewprofile">Edit</Link> */}
+                          {each?.requests?.request?.status == 'accepted' ? 
+                          <button className='AcceptedPlayerUseTable'>Accepted</button>
+                          : each?.requests?.request?.status == 'rejected' ?
+                          <button className='RejectedPlayerUseTable'>Rejected</button> 
+                          : each?.offer?.deal?.offerStatus == 'expired' ?
+                          <button className='RejectedPlayerUseTable'>Expired</button> 
+                          :<>
+                            <button
+                              className="Admin_playersviewprofile"
+                              onClick={()=> handleManagerAcceptRequest(each?.requests?.request?.manager_id, index )}
+                            >
+                              {acceptRequestIndex == index ? 
+                              <PulseLoader
+                                color="#1D7F33"
+                                size={13}
+                                aria-label="Loading Spinner"
+                                data-testid="loader"
+                              />
+                              : <span>Accept</span>}
+                            </button>
+                            <button
+                              className="Admin_playersSuspendprofile"
+                              onClick={()=> handleManagerDeleteRequest(each?.requests?.request?.manager_id, index )}
+                            >
+                                {deleteRequestIndex == index  ? 
                               <PulseLoader
                                 color="#7F351D"
                                 size={13}

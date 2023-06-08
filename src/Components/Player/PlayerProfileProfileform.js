@@ -114,14 +114,15 @@ const PlayerProfileProfileform = ({userId}) => {
         <p className='Scoutpage_Profile_Profileformlabelnexttext'>Position</p>
         <select type='text' className='Scoutpage_Profile_ProfileformlabelInput' value={position} onChange={handlePositionClick} placeholder='position' >
           <option></option>
-          <option value='goalkeeper'>Goalkeeper</option>
-          <option value='centerback_defender'>Center Back(Defenders)</option>
-          <option value='fullback_defender'>Full Back(Defenders)</option>
-          <option value='central_midfielders'>Central midfielders</option>
-          <option value='attacking_midfielders'>Attacking midfielders</option>
-          <option value='defensive_midfielders'>Defensive midfielders</option>
-          <option value='wingers'>Wingers</option>
-          <option value='striker'>Striker</option>
+          <option value='Goalkeeper'>Goalkeeper</option>
+          <option value='Centerback_Defender'>Center Back(Defenders)</option>
+          <option value='Left_Winger_Defender'>Left Winger Back(Defenders)</option>
+          <option value='Right_Winger_Defender'>Right Winger Back(Defenders)</option>
+          <option value='Central_Midfielders'>Central midfielders</option>
+          <option value='Attacking_Midfielders'>Attacking midfielders</option>
+          <option value='Defensive_Midfielders'>Defensive midfielders</option>
+          <option value='Wingers'>Wingers</option>
+          <option value='Striker'>Striker</option>
           </select>
         <p className='Scoutpage_Profile_Profileformlabelnexttext'>Current Club</p>
         <input type='text' className='Scoutpage_Profile_ProfileformlabelInput' value={current_club}  onChange={handleCurrentClubClick} name='current_club' placeholder='Name of Club' required/>
