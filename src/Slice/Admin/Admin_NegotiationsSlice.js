@@ -44,6 +44,8 @@ const Admin__Active_Negotiations_fun_Service = async (token) => {
     Admin__Suspended_Negotiations,
   };
 
+  console.log(Admin___Negotiations);
+
   return Admin___Negotiations;
 };
 

@@ -36,11 +36,47 @@ const initialState = {
   Talent_manager_Deals_message: null,
 
   Talent_manager_requested_players: null,
+
+  Talent_manager_deal_details: null,
 };
 
 const tokengot = localStorage.getItem("token");
 
 let baseURL = process.env.REACT_APP_AFRISPORTURL;
+
+const Talent_manager_deal_details_fun_Service = async (data, token) => {
+  let id = data?.data?.id;
+  let from_person = data?.data?.from;
+
+  let API_URL = `${baseURL}talent-manager/offer/detail/${id}/${from_person}`;
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  const response = await axios.get(API_URL, config);
+  return response.data;
+};
+
+export const Talent_manager_deal_details_fun = createAsyncThunk(
+  "Talent_manager_slice/Talent_manager_deal_details_fun",
+  async (data, thunkAPI) => {
+    try {
+      const token = thunkAPI.getState().reducer.LoginSlice.logindata.data.token;
+      return await Talent_manager_deal_details_fun_Service(data, token);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
 
 const Talent_manager_requested_players_fun_Service = async (token) => {
   let API_URL = `${baseURL}talent-manager/request`;
@@ -53,7 +89,6 @@ const Talent_manager_requested_players_fun_Service = async (token) => {
 
   const response = await axios.get(API_URL, config);
 
-  console.log(response.data);
   return response.data;
 };
 
@@ -80,7 +115,7 @@ export const Talent_manager_requested_players_fun = createAsyncThunk(
 );
 
 const Talent_manager_Deals_fun_Service = async (token) => {
-  let API_URL = `${baseURL}talent-manager/offer`;
+  let API_URL = `${baseURL}talent-manager/player/offers`;
 
   const config = {
     headers: {
@@ -100,7 +135,6 @@ export const Talent_manager_Deals_fun = createAsyncThunk(
       const id =
         thunkAPI.getState().reducer.LoginSlice.logindata.data?.user?.id;
 
-      console.log("this is me");
       return await Talent_manager_Deals_fun_Service(token);
     } catch (error) {
       const message =
@@ -435,6 +469,8 @@ export const Talent_manager_slice = createSlice({
       state.Talent_manager_Deals_message = null;
       state.Talent_manager_Deals = null;
       state.Talent_manager_requested_players = null;
+      state.Talent_manager_deal_details = null;
+
       state.Talent_manager_Deals_isLoading = false;
       state.Talent_manager_Deals_isSuccess = false;
     },
@@ -442,6 +478,33 @@ export const Talent_manager_slice = createSlice({
 
   extraReducers: (builder) => {
     builder
+
+      .addCase(Talent_manager_deal_details_fun.pending, (state) => {
+        state.Talent_manager_Deals_isLoading = true;
+      })
+      .addCase(Talent_manager_deal_details_fun.fulfilled, (state, action) => {
+        state.Talent_manager_deal_details = action.payload;
+        state.Talent_manager_Deals_isSuccess = true;
+        state.Talent_manager_Deals_isLoading = false;
+      })
+      .addCase(Talent_manager_deal_details_fun.rejected, (state, action) => {
+        state.Talent_manager_Deals_isError = true;
+        state.Talent_manager_Deals_message = action.payload;
+        state.Talent_manager_Deals_isLoading = false;
+        state.Talent_manager_Deals_isSuccess = false;
+
+        toast.error(`${state.Talent_manager_Deals_message}`, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          className: "Forbidden403",
+        });
+      })
 
       .addCase(Talent_manager_requested_players_fun.pending, (state) => {
         state.Talent_manager_Deals_isLoading = true;

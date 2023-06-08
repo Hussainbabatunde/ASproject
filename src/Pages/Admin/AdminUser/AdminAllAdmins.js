@@ -391,8 +391,6 @@ const AdminAllAdmins = () => {
                 />
                 <RiSearchLine className="AdminDashboard_SearchIcon" />
               </div>
-
-              <h1></h1>
             </div>
 
             <div className="AdminTable_NegotiateTable">

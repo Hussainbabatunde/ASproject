@@ -29,7 +29,6 @@ const TalentManagerDeal = () => {
     (state) => state?.reducer?.Talent_manager_slice
   );
 
-  console.log(Talent_manager_Deals);
   const dispatch = useDispatch();
 
   const data = [
@@ -37,34 +36,77 @@ const TalentManagerDeal = () => {
     { id: 2, pathTo: "/afrisport/scout/deal", pathName: "Deals" },
   ];
 
+  // const header = [
+  //   {
+  //     id: 1,
+  //     name: "Deal name",
+  //   },
+  //   {
+  //     id: 2,
+  //     name: "Recipient",
+  //   },
+  //   {
+  //     id: 3,
+  //     name: "Details",
+  //   },
+  //   {
+  //     id: 4,
+  //     name: "Amount",
+  //   },
+  //   {
+  //     id: 5,
+  //     name: "Payment",
+  //   },
+  //   {
+  //     id: 6,
+  //     name: "Status",
+  //   },
+  //   {
+  //     id: 7,
+  //     name: "Scout Deals",
+  //   },
+  // ];
+
   const header = [
     {
       id: 1,
       name: "Deal name",
+      case: "talent_Deal_name",
     },
     {
       id: 2,
-      name: "Recipient",
+      name: "Sender",
+      case: "talent_DealSender",
     },
     {
       id: 3,
       name: "Details",
+      case: "talent_DealDetails",
     },
     {
       id: 4,
       name: "Amount",
+      case: "talent_DealAmount",
     },
     {
       id: 5,
       name: "Payment",
+      case: "talent_DealPayment",
     },
     {
       id: 6,
       name: "Status",
+      case: "talent_DealStatus",
+    },
+    {
+      id: 8,
+      name: "AcceptDeclineOffer",
+      case: "Talent_AcceptDeclineOffer",
     },
     {
       id: 7,
-      name: "Scout Deals",
+      name: "",
+      case: "Talent_deal_Details",
     },
   ];
   const style = {
@@ -107,7 +149,7 @@ const TalentManagerDeal = () => {
         <Talent_Header />
 
         <div className="Scoutpage_DealContent">
-          {dataTable?.length === 0 ? (
+          {Talent_manager_Deals?.data?.length === 0 ? (
             <div
               style={{
                 display: "flex",
@@ -122,7 +164,7 @@ const TalentManagerDeal = () => {
               />
             </div>
           ) : (
-            <UseTable header={header} data={dataTable} />
+            <UseTable header={header} data={Talent_manager_Deals?.data} />
           )}
         </div>
         <Modal

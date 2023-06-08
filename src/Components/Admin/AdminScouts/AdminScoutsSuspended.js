@@ -30,6 +30,10 @@ const AdminScoutsSuspended = ({
   const { Admin_Get_All_Scouts_isSuccess, Admin_Get_All_Suspended_Scouts } =
     useSelector((state) => state.reducer.Admin_Scouts_Slice);
 
+  console.log(Admin_Get_All_Suspended_Scouts);
+  console.log(Admin_Get_All_Suspended_Scouts);
+  console.log(Admin_Get_All_Suspended_Scouts);
+
   const [loading, setLoading] = useState(false);
 
   const header = [
@@ -193,7 +197,7 @@ const AdminScoutsSuspended = ({
           ) : (
             <AdminUseTable
               header={header}
-              data={Admin_Get_All_Suspended_Scouts?.data}
+              data={Admin_Get_All_Suspended_Scouts}
               handleEdit={handleEdit}
             />
           )}

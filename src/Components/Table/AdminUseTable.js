@@ -455,6 +455,20 @@ const AdminUseTable = ({
                       </td>
                     );
 
+                  case "Neg_Initial_Offer":
+                    return (
+                      <td className="useTable_tableDetails">
+                        {each?.comments?.active_offers?.initial}
+                      </td>
+                    );
+
+                  case "Neg_Current_Offer":
+                    return (
+                      <td className="useTable_tableDetails">
+                        {each?.comments?.active_offers?.Amount}
+                      </td>
+                    );
+
                   case "Neg_Scout":
                     return (
                       <td className="useTable_tableDetails">
@@ -502,6 +516,24 @@ const AdminUseTable = ({
                             {each?.firstname} {each?.surname}
                           </span>
                         </div>
+                      </td>
+                    );
+
+                  case "scout_Initial_Offer":
+                    return (
+                      <td className="useTable_tableDetails">
+                        <span className="f text-xs font-normal">
+                          {each?.initial}
+                        </span>
+                      </td>
+                    );
+
+                  case "scout_Current_Offer":
+                    return (
+                      <td className="useTable_tableDetails">
+                        <span className="f text-xs font-normal">
+                          {each?.Current_Offer}
+                        </span>
                       </td>
                     );
 
