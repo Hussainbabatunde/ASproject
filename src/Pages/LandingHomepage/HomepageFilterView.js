@@ -12,7 +12,7 @@ import { CircularProgress } from '@mui/material';
 const HomepageFilterView = () => {
     const [allPlayers, setAllPlayers] = useState([])
     const dispatch = useDispatch()
-    const Sortdata = useSelector((state)=> state.reducer?.GetPlayerSlice?.gottenPlayerData?.data?.data)
+    const Sortdata = useSelector((state)=> state.reducer?.GetPlayerSlice?.gottenPlayerData?.data)
     const filteredPlayer = useSelector((state)=> state.reducer?.GetPlayerSlice?.filteredPlayersData?.data)
     console.log('sortdata ', Sortdata)
     const [searchLoader, setSearchloader] = useState(false)
@@ -382,35 +382,39 @@ const HomepageFilterView = () => {
                     <p className='FilterPage_LabelSearch'>Position</p>
                     <div className='FilterPage_StrongerfootSec'>
                         <div>
-                            <input  name='position'  checked={checkedPosition === 'goalkeeper'} onChange={()=> handleCheckedPosition('goalkeeper')} type='checkbox' />
+                            <input  name='position'  checked={checkedPosition === 'Goalkeeper'} onChange={()=> handleCheckedPosition('goalkeeper')} type='checkbox' />
                             <label style={{marginLeft:"10px"}}>Goalkeeper</label>
                         </div>
                         <div>
-                            <input  name='position'  checked={checkedPosition === 'centerback_defender'} onChange={()=> handleCheckedPosition('centerback_defender')} type='checkbox' />
+                            <input  name='position'  checked={checkedPosition === 'Centerback_Defender'} onChange={()=> handleCheckedPosition('centerback_defender')} type='checkbox' />
                             <label style={{marginLeft:"10px"}}>Center Back(Defenders)</label>
                         </div>
                         <div>
-                            <input  name='position' checked={checkedPosition === 'fullback_defender'} onChange={()=> handleCheckedPosition('fullback_defender')} type='checkbox' />
-                            <label style={{marginLeft:"10px"}}>Full Back(Defenders)</label>
+                            <input  name='position' checked={checkedPosition === 'Left_Winger_Defender'} onChange={()=> handleCheckedPosition('fullback_defender')} type='checkbox' />
+                            <label style={{marginLeft:"10px"}}>Left Winger Back(Defenders)</label>
                         </div>
                         <div>
-                            <input name='position' checked={checkedPosition === 'central_midfielders'} onChange={()=> handleCheckedPosition('central_midfielders')} type='checkbox' />
+                            <input  name='position' checked={checkedPosition === 'Right_Winger_Defender'} onChange={()=> handleCheckedPosition('fullback_defender')} type='checkbox' />
+                            <label style={{marginLeft:"10px"}}>Right Winger Back(Defenders)</label>
+                        </div>
+                        <div>
+                            <input name='position' checked={checkedPosition === 'Central_Midfielders'} onChange={()=> handleCheckedPosition('central_midfielders')} type='checkbox' />
                             <label style={{marginLeft:"10px"}}>Central midfielders</label>
                         </div>
                         <div>
-                            <input name='position' checked={checkedPosition === 'attacking_midfielders'} onChange={()=> handleCheckedPosition('attacking_midfielders')} type='checkbox' />
+                            <input name='position' checked={checkedPosition === 'Attacking_Midfielders'} onChange={()=> handleCheckedPosition('attacking_midfielders')} type='checkbox' />
                             <label style={{marginLeft:"10px"}}>Attacking midfielders</label>
                         </div>
                         <div>
-                            <input name='position' checked={checkedPosition === 'defensive_midfielders'} onChange={()=> handleCheckedPosition('defensive_midfielders')} type='checkbox' />
+                            <input name='position' checked={checkedPosition === 'Defensive_Midfielders'} onChange={()=> handleCheckedPosition('defensive_midfielders')} type='checkbox' />
                             <label style={{marginLeft:"10px"}}>Defensive midfielders</label>
                         </div>
                         <div>
-                            <input name='position' checked={checkedPosition === 'wingers'} onChange={()=> handleCheckedPosition('wingers')} type='checkbox' />
+                            <input name='position' checked={checkedPosition === 'Wingers'} onChange={()=> handleCheckedPosition('wingers')} type='checkbox' />
                             <label style={{marginLeft:"10px"}}>Wingers</label>
                         </div>
                         <div>
-                            <input  name='position' checked={checkedPosition === 'striker'} onChange={()=> handleCheckedPosition('striker')} type='checkbox' />
+                            <input  name='position' checked={checkedPosition === 'Striker'} onChange={()=> handleCheckedPosition('striker')} type='checkbox' />
                             <label style={{marginLeft:"10px"}}>Striker</label>
                         </div>
                         <button type='submit' className='Scoutpage_Profileform_savebutton'>
@@ -428,7 +432,12 @@ const HomepageFilterView = () => {
              data-aos="flip-down"
              className='Homepage_foorballersBriefInfo' key={index}>
                 <img src={each?.image_url || each?.profile_pics} className='Homepage_PlayersImage' />
-                <p className='Homepage_PlayerStatus'>{each?.service_type == 'range'? `${each?.minimum} - ${each?.maximum}` : each?.service_type == 'free' ? `free` : null }</p>
+                {
+                each?.service_type == 'open'?<p className='Homepage_PlayerStatus'>{each?.minimum}</p>
+                : each?.service_type == 'free' ? <p className='Homepage_PlayerStatus'>{each?.minimum}</p> 
+                : each?.service_type == 'actual'? <p className='Homepage_PlayerStatus'>${each?.minimum}</p>
+                : <p className='Homepage_PlayerStatus'>${each?.minimum} - ${each?.maximum}</p>
+                }
                 <p className='Homepage_PlayersName'>{each?.firstname} {each?.surname}</p>
                 <div className='Homepage_playersPosition'>
                   <p>{each?.position || each?.bio?.position}</p>

@@ -123,17 +123,12 @@ const VideoRequestModal = ({show,setRequestType, loader,requestType , handleSubm
         <p style={{fontSize:'13px', margin: '7px 0 0'}}>Expiration date (optional)</p>
         <p style={{fontSize:'12px', marginBottom:'5px'}}>After this date, the recipient will no longer be able to review or accept your deal</p>
         <input type='date' name='expiration' onChange={handleOfferChange} className='OfferModal_TitleDate' />
-        <p style={{fontWeight: '600', marginTop:'20px'}}>How much will you like to pay</p>
-         {change == false ?  
+        <p style={{fontWeight: '600', marginTop:'20px'}}>Amount to be paid:</p>
+         
         <div className='MakeARequest_InitialAmtDiv'>
           <p className='MakeARequest_InitialAmtText'>${payValue}</p>
-          <p className='MakeARequest_InitialChangeText' onClick={() => setChange(true)}>Change</p>
+          {/* <p className='MakeARequest_InitialChangeText' onClick={() => setChange(true)}>Change</p> */}
         </div>
-        :
-        <div className='OfferModal_PriceInput'>
-          <label>$</label>
-          <input type='text' value={payValue} onChange={handleChangePayValue} className='OfferInput_ViewProfilePage' placeholder='Input your price' />
-        </div> }
         
         <div className='OfferInput_PriceSingleSummary'>          
         <p style={{fontSize:'13px', margin: '7px 0 0'}}>Recipient earnings</p>

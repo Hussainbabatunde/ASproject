@@ -92,6 +92,16 @@
     font-size: 16px;
     margin-top: 20px;
 }
+.ScoutProfile_Profileform_ActiveSendRequest{
+    color: white;
+    border: none;
+    background-color: rgba(27, 133, 80, 1);
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 16px;
+    margin-top: 20px;
+}
 
 @media (max-width: 1105px){
     .ScoutProfile_VerificationDiv{
