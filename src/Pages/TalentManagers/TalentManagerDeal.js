@@ -36,37 +36,6 @@ const TalentManagerDeal = () => {
     { id: 2, pathTo: "/afrisport/scout/deal", pathName: "Deals" },
   ];
 
-  // const header = [
-  //   {
-  //     id: 1,
-  //     name: "Deal name",
-  //   },
-  //   {
-  //     id: 2,
-  //     name: "Recipient",
-  //   },
-  //   {
-  //     id: 3,
-  //     name: "Details",
-  //   },
-  //   {
-  //     id: 4,
-  //     name: "Amount",
-  //   },
-  //   {
-  //     id: 5,
-  //     name: "Payment",
-  //   },
-  //   {
-  //     id: 6,
-  //     name: "Status",
-  //   },
-  //   {
-  //     id: 7,
-  //     name: "Scout Deals",
-  //   },
-  // ];
-
   const header = [
     {
       id: 1,
@@ -119,22 +88,6 @@ const TalentManagerDeal = () => {
   };
 
   const [show, setShow] = useState(false);
-
-  const dataTable = [
-    {
-      id: 1,
-      dealname: "5 Season Deal",
-      imgRecip: imgRecipient,
-      recipient: "David Dada",
-      firstname: "tunde",
-      surname: "kunle",
-      email: "mayana@mail.com",
-      role: "teacher",
-      user_type: "teacher",
-      description:
-        "jhkjhkjjj jjjjjjjjj jjjjjj jjjjkhk  iuhhiuhiuh uhiuhiyu8gu  ygug",
-    },
-  ];
 
   useEffect(() => {
     dispatch(Talent_manager_Deals_fun());
