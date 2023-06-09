@@ -68,7 +68,12 @@ const PlayerHomePage = () => {
              data-aos="flip-down"
              className='Homepage_foorballersBriefInfo' key={index}>
                 <img src={each?.image_url} className='Homepage_PlayersImage' />
-                <p className='Homepage_PlayerStatus'>{each?.market_place_fee}</p>
+                {
+                each?.service_type == 'open'?<p className='Homepage_PlayerStatus'>{each?.minimum}</p>
+                : each?.service_type == 'free' ? <p className='Homepage_PlayerStatus'>{each?.minimum}</p> 
+                : each?.service_type == 'actual'? <p className='Homepage_PlayerStatus'>${each?.minimum}</p>
+                : <p className='Homepage_PlayerStatus'>${each?.minimum} - ${each?.maximum}</p>
+                }
                 <p className='Homepage_PlayersName'>{each?.firstname} {each?.surname}</p>
                 <div className='Homepage_playersPosition'>
                   <p>{each?.position.replace(/_/g, ' ')}</p>

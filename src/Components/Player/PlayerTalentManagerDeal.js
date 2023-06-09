@@ -19,8 +19,9 @@ import {reset as resetGetAllPlayerDealSlice} from "../../Slice/Player/PlayerDeal
 import { UserLogout } from './UserLogOut';
 import { ToastContainer } from 'react-toastify';
 import { PlayerFanDealsApi } from '../../Slice/Player/PlayerDeal/PlayerFanDealSlice';
+import { PlayerManagerDealsApi } from '../../Slice/Player/PlayerManager/PlayerManagerSlice';
 
-const PlayerFanDeal = () => {
+const PlayerTalentManagerDeal = () => {
     const dispatch = useDispatch()
     const handleLogout = async () =>{
         await dispatch(LogoutAuth())
@@ -41,40 +42,26 @@ const PlayerFanDeal = () => {
     ]
 
     const header= [
-        
       {
           id: 1,
-          name: 'Deal name'
+          name: "Manager"
       },
       {
-          id: 2,
-          name: "Sender"
-      },
-      {
-          id:3,
-          name:'Details'
-      },
+        id:2,
+        name:'Phone number'
+    },
+    {
+        id:3,
+        name:'Email'
+    },
       {
           id:4,
-          name:'Request Type'
+          name:'Request Status'
       },
       {
-          id: 5,
-          name: 'Payment'
-      },
-      {
-          id:6,
-          name:'Status'
-      },
-      {
-        id: 8,
-        name: 'FanAcceptDeclineOffer'
-      },
-      {
-          id:7,
-          name:'Fan Deal Detail'
-      }
-      
+        id: 5,
+        name: 'ManagerAcceptDeclineOffer'
+      }      
   ]
   const style = {
     position: 'absolute',
@@ -90,7 +77,7 @@ const PlayerFanDeal = () => {
   useEffect(()=>{
     const DealSlice = async ()=>{
         setShow(true)
-        await dispatch(PlayerFanDealsApi())
+        await dispatch(PlayerManagerDealsApi())
         // await dispatch(GetPlayerOfferDetailsApi())
         setShow(false)
     }
@@ -103,8 +90,8 @@ const PlayerFanDeal = () => {
 //     }
 // ]
 
-const dataTable = useSelector((state)=> state?.reducer?.PlayerFanSlice?.PlayerFanDealData?.data)
-// console.log('fan deals ', dataTable)
+const dataTable = useSelector((state)=> state?.reducer?.PlayerManagerSlice?.PlayerManagerDealData?.data)
+console.log('manager deals ', dataTable)
   return (
     <div  className='Scoutpage_contents'>
         <ToastContainer />
@@ -141,4 +128,4 @@ const dataTable = useSelector((state)=> state?.reducer?.PlayerFanSlice?.PlayerFa
   )
 }
 
-export default PlayerFanDeal
+export default PlayerTalentManagerDeal

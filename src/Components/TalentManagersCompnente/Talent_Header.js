@@ -52,7 +52,7 @@ function Talent_Header() {
   ];
   return (
     <>
-      <div className="Scoutpage_AccountLogout_div">
+      <div className="Scoutpage_AccountLogout_div ">
         <p className="Scoutpage_AccountWord">Account</p>
         <p
           className="Scoutpage_AccountWord"
@@ -63,7 +63,7 @@ function Talent_Header() {
         </p>
       </div>
 
-      <div className="Scoutpage_LinkPages">
+      <div class="bg-white  p-4 sm:p-6 md:p-8 lg:p-10 xl:p-12 mt-4 sm:mt-8 md:mt-12 lg:mt-16 xl:mt-20 flex flex-wrap">
         {data.map((each, index) => (
           <NavLink
             to={each?.pathTo}

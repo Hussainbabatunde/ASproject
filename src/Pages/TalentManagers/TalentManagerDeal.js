@@ -30,8 +30,6 @@ const TalentManagerDeal = () => {
   );
 
   console.log(Talent_manager_Deals);
-  console.log(Talent_manager_Deals);
-
   const dispatch = useDispatch();
 
   const data = [
@@ -43,30 +41,48 @@ const TalentManagerDeal = () => {
     {
       id: 1,
       name: "Deal name",
+      case: "talent_Deal_name",
     },
+
     {
       id: 2,
-      name: "Recipient",
+      name: "Player",
+      case: "talent_DealPlayer",
     },
     {
       id: 3,
-      name: "Details",
+      name: "Sender",
+      case: "talent_DealSender",
     },
     {
       id: 4,
-      name: "Amount",
+      name: "Details",
+      case: "talent_DealDetails",
     },
     {
       id: 5,
-      name: "Payment",
+      name: "Amount",
+      case: "talent_DealAmount",
     },
     {
       id: 6,
-      name: "Status",
+      name: "Payment",
+      case: "talent_DealPayment",
     },
     {
       id: 7,
-      name: "Scout Deals",
+      name: "Status",
+      case: "talent_DealStatus",
+    },
+    {
+      id: 8,
+      name: "AcceptDeclineOffer",
+      case: "Talent_AcceptDeclineOffer",
+    },
+    {
+      id: 9,
+      name: "",
+      case: "Talent_deal_Details",
     },
   ];
   const style = {
@@ -79,22 +95,6 @@ const TalentManagerDeal = () => {
   };
 
   const [show, setShow] = useState(false);
-
-  const dataTable = [
-    {
-      id: 1,
-      dealname: "5 Season Deal",
-      imgRecip: imgRecipient,
-      recipient: "David Dada",
-      firstname: "tunde",
-      surname: "kunle",
-      email: "mayana@mail.com",
-      role: "teacher",
-      user_type: "teacher",
-      description:
-        "jhkjhkjjj jjjjjjjjj jjjjjj jjjjkhk  iuhhiuhiuh uhiuhiyu8gu  ygug",
-    },
-  ];
 
   useEffect(() => {
     dispatch(Talent_manager_Deals_fun());
@@ -109,7 +109,7 @@ const TalentManagerDeal = () => {
         <Talent_Header />
 
         <div className="Scoutpage_DealContent">
-          {dataTable?.length === 0 ? (
+          {Talent_manager_Deals?.data?.length === 0 ? (
             <div
               style={{
                 display: "flex",
@@ -124,7 +124,7 @@ const TalentManagerDeal = () => {
               />
             </div>
           ) : (
-            <UseTable header={header} data={dataTable} />
+            <UseTable header={header} data={Talent_manager_Deals?.data} />
           )}
         </div>
         <Modal

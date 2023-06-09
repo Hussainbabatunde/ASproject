@@ -81,7 +81,7 @@ export const loginAuth = createAsyncThunk(
         if (response.data.data.token !== undefined) {
           localStorage.setItem("token", response.data.data.token);
         }
-        console.log("login data ", response.data);
+        // console.log("login data ", response.data);
         return response.data;
       })
 

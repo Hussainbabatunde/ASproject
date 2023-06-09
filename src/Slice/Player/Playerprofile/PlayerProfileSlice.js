@@ -22,7 +22,8 @@ const initialState = {
     ProfileDeleteImgData: null,
     ProfileDeleteVideoData: null,
     ProfileFanServiceData: null,
-    ProfileAdvertisePlayerData: null
+    ProfileAdvertisePlayerData: null,
+    RequestApprovalData: null
   };
 
 
@@ -85,6 +86,42 @@ const initialState = {
         .get(`player/profile-progress-bar/${id}`)
         .then(async (response) => {
             // console.log('progress bar ',response.data)
+          return response.data;
+        })
+  
+        .catch((err) => {
+          let errdata = err.response.data;
+          console.log('error ', errdata)
+          return rejectWithValue(errdata);
+          // console.log(err)
+        });
+    }
+  );
+
+
+  export const PlayerRequestApprovalApi = createAsyncThunk(
+    "playerRequestApprovalApi/userPlayerRequestApprovalApi",
+    async (_, { rejectWithValue }) => {
+        
+    // for (const [name, value] of details.entries()) {
+    //     console.log(`${name}: ${value}`);
+    //   }
+      const tokengot = localStorage.getItem("token");
+      const infoneeded = `Bearer ${tokengot}`;
+      const instance = axios.create({
+        baseURL: process.env.REACT_APP_AFRISPORTURL ,
+        timeout: 20000,
+  
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: infoneeded
+        },
+      });
+      return await instance
+        .post('player/request-approval')
+        .then(async (response) => {
+            console.log('request approval done ',response.data)
           return response.data;
         })
   
@@ -908,6 +945,31 @@ const initialState = {
           }
         })
         .addCase(PlayerProfileVideoLink.rejected, (state, action) => {
+          state.isLoading = false;
+          state.isError = true;
+          state.message = action.payload;
+        })
+        .addCase(PlayerRequestApprovalApi.pending, (state) => {
+          state.isLoading = true;
+          state.null = true;
+        })
+        .addCase(PlayerRequestApprovalApi.fulfilled, (state, action) => {
+          state.isLoading = false;
+          state.isSuccess = true;
+          state.user = true;
+          state.RequestApprovalData = action.payload;
+          toast.success(`${action.payload.message}`, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            });
+        })
+        .addCase(PlayerRequestApprovalApi.rejected, (state, action) => {
           state.isLoading = false;
           state.isError = true;
           state.message = action.payload;

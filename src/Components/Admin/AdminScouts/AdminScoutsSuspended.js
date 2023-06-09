@@ -31,6 +31,8 @@ const AdminScoutsSuspended = ({
     useSelector((state) => state.reducer.Admin_Scouts_Slice);
 
   console.log(Admin_Get_All_Suspended_Scouts);
+  console.log(Admin_Get_All_Suspended_Scouts);
+  console.log(Admin_Get_All_Suspended_Scouts);
 
   const [loading, setLoading] = useState(false);
 

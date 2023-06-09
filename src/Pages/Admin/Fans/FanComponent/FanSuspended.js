@@ -140,7 +140,7 @@ function FanSuspended() {
     <>
       <AdminUseTable
         header={Suspendheader}
-        data={Admin_Fan?.suspendedFan_data?.data}
+        data={Admin_Fan?.suspendedFan_data}
         handleEdit={handleEdit}
         handleDelete={handleDelete}
       />
