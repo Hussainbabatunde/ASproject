@@ -1,0 +1,115 @@
+.PlayersDealsMade_Page{
+    width: 75%;
+    margin: 20px;
+}
+.PlayersViewDeals_Container{
+    display: flex;
+    justify-content: center;
+    background-color: #DBDBDB;
+}
+.PlayerViewDeals_InfoSection{
+    background: #FFFFFF;
+    border: 1px solid #A7A7A7;
+    border-radius: 5px;
+    margin-top: 15px;
+}
+.PlayerViewDeals_InfoSection_UpperSegment{
+    padding: 1rem 3rem;
+}
+.PlayerViewDeals_InfoSection_LowerSegment{
+    background-color: #DBDBDB;
+    padding: 2rem 3rem;
+    margin-top: 10px;
+}
+.PlayerViewdetails_TopicSec{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.PlayerViewdetails_DetailsText{
+    font-size: 23px;
+    color: #13293F;
+}
+.PlayerViewdetails_DownloadButtons{
+    display: flex;
+}
+.PlayerViewdetails_DownloadPdf{
+    border: none;
+    background-color: transparent;
+    color: #3D413D;
+    cursor: pointer;
+    margin-right: 20px;
+}
+.PlayerViewdetails_Updatebutton{
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    color: #3D413D;
+    margin-right: 20px;
+}
+.PlayerViewdetails_Paynowbutton{
+    padding: 10px 15px;
+    border: none;
+    border-radius: 20px;
+    color: white;
+    background-color: rgba(71, 177, 67, 1);
+}
+.PlayerViewdetails_LabelAndAnswer{
+    display: flex;
+    margin-top: 20px;
+    align-items: center;
+}
+.PlayerViewdetails_LabelText{
+    color: #808080;
+    font-weight: 700;
+    width: 163px;
+}
+.PlayerViewdetails_labelresponse{
+    display: flex;
+    align-items: center;
+    margin-left: 50px;
+}
+.PlayerViewdetails_sendername{
+    font-weight: 600;
+}
+.PlayerViewdetails_response_styling{
+    padding: 10px;
+    border: 1px solid rgba(124, 205, 121, 1);
+    border-radius: 20px;
+    background: #F5FBF4;
+}
+.PlayerViewDeals_CommentImgName{
+    display: flex;
+    margin-top: 10px;
+}
+.PlayerViewDeals_CommentNameandDetails{
+    margin-left: 10px;
+}
+.PlayerViewDeals_DateDetails{
+    font-weight: 300;
+    font-size: 14px;
+    margin-left: 5px;
+}
+.PlayerViewDeals_CommentDetails{
+    margin-top: 5px;
+}
+.PlayerViewDeals_CommentSectionDiv{
+    border: 1px solid #A7A7A7;
+    border-radius: 5px;
+    margin-top: 10px;
+    padding: 1rem;
+    background-color: rgb(242, 238, 238);
+}
+.PlayerViewDeals_CommentSectionInnerDiv{
+    display: flex;
+    align-items: flex-end;
+}
+.PlayerViewDeals_CommentButton{
+    color: white;
+    background-color: black;
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: none;
+    font-size: 15px;
+    margin-left: 10px;
+}

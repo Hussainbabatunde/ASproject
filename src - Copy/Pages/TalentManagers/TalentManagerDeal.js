@@ -29,7 +29,13 @@ const TalentManagerDeal = () => {
     (state) => state?.reducer?.Talent_manager_slice
   );
 
+  console.log(Talent_manager_Deals);
   const dispatch = useDispatch();
+
+  const data = [
+    { id: 1, pathTo: "/afrisport/scout/profile", pathName: "Profile" },
+    { id: 2, pathTo: "/afrisport/scout/deal", pathName: "Deals" },
+  ];
 
   const header = [
     {

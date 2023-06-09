@@ -11,72 +11,45 @@ import Box from "@mui/material/Box";
 import football from "../../assets/lottie/92356-football.json";
 import { useDispatch, useSelector } from "react-redux";
 import { PlayerDealsApi } from "../../Slice/Player/PlayerDeal/PlayerDealSlice";
-import { reset as resetPlayerProfileSlice } from "../../Slice/Player/Playerprofile/PlayerProfileSlice";
-import { reset as resetGetAllPlayerDealSlice } from "../../Slice/Player/PlayerDeal/PlayerDealSlice";
 
-import { ScoutDealsApi } from "../../Slice/Scout/ScoutDealsApiPage/ScoutDealSlice";
-import ScoutHeader from "../../Components/Header/ScoutHeader";
 import UseTable from "../../Components/Table/UseTable";
 import { UserLogout } from "../../Components/Player/UserLogOut";
 import Talent_Header from "../../Components/TalentManagersCompnente/Talent_Header";
 import {
   Talent_manager_Deals_fun,
+  Talent_manager_requested_players_fun,
   reset_Talent_manager_Deals,
 } from "../../Slice/Talent_Manager/Talent_manager_slice";
 
-const TalentManagerDeal = () => {
-  const { Talent_manager_Deals } = useSelector(
+const Talent_manger_Request = () => {
+  const { Talent_manager_requested_players } = useSelector(
     (state) => state?.reducer?.Talent_manager_slice
   );
 
   const dispatch = useDispatch();
 
+  const data = [
+    { id: 1, pathTo: "/afrisport/scout/profile", pathName: "Profile" },
+    { id: 2, pathTo: "/afrisport/scout/deal", pathName: "Deals" },
+  ];
+
+  console.log(Talent_manager_requested_players);
+
   const header = [
     {
       id: 1,
-      name: "Deal name",
-      case: "talent_Deal_name",
+      name: "Player Names",
+      case: "talent_players_name",
     },
-
     {
       id: 2,
-      name: "Player",
-      case: "talent_DealPlayer",
+      name: "Position",
+      case: "talent_player_Position",
     },
     {
       id: 3,
-      name: "Sender",
-      case: "talent_DealSender",
-    },
-    {
-      id: 4,
-      name: "Details",
-      case: "talent_DealDetails",
-    },
-    {
-      id: 5,
-      name: "Amount",
-      case: "talent_DealAmount",
-    },
-    {
-      id: 6,
-      name: "Payment",
-      case: "talent_DealPayment",
-    },
-    {
-      id: 7,
-      name: "Status",
-      case: "talent_DealStatus",
-    },
-    {
-      id: 8,
-      name: "AcceptDeclineOffer",
-      case: "Talent_AcceptDeclineOffer",
-    },
-    {
-      id: 9,
-      name: "",
-      case: "Talent_deal_Details",
+      name: "Club",
+      case: "talent_player_Club",
     },
   ];
   const style = {
@@ -91,7 +64,7 @@ const TalentManagerDeal = () => {
   const [show, setShow] = useState(false);
 
   useEffect(() => {
-    dispatch(Talent_manager_Deals_fun());
+    dispatch(Talent_manager_requested_players_fun());
     return () => {
       dispatch(reset_Talent_manager_Deals());
     };
@@ -103,7 +76,7 @@ const TalentManagerDeal = () => {
         <Talent_Header />
 
         <div className="Scoutpage_DealContent">
-          {Talent_manager_Deals?.data?.length === 0 ? (
+          {Talent_manager_requested_players?.data?.length === 0 ? (
             <div
               style={{
                 display: "flex",
@@ -118,7 +91,10 @@ const TalentManagerDeal = () => {
               />
             </div>
           ) : (
-            <UseTable header={header} data={Talent_manager_Deals?.data} />
+            <UseTable
+              header={header}
+              data={Talent_manager_requested_players?.data}
+            />
           )}
         </div>
         <Modal
@@ -139,4 +115,4 @@ const TalentManagerDeal = () => {
   );
 };
 
-export default TalentManagerDeal;
+export default Talent_manger_Request;

@@ -4,17 +4,25 @@ import { GrFormNext } from "react-icons/gr";
 import { FaDownload } from "react-icons/fa";
 import imgRecipient from "../../assets/imgRecipient.png";
 import { useDispatch, useSelector } from "react-redux";
+import {
+  DealCommentsApi,
+  GetPlayerOfferDetailsApi,
+  GetPlayerOfferDownloadApi,
+  MakeCommentApi,
+  PlayerDealsDetailsApi,
+} from "../../Slice/Player/PlayerDeal/PlayerDealSlice";
 import { PulseLoader } from "react-spinners";
 import { CircularProgress, Skeleton } from "@mui/material";
 import moment from "moment";
-import axios from "axios";
-import { useMutation } from "react-query";
-import { ToastContainer, toast } from "react-toastify";
 import {
   Talent_manager_Interaction_fun,
   Talent_manager_deal_details_fun,
   reset_Talent_manager_Deals,
 } from "../../Slice/Talent_Manager/Talent_manager_slice";
+
+import axios from "axios";
+import { useMutation } from "react-query";
+import { ToastContainer, toast } from "react-toastify";
 let baseURL = process.env.REACT_APP_AFRISPORTURL;
 
 const MyComponent = ({ player }) => {

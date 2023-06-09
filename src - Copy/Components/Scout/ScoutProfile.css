@@ -1,0 +1,136 @@
+.Scoutpage_ProfileContent{
+    display: flex;
+    padding-top: 30px;
+    flex-wrap: wrap;
+}
+.Scoutpage_ProfileContent_editformside{
+    width: 650px;  
+}
+.Scoutpage_Profile_ImgVerificationSec{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+.Scoutpage_Profile_ImagePlaceInput{
+    display: none;
+}
+.Scoutpage_Profile_placeholder{
+    border-radius: 50%;
+    width: 132px;
+    height: 136px !important;
+}
+.Scoutpage_Profile_ImgNameSec{
+    display: flex;
+    align-items: center;
+}
+.Scoutpage_Profile_nameVerify{
+    margin-left: 30px;
+}
+.Scoutpage_Profile_Viewprofilebutton{
+    border: 1px solid rgba(27, 133, 80, 1);
+    padding: 10px 10px;
+    font-size: 14px;
+    border-radius: 5px;
+    min-height: 20px;
+    color: rgba(27, 133, 80, 1) !important;
+    font-weight: 600;
+}
+.Scoutpage_profile_Username{
+    font-size: 24px;
+    font-weight: 400;
+    color: #13293F;
+}
+.Scoutpage_Profile_Verificationstatus{
+    font-size: 16px;
+    font-weight: 400;
+}
+.Scoutpage_profile_Usertype{
+    font-size: 14px;
+    font-weight: 400;
+    color: #13293F;
+    margin-top: 10px;
+}
+.ScoutProfile_VerificationCol{
+    position: relative !important   ;
+    margin-left: auto;
+}
+.css-1idz92c-MuiCircularProgress-svg {
+    color: white !important;
+}
+.ScoutProfile_VerificationDiv{
+    position: sticky;
+    top: 10px;
+    border-radius: 5px;
+    padding: 1rem;
+    right: 50px;
+    background-color: white;
+    width: 300px;
+}
+.ScoutProfile_VerifyAccountText{
+    font-size: 14px;
+    color: #868181;
+    margin-top: 20px;
+}
+.ScoutProfile_VerifyAccountCheckdiv{
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+.ScoutProfile_VerifyAccountCheck_Text{
+    margin-left: 10px;
+    font-size: 14px;
+    color: #868181;
+}
+.ScoutProfile_Profileform_SendRequest{
+    color: white;
+    border: none;
+    background-color: #7CCD79;
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 16px;
+    margin-top: 20px;
+}
+.ScoutProfile_Profileform_ActiveSendRequest{
+    color: white;
+    border: none;
+    background-color: rgba(27, 133, 80, 1);
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 16px;
+    margin-top: 20px;
+}
+
+@media (max-width: 1105px){
+    .ScoutProfile_VerificationDiv{
+        position: static;
+        width: 650px;
+    }
+    .Scoutpage_ProfileContent{
+        flex-direction: column-reverse;
+    }
+    .ScoutProfile_VerificationCol{
+        margin-left: 0;
+    }
+}
+@media (max-width: 800px){
+    .ScoutProfile_VerificationDiv{
+        width: 100%;
+    }
+    .ScoutProfile_VerificationCol{
+        width: 100%;
+    }
+    .Scoutpage_ProfileContent_editformside{
+        width: 100%;
+    }
+    .Scoutpage_contents{
+        padding: 1rem;
+    }
+}
+@media (max-width: 600px){
+    .Scoutpage_Profile_ImgVerificationSec{
+        flex-direction: column;
+    }
+}

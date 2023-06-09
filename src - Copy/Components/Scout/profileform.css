@@ -1,0 +1,148 @@
+
+.Scoutpage_ProfileforContent{
+    width: 100%;
+    margin-top: 20px;
+    background-color: white;
+    border-radius: 5px;
+    padding: 1rem 2rem;
+    font-family: sans-serif !important;
+    display: flex;
+    flex-direction: column;
+}
+.Scoutpage_Profile_Profiledetailstext{
+    font-size: 22px;
+    font-weight: 600;
+}
+.Scoutpage_Profile_filldetailstext{
+    font-size: 16px;
+    font-weight: 300;
+    color: #262626;
+    margin-top: 5px;
+}
+.Scoutpage_Profile_Profileformlabeltext{
+    font-size: 16px;
+    margin-top: 20px;
+    font-weight: 300;
+}
+.Scoutpage_Profile_Profileformlabelnexttext{
+    font-size: 16px;
+    margin-top: 15px;
+    font-weight: 300;
+}
+.Scoutpage_Profile_Profileformradiolabel{
+    font-size: 16px;
+    margin-top: 15px;
+    font-weight: 600;
+    margin-right: 20px;
+}
+.Scoutpage_Profile_ProfileformlabelInput{
+    border: 1px solid #D4D4D4;
+    margin-top: 5px;
+    border-radius: 5px;
+    padding: 5px 10px;
+    display: flex;
+    font-size: 16px;
+    width: 90%;
+    flex: 1;
+}
+.Scoutpage_Profile_Profileformlabeltextarea{
+    border: 1px solid #D4D4D4;
+    margin-top: 5px;
+    border-radius: 5px;
+    padding: 5px 10px;
+    display: flex;
+    font-size: 16px;
+    flex: 1;
+    min-height: 100px;
+}
+.Scoutpage_Profileform_savebutton{
+    width: 130px;
+    color: white;
+    background-color: #1B8550;
+    padding: 10px;
+    margin: 20px 0;
+    border-radius: 5px;
+    border: none;
+}
+.Scoutpage_Profileform_uploadButton{
+    width: 150px;
+    color: black;
+    background-color: #D4D4D4;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px 0;
+    border-radius: 5px;
+    border: none;
+}
+.Scoutpage_Profileform_AddmoreVideos{
+    width: 150px;
+    color: black;
+    background-color: #D4D4D4;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 5px;
+    border-radius: 5px;
+    border: none;
+}
+.Scoutpage_Profile_VideoUploadDiv{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.Scoutpage_Profile_radiolabel{
+    margin-top: 5px;
+    display: flex;
+    flex-wrap: wrap;
+}
+.Scoutpage_Profile_fromtoBusiness{
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 10px;
+}
+.Scoutpage_Profile_fromBusiness{
+    display: flex;
+    margin-right: 10px;
+    flex-direction: column;
+}
+.Scoutprofile_frominput{
+    border: none;
+    font-size: 16px;
+    width: 120px;
+    display: flex;
+    flex: 1;
+}
+.Scoutprofile_nairainput{
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    border: 1px solid #D4D4D4;
+    border-radius: 5px;
+}
+.Scoutpage_Profileform_UploadIDImg{
+    display: flex;
+    align-items: center;
+}
+.Scoutpage_Profileform_ImgIploaded{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+.Scoutpage_Profileform_SelectImage{
+    border: 1px solid #D4D4D4;
+    padding: 10px;
+    border-radius: 5px;
+    color: white;
+    background-color: #1B8550;
+    width: 100px;
+    margin-top: 10px;
+}
+@media (max-width: 600px){
+    .Scoutpage_Profile_ProfileformlabelInput{
+        width: 100%;
+    }
+}
