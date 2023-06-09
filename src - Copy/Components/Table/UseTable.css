@@ -1,0 +1,97 @@
+.UseTable_tableheader{
+    background-color: rgba(222, 222, 222, 0.23) !important;
+    border: 1px solid #DDDDDD !important;
+    color: #5A6979;
+    padding: 10px;
+    text-align: left;
+}
+.useTable_tableDetailsLink{
+    background-color: rgba(71, 177, 67, 1);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: none;
+}
+.AdminPage_TableViewDetails{
+    padding: 1px 10px;
+    border-radius: 5px;
+    background: #F2FEF9;
+    color: #1D7F33 !important;
+    border: 1px solid #1D7F33;
+    cursor: pointer;
+    margin: 5px 0;
+}
+.useTable_tableDetails{    
+    border: 1px solid #DDDDDD !important;
+    padding: 10px 10px;
+    text-align: center;
+}
+.useTable_ViewEditSuspendDetails{    
+    border: 1px solid #DDDDDD !important;
+    padding: 10px 10px;
+    width: 250px;
+    text-align: center;
+}
+.AdminUse_TableComp{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+.useTable_ImageRecipient{
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    margin-right: 15px;
+}
+.AdminUserTable{
+    width: 100%;
+    border-collapse: collapse;
+}
+.Admin_playersviewprofile{
+    border: 1px solid #1D7F33;
+    padding: 5px 10px;
+    background: #F2FEF9;
+    color: #1D7F33 !important;
+    font-weight: 700;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+.Admin_playersEditprofile{
+    border: 1px solid rgba(29, 33, 127, 1);
+    padding: 5px 10px;
+    background: #F2F3FE;
+    color: #1D217F !important;
+    font-weight: 700;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+.Admin_playersSuspendprofile{
+    border: 1px solid rgba(127, 53, 29, 1);
+    padding: 5px 10px;
+    background: #FEFDF2;
+    color: #7F351D !important;
+    font-weight: 700;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+.AcceptedPlayerUseTable{
+    padding: 5px 10px;
+    background: #1D7F33;
+    color: white !important;
+    font-weight: 700;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+.RejectedPlayerUseTable{
+    padding: 5px 10px;
+    background: #7F351D;
+    color: white !important;
+    font-weight: 700;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+@media(max-width: 1050px){
+    .AdminUserTable{
+        width: 870px;
+    }
+}

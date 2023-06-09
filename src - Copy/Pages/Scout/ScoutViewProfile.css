@@ -1,0 +1,257 @@
+.ScoutViewProfile{
+    padding: 2rem 6rem;
+}
+.ScoutViewProfile_navigation{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.ScoutViewProfile_navigationprogress{
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+}
+.ScoutViewProfile_navigationback{
+    margin-right: 15px;
+}
+.ScoutViewProfile_navigationprofile{
+    color: rgba(84, 112, 255, 1);
+    margin-left: 20px;
+}
+.ScoutViewProfile_share{
+    border: 1px solid rgba(218, 218, 218, 1);
+    padding: 5px 10px;
+    color: rgba(218, 218, 218, 1);
+    display: flex;
+    align-items: center;
+    border-radius: 5px;
+}
+.ScoutViewProfile_UserProfileSection{
+    margin-top: 20px;
+    border: 1px solid #D0D4D9;
+    padding: 1rem;
+    border-radius: 10px;
+    width: 700px;
+    display: flex;
+    justify-content: space-between;
+}
+.ScoutViewProfile_AboutSection{
+    margin-top: 5px;
+    border: 1px solid #D0D4D9;
+    padding: 1rem 30px;
+    border-radius: 10px;
+    width: 700px;
+}
+.ScoutViewProfile_UserProfiledetailsSection{
+    display: flex;
+}
+.ScoutViewProfile_UserProfileImage{
+    width: 106px;
+    height: 106px;
+    margin-right: 10px;
+    border-radius: 50%;
+}
+.AdvertisewProfile_UserProfileImage{
+    width: 76px;
+    height: 76px;
+    margin-right: 10px;
+    border-radius: 50%;
+}
+.ScoutViewProfile_UserProfiledetailsUsername{
+    font-size: 26px;
+    margin-top: 10px;
+    color: rgba(19, 41, 63, 1);
+}
+.AdvertiseProfile_UserProfiledetailsUsername{
+    font-size: 20px;
+    margin-top: 10px;
+    font-weight: bold;
+    color: rgba(19, 41, 63, 1);
+}
+.ScoutViewProfile_UserProfileScore{ 
+    color: rgba(19, 41, 63, 1);
+    margin-top: 5px;
+}
+.ScoutViewProfile_UserProfileCurrentlyAvailable{
+    color: rgba(90, 105, 121, 1);
+    font-size: 15px;
+    /* margin-top: 10px; */
+}
+.ScoutViewProfile_UserProfilePositionSection{
+    display: flex;
+    flex-wrap: wrap;
+    /* margin-top: 10px; */
+}
+.ScoutViewProfile_UserProfilePosition{
+    background-color: rgba(244, 244, 244, 1);
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 15px;
+    color:rgba(20, 37, 97, 1);
+    margin-top: 5px;
+    margin-right: 10px;
+}
+.ScoutViewProfile_UserProfilePricerange{
+    border: 1px solid rgba(215, 215, 215, 1);
+    border-radius: 15px;
+    padding: 5px;
+    font-size: 13px;
+    margin-top: 10px;
+    color: rgba(19, 41, 63, 1);
+    display: flex;
+    align-items: center;
+}
+.HomepageView_ProfileOffers{
+    width: 700px;
+}
+.HomepageViewPlayerProfile{
+    display: flex;
+    justify-content: space-between;
+    position: relative !important;
+}
+.HomepageViewProfile_OfferRequest{
+    position: sticky;
+    top: 10px;
+    width: 380px;
+}
+.HomepageViewProfile_MakeRequestSec{
+    margin-top: 20px;
+    border: 1px solid #D0D4D9;
+    padding: 1rem;
+    border-radius: 10px;
+}
+.HomepageViewProfile_requestButton{
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    color: white;
+    padding: 12px;
+    font-size: 15px;
+    background-color: rgba(71, 177, 67, 1);
+    margin-top: 15px;
+    width: 100%;
+}
+.ScoutViewProfile_AdvertiseProfile{
+    font-size: 16px;
+    color: white;
+    background-color: #0F7BEF;
+    border-radius: 5px;
+    padding: 10px;
+    border: none;
+    height: 54px;
+}
+.ScoutViewProfile_AboutTopicText{
+    color: rgba(19, 41, 63, 1);
+    font-size: 17px;
+    margin-bottom: 20px;
+}
+.ScoutViewProfile_AboutSectionInfo{
+    border-left: 3px solid rgba(124, 205, 121, 1);
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.ScoutViewProfile_AboutSectionIcon{
+    font-size: 18px;
+    border-radius: 50%;
+    background-color: #EBEFF2;
+    color: #13293F;
+    padding: 5px;
+    margin-right: 10px;
+}
+.ScoutViewProfile_AboutSectionIconTopic{
+    color: #13293F;
+    margin-bottom: 5px;
+}
+.ScoutViewProfile_AboutSectionIconText{
+    font-size: 14px;
+    color: #13293F;
+}
+.ScoutViewProfile_PhysicalStatsText{
+    color: rgba(19, 41, 63, 1);
+    font-size: 17px;
+    margin-bottom: 10px;
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+}
+.ScoutViewProfile_PhysicalStatsInfo{
+    background: #FAFAFA;
+    border: 1px solid #D0D4D9;
+    padding: 1rem 2rem;
+    border-radius: 10px;
+    display: flex;
+    flex-wrap: wrap;
+}
+.ScoutViewProfile_PhysicalStatsGender{
+    padding: 5px 10px;    
+    border: 1px solid #DEDEDE;
+    border-radius: 10px;
+    font-size: 14px;
+    background-color: white;
+    color: #13293F;
+    margin-right: 10px;
+    margin-top: 10px;
+}
+.ScoutViewProfile_ImageSection{
+    display: flex;
+    flex-wrap: wrap;
+}
+.ScoutViewProfile_VideoDiv{
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+.ViewProfile_DeleteVideo{
+    border: none;
+    background-color: red;
+    color: white;
+    margin: 10px;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+.ScoutViewProfile_VideoSection{
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: 15px;
+}
+.ScoutViewProfile_Image{
+    width: 300px;
+    height: 170px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+.ScoutViewProfile_ImageDiv{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-right: 20px;
+    margin-top: 10px;
+    border: 1px solid rgb(226, 222, 222);
+    border-radius: 5px;
+}
+.Button_Imgdiv_ModalView{
+    display: flex;
+    justify-content: space-between;
+    margin: 5px ;
+    padding: 0 5px;
+    width: 100%;
+}
+.ScoutViewProfile_Image_CoverImg{
+    border: none;
+    color: black;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.ScoutViewProfile_Image_DeleteImg{
+    border: none;
+    color: red;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}

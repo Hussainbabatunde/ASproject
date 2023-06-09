@@ -1,0 +1,105 @@
+.AdminPage_Dashboard{
+    min-height: 100vh;
+    background-color: #DBDBDB;
+    padding: 1rem;
+}
+.AdminPage_FinanceDashboard{
+    min-height: 100vh;
+    background-color: #DBDBDB;
+    padding: 1rem;
+    padding-top: 3rem;
+}
+.AdminDashBoard_title{
+    background-color: white;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+}
+.AdminDashboard_Dashboardtext{
+    font-size: 20px;
+    font-weight: 600;
+}
+.AdminDashboard_Search{
+    width: 200px;
+    display: flex;
+    border: 1px solid #DBDBDB;
+    padding: 5px;
+    border-radius: 5px;
+    align-items: center;
+}
+.AdminDashboard_SearchInput{
+    border: none;
+    flex: 1;
+}
+.AdminDashboard_SearchIcon{
+    font-size: 18px;
+    font-weight: 600;
+}
+.AdminDashboard{
+    width: 100%;
+    padding-left: 280px;
+    margin-top: 70px;
+}
+.AdminDashBoard_ViewCategory{
+    padding: 1rem;
+    background-color: rgba(27, 82, 133, 1);
+    border-radius: 8px;
+    display: flex;
+    height: 60px;
+    align-items: center;
+    margin-top: 10px;
+    width: 210px;
+}
+.AdminDashBoard_ViewCategory2{
+    padding: 1rem;
+    background-color: #1B8550;
+    border-radius: 8px;
+    display: flex;
+    height: 60px;
+    align-items: center;
+    margin-top: 10px;
+    width: 210px;
+}
+.AdminDashBoard_CategoryTitileDet{
+    text-align: center;
+    margin-left: 15px;
+    color: white;
+}
+.AdminDashboard_categoryNum{
+    font-size: 22px;
+}
+.AdminDashboard_CategorySection{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+
+}
+.AdminPage_DashboardTAbleCat{
+    margin-top: 20px;
+    padding: 2rem 2rem 1rem;
+    background-color: white;
+    border-radius: 8px;
+}
+.AdminPage_TableTitleandLink{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+.AdminDashBoard_LinkViewall{
+    text-decoration: underline !important;
+}
+.AdminPage_TableInfo{
+    margin: 15px 0;
+    background-color: #F2FEF9;
+    border: 1px solid #7FCD82;
+    padding: 1rem;
+    border-radius: 8px;
+    display: flex;
+    color: #1D7F33;
+    align-items: center;
+}
+
+.AdminPage_TableInfoText{
+    margin-left: 15px;
+    font-size: 16px;
+}

@@ -21,8 +21,8 @@ import {
 import { CircularProgress, Skeleton } from "@mui/material";
 import ReactPlayer from "react-player";
 import { ToastContainer } from "react-toastify";
+// import ModalImgViewProfile from "./ModalImgViewProfile";
 import { AiFillDelete, AiFillStar } from "react-icons/ai";
-// import AdvertisePlayerModal from "./AdvertisePlayerModal";
 import ModalImgViewProfile from "../../Components/Player/ModalImgViewProfile";
 import AdvertisePlayerModal from "../../Components/Player/AdvertisePlayerModal";
 import {
@@ -31,6 +31,8 @@ import {
 } from "../../Slice/Talent_Manager/Talent_manager_slice";
 
 const Talent_PlayerDetails = () => {
+  const dispatch = useDispatch();
+
   let player_data = useLocation();
 
   const { Talent_manager_Get_Single_player } = useSelector(
@@ -45,83 +47,86 @@ const Talent_PlayerDetails = () => {
     };
   }, []);
 
-  console.log(Talent_manager_Get_Single_player);
-  const dispatch = useDispatch();
+  let PlayerDetails = Talent_manager_Get_Single_player?.data;
+
+  console.log(PlayerDetails);
+
   const [loading, setLoading] = useState(false);
 
-  const VerifiedStatus = useSelector(
-    (state) => state.reducer?.PlayerProfileSlice?.VerificationStatusData?.data
-  );
-  let progress =
-    VerifiedStatus?.bio +
-    VerifiedStatus?.price +
-    VerifiedStatus?.physical_stat +
-    VerifiedStatus?.images +
-    VerifiedStatus?.videos;
+  //   const VerifiedStatus = useSelector(
+  //     (state) => state.reducer?.PlayerProfileSlice?.VerificationStatusData?.data
+  //   );
+  //   let progress =
+  //     VerifiedStatus?.bio +
+  //     VerifiedStatus?.price +
+  //     VerifiedStatus?.physical_stat +
+  //     VerifiedStatus?.images +
+  //     VerifiedStatus?.videos;
 
-  const PlayerDetails = useSelector(
-    (state) => state?.reducer?.PlayerProfileSlice?.AllProfileDetailsData?.data
-  );
-  const userId = useSelector(
-    (state) => state?.reducer?.LoginSlice?.logindata?.data?.user?.id
-  );
-  const [coverimg, setCoverImg] = useState({});
+  //   //   const PlayerDetails = useSelector(
+  //   //     (state) => state?.reducer?.PlayerProfileSlice?.AllProfileDetailsData?.data
+  //   //   );
+
+  //   const userId = useSelector(
+  //     (state) => state?.reducer?.LoginSlice?.logindata?.data?.user?.id
+  //   );
+  //   const [coverimg, setCoverImg] = useState({});
   const [deleteimgIndex, setDeleteImgIndex] = useState({});
-  const [deleteVideoIndex, setDeleteVideoIndex] = useState({});
+  //   const [deleteVideoIndex, setDeleteVideoIndex] = useState({});
   const [loadingIndex, setLoadingIndex] = useState(null);
   const [imgModal, setImgModal] = useState(null);
   const [showImgModal, setShowImgModal] = useState(false);
   const [show, setShow] = useState(false);
 
-  // console.log('PlayerDetails ', PlayerDetails)
-  const originalString = PlayerDetails?.bio?.position;
-  const positionPlayed = originalString.replace(/_/g, " ");
-  //set cover img
-  const handleSetCoverImg = async (id) => {
-    coverimg.user_id = userId;
-    coverimg.id = id;
-    setLoadingIndex(id);
-    await dispatch(PlayerSetCoverImg(coverimg));
-    setLoadingIndex(null);
-    // console.log('cover img ', coverimg)
-  };
+  //   // console.log('PlayerDetails ', PlayerDetails)
+  //   const originalString = PlayerDetails?.bio?.position;
+  //   const positionPlayed = originalString.replace(/_/g, " ");
+  //   //set cover img
+  //   const handleSetCoverImg = async (id) => {
+  //     // coverimg.user_id = userId;
+  //     // coverimg.id = id;
+  //     setLoadingIndex(id);
+  //     // await dispatch(PlayerSetCoverImg(coverimg));
+  //     setLoadingIndex(null);
+  //     // console.log('cover img ', coverimg)
+  //   };
 
-  const hideAdvertiseProfile = () => setShow(false);
+  //   const hideAdvertiseProfile = () => setShow(false);
 
-  const handleDeleteImg = async (id) => {
-    setDeleteImgIndex(id);
-    await dispatch(PlayerDeleteImgApi({ id, userId }));
-    await dispatch(ProfileDetailsPlayer(userId));
-    setDeleteImgIndex(null);
-  };
+  //   const handleDeleteImg = async (id) => {
+  //     setDeleteImgIndex(id);
+  //     await dispatch(PlayerDeleteImgApi({ id, userId }));
+  //     await dispatch(ProfileDetailsPlayer(userId));
+  //     setDeleteImgIndex(null);
+  //   };
 
-  const handleDeleteVideo = async (id) => {
-    setDeleteVideoIndex(id);
-    await dispatch(PlayerDeleteVideoApi({ id, userId }));
-    await dispatch(ProfileDetailsPlayer(userId));
-    setDeleteVideoIndex(null);
-  };
+  //   const handleDeleteVideo = async (id) => {
+  //     setDeleteVideoIndex(id);
+  //     await dispatch(PlayerDeleteVideoApi({ id, userId }));
+  //     await dispatch(ProfileDetailsPlayer(userId));
+  //     setDeleteVideoIndex(null);
+  //   };
 
-  const handleImageClicked = (img) => {
-    console.log(img);
-    setImgModal(img);
-    setShowImgModal(true);
-  };
-  const handleCloseImageClicked = () => {
-    setShowImgModal(false);
-  };
+  //   const handleImageClicked = (img) => {
+  //     console.log(img);
+  //     setImgModal(img);
+  //     setShowImgModal(true);
+  //   };
+  //   const handleCloseImageClicked = () => {
+  //     setShowImgModal(false);
+  //   };
 
-  useEffect(() => {
-    const getInfo = async () => {
-      setLoading(true);
-      await dispatch(ProfileDetailsPlayer(userId));
-      await dispatch(PlayerProfileVerificationStatus(userId));
-      setLoading(false);
-    };
-    getInfo();
-  }, []);
+  //   useEffect(() => {
+  //     const getInfo = async () => {
+  //       setLoading(true);
+  //       await dispatch(ProfileDetailsPlayer(userId));
+  //       await dispatch(PlayerProfileVerificationStatus(userId));
+  //       setLoading(false);
+  //     };
+  //     getInfo();
+  //   }, []);
 
-  return <h1>sam</h1>;
+  //   return <h1>dsdkj</h1>;
 
   return (
     <div className="ScoutViewProfile">
@@ -129,7 +134,7 @@ const Talent_PlayerDetails = () => {
       <div className="ScoutViewProfile_navigation">
         <div className="ScoutViewProfile_navigationprogress">
           <Link
-            to="/afrisport/player/profile"
+            to="/afrisport/talent-manager/players"
             className="ScoutViewProfile_navigationback"
           >
             Back
@@ -145,6 +150,7 @@ const Talent_PlayerDetails = () => {
           </span>
         </Link>
       </div>
+
       <div className="ScoutViewProfile_UserProfileSection">
         <div className="ScoutViewProfile_UserProfiledetailsSection">
           <img
@@ -170,7 +176,7 @@ const Talent_PlayerDetails = () => {
               )}
             </p>
             <p className="ScoutViewProfile_UserProfileScore">
-              Score: {progress}/100
+              {/* Score: {progress}/100 */}
             </p>
             {loading == true ? (
               <Skeleton variant="rounded" width="90%" height={22} />
@@ -186,7 +192,7 @@ const Talent_PlayerDetails = () => {
                 <Skeleton variant="rounded" width={105} height={22} />
               ) : (
                 <p className="ScoutViewProfile_UserProfilePosition">
-                  {positionPlayed}
+                  {/* {positionPlayed} */}
                 </p>
               )}
             </div>
@@ -205,14 +211,15 @@ const Talent_PlayerDetails = () => {
             </p>
           </div>
         </div>
-
+        {/* 
         <button
           onClick={() => setShow(true)}
           className="ScoutViewProfile_AdvertiseProfile"
         >
           Advertise Profile
-        </button>
+        </button> */}
       </div>
+
       <div className="ScoutViewProfile_AboutSection">
         <p className="ScoutViewProfile_AboutTopicText">About</p>
         <div className="ScoutViewProfile_AboutSectionInfo">
@@ -336,23 +343,25 @@ const Talent_PlayerDetails = () => {
           </p>
         </div>
       </div>
+
       <p className="ScoutViewProfile_PhysicalStatsText">
         Images <BsDot style={{ fontSize: "25px" }} />{" "}
-        {PlayerDetails?.images.length}{" "}
+        {/* {PlayerDetails?.images.length}{" "} */}
       </p>
+
       <div className="ScoutViewProfile_ImageSection">
-        {PlayerDetails?.images.map((each, index) => (
+        {PlayerDetails?.images?.map((each, index) => (
           <div key={index} className="ScoutViewProfile_ImageDiv">
             <img
               src={each?.image_url}
-              onClick={() => handleImageClicked(each?.image_url)}
+              //   onClick={() => handleImageClicked(each?.image_url)}
               className="ScoutViewProfile_Image"
             />
 
             <div className="Button_Imgdiv_ModalView">
               <button
                 className="ScoutViewProfile_Image_CoverImg"
-                onClick={() => handleSetCoverImg(each?.id)}
+                // onClick={() => handleSetCoverImg(each?.id)}
               >
                 {loadingIndex == each?.id ? (
                   <CircularProgress size={15} />
@@ -366,7 +375,7 @@ const Talent_PlayerDetails = () => {
               </button>
               <button
                 className="ScoutViewProfile_Image_DeleteImg"
-                onClick={() => handleDeleteImg(each?.id)}
+                // onClick={() => handleDeleteImg(each?.id)}
               >
                 {deleteimgIndex == each?.id ? (
                   <CircularProgress size={15} />
@@ -387,8 +396,9 @@ const Talent_PlayerDetails = () => {
         Video <BsDot style={{ fontSize: "25px" }} />{" "}
         {PlayerDetails?.videos?.length}{" "}
       </p>
+
       <div className="ScoutViewProfile_VideoSection">
-        {PlayerDetails?.videos.map((each, index) => (
+        {PlayerDetails?.videos?.map((each, index) => (
           <div key={index} className="ScoutViewProfile_VideoDiv">
             <ReactPlayer
               width="300px"
@@ -397,29 +407,31 @@ const Talent_PlayerDetails = () => {
               url={each?.video_url}
             />
             <button
-              onClick={() => handleDeleteVideo(each?.id)}
+              //   onClick={() => handleDeleteVideo(each?.id)}
               className="ViewProfile_DeleteVideo"
             >
-              {deleteVideoIndex == each?.id ? (
+              {/* {deleteVideoIndex == each?.id ? (
                 <CircularProgress size={15} />
               ) : (
                 <span>Delete</span>
-              )}
+              )} */}
             </button>
           </div>
         ))}
       </div>
-      <ModalImgViewProfile
+
+      {/* <ModalImgViewProfile
         showImgModal={showImgModal}
         imgModal={imgModal}
         handleCloseImageClicked={handleCloseImageClicked}
       />
+
       <AdvertisePlayerModal
         show={show}
         progress={progress}
         hideAdvertiseProfile={hideAdvertiseProfile}
         positionPlayed={positionPlayed}
-      />
+      /> */}
     </div>
   );
 };

@@ -1,0 +1,106 @@
+.Homepage_contents{
+    padding: 1rem 3rem;
+    max-width: 1350px;
+    margin: 0 auto;
+}
+.Homepage_topTalentsTopic{
+    font-size: 20px;
+}
+.Homepage_topTalents{
+    margin: 20px 0;
+    display: flex;
+    justify-content: space-between;
+}
+.HomePage_talentsSection{
+    width: 100%;
+}
+.Homepage_footballers{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+.Homepage_Sortfootballers{
+    display: flex;
+    flex-wrap: wrap;
+    /* justify-content: space-evenly; */
+    margin-bottom: 60px;
+}
+.Homepage_foorballersBriefInfo{
+    border: 1px solid #DCDCDC;
+    padding: 5px;
+    border-radius: 5px;
+    max-height: 285px;
+    position: relative;
+    margin-top: 10px;
+    margin-right: 10px;
+}
+.Homepage_PlayersImage{
+    width: 290px;
+    height: 215px;
+    border-radius: 5px;
+}
+.Homepage_PlayerStatus{
+    background-color: white;
+    color: #13293F;
+    font-size: 11.5px;
+    letter-spacing: 0.44302px;
+    border-radius: 10px;
+    padding: 5px;
+    position: absolute;
+    top: 180px;
+    right: 20px;
+}
+.Homepage_PlayersName{
+    font-size: 20px;
+    font-weight: 400;
+    margin-top: 10px;
+}
+.Homepage_playersPosition{
+    display: flex;
+    align-items: center;
+    color: #5A6979;
+    font-size: 16px;
+}
+.Hompage_exploreSort{
+    display: flex;
+    border: 1px solid black;
+    border-radius: 3px;
+    /* width: 150px; */
+    padding: 5px 10px;
+}
+.Homepage_SortText{
+    margin-left: 10px;
+    color: #5A6979;
+}
+.Homepage_SortPosition{
+    border: 1px solid rgba(208, 212, 217, 1);
+    padding: 5px;
+    border-radius: 20px;
+    font-weight: 400;
+}
+.Homepage_SortCategory{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+
+@media screen and (max-width: 900px){
+    .Homepage_SortPosition{
+        margin-top: 10px;
+    }
+    .Homepage_contents{
+        padding: 1rem 1rem;
+    }
+}
+@media screen and (max-width: 700px){
+    .Homepage_PlayersImage{
+        width: 100%;
+    }
+    .Homepage_foorballersBriefInfo{
+        width: 90%;
+    }
+    .Homepage_topTalentsTopic{
+        font-size: 18px;
+    }
+}
