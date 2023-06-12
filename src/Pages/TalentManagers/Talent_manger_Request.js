@@ -26,7 +26,6 @@ const Talent_manger_Request = () => {
     (state) => state?.reducer?.Talent_manager_slice
   );
 
-  console.log(Talent_manager_requested_players?.data);
   const dispatch = useDispatch();
 
   const data = [

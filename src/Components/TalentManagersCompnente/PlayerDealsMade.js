@@ -56,7 +56,7 @@ const MyComponent = ({ player }) => {
           <div key={index} className="">
             {managerId == comment?.comments?.sent_by ? (
               <div className=" flex justify-end  mb-5">
-                <div className="flex gap-1  border-2 border-white w-[50%]">
+                <div className="flex gap-1   w-[50%]">
                   <div>
                     <img
                       src={Talent_manager_details?.data?.profile_pics}
@@ -77,14 +77,7 @@ const MyComponent = ({ player }) => {
 
                     <div>
                       <p className="break-words max-w-sm">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        Sed aliquet consectetur vestibulum. Mauris fringilla
-                        laoreet nisi, vel pellentesque felis scelerisque et.
-                        Fusce fermentum dolor id massa scelerisque, ut feugiat
-                        lorem pulvinar. Sed sed rutrum ligula, id tempus quam.
-                        Ut sagittis lorem ut nunc efficitur, nec feugiat velit
-                        efficitur. Suspendisse eu fringilla enim. Sed ac varius
-                        ex, id aliquet justo. Phasellus eu eleifend dolor.
+                        {comment?.comments?.comment}
                       </p>
                     </div>
                   </div>
@@ -115,15 +108,7 @@ const MyComponent = ({ player }) => {
 
                         <div>
                           <p className="break-words max-w-sm">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit. Sed aliquet consectetur vestibulum. Mauris
-                            fringilla laoreet nisi, vel pellentesque felis
-                            scelerisque et. Fusce fermentum dolor id massa
-                            scelerisque, ut feugiat lorem pulvinar. Sed sed
-                            rutrum ligula, id tempus quam. Ut sagittis lorem ut
-                            nunc efficitur, nec feugiat velit efficitur.
-                            Suspendisse eu fringilla enim. Sed ac varius ex, id
-                            aliquet justo. Phasellus eu eleifend dolor.
+                            {comment?.comments?.comment}
                           </p>
                         </div>
                       </div>
@@ -152,15 +137,7 @@ const MyComponent = ({ player }) => {
 
                         <div>
                           <p className="break-words max-w-sm">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit. Sed aliquet consectetur vestibulum. Mauris
-                            fringilla laoreet nisi, vel pellentesque felis
-                            scelerisque et. Fusce fermentum dolor id massa
-                            scelerisque, ut feugiat lorem pulvinar. Sed sed
-                            rutrum ligula, id tempus quam. Ut sagittis lorem ut
-                            nunc efficitur, nec feugiat velit efficitur.
-                            Suspendisse eu fringilla enim. Sed ac varius ex, id
-                            aliquet justo. Phasellus eu eleifend dolor.
+                            <span>{comment?.comments?.comment}</span>
                           </p>
                         </div>
                       </div>
