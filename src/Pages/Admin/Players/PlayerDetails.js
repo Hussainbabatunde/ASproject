@@ -11,6 +11,7 @@ import { GrFormNext } from "react-icons/gr";
 import { BsShareFill } from "react-icons/bs";
 import { Skeleton } from "@mui/material";
 import { TbCurrencyNaira } from "react-icons/tb";
+import ReactPlayer from "react-player";
 
 import { BsFillPatchCheckFill, BsHouseDoor, BsDot } from "react-icons/bs";
 import { MdOutlineDashboard } from "react-icons/md";
@@ -404,7 +405,7 @@ function PlayerDetails() {
               ))}
             </div>
 
-            <div className=" bg-white rounded pl-5 flex flex-wrap mb-5 py-5 gap-2  w-[700px] mt-4">
+            {/* <div className=" bg-white rounded pl-5 flex flex-wrap mb-5 py-5 gap-2  w-[700px] mt-4">
               {PlayerDetails?.videos.map((each, index) => (
                 <li className=" cursor-pointer">
                   <a
@@ -415,6 +416,29 @@ function PlayerDetails() {
                     click to view video {index}
                   </a>
                 </li>
+              ))}
+            </div> */}
+
+            <div className="ScoutViewProfile_VideoSection">
+              {PlayerDetails?.videos?.map((each, index) => (
+                <div key={index} className="ScoutViewProfile_VideoDiv">
+                  <ReactPlayer
+                    width="300px"
+                    height="300px"
+                    controls
+                    url={each?.video_url}
+                  />
+                  <button
+                    //   onClick={() => handleDeleteVideo(each?.id)}
+                    className="ViewProfile_DeleteVideo"
+                  >
+                    {/* {deleteVideoIndex == each?.id ? (
+                <CircularProgress size={15} />
+              ) : (
+                <span>Delete</span>
+              )} */}
+                  </button>
+                </div>
               ))}
             </div>
           </div>

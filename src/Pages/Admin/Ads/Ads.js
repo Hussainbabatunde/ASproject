@@ -1,18 +1,14 @@
 import React, { useEffect } from "react";
-// import "../AdminNegotiate/AdminNegotiate.css";
-// import { AiOutlineInfoCircle } from "react-icons/ai";
-// import { Link } from "react-router-dom";
-// import { RiSearchLine } from "react-icons/ri";
-// import AdminUseTable from "../../Table/AdminUseTable";
+
 import Lottie from "lottie-react";
 import empty from "../../../assets/lottie/emptyState.json";
-// import imgRecipient from "../../../assets/imgRecipient.png";
-// import ChatCircle from "../../../assets/ChatsCircle.png";
+
 import { useDispatch, useSelector } from "react-redux";
 import { Admin_Get_ALLPlayers_fun } from "../../../Slice/Admin/AdminUpdate_profileSlice";
 import { AiOutlineInfoCircle } from "react-icons/ai";
 import { RiSearchLine } from "react-icons/ri";
 import AdminUseTable from "../../../Components/Table/AdminUseTable";
+import { Admin_Ads_fun } from "../../../Slice/Admin/Admin_AdsSlice";
 // import { Admin_Get_ALLPlayers_fun } from "../../../Slice/Admin/AdminUpdate_profileSlice";
 
 const Ads = ({
@@ -22,11 +18,9 @@ const Ads = ({
   handleTerminated,
 }) => {
   const dispatch = useDispatch();
-  const { Admin_Get_All_Player } = useSelector(
-    (state) => state.reducer.AdminUpdate_profileSlice
-  );
+  const { Admin_Ads } = useSelector((state) => state.reducer.Admin_AdsSlice);
 
-  console.log(Admin_Get_All_Player);
+  console.log(Admin_Ads);
 
   useEffect(() => {
     dispatch(Admin_Get_ALLPlayers_fun());
@@ -36,32 +30,40 @@ const Ads = ({
 
   const header = [
     {
-      id: 19,
+      id: 1,
       name: "Player Name",
     },
     {
       id: 2,
-      name: "Position",
+      name: "Amount",
+      case: "Admin_ads_Amount",
     },
     {
       id: 3,
-      name: "Club",
+      name: "Duration",
+      case: "Admin_ads_Duration",
     },
     {
       id: 4,
-      name: "Recent Negotiate",
+      name: "Reach",
+      case: "Admin_ads_reach",
     },
     {
       id: 5,
       name: "  ",
 
-      case: "Admin_All_Ads_View_Terminate",
+      case: "Admin_All_Ads_View",
     },
   ];
 
   const handleDelete = (data) => {
     console.log(data);
   };
+
+  useEffect(() => {
+    dispatch(Admin_Ads_fun());
+    return () => {};
+  }, []);
 
   const dataTable = [
     {
@@ -86,7 +88,7 @@ const Ads = ({
             </div>
 
             <div className="AdminTable_NegotiateTable">
-              {dataTable?.length === 0 ? (
+              {Admin_Ads?.length === 0 ? (
                 <div
                   style={{
                     display: "flex",
@@ -103,7 +105,7 @@ const Ads = ({
               ) : (
                 <AdminUseTable
                   header={header}
-                  data={[]}
+                  data={Admin_Ads}
                   handleDelete={handleDelete}
                 />
               )}
