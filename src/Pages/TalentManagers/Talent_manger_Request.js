@@ -11,11 +11,7 @@ import Box from "@mui/material/Box";
 import football from "../../assets/lottie/92356-football.json";
 import { useDispatch, useSelector } from "react-redux";
 import { PlayerDealsApi } from "../../Slice/Player/PlayerDeal/PlayerDealSlice";
-import { reset as resetPlayerProfileSlice } from "../../Slice/Player/Playerprofile/PlayerProfileSlice";
-import { reset as resetGetAllPlayerDealSlice } from "../../Slice/Player/PlayerDeal/PlayerDealSlice";
 
-import { ScoutDealsApi } from "../../Slice/Scout/ScoutDealsApiPage/ScoutDealSlice";
-import ScoutHeader from "../../Components/Header/ScoutHeader";
 import UseTable from "../../Components/Table/UseTable";
 import { UserLogout } from "../../Components/Player/UserLogOut";
 import Talent_Header from "../../Components/TalentManagersCompnente/Talent_Header";
@@ -30,13 +26,14 @@ const Talent_manger_Request = () => {
     (state) => state?.reducer?.Talent_manager_slice
   );
 
-  console.log(Talent_manager_requested_players);
   const dispatch = useDispatch();
 
   const data = [
     { id: 1, pathTo: "/afrisport/scout/profile", pathName: "Profile" },
     { id: 2, pathTo: "/afrisport/scout/deal", pathName: "Deals" },
   ];
+
+  console.log(Talent_manager_requested_players);
 
   const header = [
     {
@@ -65,22 +62,6 @@ const Talent_manger_Request = () => {
   };
 
   const [show, setShow] = useState(false);
-
-  const dataTable = [
-    {
-      id: 1,
-      dealname: "5 Season Deal",
-      imgRecip: imgRecipient,
-      recipient: "David Dada",
-      firstname: "tunde",
-      surname: "kunle",
-      email: "mayana@mail.com",
-      role: "teacher",
-      user_type: "teacher",
-      description:
-        "jhkjhkjjj jjjjjjjjj jjjjjj jjjjkhk  iuhhiuhiuh uhiuhiyu8gu  ygug",
-    },
-  ];
 
   useEffect(() => {
     dispatch(Talent_manager_requested_players_fun());

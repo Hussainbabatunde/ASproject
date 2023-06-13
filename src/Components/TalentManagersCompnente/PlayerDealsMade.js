@@ -4,40 +4,184 @@ import { GrFormNext } from "react-icons/gr";
 import { FaDownload } from "react-icons/fa";
 import imgRecipient from "../../assets/imgRecipient.png";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  DealCommentsApi,
-  GetPlayerOfferDetailsApi,
-  GetPlayerOfferDownloadApi,
-  MakeCommentApi,
-  PlayerDealsDetailsApi,
-} from "../../Slice/Player/PlayerDeal/PlayerDealSlice";
 import { PulseLoader } from "react-spinners";
 import { CircularProgress, Skeleton } from "@mui/material";
 import moment from "moment";
+import axios from "axios";
+import { useMutation } from "react-query";
+import { ToastContainer, toast } from "react-toastify";
 import {
+  Talent_manager_Interaction_fun,
   Talent_manager_deal_details_fun,
   reset_Talent_manager_Deals,
 } from "../../Slice/Talent_Manager/Talent_manager_slice";
+let baseURL = process.env.REACT_APP_AFRISPORTURL;
+
+const MyComponent = ({ player }) => {
+  console.log(player);
+
+  let player_id = player?.id;
+
+  const {
+    Talent_manager_deal_details,
+    Talent_manager_Deals_isLoading,
+    Talent_manager_Interaction,
+    Talent_manager_Interaction_isLoading,
+    Talent_manager_details,
+  } = useSelector((state) => state?.reducer?.Talent_manager_slice);
+
+  console.log(Talent_manager_Interaction);
+
+  console.log(Talent_manager_details);
+
+  let managerId = Talent_manager_details?.data?.id;
+
+  const [filteredData, setFilteredData] = useState([]);
+
+  const exampleDate = "2021-06-09T11:42:26.000000Z";
+
+  console.log(filteredData);
+
+  const formatDate = (date) => {
+    return moment(date).fromNow();
+  };
+
+  return (
+    <div className="">
+      {Talent_manager_Interaction.map((comment, index) => {
+        console.log(comment);
+        console.log(comment);
+
+        return (
+          <div key={index} className="">
+            {managerId == comment?.comments?.sent_by ? (
+              <div className=" flex justify-end  mb-5">
+                <div className="flex gap-1   w-[50%]">
+                  <div>
+                    <img
+                      src={Talent_manager_details?.data?.profile_pics}
+                      className="useTable_ImageRecipient"
+                    />
+                  </div>
+                  <div>
+                    <div className="flex gap-1">
+                      <p className="PlayerViewdetails_sendername">
+                        <span>{Talent_manager_details?.data?.firstname}</span>
+                        <span>{Talent_manager_details?.data?.surname}</span>
+                      </p>
+
+                      <div>
+                        <p>{formatDate(comment?.comments?.created_at)}</p>
+                      </div>
+                    </div>
+
+                    <div>
+                      <p className="break-words max-w-sm">
+                        {comment?.comments?.comment}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <>
+                {player_id == comment?.comments?.sent_by ? (
+                  <div className=" flex justify-start mb-5  ">
+                    <div className="flex gap-1  border-2 border-white w-[50%]">
+                      <div>
+                        <img
+                          src={player?.profile_pics}
+                          className="useTable_ImageRecipient"
+                        />
+                      </div>
+                      <div>
+                        <div className="flex gap-1">
+                          <p className="PlayerViewdetails_sendername">
+                            <span>{player?.firstname}</span>
+                            <span>{player?.surname}</span>
+                          </p>
+
+                          <div>
+                            <p>{formatDate(comment?.comments?.created_at)}</p>
+                          </div>
+                        </div>
+
+                        <div>
+                          <p className="break-words max-w-sm">
+                            {comment?.comments?.comment}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  <div className=" flex justify-start  mb-5 ">
+                    <div className="flex gap-1   ">
+                      <div>
+                        <img
+                          src={comment?.comments?.others?.profile_pics}
+                          className="useTable_ImageRecipient"
+                        />
+                      </div>
+                      <div>
+                        <div className="flex gap-1">
+                          <p className="PlayerViewdetails_sendername">
+                            <span>{comment?.comments?.others?.firstname}</span>
+                            <span>{comment?.comments?.others?.surname}</span>
+                          </p>
+
+                          <div>
+                            <p>{formatDate(comment?.comments?.created_at)}</p>
+                          </div>
+                        </div>
+
+                        <div>
+                          <p className="break-words max-w-sm">
+                            <span>{comment?.comments?.comment}</span>
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </>
+            )}
+          </div>
+        );
+      })}
+    </div>
+  );
+};
 
 const PlayerDealsMade = () => {
   const { state } = useLocation();
+  let player = state?.data?.player;
+  let request = state?.data?.request;
+  let sender = state?.data?.sender;
 
-  const { Talent_manager_deal_details } = useSelector(
-    (state) => state?.reducer?.Talent_manager_slice
-  );
+  const {
+    Talent_manager_deal_details,
+    Talent_manager_Deals_isLoading,
+    Talent_manager_Interaction,
+    Talent_manager_Interaction_isLoading,
+  } = useSelector((state) => state?.reducer?.Talent_manager_slice);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(Talent_manager_deal_details_fun(state));
+    dispatch(Talent_manager_deal_details_fun(request));
 
     return () => {
       dispatch(reset_Talent_manager_Deals());
     };
   }, []);
 
-  let info = Talent_manager_deal_details?.data?.offers;
+  useEffect(() => {
+    dispatch(Talent_manager_Interaction_fun({ player, request, sender }));
 
-  console.log(info);
+    return () => {};
+  }, []);
+
+  let info = Talent_manager_deal_details?.data?.offers;
 
   const calculateDuration = (start, end) => {
     const startDate = new Date(start);
@@ -61,11 +205,10 @@ const PlayerDealsMade = () => {
     return `${totalMonths} months, ${totalDays} days`;
   };
 
+  console.log(Talent_manager_Interaction);
+
   const duration = calculateDuration(info?.to_start, info?.to_end);
 
-  const { id } = useParams();
-
-  const [loading, setLoading] = useState(false);
   const userId = useSelector(
     (state) => state?.reducer?.LoginSlice?.logindata?.data?.user?.id
   );
@@ -79,72 +222,144 @@ const PlayerDealsMade = () => {
   // console.log('id ', id)
   // console.log('user id', userId)
 
-  const gottenDetails = useSelector(
-    (state) => state.reducer?.GetAllPlayerDealSlice?.getOfferDetailsData
-  );
-  const senderId = useSelector(
-    (state) =>
-      state.reducer?.GetAllPlayerDealSlice?.getOfferDetailsData?.data?.offers
-        ?.from
-  );
-  console.log("gotten deatils ", gottenDetails);
-  const expireData = gottenDetails?.data?.offers?.expiration.slice(0, 11);
-  const senderInfo = useSelector(
-    (state) => state.reducer?.GetAllPlayerDealSlice?.detailsDealData?.data
-  );
-  const CommentsGotten = useSelector(
-    (state) => state.reducer?.GetAllPlayerDealSlice?.commentsOfferData
-  );
-
-  useEffect(() => {
-    const offerDetails = async () => {
-      setLoading(true);
-      await dispatch(GetPlayerOfferDetailsApi({ id, userId }));
-      setLoading(false);
-    };
-    offerDetails();
-  }, []);
-
-  useEffect(() => {
-    const fetchSender = async () => {
-      setSenderLoad(true);
-      await dispatch(PlayerDealsDetailsApi(senderId));
-      setSenderLoad(false);
-    };
-    fetchSender();
-  }, [senderId]);
-
-  useEffect(() => {
-    const offerDetails = async () => {
-      setLoading(true);
-      await dispatch(DealCommentsApi({ id, userId, senderId }));
-      setLoading(false);
-    };
-    offerDetails();
-  }, [senderId]);
-
   const handleComment = (e) => {
     setComment(e.target.value);
   };
+
+  const Download_Mutation = useMutation(
+    async (data) => {
+      // Your API request code here
+      // Use formData to send the image data to the API
+
+      let id = data?.data?.id;
+      let from_person = data?.data?.from;
+      let API_URL = `${baseURL}talent-manager/offer/download/${id}/${from_person}`;
+      const tokengot = localStorage.getItem("token");
+
+      console.log(API_URL);
+
+      const config = {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Accept: "multipart/form-data",
+          Authorization: `Bearer ${tokengot}`,
+        },
+      };
+
+      try {
+        const response = await axios.get(API_URL, config);
+        console.log(response.data); // Logging the response data
+
+        return response;
+      } catch (error) {
+        console.error(error);
+        throw error;
+      }
+    },
+    {
+      onSuccess: () => {
+        // Success toast notification
+        toast.success("Form submitted successfully!", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      },
+      onError: () => {
+        // Error toast notification
+        toast.error("Error occurred while submitting the form.", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          className: "Forbidden403",
+        });
+      },
+    }
+  );
+
   const handleDownload = async () => {
-    setDownloadPage(true);
-    await dispatch(GetPlayerOfferDownloadApi(id, userId));
-    setDownloadPage(false);
+    Download_Mutation.mutate(request);
   };
+
+  const Comment_Mutation = useMutation(
+    async (data) => {
+      // Your API request code here
+      // Use formData to send the image data to the API
+
+      let API_URL = `${baseURL}talent-manager/offer/comments`;
+      const tokengot = localStorage.getItem("token");
+
+      const config = {
+        headers: {
+          // "Content-Type": "multipart/form-data",
+          // Accept: "multipart/form-data",
+          Authorization: `Bearer ${tokengot}`,
+        },
+      };
+
+      try {
+        const response = await axios.post(API_URL, data, config);
+        console.log(response.data); // Logging the response data
+
+        return response;
+      } catch (error) {
+        console.error(error);
+        throw error;
+      }
+    },
+    {
+      onSuccess: () => {
+        dispatch(Talent_manager_Interaction_fun({ player, request, sender }));
+
+        // Success toast notification
+        toast.success("Form submitted successfully!", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      },
+      onError: () => {
+        // Error toast notification
+        toast.error("Error occurred while submitting the form.", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          className: "Forbidden403",
+        });
+      },
+    }
+  );
 
   const handleSubmitComment = async (e) => {
     e.preventDefault();
     const sentData = {};
+
+    sentData.offer_id = request?.id;
+    sentData.others = sender?.id;
+    sentData.player = player?.id;
     sentData.comment = comment;
-    sentData.others = gottenDetails?.data?.offers?.from;
-    sentData.player = userId;
-    sentData.offer_id = gottenDetails?.data?.offers?.id;
-    setCommentLoad(true);
-    await dispatch(MakeCommentApi(sentData));
-    await dispatch(DealCommentsApi({ id, userId, senderId }));
-    setComment("");
-    setCommentLoad(false);
-    // console.log('comment ', comment)
+
+    Comment_Mutation.mutate(sentData);
   };
 
   return (
@@ -175,7 +390,7 @@ const PlayerDealsMade = () => {
                   <FaDownload
                     style={{ color: "#3D413D", marginRight: "7px" }}
                   />
-                  {downloadPage ? (
+                  {Download_Mutation?.isLoading ? (
                     <PulseLoader
                       color="black"
                       size={13}
@@ -195,23 +410,23 @@ const PlayerDealsMade = () => {
                   <Skeleton variant="circular" width={35} height={32} />
                 ) : (
                   <img
-                    src={senderInfo?.profile_pics}
+                    src={sender?.profile_pics}
                     className="useTable_ImageRecipient"
                   />
                 )}
-                {senderload ? (
+                {Talent_manager_Deals_isLoading ? (
                   <Skeleton variant="rounded" width={105} height={22} />
                 ) : (
                   <span className="PlayerViewdetails_sendername">
                     {" "}
-                    {senderInfo?.firstname} {senderInfo?.surname}
+                    {sender?.firstname} {sender?.surname}
                   </span>
                 )}
               </p>
             </div>
             <div className="PlayerViewdetails_LabelAndAnswer">
               <label className="PlayerViewdetails_LabelText">Duration:</label>
-              {loading ? (
+              {Talent_manager_Deals_isLoading ? (
                 <Skeleton variant="rounded" width={105} height={22} />
               ) : (
                 <p className="PlayerViewdetails_labelresponse"> {duration}</p>
@@ -219,20 +434,22 @@ const PlayerDealsMade = () => {
             </div>
             <div className="PlayerViewdetails_LabelAndAnswer">
               <label className="PlayerViewdetails_LabelText">Expiring:</label>
-              {loading ? (
+              {Talent_manager_Deals_isLoading ? (
                 <Skeleton variant="rounded" width={105} height={22} />
               ) : (
-                <p className="PlayerViewdetails_labelresponse">{expireData}</p>
+                <p className="PlayerViewdetails_labelresponse">
+                  {info?.to_end}
+                </p>
               )}
             </div>
             <div className="PlayerViewdetails_LabelAndAnswer">
               <label className="PlayerViewdetails_LabelText">Amount:</label>
-              {loading ? (
+              {Talent_manager_Deals_isLoading ? (
                 <Skeleton variant="rounded" width={105} height={22} />
               ) : (
                 <p className="PlayerViewdetails_labelresponse">
                   {" "}
-                  ${gottenDetails?.data?.offers?.recipient_earnings}
+                  $ {/* ${gottenDetails?.data?.offers?.recipient_earnings} */}
                 </p>
               )}
             </div>
@@ -240,12 +457,10 @@ const PlayerDealsMade = () => {
               <label className="PlayerViewdetails_LabelText">
                 Negotiate Name:
               </label>
-              {loading ? (
+              {Talent_manager_Deals_isLoading ? (
                 <Skeleton variant="rounded" width={105} height={22} />
               ) : (
-                <p className="PlayerViewdetails_labelresponse">
-                  {gottenDetails?.data?.offers?.name}
-                </p>
+                <p className="PlayerViewdetails_labelresponse">{info?.name}</p>
               )}
             </div>
             <div className="PlayerViewdetails_LabelAndAnswer">
@@ -253,11 +468,11 @@ const PlayerDealsMade = () => {
                 Negotiate Status:
               </label>
               <p className="PlayerViewdetails_labelresponse">
-                {loading ? (
+                {Talent_manager_Deals_isLoading ? (
                   <Skeleton variant="rounded" width={105} height={22} />
                 ) : (
                   <span className="PlayerViewdetails_response_styling">
-                    {gottenDetails?.data?.offers?.status}
+                    {info?.status}
                   </span>
                 )}
               </p>
@@ -266,19 +481,19 @@ const PlayerDealsMade = () => {
               <label className="PlayerViewdetails_LabelText">
                 Negotiate Description:
               </label>
-              {loading ? (
+              {Talent_manager_Deals_isLoading ? (
                 <Skeleton variant="rounded" width={105} height={22} />
               ) : (
                 <p className="PlayerViewdetails_labelresponse">
-                  {gottenDetails?.data?.offers?.detail}
+                  {info?.detail}
                 </p>
               )}
             </div>
           </div>
           <div className="PlayerViewDeals_InfoSection_LowerSegment">
-            {CommentsGotten?.data.map((each, index) => (
+            {/* {CommentsGotten?.data.map((each, index) => (
               <div key={index} className="PlayerViewDeals_CommentImgName">
-                {loading ? (
+                {Talent_manager_Deals_isLoading ? (
                   <Skeleton variant="circular" width={35} height={32} />
                 ) : (
                   <img
@@ -291,7 +506,7 @@ const PlayerDealsMade = () => {
                   />
                 )}
                 <div className="PlayerViewDeals_CommentNameandDetails">
-                  {loading ? (
+                  {Talent_manager_Deals_isLoading ? (
                     <Skeleton variant="rounded" width={105} height={22} />
                   ) : (
                     <p className="PlayerViewdetails_sendername">
@@ -309,7 +524,7 @@ const PlayerDealsMade = () => {
                       </span>
                     </p>
                   )}
-                  {loading ? (
+                  {Talent_manager_Deals_isLoading ? (
                     <Skeleton variant="rounded" width={105} height={22} />
                   ) : (
                     <p className="PlayerViewDeals_CommentDetails">
@@ -319,14 +534,10 @@ const PlayerDealsMade = () => {
                   )}
                 </div>
               </div>
-            ))}
-            {/* <div className='PlayerViewDeals_CommentImgName'>
-                  <img src={imgRecipient}  className='useTable_ImageRecipient' />
-                  <div className='PlayerViewDeals_CommentNameandDetails'>
-                    <p className='PlayerViewdetails_sendername'>Ms Lucas Howe <span className='PlayerViewDeals_DateDetails'>3 days ago</span></p>
-                    <p className='PlayerViewDeals_CommentDetails'> Hi, i am the talent manager for the player.</p>
-                  </div>
-                  </div> */}
+            ))} */}
+
+            <MyComponent player={player} />
+
             <div className="PlayerViewDeals_CommentSectionDiv">
               <form
                 onSubmit={handleSubmitComment}

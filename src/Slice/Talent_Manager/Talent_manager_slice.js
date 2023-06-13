@@ -38,15 +38,63 @@ const initialState = {
   Talent_manager_requested_players: null,
 
   Talent_manager_deal_details: null,
+
+  Talent_manager_Interaction: null,
+  Talent_manager_InteractionisError: false,
+  Talent_manager_Interaction_isSuccess: false,
+  Talent_manager_Interaction_isLoading: false,
+  Talent_manager_Interaction_message: null,
 };
 
 const tokengot = localStorage.getItem("token");
 
 let baseURL = process.env.REACT_APP_AFRISPORTURL;
 
+const Talent_manager_Interaction_fun_Service = async (data, token, id) => {
+  let request = data?.request?.id;
+  let player = data?.player?.id;
+  let sender = data?.sender?.id;
+
+  let talent_manager = id;
+  console.log(talent_manager);
+
+  let API_URL = `${baseURL}talent-manager/offer/interaction/${request}/${player}/${sender}`;
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  const response = await axios.get(API_URL, config);
+
+  return response.data;
+};
+
+export const Talent_manager_Interaction_fun = createAsyncThunk(
+  "Talent_manager_slice/Talent_manager_Interaction_fun",
+  async (data, thunkAPI) => {
+    try {
+      const token = thunkAPI.getState().reducer.LoginSlice.logindata.data.token;
+
+      const id =
+        thunkAPI.getState().reducer.LoginSlice.logindata.data?.user?.id;
+      return await Talent_manager_Interaction_fun_Service(data, token, id);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
 const Talent_manager_deal_details_fun_Service = async (data, token) => {
-  let id = data?.data?.id;
-  let from_person = data?.data?.from;
+  let id = data?.id;
+  let from_person = data?.from;
 
   let API_URL = `${baseURL}talent-manager/offer/detail/${id}/${from_person}`;
   const config = {
@@ -478,6 +526,33 @@ export const Talent_manager_slice = createSlice({
 
   extraReducers: (builder) => {
     builder
+
+      .addCase(Talent_manager_Interaction_fun.pending, (state) => {
+        state.Talent_manager_Interaction_isLoading = true;
+      })
+      .addCase(Talent_manager_Interaction_fun.fulfilled, (state, action) => {
+        state.Talent_manager_Interaction = action.payload;
+        state.Talent_manager_Interaction_isSuccess = true;
+        state.Talent_manager_Interaction_isLoading = false;
+      })
+      .addCase(Talent_manager_Interaction_fun.rejected, (state, action) => {
+        state.Talent_manager_InteractionisError = true;
+        state.Talent_manager_Interaction_message = action.payload;
+        state.Talent_manager_Interaction_isLoading = false;
+        state.Talent_manager_Interaction_isSuccess = false;
+
+        toast.error(`${state.Talent_manager_Interaction_message}`, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          className: "Forbidden403",
+        });
+      })
 
       .addCase(Talent_manager_deal_details_fun.pending, (state) => {
         state.Talent_manager_Deals_isLoading = true;

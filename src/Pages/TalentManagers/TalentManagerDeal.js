@@ -31,70 +31,40 @@ const TalentManagerDeal = () => {
 
   const dispatch = useDispatch();
 
-  const data = [
-    { id: 1, pathTo: "/afrisport/scout/profile", pathName: "Profile" },
-    { id: 2, pathTo: "/afrisport/scout/deal", pathName: "Deals" },
-  ];
-
-  // const header = [
-  //   {
-  //     id: 1,
-  //     name: "Deal name",
-  //   },
-  //   {
-  //     id: 2,
-  //     name: "Recipient",
-  //   },
-  //   {
-  //     id: 3,
-  //     name: "Details",
-  //   },
-  //   {
-  //     id: 4,
-  //     name: "Amount",
-  //   },
-  //   {
-  //     id: 5,
-  //     name: "Payment",
-  //   },
-  //   {
-  //     id: 6,
-  //     name: "Status",
-  //   },
-  //   {
-  //     id: 7,
-  //     name: "Scout Deals",
-  //   },
-  // ];
-
   const header = [
     {
       id: 1,
       name: "Deal name",
       case: "talent_Deal_name",
     },
+
     {
       id: 2,
+      name: "Player",
+      case: "talent_DealPlayer",
+    },
+    {
+      id: 3,
       name: "Sender",
       case: "talent_DealSender",
     },
     {
-      id: 3,
+      id: 4,
       name: "Details",
       case: "talent_DealDetails",
     },
     {
-      id: 4,
+      id: 5,
       name: "Amount",
       case: "talent_DealAmount",
     },
     {
-      id: 5,
+      id: 6,
       name: "Payment",
       case: "talent_DealPayment",
     },
     {
-      id: 6,
+      id: 7,
       name: "Status",
       case: "talent_DealStatus",
     },
@@ -104,7 +74,7 @@ const TalentManagerDeal = () => {
       case: "Talent_AcceptDeclineOffer",
     },
     {
-      id: 7,
+      id: 9,
       name: "",
       case: "Talent_deal_Details",
     },
@@ -119,22 +89,6 @@ const TalentManagerDeal = () => {
   };
 
   const [show, setShow] = useState(false);
-
-  const dataTable = [
-    {
-      id: 1,
-      dealname: "5 Season Deal",
-      imgRecip: imgRecipient,
-      recipient: "David Dada",
-      firstname: "tunde",
-      surname: "kunle",
-      email: "mayana@mail.com",
-      role: "teacher",
-      user_type: "teacher",
-      description:
-        "jhkjhkjjj jjjjjjjjj jjjjjj jjjjkhk  iuhhiuhiuh uhiuhiyu8gu  ygug",
-    },
-  ];
 
   useEffect(() => {
     dispatch(Talent_manager_Deals_fun());

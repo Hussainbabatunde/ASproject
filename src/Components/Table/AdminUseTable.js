@@ -53,6 +53,44 @@ const AdminUseTable = ({
                       </td>
                     );
 
+                  case "Admin_ads_Amount":
+                    return (
+                      <td className="useTable_tableDetails">
+                        <p className="AdminUse_TableComp">${each?.amount}</p>
+                      </td>
+                    );
+
+                  case "Admin_ads_Duration":
+                    return (
+                      <td className="useTable_tableDetails">
+                        <p className="AdminUse_TableComp">
+                          {each?.start_date} -- {each?.end_date}{" "}
+                        </p>
+                      </td>
+                    );
+
+                  case "Admin_ads_reach":
+                    return (
+                      <td className="useTable_tableDetails">
+                        <p className="AdminUse_TableComp">{each?.reach} </p>
+                      </td>
+                    );
+
+                  case "Admin_All_Ads_View":
+                    return (
+                      <td
+                        className="useTable_ViewEditSuspendDetails"
+                        style={{ flex: 1 }}
+                      >
+                        <Link
+                          to={`/admin/players/${each?.player}`}
+                          className="Admin_playersviewprofile"
+                        >
+                          View
+                        </Link>
+                      </td>
+                    );
+
                   case "Admin_fan_scout":
                     return (
                       <td className="useTable_tableDetails">
