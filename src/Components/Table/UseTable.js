@@ -200,10 +200,16 @@ const UseTable = ({
                         <div className="flex">
                           {each?.requests?.request?.status === "pending" && (
                             <>
-                              <button className="AcceptedPlayerUseTable">
+                              <button
+                                className="AcceptedPlayerUseTable"
+                                onClick={() => handleEdit(each)}
+                              >
                                 Accepted
                               </button>
-                              <button className="RejectedPlayerUseTable">
+                              <button
+                                className="RejectedPlayerUseTable"
+                                onClick={() => handleDelete(each)}
+                              >
                                 Rejected
                               </button>
                             </>
