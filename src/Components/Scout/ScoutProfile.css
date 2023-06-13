@@ -102,6 +102,23 @@
     font-size: 16px;
     margin-top: 20px;
 }
+.ProfileName_InputImage{
+    position: relative;
+}
+.ImageHolder_PrifilepicImg{
+    position: absolute;    
+    border-radius: 50%;
+    width: 132px;
+    height: 136px !important;
+    background-color: rgba(33, 31, 31, 0.591);
+    top: 0;
+}
+.Profile_EditCameraImg{
+    color: white;
+    position: absolute;
+    top: 60px;
+    left: 60px;
+}
 
 @media (max-width: 1105px){
     .ScoutProfile_VerificationDiv{

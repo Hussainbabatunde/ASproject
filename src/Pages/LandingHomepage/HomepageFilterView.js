@@ -40,6 +40,11 @@ const HomepageFilterView = () => {
         getPlayerDataHome()
     },[])
 
+    useEffect(() => {
+        
+        window.scrollTo(0, 0)
+      }, []);
+
     useEffect(()=>{
         setAllPlayers(filteredPlayer)
     }, [filteredPlayer])
@@ -96,7 +101,7 @@ const HomepageFilterView = () => {
         <div className='Homepage_contents'>
             <FilterHeroSection />
             <div className='FilterPage_ContentSection'>
-                <div style={{position:'relative'}}>
+                <div>
                 <form onSubmit={handleSearchFilter} className='FilterPage_ResultFilter'>
                     <p className='FilterPage_TopicSearchResult'>Found 376 results for <span className='FilterPage_PositionSearchedFor'>Strikers</span></p>
                     <p className='FilterPage_LabelSearch'>Price, $</p>

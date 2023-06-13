@@ -120,6 +120,18 @@ const HomeViewPlayerProfile = () => {
         getInfo()
       },[])
 
+      useEffect(() => {
+        const handleScroll = (e) => {
+          e.preventDefault();
+        };
+      
+        window.addEventListener('scroll', handleScroll);
+      
+        return () => {
+          window.removeEventListener('scroll', handleScroll);
+        };
+      }, []);
+
   return (
     <div>
         {logindata != null ? <ScoutHeader />: <Header />}

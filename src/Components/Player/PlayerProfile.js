@@ -25,6 +25,7 @@ import { reset as resetPlayerProfileSlice } from "../../Slice/Player/Playerprofi
 import { reset as resetGetAllPlayerDealSlice } from "../../Slice/Player/PlayerDeal/PlayerDealSlice";
 import { UserLogout } from "./UserLogOut";
 import PlayerProfileFanService from "./PlayerFanServicePrice";
+import { AiFillCamera } from "react-icons/ai";
 
 const PlayerProfile = () => {
   const VerifiedStatus = useSelector(
@@ -223,7 +224,7 @@ const PlayerProfile = () => {
                   alignItems: "center",
                 }}
               >
-                <label for="imagePlcholder">
+                <label className="ProfileName_InputImage" for="imagePlcholder">
                   {PlayerDetails?.profile_pics?  <img src={PlayerDetails?.profile_pics} className="Scoutpage_Profile_placeholder" /> : <img src={imgPlaceHolder} className="Scoutpage_Profile_placeholder" />}
                   <input
                     type="file"
@@ -231,6 +232,9 @@ const PlayerProfile = () => {
                     onChange={handleChange}
                     className="Scoutpage_Profile_ImagePlaceInput"
                   />
+                  <div className="ImageHolder_PrifilepicImg">
+                    <AiFillCamera className="Profile_EditCameraImg" />
+                  </div>
                 </label>
 
                 <button
@@ -240,7 +244,7 @@ const PlayerProfile = () => {
                   {imgloader ? (
                     <CircularProgress size={15} />
                   ) : (
-                    <span>Upload photo</span>
+                    <span>Save photo</span>
                   )}
                 </button>
               </form>

@@ -42,7 +42,7 @@ const HomePage = () => {
   // ]
   const Sortdata = useSelector((state)=> state.reducer?.GetPlayerSlice?.gottenPlayerData?.data)
   const PositionSort = ['GoalKeeper', 'Center backs(Defender)', 'Fullbacks (Defender)', 'Center midfielders', 'Attacking midfielders', 'Defensive midfielders', 'Wingers', 'Strikers']
-  // console.log('Sortdata ', Sortdata)
+  console.log('Sortdata ', Sortdata)
 
   return (
     <div>

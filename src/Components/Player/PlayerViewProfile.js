@@ -85,6 +85,20 @@ const PlayerViewProfile = () => {
     }
     getInfo()
   },[])
+
+  useEffect(() => {
+    const handleScroll = (e) => {
+      e.preventDefault();
+    };
+  
+    window.addEventListener('scroll', handleScroll);
+  
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  
   return (
     <div className='ScoutViewProfile'>
       <ToastContainer />

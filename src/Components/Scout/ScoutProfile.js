@@ -12,6 +12,7 @@ import { ProfileDetailsScout, ScoutProfilePicture, ScoutProfileVerificationStatu
 import ScoutProfileProfileform from './ScoutProfileProfileform'
 import ScoutProfileUploadId from './ScoutProfileUploadId'
 import { UserLogout } from '../Player/UserLogOut'
+import { AiFillCamera } from 'react-icons/ai'
 
 const ScoutProfile = () => {
 
@@ -119,13 +120,19 @@ const ScoutProfile = () => {
         <div className='Scoutpage_Profile_ImgVerificationSec'>
           <div className='Scoutpage_Profile_ImgNameSec'>
             <form onSubmit={handleImgSubmit}  style={{display:'flex',flexDirection:'column', alignItems:'center'}} >
-            <label for='imagePlcholder'>
+            <label className="ProfileName_InputImage" for='imagePlcholder'>
                   {PlayerDetails?.profile_pics?  <img src={PlayerDetails?.profile_pics} className="Scoutpage_Profile_placeholder" /> : <img src={imgPlaceHolder} className="Scoutpage_Profile_placeholder" />}
-          <input type='file' id='imagePlcholder' onChange={handleChange} className='Scoutpage_Profile_ImagePlaceInput' />
+          <input type='file' id='imagePlcholder' 
+          onChange={handleChange} 
+          className='Scoutpage_Profile_ImagePlaceInput' 
+          />
+          <div className="ImageHolder_PrifilepicImg">
+            <AiFillCamera className="Profile_EditCameraImg" />
+          </div>
           </label>
           
           <button type='submit' className='Scoutpage_Profileform_savebutton'>
-            {imgloader ? <CircularProgress size={15} /> : <span>Upload photo</span>}
+            {imgloader ? <CircularProgress size={15} /> : <span>Save photo</span>}
             </button>
           </form>
           <div className='Scoutpage_Profile_nameVerify'>

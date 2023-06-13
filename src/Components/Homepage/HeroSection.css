@@ -80,7 +80,7 @@
     margin-top: 20px;
 }
 .FilterPage_ResultFilter{
-    position: sticky;
+    /* position: sticky; */
     top: 10px;
     width: 250px;
     border-right: 1px solid #E0E0E0;
