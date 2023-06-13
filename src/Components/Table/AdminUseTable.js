@@ -86,8 +86,15 @@ const AdminUseTable = ({
                           to={`/admin/players/${each?.player}`}
                           className="Admin_playersviewprofile"
                         >
-                          View
+                          View Profile
                         </Link>
+
+                        <span
+                          className="Admin_playersSuspendprofile cursor-pointer"
+                          onClick={() => handleDelete(each)}
+                        >
+                          Termiante
+                        </span>
                       </td>
                     );
 
