@@ -1,9 +1,8 @@
 import React, { useEffect } from "react";
 import { BsFillCalendar2Fill } from "react-icons/bs";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { AiFillBank } from "react-icons/ai";
 import {
-  Transaction_detail_fun,
   Transaction_list_fun,
   Transaction_total_amount_fun,
 } from "../../../Slice/Admin/TransactionSlice";
@@ -11,7 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 const AdminFinance = () => {
   const dispatch = useDispatch();
-  const { id } = useParams();
+
   const { Transaction_total_amount, Transaction_list } = useSelector(
     (state) => state.reducer.TransactionSlice
   );
@@ -25,7 +24,8 @@ const AdminFinance = () => {
   ];
 
   useEffect(() => {
-    dispatch(Transaction_detail_fun(id));
+    dispatch(Transaction_total_amount_fun());
+    dispatch(Transaction_list_fun());
 
     return () => {};
   }, []);

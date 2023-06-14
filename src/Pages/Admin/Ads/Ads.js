@@ -13,8 +13,21 @@ import { Admin_Ads_fun } from "../../../Slice/Admin/Admin_AdsSlice";
 import axios from "axios";
 import { useMutation } from "react-query";
 import { ToastContainer, toast } from "react-toastify";
+import Modal from "@mui/material/Modal";
+import Box from "@mui/material/Box";
+
+import football from "../../../assets/lottie/92356-football.json";
 
 let baseURL = process.env.REACT_APP_AFRISPORTURL;
+
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 210,
+  p: 4,
+};
 
 const Ads = ({
   handleAllNegotiate,
@@ -83,7 +96,9 @@ const Ads = ({
     {
       onSuccess: () => {
         // Success toast notification
-        toast.success("Form submitted successfully!", {
+        dispatch(Admin_Ads_fun());
+
+        toast.success("Terminated successfully!", {
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,
@@ -96,7 +111,7 @@ const Ads = ({
       },
       onError: () => {
         // Error toast notification
-        toast.error("Error occurred while submitting the form.", {
+        toast.error("Error occurred while Terminating .", {
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,
@@ -111,17 +126,15 @@ const Ads = ({
     }
   );
 
+  console.log(Terminanted_Mutation.isLoading);
+
   const handleDelete = (data) => {
-    console.log(data);
+    let terminat_info = {
+      id: data?.id,
+      player_id: data?.player_id,
+    };
 
-    let terminat_info = [
-      {
-        id: 23,
-        user_id: 34,
-      },
-    ];
-
-    // Terminanted_Mutation.mutate(sentData);
+    Terminanted_Mutation.mutate(terminat_info);
   };
 
   useEffect(() => {
@@ -180,6 +193,20 @@ const Ads = ({
             </div>
           </div>
         </div>
+
+        <Modal
+          open={Terminanted_Mutation.isLoading}
+          // onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={style}>
+            <Lottie
+              style={{ width: "200px", height: "200px" }}
+              animationData={football}
+            />
+          </Box>
+        </Modal>
       </div>
     </>
   );

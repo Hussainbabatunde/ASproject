@@ -46,6 +46,73 @@ const AdminUseTable = ({
             <tr key={index}>
               {header?.map((item) => {
                 switch (item?.case) {
+                  case "Admin_Transaction_Date":
+                    const dateObject = new Date(
+                      each?.payments?.payment?.created_at
+                    );
+                    const formattedDate = dateObject.toLocaleDateString(
+                      "en-US",
+                      {
+                        year: "numeric",
+                        month: "short",
+                        day: "numeric",
+                      }
+                    );
+                    return (
+                      <td className="useTable_tableDetails">{formattedDate}</td>
+                    );
+                  case "Admin_Transaction_details":
+                    console.log(each?.payments);
+                    return (
+                      <td className="useTable_tableDetails">
+                        <Link
+                          to={`/admin/finance/${each?.payments?.payment?.id}`}
+                          className="Admin_playersEditprofile cursor-pointer"
+                        >
+                          Detail
+                        </Link>
+                      </td>
+                    );
+                  case "Admin_Transaction_Reference":
+                    return (
+                      <td className="useTable_tableDetails">
+                        <a
+                          href={`${each?.payments?.payment?.receipt_url}`}
+                          className="Admin_playersviewprofile"
+                          target="_blank"
+                        >
+                          View
+                        </a>
+                      </td>
+                    );
+                  case "Admin_Transaction_Customer":
+                    return (
+                      <td className="useTable_tableDetails">
+                        <p className="AdminUse_TableComp">
+                          <img
+                            src={each?.payments?.payment_by.profile_pics}
+                            className="useTable_ImageRecipient"
+                            alt="Recipient image"
+                          />
+                          <span>{` ${each?.payments?.payment_by?.firstname}  ${each?.payments?.payment_by?.surname}`}</span>
+                        </p>
+                      </td>
+                    );
+
+                  case "Admin_Transaction_Amount":
+                    return (
+                      <td className="useTable_tableDetails">
+                        {each?.payments?.payment?.amount}
+                      </td>
+                    );
+
+                  case "Admin_Transaction_Purpose":
+                    return (
+                      <td className="useTable_tableDetails">
+                        {each?.payments?.payment?.description}
+                      </td>
+                    );
+
                   case "Admin_email":
                     return (
                       <td className="useTable_tableDetails">
@@ -89,12 +156,16 @@ const AdminUseTable = ({
                           View Profile
                         </Link>
 
-                        <span
-                          className="Admin_playersSuspendprofile cursor-pointer"
-                          onClick={() => handleDelete(each)}
-                        >
-                          Termiante
-                        </span>
+                        {each?.status === "terminated" ? (
+                          ""
+                        ) : (
+                          <span
+                            className="Admin_playersSuspendprofile cursor-pointer"
+                            onClick={() => handleDelete(each)}
+                          >
+                            Termiante
+                          </span>
+                        )}
                       </td>
                     );
 
