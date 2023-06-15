@@ -418,7 +418,7 @@ const UseTable = ({
                   case "Payment":
                     return (
                       <td className="useTable_tableDetails">
-                        {each?.offer?.deal?.surname}
+                        {each?.offer?.deal?.payment_status == 'paid'? 'Paid' : 'Not Paid'}
                       </td>
                     );
                   case "Status":

@@ -1,0 +1,35 @@
+.modalfilter {
+	.inner {
+		aspect-ratio: 2/1.5;
+		width: 400px;
+	}
+	background-color: white;
+	color: black;
+    min-height: 100vh;
+    min-height: 100dvh;
+    padding: 10px;
+	/* border-radius: 8px; */
+	/* -webkit-border-radius: 8px;
+	-moz-border-radius: 8px;
+	-ms-border-radius: 8px;
+	-o-border-radius: 8px; */
+	scale: 0;
+	overflow: scroll;
+	animation: scaleTo 0.4s 0.4s cubic-bezier(0.33, -0.14, 0.02, 1.08)
+		forwards;
+	-webkit-animation: scaleTo 0.4s 0.4s cubic-bezier(0.33, -0.14, 0.02, 1.08)
+		forwards;
+
+}
+
+.modalfilter::backdrop {
+    background-color: rgba(11, 11, 71, 0.237);
+    backdrop-filter: blur(20px);
+}
+
+
+@keyframes scaleTo {
+	to {
+		scale: 1;
+	}
+}

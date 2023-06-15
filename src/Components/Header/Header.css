@@ -80,7 +80,7 @@
     }
     .HomePage_ShownDetails_OpenNavMenu{
         background-color: white;
-        /* display: none; */
+        z-index: 100;
         transform: translateX(0%);
         transition: transform ease-out 1s;
         position: fixed;
@@ -120,8 +120,8 @@
         padding: 10px;
         font-size: 15px;
         background-color: black;
-        color: white;
-        width: 120px;
+        color: white !important;
+        width: 130px;
         display: flex;
         justify-content: center;
         border-radius: 8px;
