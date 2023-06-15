@@ -23,6 +23,11 @@ import {
   Talent_manager_Deals_fun,
   reset_Talent_manager_Deals,
 } from "../../Slice/Talent_Manager/Talent_manager_slice";
+import axios from "axios";
+import { useMutation } from "react-query";
+import { ToastContainer, toast } from "react-toastify";
+
+let baseURL = process.env.REACT_APP_AFRISPORTURL;
 
 const TalentManagerDeal = () => {
   const { Talent_manager_Deals } = useSelector(
@@ -97,8 +102,150 @@ const TalentManagerDeal = () => {
     };
   }, []);
 
+  const Accepted_Mutation = useMutation(
+    async (data) => {
+      // Your API request code here
+      // Use formData to send the image data to the API
+
+      let API_URL = `${baseURL}talent-manager/offer/accept`;
+      const tokengot = localStorage.getItem("token");
+      console.log(data);
+      let request = data?.requests?.request?.id;
+      let sender = data?.requests?.sender?.id;
+
+      let data_item = {
+        offer_id: request,
+        user_id: sender,
+      };
+      const config = {
+        headers: {
+          // "Content-Type": "multipart/form-data",
+          // Accept: "multipart/form-data",
+          Authorization: `Bearer ${tokengot}`,
+        },
+      };
+
+      try {
+        const response = await axios.post(API_URL, data_item, config);
+        console.log(response.data); // Logging the response data
+
+        return response;
+      } catch (error) {
+        console.error(error);
+        throw error;
+      }
+    },
+    {
+      onSuccess: () => {
+        dispatch(Talent_manager_Deals_fun());
+
+        // Success toast notification
+        toast.success(" Accepted successfully!", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      },
+      onError: () => {
+        // Error toast notification
+        toast.error("Error occurred while submitting the form.", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          className: "Forbidden403",
+        });
+      },
+    }
+  );
+
+  const handleEdit = (each) => {
+    Accepted_Mutation.mutate(each);
+  };
+
+  const Reject_Mutation = useMutation(
+    async (data) => {
+      // Your API request code here
+      // Use formData to send the image data to the API
+
+      let API_URL = `${baseURL}talent-manager/offer/decline`;
+      const tokengot = localStorage.getItem("token");
+      console.log(data);
+      let request = data?.requests?.request?.id;
+      let sender = data?.requests?.sender?.id;
+
+      let data_item = {
+        offer_id: request,
+        user_id: sender,
+      };
+      const config = {
+        headers: {
+          // "Content-Type": "multipart/form-data",
+          // Accept: "multipart/form-data",
+          Authorization: `Bearer ${tokengot}`,
+        },
+      };
+
+      try {
+        const response = await axios.post(API_URL, data_item, config);
+        console.log(response.data); // Logging the response data
+
+        return response;
+      } catch (error) {
+        console.error(error);
+        throw error;
+      }
+    },
+    {
+      onSuccess: () => {
+        dispatch(Talent_manager_Deals_fun());
+
+        // Success toast notification
+        toast.success(" Rejected successfully!", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      },
+      onError: () => {
+        // Error toast notification
+        toast.error("Error occurred while submitting the form.", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          className: "Forbidden403",
+        });
+      },
+    }
+  );
+
+  const handleDelete = (each) => {
+    Reject_Mutation.mutate(each);
+  };
+
   return (
     <>
+      <ToastContainer />
+
       <div className="Scoutpage_contents ">
         <Talent_Header />
 
@@ -118,9 +265,15 @@ const TalentManagerDeal = () => {
               />
             </div>
           ) : (
-            <UseTable header={header} data={Talent_manager_Deals?.data} />
+            <UseTable
+              header={header}
+              data={Talent_manager_Deals?.data}
+              handleEdit={handleEdit}
+              handleDelete={handleDelete}
+            />
           )}
         </div>
+
         <Modal
           open={show}
           // onClose={handleClose}

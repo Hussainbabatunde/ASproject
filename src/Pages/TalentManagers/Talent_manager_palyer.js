@@ -128,6 +128,7 @@ function Talent_manager_palyer() {
           progress: undefined,
           theme: "light",
         });
+        dispatch(Talent_manager_details_Get_all_player_fun());
       },
       onError: () => {
         toast.error("Error occurred while submitting the form.", {

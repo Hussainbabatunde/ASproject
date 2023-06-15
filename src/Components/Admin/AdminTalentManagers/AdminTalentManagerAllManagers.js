@@ -29,10 +29,12 @@ const AdminTalentManagerAllManagers = ({
     (state) => state.reducer.AdminTalentMangerSlice
   );
 
+  console.log(Admin_talent_manager);
+
   const header = [
     {
       id: 1,
-      name: "Scout",
+      name: "Talent Manager",
       case: "Admin_talent_manager_Scout",
     },
     {

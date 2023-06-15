@@ -9,6 +9,14 @@ const initialState = {
   Admin___Negotiations_isSuccess: false,
   Admin___Negotiations_isLoading: false,
   Admin___Negotiations_message: null,
+
+  Admin___Negotiations_detail: null,
+  Admin___Negotiations_comment: null,
+
+  Admin___Negotiations_comment_isError: false,
+  Admin___Negotiations_comment_isSuccess: false,
+  Admin___Negotiations_comment_isLoading: false,
+  Admin___Negotiations_comment_message: null,
 };
 
 let baseURL = process.env.REACT_APP_AFRISPORTURL;
@@ -44,8 +52,6 @@ const Admin__Active_Negotiations_fun_Service = async (token) => {
     Admin__Suspended_Negotiations,
   };
 
-  console.log(Admin___Negotiations);
-
   return Admin___Negotiations;
 };
 
@@ -55,6 +61,72 @@ export const Admin___Negotiations_fun = createAsyncThunk(
     try {
       const token = thunkAPI.getState().reducer.LoginSlice.logindata.data.token;
       return await Admin__Active_Negotiations_fun_Service(token);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+const Admin___Negotiations_detail_fun_Service = async (data, token) => {
+  let API_URL = `${baseURL}admin/negotiations/detail/${data?.offer_id}/${data?.from_id}`;
+
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  const response = await axios.get(API_URL, config);
+
+  return response.data;
+};
+
+export const Admin___Negotiations_detail_fun = createAsyncThunk(
+  "Admin_NegotiationsSlice/Admin___Negotiations_detail_fun",
+  async (data, thunkAPI) => {
+    try {
+      const token = thunkAPI.getState().reducer.LoginSlice.logindata.data.token;
+      return await Admin___Negotiations_detail_fun_Service(data, token);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+const Admin___Negotiations_comment_fun_Service = async (data, token) => {
+  let API_URL = `${baseURL}admin/negotiations/offer-comments/${data}`;
+
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  const response = await axios.get(API_URL, config);
+
+  console.log(response.data);
+
+  return response.data;
+};
+
+export const Admin___Negotiations_comment_fun = createAsyncThunk(
+  "Admin_NegotiationsSlice/Admin___Negotiations_comment_fun",
+  async (data, thunkAPI) => {
+    try {
+      const token = thunkAPI.getState().reducer.LoginSlice.logindata.data.token;
+      return await Admin___Negotiations_comment_fun_Service(data, token);
     } catch (error) {
       const message =
         (error.response &&
@@ -88,6 +160,55 @@ export const Admin_NegotiationsSlice = createSlice({
         state.Admin___Negotiations_message = action.payload;
         state.Admin___Negotiations_isLoading = false;
         toast.error(`${state.Admin___Negotiations_message}`, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          className: "Forbidden403",
+        });
+      })
+      .addCase(Admin___Negotiations_detail_fun.pending, (state) => {
+        state.Admin___Negotiations_isLoading = true;
+      })
+      .addCase(Admin___Negotiations_detail_fun.fulfilled, (state, action) => {
+        state.Admin___Negotiations_detail = action.payload;
+        state.Admin___Negotiations_isSuccess = true;
+        state.Admin___Negotiations_isLoading = false;
+      })
+      .addCase(Admin___Negotiations_detail_fun.rejected, (state, action) => {
+        state.Admin___Negotiations_isError = true;
+        state.Admin___Negotiations_message = action.payload;
+        state.Admin___Negotiations_isLoading = false;
+        toast.error(`${state.Admin___Negotiations_message}`, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          className: "Forbidden403",
+        });
+      })
+
+      .addCase(Admin___Negotiations_comment_fun.pending, (state) => {
+        state.Admin___Negotiations_comment_isLoading = true;
+      })
+      .addCase(Admin___Negotiations_comment_fun.fulfilled, (state, action) => {
+        state.Admin___Negotiations_comment = action.payload;
+        state.Admin___Negotiations_comment_isSuccess = true;
+        state.Admin___Negotiations_comment_isLoading = false;
+      })
+      .addCase(Admin___Negotiations_comment_fun.rejected, (state, action) => {
+        state.Admin___Negotiations_comment_isError = true;
+        state.Admin___Negotiations_comment_message = action.payload;
+        state.Admin___Negotiations_comment_isLoading = false;
+        toast.error(`${state.Admin___Negotiations_comment_message}`, {
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,

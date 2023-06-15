@@ -42,8 +42,6 @@ function TalentManagerDetail() {
   let user_Data = Admin_talent_manager_single?.data;
   let PlayerDetails = user_Data;
 
-  console.log(Admin_talent_manager_single);
-
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(Admin_talent_manager_single_fun(id));
@@ -62,13 +60,10 @@ function TalentManagerDetail() {
       API_URL = `${baseURL}admin/talent-manager/suspend`;
     }
 
-    console.log(API_URL);
-
     const tokengot = localStorage.getItem("token");
 
     try {
       // Set the loading state to true before sending the request
-      console.log("Sending POST request...");
       setLoading(true);
 
       const config = {
@@ -87,8 +82,6 @@ function TalentManagerDetail() {
 
       // Reset the loading state to false after receiving the response
       setLoading(false);
-      console.log("POST request successful");
-      console.log("Response:", response.data.message);
 
       toast.success(`${response.data.message} `, {
         position: "top-right",
@@ -101,10 +94,8 @@ function TalentManagerDetail() {
         theme: "light",
       });
     } catch (error) {
-      console.log(error);
       // Reset the loading state to false in case of an error
       setLoading(false);
-      console.error("Error:", error.message);
 
       toast.error(`${error.message}`, {
         position: "top-right",
@@ -138,8 +129,6 @@ function TalentManagerDetail() {
   const userId = useSelector(
     (state) => state?.reducer?.LoginSlice?.logindata?.message?.id
   );
-
-  // console.log('PlayerDetails ', PlayerDetails)
 
   const [isPlaying, setIsPlaying] = useState(false);
 
