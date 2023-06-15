@@ -38,6 +38,8 @@ const Admin_talent_manager_fun_Service = async (token) => {
     Admin__TalentManger__Suspended_Negotiations,
   };
 
+  console.log(Admin___TalentManger);
+
   return Admin___TalentManger;
 };
 

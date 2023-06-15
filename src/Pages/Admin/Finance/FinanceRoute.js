@@ -6,11 +6,8 @@ import AdminFinanaceTransaction from "../../../Components/Admin/AdminFinance/Adm
 function FinanceRoute() {
   return (
     <Routes>
-      <Route path="/" element={<AdminFinance />} />
-      <Route path="/transaction" element={<AdminFinanaceTransaction />} />
-
-      {/* <Route path="/profile/:id" element={<Profile />} /> */}
-      {/* <Route path="/:id" element={<TalentManagerDetail />} /> */}
+      <Route path="/" element={<AdminFinanaceTransaction />} />
+      <Route path="/:id" element={<AdminFinance />} />
     </Routes>
   );
 }

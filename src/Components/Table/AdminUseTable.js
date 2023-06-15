@@ -9,6 +9,7 @@ import { CircularProgress } from "@mui/material";
 import { PulseLoader } from "react-spinners";
 
 import ChatCircle from "../../assets/ChatsCircle.png";
+import { useSelector } from "react-redux";
 
 const AdminUseTable = ({
   header,
@@ -21,6 +22,8 @@ const AdminUseTable = ({
   HandlePermision,
   handleRestpassword,
 }) => {
+  const { logindata } = useSelector((state) => state.reducer.LoginSlice);
+
   return (
     <table className="AdminUserTable">
       <thead>
@@ -46,6 +49,73 @@ const AdminUseTable = ({
             <tr key={index}>
               {header?.map((item) => {
                 switch (item?.case) {
+                  case "Admin_Transaction_Date":
+                    const dateObject = new Date(
+                      each?.payments?.payment?.created_at
+                    );
+                    const formattedDate = dateObject.toLocaleDateString(
+                      "en-US",
+                      {
+                        year: "numeric",
+                        month: "short",
+                        day: "numeric",
+                      }
+                    );
+                    return (
+                      <td className="useTable_tableDetails">{formattedDate}</td>
+                    );
+                  case "Admin_Transaction_details":
+                    console.log(each?.payments);
+                    return (
+                      <td className="useTable_tableDetails">
+                        <Link
+                          to={`/admin/finance/${each?.payments?.payment?.id}`}
+                          className="Admin_playersEditprofile cursor-pointer"
+                        >
+                          Detail
+                        </Link>
+                      </td>
+                    );
+                  case "Admin_Transaction_Reference":
+                    return (
+                      <td className="useTable_tableDetails">
+                        <a
+                          href={`${each?.payments?.payment?.receipt_url}`}
+                          className="Admin_playersviewprofile"
+                          target="_blank"
+                        >
+                          View
+                        </a>
+                      </td>
+                    );
+                  case "Admin_Transaction_Customer":
+                    return (
+                      <td className="useTable_tableDetails">
+                        <p className="AdminUse_TableComp">
+                          <img
+                            src={each?.payments?.payment_by.profile_pics}
+                            className="useTable_ImageRecipient"
+                            alt="Recipient image"
+                          />
+                          <span>{` ${each?.payments?.payment_by?.firstname}  ${each?.payments?.payment_by?.surname}`}</span>
+                        </p>
+                      </td>
+                    );
+
+                  case "Admin_Transaction_Amount":
+                    return (
+                      <td className="useTable_tableDetails">
+                        {each?.payments?.payment?.amount}
+                      </td>
+                    );
+
+                  case "Admin_Transaction_Purpose":
+                    return (
+                      <td className="useTable_tableDetails">
+                        {each?.payments?.payment?.description}
+                      </td>
+                    );
+
                   case "Admin_email":
                     return (
                       <td className="useTable_tableDetails">
@@ -86,8 +156,19 @@ const AdminUseTable = ({
                           to={`/admin/players/${each?.player}`}
                           className="Admin_playersviewprofile"
                         >
-                          View
+                          View Profile
                         </Link>
+
+                        {each?.status === "terminated" ? (
+                          ""
+                        ) : (
+                          <span
+                            className="Admin_playersSuspendprofile cursor-pointer"
+                            onClick={() => handleDelete(each)}
+                          >
+                            Termiante
+                          </span>
+                        )}
                       </td>
                     );
 
@@ -464,25 +545,29 @@ const AdminUseTable = ({
                         className="useTable_ViewEditSuspendDetails"
                         style={{ flex: 1, width: "350px" }}
                       >
+                        {logindata?.data?.user_type === "super-admin" && (
+                          <>
+                            <button
+                              onClick={() => handleEdit(each)}
+                              className="Admin_playersviewprofile"
+                            >
+                              <span>Edit</span>
+                            </button>
+
+                            <button
+                              className="border border-[#1D217F] px-2 py-1 bg-[#F2F3FE] text-[#1D217F]-500 font-bold rounded-md mr-2"
+                              onClick={() => handleRestpassword(each)}
+                            >
+                              <span>Reset Password</span>
+                            </button>
+
+                            <button className="border border-[#1D217F] px-2 py-1 bg-green-50 text-[#1D217F]-500 font-bold rounded-md mr-2">
+                              Disable
+                            </button>
+                          </>
+                        )}
+
                         {/* <Link className="Admin_playersviewprofile">Edit</Link> */}
-
-                        <button
-                          onClick={() => handleEdit(each)}
-                          className="Admin_playersviewprofile"
-                        >
-                          <span>Edit</span>
-                        </button>
-
-                        <button
-                          className="border border-[#1D217F] px-2 py-1 bg-[#F2F3FE] text-[#1D217F]-500 font-bold rounded-md mr-2"
-                          onClick={() => handleRestpassword(each)}
-                        >
-                          <span>Reset Password</span>
-                        </button>
-
-                        <button className="border border-[#1D217F] px-2 py-1 bg-green-50 text-[#1D217F]-500 font-bold rounded-md mr-2">
-                          Disable
-                        </button>
                       </td>
                     );
 
@@ -594,6 +679,27 @@ const AdminUseTable = ({
                       <td className="useTable_tableDetails">
                         <Link
                           to="/admin/scouts/negotiation-detail"
+                          state={each}
+                        >
+                          <p className="AdminUse_TableComp">
+                            <img
+                              src={ChatCircle}
+                              style={{ marginRight: "10px" }}
+                              width="25px"
+                              height="25px"
+                              alt="Recipient image"
+                            />
+                            {each?.number}
+                          </p>
+                        </Link>
+                      </td>
+                    );
+
+                  case "Neg_All_Negotiaties":
+                    return (
+                      <td className="useTable_tableDetails">
+                        <Link
+                          to="/admin/negotiations/negotiation-detail"
                           state={each}
                         >
                           <p className="AdminUse_TableComp">
