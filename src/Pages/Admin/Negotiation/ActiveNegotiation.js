@@ -44,6 +44,8 @@ const ActiveNegotiation = ({}) => {
   } = useSelector((state) => state.reducer.Admin_NegotiationsSlice);
 
   console.log(Admin___Negotiations?.Admin__Active_Negotiations);
+  console.log(Admin___Negotiations?.Admin__Active_Negotiations);
+  console.log(Admin___Negotiations?.Admin__Active_Negotiations);
 
   const header = [
     {
@@ -74,7 +76,7 @@ const ActiveNegotiation = ({}) => {
     {
       id: 6,
       name: "Active Negotiaties",
-      case: "scout_All_Negotiaties",
+      case: "Neg_All_Negotiaties",
     },
   ];
 
@@ -83,21 +85,6 @@ const ActiveNegotiation = ({}) => {
     { value: "rock", label: "Rock" },
     { value: "jazz", label: "Jazz" },
     { value: "orchestra", label: "Orchestra" },
-  ];
-
-  const dataTable = [
-    {
-      id: 1,
-      dealname: "5 Season Deal",
-      InitialOffer: "$12,000",
-      CurrentOffer: "$15,000",
-      surname: "Not paid",
-
-      imgRecip: imgRecipient,
-      scoutname: "David Dada",
-      chat: ChatCircle,
-      number: "8",
-    },
   ];
 
   const [show, setShow] = useState(false);

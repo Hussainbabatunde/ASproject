@@ -12,9 +12,7 @@ import { useParams } from "react-router-dom";
 
 function TalentManagerNegotiateStep() {
   const dispatch = useDispatch();
-
   const { id } = useParams();
-
   const [step, setStep] = useState(1);
   const { Admin_talent_manager_single, Admin_talent_manager_negotiation } =
     useSelector((state) => state.reducer.AdminTalentMangerSlice);

@@ -6,8 +6,6 @@ function AdminUserRoute() {
   return (
     <Routes>
       <Route path="/" element={<AdminAllAdmins />} />
-      {/* <Route path="/profile/:id" element={<Profile />} />
-      <Route path="/:id" element={<ScoutDetails />} /> */}
     </Routes>
   );
 }

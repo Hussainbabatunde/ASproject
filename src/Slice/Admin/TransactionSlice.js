@@ -176,6 +176,31 @@ export const TransactionSlice = createSlice({
           theme: "light",
           className: "Forbidden403",
         });
+      })
+
+      .addCase(Transaction_detail_fun.pending, (state) => {
+        state.Transaction_total_amount_isLoading = true;
+      })
+      .addCase(Transaction_detail_fun.fulfilled, (state, action) => {
+        state.Transaction_detail = action.payload;
+        state.Transaction_total_amount_isSuccess = true;
+        state.Transaction_total_amount_isLoading = false;
+      })
+      .addCase(Transaction_detail_fun.rejected, (state, action) => {
+        state.Transaction_total_amount_isError = true;
+        state.Transaction_total_amount_message = action.payload;
+        state.Transaction_total_amount_isLoading = false;
+        toast.error(`${state.Admin_Ads_message}`, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          className: "Forbidden403",
+        });
       });
   },
 });

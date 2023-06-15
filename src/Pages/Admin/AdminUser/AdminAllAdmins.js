@@ -23,6 +23,8 @@ import AdminUser_message_modal, {
 import { CircularProgress } from "@mui/material";
 
 const AdminAllAdmins = () => {
+  const { logindata } = useSelector((state) => state.reducer.LoginSlice);
+
   const dispatch = useDispatch();
 
   const {
@@ -49,6 +51,8 @@ const AdminAllAdmins = () => {
   };
 
   const filteredData = get_All_Admin?.data;
+
+  console.log(filteredData);
 
   const header = [
     {
@@ -103,13 +107,15 @@ const AdminAllAdmins = () => {
     },
   ];
 
+  console.log(logindata?.data?.user_type);
+
   useEffect(() => {
     // Dispatches an action to fetch all roles
     dispatch(get_All_Admin_fun());
 
-    dispatch(reset_Create__Admin_options());
-
-    dispatch(get_All_Role_fun());
+    if (logindata?.data?.user_type === "super-admin") {
+      dispatch(get_All_Role_fun());
+    }
 
     // dispatch(reset_role_Create_options());
     // setFilteredData(GetRole?.data);
@@ -359,26 +365,34 @@ const AdminAllAdmins = () => {
     <>
       <ToastContainer />
 
-      {resteModal && (
-        <ReseAdminPassoword
-          formData={formData}
-          setFormData={setFormData}
-          modal={resteModal}
-          setModal={setResteModal}
-        />
+      {logindata?.data?.user_type === "super-admin" && (
+        <>
+          {resteModal && (
+            <ReseAdminPassoword
+              formData={formData}
+              setFormData={setFormData}
+              modal={resteModal}
+              setModal={setResteModal}
+            />
+          )}
+        </>
       )}
 
       <div className="AdminDashboard">
         <div className="AdminPage_Dashboard">
           <div className="AdminPage_DashboardTAbleCat">
-            {modal && <AdminUser__modal />}
+            {logindata?.data?.user_type === "super-admin" && (
+              <>{modal && <AdminUser__modal />}</>
+            )}
 
-            <button
-              className="Adminpage_CreateAdmins "
-              onClick={() => setModal(true)}
-            >
-              Create Admin
-            </button>
+            {logindata?.data?.user_type === "super-admin" && (
+              <button
+                className="Adminpage_CreateAdmins "
+                onClick={() => setModal(true)}
+              >
+                Create Admin
+              </button>
+            )}
 
             <div className="AdminPage_TableTitleandLink">
               <p className="AdminPage_NegotiateTitleText">Admins</p>

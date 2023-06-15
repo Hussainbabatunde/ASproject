@@ -8,7 +8,7 @@ function NegotiationRoute() {
   return (
     <Routes>
       <Route path="/" element={<ActiveNegotiation />} />
-      <Route path="/:id" element={<NegotiationDetails />} />
+      <Route path="/negotiation-detail" element={<NegotiationDetails />} />
     </Routes>
   );
 }

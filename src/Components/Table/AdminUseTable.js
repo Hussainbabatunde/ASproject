@@ -9,6 +9,7 @@ import { CircularProgress } from "@mui/material";
 import { PulseLoader } from "react-spinners";
 
 import ChatCircle from "../../assets/ChatsCircle.png";
+import { useSelector } from "react-redux";
 
 const AdminUseTable = ({
   header,
@@ -21,6 +22,8 @@ const AdminUseTable = ({
   HandlePermision,
   handleRestpassword,
 }) => {
+  const { logindata } = useSelector((state) => state.reducer.LoginSlice);
+
   return (
     <table className="AdminUserTable">
       <thead>
@@ -542,25 +545,29 @@ const AdminUseTable = ({
                         className="useTable_ViewEditSuspendDetails"
                         style={{ flex: 1, width: "350px" }}
                       >
+                        {logindata?.data?.user_type === "super-admin" && (
+                          <>
+                            <button
+                              onClick={() => handleEdit(each)}
+                              className="Admin_playersviewprofile"
+                            >
+                              <span>Edit</span>
+                            </button>
+
+                            <button
+                              className="border border-[#1D217F] px-2 py-1 bg-[#F2F3FE] text-[#1D217F]-500 font-bold rounded-md mr-2"
+                              onClick={() => handleRestpassword(each)}
+                            >
+                              <span>Reset Password</span>
+                            </button>
+
+                            <button className="border border-[#1D217F] px-2 py-1 bg-green-50 text-[#1D217F]-500 font-bold rounded-md mr-2">
+                              Disable
+                            </button>
+                          </>
+                        )}
+
                         {/* <Link className="Admin_playersviewprofile">Edit</Link> */}
-
-                        <button
-                          onClick={() => handleEdit(each)}
-                          className="Admin_playersviewprofile"
-                        >
-                          <span>Edit</span>
-                        </button>
-
-                        <button
-                          className="border border-[#1D217F] px-2 py-1 bg-[#F2F3FE] text-[#1D217F]-500 font-bold rounded-md mr-2"
-                          onClick={() => handleRestpassword(each)}
-                        >
-                          <span>Reset Password</span>
-                        </button>
-
-                        <button className="border border-[#1D217F] px-2 py-1 bg-green-50 text-[#1D217F]-500 font-bold rounded-md mr-2">
-                          Disable
-                        </button>
                       </td>
                     );
 
@@ -672,6 +679,27 @@ const AdminUseTable = ({
                       <td className="useTable_tableDetails">
                         <Link
                           to="/admin/scouts/negotiation-detail"
+                          state={each}
+                        >
+                          <p className="AdminUse_TableComp">
+                            <img
+                              src={ChatCircle}
+                              style={{ marginRight: "10px" }}
+                              width="25px"
+                              height="25px"
+                              alt="Recipient image"
+                            />
+                            {each?.number}
+                          </p>
+                        </Link>
+                      </td>
+                    );
+
+                  case "Neg_All_Negotiaties":
+                    return (
+                      <td className="useTable_tableDetails">
+                        <Link
+                          to="/admin/negotiations/negotiation-detail"
                           state={each}
                         >
                           <p className="AdminUse_TableComp">
