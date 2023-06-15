@@ -574,21 +574,24 @@ const AdminUseTable = ({
                   case "Neg_Deal_name":
                     return (
                       <td className="useTable_tableDetails">
-                        {each?.comments?.active_offers?.DealName}
+                        {each?.comments?.active_offers?.DealName ||
+                          each?.DealName}
                       </td>
                     );
 
                   case "Neg_Initial_Offer":
                     return (
                       <td className="useTable_tableDetails">
-                        {each?.comments?.active_offers?.initial}
+                        {each?.comments?.active_offers?.initial ||
+                          each?.initial}
                       </td>
                     );
 
                   case "Neg_Current_Offer":
+                    console.log(each);
                     return (
                       <td className="useTable_tableDetails">
-                        {each?.comments?.active_offers?.Amount}
+                        {each?.comments?.active_offers?.Amount || each?.Amount}
                       </td>
                     );
 
@@ -598,13 +601,22 @@ const AdminUseTable = ({
                         <div className="flex gap-2 items-center">
                           <div>
                             <img
-                              src={each?.comments?.active_offers?.profile_pics}
+                              src={
+                                each?.comments?.active_offers?.profile_pics ||
+                                each?.profile_pics
+                              }
                               alt=""
                               className="border-1 border-black shadow-md w-[35px] h-[35px] rounded-[50%] block"
                             />
                           </div>
                           <span className="f text-xs font-normal">
-                            {`${each?.comments?.active_offers?.firstname}  ${each?.comments?.active_offers?.surname}`}
+                            {`${
+                              each?.comments?.active_offers?.firstname ||
+                              each?.firstname
+                            }  ${
+                              each?.comments?.active_offers?.surname ||
+                              each?.surname
+                            } `}
                           </span>
                         </div>
                       </td>
@@ -613,7 +625,10 @@ const AdminUseTable = ({
                   case "Neg_Payment":
                     return (
                       <td className="useTable_tableDetails">
-                        {`${each?.comments?.active_offers?.Payment} `}
+                        {`${
+                          each?.comments?.active_offers?.Payment ||
+                          each?.Payment
+                        } `}
                       </td>
                     );
 
