@@ -12,6 +12,7 @@ import { CircularProgress, Skeleton } from '@mui/material'
 import UpdateOfferDetail from './UpdateOfferDetail'
 import moment from 'moment'
 import { ToastContainer } from 'react-toastify'
+import ScoutPayNow from './ScoutPayNow'
 
 const ScoutDealsMade = () => {
   const {id} = useParams()
@@ -23,6 +24,7 @@ const ScoutDealsMade = () => {
   const [show, setShow] = useState(false)
   const [comment, setComment] = useState('')
   const [commentload, setCommentLoad] = useState(false)
+  const [showPay, setShowPay] = useState(false)
   const gottenDetails = useSelector((state)=> state.reducer?.ScoutDealsSlice?.getOfferDetailsData)
   const expireData = gottenDetails?.data?.offers?.expiration.slice(0,11);
   const senderId = useSelector((state)=> state.reducer?.ScoutDealsSlice?.getOfferDetailsData?.data?.offers?.to)
@@ -30,6 +32,8 @@ const ScoutDealsMade = () => {
   // console.log('comments ', CommentsGotten)
   // console.log('id ', id)
   // console.log('user id', userId)
+
+  
   useEffect(()=>{
     const offerDetails = async()=>{
       setLoading(true)
@@ -66,6 +70,9 @@ const ScoutDealsMade = () => {
     await dispatch(GetScoutOfferDownloadApi(id, userId))
     setDownloadPage(false)
   }
+  const handleHideShowPay = () =>{
+    setShowPay(false)
+  }
 
   const handleSubmitComment = async (e) =>{
     e.preventDefault()
@@ -99,7 +106,7 @@ const ScoutDealsMade = () => {
             <div className='PlayerViewDeals_InfoSection'>
             <div className='PlayerViewDeals_InfoSection_UpperSegment'>
               <div className='PlayerViewdetails_TopicSec'>                
-                <p className='PlayerViewdetails_DetailsText'>Details (Not Paid)</p>
+                <p className='PlayerViewdetails_DetailsText'>Details {gottenDetails?.data?.offers?.payment_status == 'paid' ? "(Paid)" : '(Not Paid)'}</p>
                 <div className='PlayerViewdetails_DownloadButtons'>
                   <button className='PlayerViewdetails_DownloadPdf' onClick={handleDownload} style={{display:'flex', alignItems:"center"}}>
                     <FaDownload style={{color:'#3D413D', marginRight: '7px'}} /> 
@@ -113,7 +120,7 @@ const ScoutDealsMade = () => {
                     </button>
                   {userType!= 'player' && <div style={{display:'flex', justifyContent:'center', alignItems:'center'}}>
                   <button className='PlayerViewdetails_Updatebutton' onClick={handleShowUpdate}>Update</button>
-                  <button className='PlayerViewdetails_Paynowbutton'>Pay Now</button>
+                  <button className='PlayerViewdetails_Paynowbutton' onClick={()=> setShowPay(true)}>Pay Now</button>
                   </div>}
                 </div>
               </div>
@@ -174,6 +181,7 @@ const ScoutDealsMade = () => {
             </div>
             </div>
             <UpdateOfferDetail show={show} setShow={setShow} handleHide={handleHide} userId= {userId} id={id} />
+            <ScoutPayNow showPay={showPay} handleHideShowPay={handleHideShowPay} gottenDetails={gottenDetails} userId={userId} />
     </div>
   )
 }

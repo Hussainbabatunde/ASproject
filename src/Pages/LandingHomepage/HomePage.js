@@ -42,7 +42,7 @@ const HomePage = () => {
   // ]
   const Sortdata = useSelector((state)=> state.reducer?.GetPlayerSlice?.gottenPlayerData?.data)
   const PositionSort = ['GoalKeeper', 'Center backs(Defender)', 'Fullbacks (Defender)', 'Center midfielders', 'Attacking midfielders', 'Defensive midfielders', 'Wingers', 'Strikers']
-  console.log('Sortdata ', Sortdata)
+  // console.log('Sortdata ', Sortdata)
 
   return (
     <div>
@@ -53,15 +53,15 @@ const HomePage = () => {
             <FootballerInfo title='RECOMMENDED' pathTitle='' data={data} />
             <div className='Homepage_topTalents'>
             <p className='Homepage_topTalentsTopic'>EXPLORE TALENT</p>
-            <div className='Hompage_exploreSort'>
-              <img src={DownSort} />
-              <p className='Homepage_SortText'>Sort: Recommended</p>
-            </div>
+            
+            <Link to='/filterPage' className='Homepage_topTalentsTopic'>VIEW ALL</Link>
             </div>
             <div className='Homepage_SortCategory'>
+              <div className="InnerHomeFilter_Screen">
               {PositionSort.map((each, index)=>(
                 <Link to='/filterPage' className='Homepage_SortPosition' key={index}>{each}</Link>
             ))}
+            </div>
             </div>
             <div className='Homepage_Sortfootballers'>
             {Sortdata?.map((each, index)=>( 

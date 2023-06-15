@@ -18,6 +18,7 @@ import { reset as resetPlayerProfileSlice } from "../../Slice/Player/Playerprofi
 import {reset as resetGetAllPlayerDealSlice} from "../../Slice/Player/PlayerDeal/PlayerDealSlice"
 import { UserLogout } from './UserLogOut';
 import { ToastContainer } from 'react-toastify';
+import { ClockLoader } from "react-spinners";
 import { PlayerFanDealsApi } from '../../Slice/Player/PlayerDeal/PlayerFanDealSlice';
 
 const PlayerFanDeal = () => {
@@ -122,11 +123,20 @@ const dataTable = useSelector((state)=> state?.reducer?.PlayerFanSlice?.PlayerFa
           <div style={{display:'flex', justifyContent:'center', alignItems:'center', width:'100%'}}>
                 <Lottie style={{width: '200px', height:'200px'}} animationData={empty} />
         </div>
-        : 
+        : show ?
+        <div className='flex justify-center p-2'>
+          <ClockLoader
+                                  color="#7F351D"
+                                  size={25}
+                                  aria-label="Loading Spinner"
+                                  data-testid="loader"
+                                />
+        </div>
+        :
             <UseTable header={header} data={dataTable} />
         }
         </div>
-        <Modal
+        {/* <Modal
         open={show}
         // onClose={handleClose}
         aria-labelledby="modal-modal-title"
@@ -136,7 +146,7 @@ const dataTable = useSelector((state)=> state?.reducer?.PlayerFanSlice?.PlayerFa
             <Lottie style={{width: '200px', height:'200px'}} animationData={football} />
             </Box>
         
-      </Modal>
+      </Modal> */}
         </div>
   )
 }

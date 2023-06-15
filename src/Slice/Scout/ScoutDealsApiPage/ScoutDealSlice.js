@@ -15,7 +15,8 @@ const initialState = {
     downloadScoutOfferDetails: null,
     scoutMakeCommentData: null,
     scoutcommentsOfferData: null,
-    updateScoutOfferData: null
+    updateScoutOfferData: null,
+    scoutMakePaymentData: null
   };
 
   export const ScoutDealsApi = createAsyncThunk(
@@ -37,7 +38,7 @@ const initialState = {
       return await instance
         .get('scout/offer')
         .then(async (response) => {
-            console.log('gotten deals ',response.data)
+            // console.log('gotten deals ',response.data)
           return response.data;
         })
   
@@ -102,6 +103,39 @@ const initialState = {
         .post('scout/offer/comments', data)
         .then(async (response) => {
             // console.log('comment shown ',response.data)
+          return response.data;
+        })
+  
+        .catch((err) => {
+          let errdata = err.response.data;
+          console.log('error ', errdata)
+          return rejectWithValue(errdata);
+          // console.log(err)
+        });
+    }
+  );
+
+
+  export const ScoutMakePaymentApi = createAsyncThunk(
+    "scoutMakePaymentApi/userscoutMakePaymentApi",
+    async (data, { rejectWithValue }) => {
+        
+        const tokengot = localStorage.getItem("token");
+        const infoneeded = `Bearer ${tokengot}`;
+      const instance = axios.create({
+        baseURL: process.env.REACT_APP_AFRISPORTURL ,
+        timeout: 20000,
+  
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: infoneeded
+        },
+      });
+      return await instance
+        .post('scout/payment/pay', data)
+        .then(async (response) => {
+            // console.log('scout paid ',response.data)
           return response.data;
         })
   
@@ -345,6 +379,31 @@ const initialState = {
         }        
       })
       .addCase(ScoutAcceptOfferDetailsApi.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+      })
+      .addCase(ScoutMakePaymentApi.pending, (state) => {
+        state.isLoading = true;
+        state.null = true;
+      })
+      .addCase(ScoutMakePaymentApi.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.user = true;
+        state.scoutMakePaymentData = action.payload;
+          toast.success(`${action.payload.data}`, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });    
+      })
+      .addCase(ScoutMakePaymentApi.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;

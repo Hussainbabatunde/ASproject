@@ -579,7 +579,7 @@ const initialState = {
         state.isSuccess = true;
         state.user = true;
         state.ProfileAdvertisePlayerData = action.payload;
-        toast.success("Request sent", {
+        toast.success(`${action.payload.data}`, {
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,

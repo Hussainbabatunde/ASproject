@@ -225,7 +225,7 @@ const PlayerProfile = () => {
                 }}
               >
                 <label className="ProfileName_InputImage" for="imagePlcholder">
-                  {PlayerDetails?.profile_pics?  <img src={PlayerDetails?.profile_pics} className="Scoutpage_Profile_placeholder" /> : <img src={imgPlaceHolder} className="Scoutpage_Profile_placeholder" />}
+                  <img src={file} className="Scoutpage_Profile_placeholder" />
                   <input
                     type="file"
                     id="imagePlcholder"

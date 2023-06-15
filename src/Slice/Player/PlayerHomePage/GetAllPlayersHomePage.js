@@ -9,7 +9,8 @@ const initialState = {
     isLoading: false,
     message: null,
     gottenPlayerData: null,
-    filteredPlayersData: null
+    filteredPlayersData: null,
+    filteredClubPlayerData: null
   };
 
   export const GetPlayersApi = createAsyncThunk(
@@ -72,6 +73,36 @@ const initialState = {
     }
   );
 
+  export const FilteredClubPlayerApi = createAsyncThunk(
+    "filteredClubPlayerApi/userFilteredClubPlayerApi",
+    async (data, { rejectWithValue }) => {
+        
+    
+      const instance = axios.create({
+        baseURL: process.env.REACT_APP_AFRISPORTURL ,
+        timeout: 20000,
+  
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+      });
+      return await instance
+        .get(`search-by-club-player?player=${data}&club=${data}`)
+        .then(async (response) => {
+            console.log('filtered club ',response.data)
+          return response.data;
+        })
+  
+        .catch((err) => {
+          let errdata = err.response.data;
+          // console.log('error ', errdata)
+          return rejectWithValue(errdata);
+          // console.log(err)
+        });
+    }
+  );
+
 
   export const GetAllPlayersHomePage = createSlice({
     name: "GetAllPlayersHomePage",
@@ -107,6 +138,21 @@ const initialState = {
         state.filteredPlayersData = action.payload;        
       })
       .addCase(FilteredPlayersApi.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+      })
+      .addCase(FilteredClubPlayerApi.pending, (state) => {
+        state.isLoading = true;
+        state.null = true;
+      })
+      .addCase(FilteredClubPlayerApi.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.user = true;
+        state.filteredClubPlayerData = action.payload;        
+      })
+      .addCase(FilteredClubPlayerApi.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;

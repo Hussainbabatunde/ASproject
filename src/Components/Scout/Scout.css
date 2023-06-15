@@ -9,6 +9,34 @@
     padding: 10px 20px;
     border-bottom: 1px solid #b1b1b1;
 }
+.pagination {
+  display: flex !important;
+  justify-content: center !important;
+  list-style: none;
+  align-items: center !important;
+  font-size: 1rem;
+  gap: 5px;
+  margin-top: 10px;
+}
+
+.pagination li {
+  display: inline-block;
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+.pagination .page-link{
+    color: #1D7F33 !important;
+}
+
+.pagination .active {
+  font-weight: bold;
+  color: white;
+  background-color: #1D7F33;
+  padding: 5px;
+  border-radius: 5px;
+  color: white !important;
+}
 .Scoutpage_AccountWord{
     font-size: 19px;
     font-weight: 400;

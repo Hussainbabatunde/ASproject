@@ -14,7 +14,7 @@ a{
 /* Width and height for the scrollbar track */
 ::-webkit-scrollbar {
   width: 4px;
-  height: 10px;
+  height: 6px;
 }
 
 /* Styling the scrollbar thumb */

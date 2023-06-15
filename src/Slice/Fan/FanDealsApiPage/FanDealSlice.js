@@ -238,7 +238,7 @@ const initialState = {
       return await instance
         .post('fan/request/comments', data)
         .then(async (response) => {
-            // console.log('fan comment shown ',response.data)
+            console.log('fan comment shown ',response.data)
           return response.data;
         })
   
@@ -269,8 +269,51 @@ const initialState = {
       return await instance
         .get(`fan/request-interactions/${id}/${senderId}/${userId}`)
         .then(async (response) => {
-          console.log(' fan comments made details lrt',response)
+          // console.log(' fan comments made details lrt',response)
           return response;
+        })
+  
+        .catch((err) => {
+          let errdata = err.response.data;
+          console.log("error ", errdata);
+          return rejectWithValue(errdata);
+          // console.log(err)
+        });
+    }
+  );
+
+  export const FanDealPaymentApi = createAsyncThunk(
+    "FanDealPaymentApi/userFanDealPaymentApi",
+    async (data, { rejectWithValue }) => {
+      const tokengot = localStorage.getItem("token");
+      const infoneeded = `Bearer ${tokengot}`;
+      const instance = axios.create({
+        baseURL: process.env.REACT_APP_AFRISPORTURL,
+        timeout: 20000,
+  
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: infoneeded,
+        },
+      });
+      return await instance
+        .post('fan/payment/request/pay', data)
+        .then(async (response) => {
+          console.log(' fan payment',response.data)
+          if (response.data?.status == 'succeeded'){
+            toast.success("Payment successful", {
+              position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+            });
+          }
+          return response.data;
         })
   
         .catch((err) => {
@@ -357,7 +400,8 @@ const initialState = {
         state.isSuccess = true;
         state.user = true;
         state.fancommentedData = action.payload;
-          toast.success(`${action.payload.message}`, {
+        if(action.payload?.message == 'Request Detail'){
+          toast.success('Chat Sent', {
             position: "top-right",
             autoClose: 5000,
             hideProgressBar: false,
@@ -366,7 +410,8 @@ const initialState = {
             draggable: true,
             progress: undefined,
             theme: "light",
-          });    
+          }); 
+        }   
       })
       .addCase(FanMakeCommentApi.rejected, (state, action) => {
         state.isLoading = false;

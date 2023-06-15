@@ -13,6 +13,7 @@ import moment from 'moment'
 import { ToastContainer } from 'react-toastify'
 import FanUpdateRequestDetail from './FanUpdateRequestDetail'
 import { FanFanDealCommentsApi, FanMakeCommentApi } from '../../Slice/Fan/FanDealsApiPage/FanDealSlice'
+import FanPayNow from './FanPayNow'
 
 const FanDealsMade = () => {
   const {id} = useParams()
@@ -23,6 +24,7 @@ const FanDealsMade = () => {
   const [downloadPage, setDownloadPage] = useState(false)
   const [show, setShow] = useState(false)
   const [comment, setComment] = useState('')
+  const [showPay, setShowPay] = useState(false)
   const [commentload, setCommentLoad] = useState(false)
   const gottenDetails = useSelector((state)=> state.reducer?.ScoutDealsSlice?.getOfferDetailsData)
   const expireData = gottenDetails?.data?.offers?.expiration.slice(0,11);
@@ -32,7 +34,7 @@ const FanDealsMade = () => {
   const {each} = Offer_data.state
   
   const senderId = each?.request?.deal?.to
-//   console.log('CommentsGotten ', CommentsGotten)
+  // console.log('CommentsGotten ', gottenDetails)
   // console.log('user id', userId)
   useEffect(()=>{
     const offerDetails = async()=>{
@@ -56,7 +58,7 @@ const FanDealsMade = () => {
   useEffect(()=>{
     const offerDetails = async()=>{
       setCommentLoad(true)
-    //   await dispatch(ScoutDealCommentsApi({id, userId, senderId}))
+      await dispatch(FanFanDealCommentsApi({id, userId, senderId}))
       setCommentLoad(false)
     }
     offerDetails()
@@ -69,6 +71,10 @@ const FanDealsMade = () => {
     setDownloadPage(true)
     await dispatch(GetScoutOfferDownloadApi(id, userId))
     setDownloadPage(false)
+  }
+
+  const handleHideShowPay = () =>{
+    setShowPay(false)
   }
 
   const handleSubmitComment = async (e) =>{
@@ -103,7 +109,7 @@ const FanDealsMade = () => {
             <div className='PlayerViewDeals_InfoSection'>
             <div className='PlayerViewDeals_InfoSection_UpperSegment'>
               <div className='PlayerViewdetails_TopicSec'>                
-                <p className='PlayerViewdetails_DetailsText'>Details (Not Paid)</p>
+                <p className='PlayerViewdetails_DetailsText'>Details {gottenDetails?.data?.offers?.payment_status == 'paid' ? '(Paid)' : '(Not Paid)'}</p>
                 <div className='PlayerViewdetails_DownloadButtons'>
                   {/* <button className='PlayerViewdetails_DownloadPdf' onClick={handleDownload} style={{display:'flex', alignItems:"center"}}>
                     <FaDownload style={{color:'#3D413D', marginRight: '7px'}} /> 
@@ -117,7 +123,7 @@ const FanDealsMade = () => {
                     </button> */}
                   {userType!= 'player' && <div style={{display:'flex', justifyContent:'center', alignItems:'center'}}>
                   {/* <button className='PlayerViewdetails_Updatebutton' onClick={handleShowUpdate}>Update</button> */}
-                  <button className='PlayerViewdetails_Paynowbutton'>Pay Now</button>
+                  <button className='PlayerViewdetails_Paynowbutton' onClick={()=> setShowPay(true)}>Pay Now</button>
                   </div>}
                 </div>
               </div>
@@ -178,6 +184,7 @@ const FanDealsMade = () => {
             </div>
             </div>
             <FanUpdateRequestDetail show={show} setShow={setShow} handleHide={handleHide} userId= {userId} id={id} />
+            <FanPayNow senderId={senderId}  showPay={showPay} handleHideShowPay={handleHideShowPay} gottenDetails={gottenDetails} userId={userId}  />
     </div>
   )
 }
