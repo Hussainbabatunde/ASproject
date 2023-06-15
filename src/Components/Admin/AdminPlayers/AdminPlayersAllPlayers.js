@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "../AdminNegotiate/AdminNegotiate.css";
 import { AiOutlineInfoCircle } from "react-icons/ai";
 import { Link } from "react-router-dom";
@@ -52,6 +52,19 @@ const AdminPlayerAllNegotiate = ({
     },
   ];
 
+  const [searchInput, setSearchInput] = useState("");
+
+  console.log(Admin_Get_All_Player);
+  const filteredUsersArray = Admin_Get_All_Player.filter(
+    (user) =>
+      user.firstname.toLowerCase().includes(searchInput.toLowerCase()) ||
+      user.surname.toLowerCase().includes(searchInput.toLowerCase())
+  );
+
+  const handleInputChange = (event) => {
+    setSearchInput(event.target.value);
+  };
+
   return (
     <div className="AdminPage_NegotiateTab">
       <div className="AdminPage_NegotiateTabTitle">
@@ -89,14 +102,17 @@ const AdminPlayerAllNegotiate = ({
         <div className="AdminDashboard_Search">
           <input
             type="text"
-            placeholder="Search name"
+            value={searchInput}
+            onChange={handleInputChange}
             className="AdminDashboard_SearchInput"
+            placeholder="Search name"
           />
+
           <RiSearchLine className="AdminDashboard_SearchIcon" />
         </div>
       </div>
       <div className="AdminTable_NegotiateTable">
-        {Admin_Get_All_Player?.length === 0 ? (
+        {filteredUsersArray?.length === 0 ? (
           <div
             style={{
               display: "flex",
@@ -113,7 +129,7 @@ const AdminPlayerAllNegotiate = ({
         ) : (
           <AdminUseTable
             header={header}
-            data={Admin_Get_All_Player}
+            data={filteredUsersArray}
             // handleEdit={handleEdit}
           />
         )}

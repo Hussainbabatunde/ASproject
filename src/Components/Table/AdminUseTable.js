@@ -147,13 +147,14 @@ const AdminUseTable = ({
                     );
 
                   case "Admin_All_Ads_View":
+                    console.log(each);
                     return (
                       <td
                         className="useTable_ViewEditSuspendDetails"
                         style={{ flex: 1 }}
                       >
                         <Link
-                          to={`/admin/players/${each?.player}`}
+                          to={`/admin/players/${each?.player_id}`}
                           className="Admin_playersviewprofile"
                         >
                           View Profile
