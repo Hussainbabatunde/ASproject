@@ -38,7 +38,7 @@ function NegotiationDetails() {
   let comment_message = Admin___Negotiations_comment?.data[1];
 
   console.log(Admin___Negotiations_detail);
-  let negotiation_data = Admin___Negotiations_detail?.[0];
+  let negotiation_data = Admin___Negotiations_detail;
   console.log(negotiation_data);
   console.log(negotiation_data);
 
