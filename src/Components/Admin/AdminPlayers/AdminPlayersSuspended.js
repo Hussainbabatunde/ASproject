@@ -128,6 +128,18 @@ const AdminPlayersSuspended = ({
       recentNegotiate: "league ball",
     },
   ];
+
+  const [searchInput, setSearchInput] = useState("");
+
+  const filteredArray = Admin_Get_All_Suspended_Player?.data.filter(
+    (user) =>
+      user.firstname.toLowerCase().includes(searchInput.toLowerCase()) ||
+      user.surname.toLowerCase().includes(searchInput.toLowerCase())
+  );
+
+  const handleInputChange = (event) => {
+    setSearchInput(event.target.value);
+  };
   return (
     <>
       <ToastContainer />
@@ -160,9 +172,12 @@ const AdminPlayersSuspended = ({
           <div className="AdminDashboard_Search">
             <input
               type="text"
-              placeholder="Search name"
+              value={searchInput}
+              onChange={handleInputChange}
               className="AdminDashboard_SearchInput"
+              placeholder="Search name"
             />
+
             <RiSearchLine className="AdminDashboard_SearchIcon" />
           </div>
         </div>
@@ -173,7 +188,7 @@ const AdminPlayersSuspended = ({
           </span>
         </div>
         <div className="AdminTable_NegotiateTable">
-          {Admin_Get_All_Suspended_Player?.data?.length === 0 ? (
+          {filteredArray?.length === 0 ? (
             <div
               style={{
                 display: "flex",
@@ -190,7 +205,7 @@ const AdminPlayersSuspended = ({
           ) : (
             <AdminUseTable
               header={header}
-              data={Admin_Get_All_Suspended_Player?.data}
+              data={filteredArray}
               handleEdit={handleEdit}
             />
           )}

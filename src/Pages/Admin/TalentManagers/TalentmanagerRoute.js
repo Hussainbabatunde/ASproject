@@ -10,7 +10,6 @@ function TalentmanagerRoute() {
   return (
     <Routes>
       <Route path="/" element={<AdminTalentManagers />} />
-      {/* <Route path="/profile/:id" element={<Profile />} /> */}
       <Route path="/:id" element={<TalentManagerDetail />} />
     </Routes>
   );
