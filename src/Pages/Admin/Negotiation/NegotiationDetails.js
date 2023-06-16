@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
 import { GrFormNext } from "react-icons/gr";
 import { BsPinAngleFill, BsShareFill } from "react-icons/bs";
 import { FaDownload } from "react-icons/fa";
@@ -11,17 +10,24 @@ import {
   Admin___Negotiations_detail_fun,
 } from "../../../Slice/Admin/Admin_NegotiationsSlice";
 import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
+import { useMutation } from "react-query";
+import { ToastContainer, toast } from "react-toastify";
+import { PulseLoader } from "react-spinners";
+
+let baseURL = process.env.REACT_APP_AFRISPORTURL;
 
 function NegotiationDetails() {
   const { Admin___Negotiations_detail, Admin___Negotiations_comment } =
     useSelector((state) => state.reducer.Admin_NegotiationsSlice);
+
   const dispatch = useDispatch();
   let { state } = useLocation();
   // const {each} = Offer_data.state
   console.log(state);
 
-  let offer_id = state?.comments?.active_offers?.OfferId;
-  let from_id = state?.comments?.active_offers?.from;
+  let offer_id = state?.comments?.active_offers?.OfferId || state?.OfferId;
+  let from_id = state?.comments?.active_offers?.from || state?.from;
 
   useEffect(() => {
     dispatch(Admin___Negotiations_detail_fun({ offer_id, from_id }));
@@ -32,12 +38,7 @@ function NegotiationDetails() {
 
   let negotiation_data = Admin___Negotiations_detail[0];
 
-  console.log(negotiation_data);
-
-  console.log(Admin___Negotiations_comment);
-
   let comment_message = Admin___Negotiations_comment?.data[1];
-  console.log(comment_message);
 
   function calculateMonthDuration(startDate, endDate) {
     const start = new Date(startDate);
@@ -98,6 +99,136 @@ function NegotiationDetails() {
     }
   }
 
+  const Suspend_Mutation = useMutation(
+    async (data) => {
+      // Your API request code here
+      // Use formData to send the image data to the API
+
+      let item = {
+        offer_id: offer_id,
+      };
+
+      console.log(item);
+
+      let API_URL = `${baseURL}admin/negotiations/suspend-offer`;
+      const tokengot = localStorage.getItem("token");
+
+      const config = {
+        headers: {
+          // "Content-Type": "multipart/form-data",
+          // Accept: "multipart/form-data",
+          Authorization: `Bearer ${tokengot}`,
+        },
+      };
+
+      try {
+        const response = await axios.post(API_URL, item, config);
+        console.log(response.data); // Logging the response data
+
+        return response;
+      } catch (error) {
+        console.error(error);
+        throw error;
+      }
+    },
+    {
+      onSuccess: () => {
+        // dispatch(Talent_manager_Interaction_fun({ player, request, sender }));
+
+        // Success toast notification
+        toast.success("Form submitted successfully!", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      },
+      onError: () => {
+        // Error toast notification
+        toast.error("Error occurred while submitting the form.", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          className: "Forbidden403",
+        });
+      },
+    }
+  );
+
+  const Terminante_Mutation = useMutation(
+    async (data) => {
+      // Your API request code here
+      // Use formData to send the image data to the API
+
+      let item = {
+        offer_id: offer_id,
+      };
+
+      console.log(item);
+
+      let API_URL = `${baseURL}admin/negotiations/terminate-offer`;
+      const tokengot = localStorage.getItem("token");
+
+      const config = {
+        headers: {
+          // "Content-Type": "multipart/form-data",
+          // Accept: "multipart/form-data",
+          Authorization: `Bearer ${tokengot}`,
+        },
+      };
+
+      try {
+        const response = await axios.post(API_URL, item, config);
+        console.log(response.data); // Logging the response data
+
+        return response;
+      } catch (error) {
+        console.error(error);
+        throw error;
+      }
+    },
+    {
+      onSuccess: () => {
+        // dispatch(Talent_manager_Interaction_fun({ player, request, sender }));
+
+        // Success toast notification
+        toast.success("Terminanted successfully!", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      },
+      onError: () => {
+        // Error toast notification
+        toast.error("Error occurred while submitting the form.", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          className: "Forbidden403",
+        });
+      },
+    }
+  );
+
   return (
     <>
       <ToastContainer />
@@ -121,14 +252,35 @@ function NegotiationDetails() {
                   </div>
 
                   <div className="flex gap-2">
-                    <button className="bg-[#F2F3FE] border-[#1D217F] px-3 py-1 border rounded">
-                      Update
+                    <button
+                      className="bg-[#FEFDF2] border-[#7F351D] px-3 py-1 border rounded"
+                      onClick={() => Suspend_Mutation.mutate()}
+                    >
+                      {Suspend_Mutation?.isLoading ? (
+                        <PulseLoader
+                          color="black"
+                          size={13}
+                          aria-label="Loading Spinner"
+                          data-testid="loader"
+                        />
+                      ) : (
+                        "Suspend"
+                      )}
                     </button>
-                    <button className="bg-[#FEFDF2] border-[#7F351D] px-3 py-1 border rounded">
-                      Suspend
-                    </button>
-                    <button className="bg-[#FEF2F2] border-[#7F1D1D] px-3 py-1 border rounded">
-                      Terminante
+                    <button
+                      className="bg-[#FEF2F2] border-[#7F1D1D] px-3 py-1 border rounded"
+                      onClick={() => Terminante_Mutation.mutate()}
+                    >
+                      {Suspend_Mutation?.isLoading ? (
+                        <PulseLoader
+                          color="black"
+                          size={13}
+                          aria-label="Loading Spinner"
+                          data-testid="loader"
+                        />
+                      ) : (
+                        "Terminante"
+                      )}
                     </button>
                   </div>
                 </div>
@@ -227,7 +379,6 @@ function NegotiationDetails() {
                   </div>
                   <div className="PlayerViewDeals_InfoSection_LowerSegment">
                     {comment_message?.map((item) => {
-                      console.log(item);
                       return (
                         <div className="PlayerViewDeals_CommentImgName ">
                           <div>

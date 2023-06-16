@@ -236,10 +236,7 @@ const ActiveNegotiation = ({}) => {
                   ) : (
                     <AdminUseTable
                       header={header}
-                      data={
-                        Admin___Negotiations?.Admin__Suspended_Negotiations
-                          ?.data
-                      }
+                      data={Admin___Negotiations?.Admin__Suspended_Negotiations}
                     />
                   )}
                 </div>
@@ -322,6 +319,10 @@ const ActiveNegotiation = ({}) => {
                     <RiSearchLine className="AdminDashboard_SearchIcon" />
                   </div>
                 </div>
+
+                {console.log(
+                  Admin___Negotiations?.Admin__Terminate_Negotiations
+                )}
                 <div className="AdminTable_NegotiateTable">
                   {Admin___Negotiations?.Admin__Terminate_Negotiations
                     ?.length === 0 ? (

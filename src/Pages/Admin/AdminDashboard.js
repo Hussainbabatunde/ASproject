@@ -24,14 +24,26 @@ import {
   reset__dashbord,
 } from "../../Slice/Admin/AdminDashboardSlice";
 import { BsDisplay } from "react-icons/bs";
+import { Transaction_list_fun } from "../../Slice/Admin/TransactionSlice";
 
 const AdminDashboard = () => {
   const dispatch = useDispatch();
+  const { Transaction_total_amount, Transaction_list } = useSelector(
+    (state) => state.reducer.TransactionSlice
+  );
+
+  console.log(Transaction_list);
 
   useEffect(() => {
     dispatch(Admin_Header_Summary_fun());
     dispatch(Admin_dashboard_approved_player_fun());
     dispatch(Admin_dashboard_active_negotiations_fun());
+    return () => {};
+  }, []);
+
+  useEffect(() => {
+    dispatch(Transaction_list_fun());
+
     return () => {};
   }, []);
 
@@ -47,7 +59,9 @@ const AdminDashboard = () => {
   const last5Object_Admin_dashboard_active_negotiations =
     Admin_dashboard_active_negotiations?.plus.slice(-5);
 
-  console.log(last5Object_Admin_dashboard_active_negotiations);
+  const last5Object_Transaction_list = Transaction_list.slice(-5);
+
+  console.log(last5Object_Transaction_list);
 
   const header = [
     {
@@ -113,18 +127,36 @@ const AdminDashboard = () => {
     {
       id: 1,
       name: "Date",
+      case: "Admin_Transaction_Date",
     },
     {
       id: 2,
       name: "Amount",
+      case: "Admin_Transaction_Amount",
     },
     {
       id: 3,
-      name: "Purpose",
+      name: "Customer",
+      case: "Admin_Transaction_Customer",
     },
+
+    ,
     {
       id: 4,
-      name: "Transaction ID",
+      name: "Purpose",
+      case: "Admin_Transaction_Purpose",
+    },
+
+    {
+      id: 5,
+      name: "Reference",
+      case: "Admin_Transaction_Reference",
+    },
+
+    {
+      id: 6,
+      name: " ",
+      case: "Admin_Transaction_details",
     },
   ];
 
@@ -281,7 +313,9 @@ const AdminDashboard = () => {
         <div className="AdminPage_DashboardTAbleCat">
           <div className="AdminPage_TableTitleandLink">
             <p className="AdminDashboard_Dashboardtext">Transaction</p>
-            <Link className="AdminDashBoard_LinkViewall">View All</Link>
+            <Link to="/admin/finance" className="AdminDashBoard_LinkViewall">
+              View All
+            </Link>
           </div>
           <div className="AdminPage_TableInfo">
             <AiOutlineInfoCircle style={{ fontSize: "18px" }} />
@@ -289,7 +323,7 @@ const AdminDashboard = () => {
               Recent transaction made on the platform
             </span>
           </div>
-          {dataTable?.length === 0 ? (
+          {last5Object_Transaction_list?.length === 0 ? (
             <div
               style={{
                 display: "flex",
@@ -304,7 +338,10 @@ const AdminDashboard = () => {
               />
             </div>
           ) : (
-            <AdminUseTable header={Transactionheader} data={dataTable} />
+            <AdminUseTable
+              header={Transactionheader}
+              data={last5Object_Transaction_list}
+            />
           )}
         </div>
       </div>
