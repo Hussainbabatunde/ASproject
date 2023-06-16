@@ -71,6 +71,21 @@ const AdminTalentManagerAllManagers = ({
     return () => {};
   }, []);
 
+  const [searchInput, setSearchInput] = useState("");
+
+  const filteredArray =
+    Admin_talent_manager?.Admin__TalentManger__Active_Negotiations.filter(
+      (user) =>
+        user?.user.firstname
+          .toLowerCase()
+          .includes(searchInput.toLowerCase()) ||
+        user?.user.surname.toLowerCase().includes(searchInput.toLowerCase())
+    );
+
+  const handleInputChange = (event) => {
+    setSearchInput(event.target.value);
+  };
+
   const handleSuspend_Unsuspend = async (data) => {
     console.log(data);
     let API_URL = `${baseURL}admin/talent-manager/suspend`;
@@ -187,8 +202,10 @@ const AdminTalentManagerAllManagers = ({
           <div className="AdminDashboard_Search">
             <input
               type="text"
-              placeholder="Search name"
+              value={searchInput}
+              onChange={handleInputChange}
               className="AdminDashboard_SearchInput"
+              placeholder="Search name"
             />
             <RiSearchLine className="AdminDashboard_SearchIcon" />
           </div>
@@ -200,8 +217,7 @@ const AdminTalentManagerAllManagers = ({
           </span>
         </div>
         <div className="AdminTable_NegotiateTable">
-          {Admin_talent_manager?.Admin__TalentManger__Active_Negotiations
-            ?.length === 0 ? (
+          {filteredArray?.length === 0 ? (
             <div
               style={{
                 display: "flex",
@@ -218,9 +234,7 @@ const AdminTalentManagerAllManagers = ({
           ) : (
             <AdminUseTable
               header={header}
-              data={
-                Admin_talent_manager?.Admin__TalentManger__Active_Negotiations
-              }
+              data={filteredArray}
               handleEdit={handleEdit}
               handleDelete={handleDelete}
             />
