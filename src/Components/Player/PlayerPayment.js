@@ -95,7 +95,7 @@ const PlayerPayment = () => {
                 <p className='Scoutpage_PaymentEarnings_earntext'>Offer Transaction</p>
                 
                 <div className='Scoutpage_TransGetpaid_dateandamt'>
-                {OfferPaymentTrans.map((each,index)=>(
+                {OfferPaymentTrans?.map((each,index)=>(
                 <div key={index} className='Scoutpage_Getpaid_dateSec'>
                     <p className='Scoutpage_Getpaid_monthandyear'>{format(new Date(each?.created_at), 'MMMM yyyy')}</p>
                 <p className='Scoutpage_Getpaid_monthandyear'>${each?.amount}</p>
@@ -127,7 +127,7 @@ const PlayerPayment = () => {
                 <p className='Scoutpage_PaymentEarnings_earntext'>Transaction</p>
                 
                 <div className='Scoutpage_TransGetpaid_dateandamt'>
-                {dataInfo.map((each,index)=>(
+                {dataInfo?.map((each,index)=>(
                 <div key={index} className='Scoutpage_Getpaid_dateSec'>
                     <p className='Scoutpage_Getpaid_monthandyear'>{each?.date}</p>
                 <p className='Scoutpage_Getpaid_monthandyear'>N{each?.amt}</p>

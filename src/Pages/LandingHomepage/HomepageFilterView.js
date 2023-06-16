@@ -53,6 +53,7 @@ const HomepageFilterView = () => {
 
     useEffect(()=>{
         setAllPlayers(filteredPlayer)
+        console.log(filteredPlayer)
     }, [filteredPlayer])
 
 
@@ -404,39 +405,39 @@ const HomepageFilterView = () => {
                     <p className='FilterPage_LabelSearch'>Position</p>
                     <div className='FilterPage_StrongerfootSec'>
                         <div>
-                            <input  name='position'  checked={checkedPosition === 'Goalkeeper'} onChange={()=> handleCheckedPosition('goalkeeper')} type='checkbox' />
+                            <input  name='position'  checked={checkedPosition === 'Goalkeeper'} onChange={()=> handleCheckedPosition('Goalkeeper')} type='checkbox' />
                             <label style={{marginLeft:"10px"}}>Goalkeeper</label>
                         </div>
                         <div>
-                            <input  name='position'  checked={checkedPosition === 'Centerback_Defender'} onChange={()=> handleCheckedPosition('centerback_defender')} type='checkbox' />
+                            <input  name='position'  checked={checkedPosition === 'Centerback_Defender'} onChange={()=> handleCheckedPosition('Centerback_Defender')} type='checkbox' />
                             <label style={{marginLeft:"10px"}}>Center Back(Defenders)</label>
                         </div>
                         <div>
-                            <input  name='position' checked={checkedPosition === 'Left_Winger_Defender'} onChange={()=> handleCheckedPosition('fullback_defender')} type='checkbox' />
+                            <input  name='position' checked={checkedPosition === 'Left_Winger_Defender'} onChange={()=> handleCheckedPosition('Left_Winger_Defender')} type='checkbox' />
                             <label style={{marginLeft:"10px"}}>Left Winger Back(Defenders)</label>
                         </div>
                         <div>
-                            <input  name='position' checked={checkedPosition === 'Right_Winger_Defender'} onChange={()=> handleCheckedPosition('fullback_defender')} type='checkbox' />
+                            <input  name='position' checked={checkedPosition === 'Right_Winger_Defender'} onChange={()=> handleCheckedPosition('Right_Winger_Defender')} type='checkbox' />
                             <label style={{marginLeft:"10px"}}>Right Winger Back(Defenders)</label>
                         </div>
                         <div>
-                            <input name='position' checked={checkedPosition === 'Central_Midfielders'} onChange={()=> handleCheckedPosition('central_midfielders')} type='checkbox' />
+                            <input name='position' checked={checkedPosition === 'Central_Midfielders'} onChange={()=> handleCheckedPosition('Central_Midfielders')} type='checkbox' />
                             <label style={{marginLeft:"10px"}}>Central midfielders</label>
                         </div>
                         <div>
-                            <input name='position' checked={checkedPosition === 'Attacking_Midfielders'} onChange={()=> handleCheckedPosition('attacking_midfielders')} type='checkbox' />
+                            <input name='position' checked={checkedPosition === 'Attacking_Midfielders'} onChange={()=> handleCheckedPosition('Attacking_Midfielders')} type='checkbox' />
                             <label style={{marginLeft:"10px"}}>Attacking midfielders</label>
                         </div>
                         <div>
-                            <input name='position' checked={checkedPosition === 'Defensive_Midfielders'} onChange={()=> handleCheckedPosition('defensive_midfielders')} type='checkbox' />
+                            <input name='position' checked={checkedPosition === 'Defensive_Midfielders'} onChange={()=> handleCheckedPosition('Defensive_Midfielders')} type='checkbox' />
                             <label style={{marginLeft:"10px"}}>Defensive midfielders</label>
                         </div>
                         <div>
-                            <input name='position' checked={checkedPosition === 'Wingers'} onChange={()=> handleCheckedPosition('wingers')} type='checkbox' />
+                            <input name='position' checked={checkedPosition === 'Wingers'} onChange={()=> handleCheckedPosition('Wingers')} type='checkbox' />
                             <label style={{marginLeft:"10px"}}>Wingers</label>
                         </div>
                         <div>
-                            <input  name='position' checked={checkedPosition === 'Striker'} onChange={()=> handleCheckedPosition('striker')} type='checkbox' />
+                            <input  name='position' checked={checkedPosition === 'Striker'} onChange={()=> handleCheckedPosition('Striker')} type='checkbox' />
                             <label style={{marginLeft:"10px"}}>Striker</label>
                         </div>
                         <button type='submit' className='Scoutpage_Profileform_savebutton'>
@@ -785,16 +786,22 @@ const HomepageFilterView = () => {
              data-aos-duration="1000" 
              data-aos="flip-down"
              className='Homepage_foorballersBriefInfo' key={index}>
-                <img src={each?.image_url || each?.profile_pics} className='Homepage_PlayersImage' />
+                {each?.images ? each?.images?.map((item, i)=>(
+                <>
+                {item?.cover_page == 1 && <img src={item?.image_url} key={i} className='Homepage_PlayersImage' />}
+                </>
+                ))
+                :
+                <img src={each?.image_url} className='Homepage_PlayersImage' />}
                 {
-                each?.service_type == 'open'?<p className='Homepage_PlayerStatus'>{each?.minimum}</p>
-                : each?.service_type == 'free' ? <p className='Homepage_PlayerStatus'>{each?.minimum}</p> 
-                : each?.service_type == 'actual'? <p className='Homepage_PlayerStatus'>${each?.minimum}</p>
-                : <p className='Homepage_PlayerStatus'>${each?.minimum} - ${each?.maximum}</p>
+                each?.service_type == 'open' || each?.price?.service_type == 'open'?<p className='Homepage_PlayerStatus'>{each?.minimum || each?.price?.minimum}</p>
+                : each?.service_type == 'free' || each?.price?.service_type == 'free' ? <p className='Homepage_PlayerStatus'>{each?.minimum || each?.price?.minimum}</p> 
+                : each?.service_type == 'actual' || each?.price?.service_type == 'actual'? <p className='Homepage_PlayerStatus'>${each?.minimum || each?.price?.minimum}</p>
+                : <p className='Homepage_PlayerStatus'>${each?.minimum || each?.price?.minimum} - ${each?.maximum || each?.price?.maximum}</p>
                 }
                 <p className='Homepage_PlayersName'>{each?.firstname} {each?.surname}</p>
                 <div className='Homepage_playersPosition'>
-                  <p>{each?.position || each?.bio?.position}</p>
+                  <p>{each?.position?.replace(/_/g, ' ') || each?.bio?.position?.replace(/_/g, ' ')}</p>
                   <RxDotFilled />
                   <p>{each?.current_club || each?.bio?.current_club}</p>
                 </div>

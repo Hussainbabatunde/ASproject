@@ -56,9 +56,11 @@ const PlayerHomePage = () => {
             <Link to='/filterPage' className='Homepage_topTalentsTopic'>VIEW ALL</Link>
             </div>
             <div className='Homepage_SortCategory'>
+            <div className="InnerHomeFilter_Screen">
               {PositionSort.map((each, index)=>(
             <Link to='/filterPage' className='Homepage_SortPosition' key={index}>{each}</Link>
             ))}
+            </div>
             </div>
             <div className='Homepage_Sortfootballers'>
              {Sortdata?.map((each, index)=>( 
