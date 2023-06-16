@@ -59,7 +59,7 @@ const AdminDashboard = () => {
   const last5Object_Admin_dashboard_active_negotiations =
     Admin_dashboard_active_negotiations?.plus.slice(-5);
 
-  const last5Object_Transaction_list = Transaction_list.slice(-5);
+  const last5Object_Transaction_list = Transaction_list?.slice(-5);
 
   console.log(last5Object_Transaction_list);
 
