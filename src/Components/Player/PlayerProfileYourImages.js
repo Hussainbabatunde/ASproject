@@ -71,8 +71,8 @@ const PlayerProfileYourImages = ({userId}) => {
           await dispatch(PlayerProfileVerificationStatus(userId))
           setImages([])
           setPreviewUrls([])
-          setLoadYourImages(false)
   }
+  setLoadYourImages(false)
       }
 
       const handleDeleteImage = (index) => {
