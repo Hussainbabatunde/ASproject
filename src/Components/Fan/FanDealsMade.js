@@ -162,7 +162,7 @@ const FanDealsMade = () => {
               </div>
               </div>
               <div className='PlayerViewDeals_InfoSection_LowerSegment'>
-              {CommentsGotten.map((each, index) =>( 
+              {CommentsGotten?.map((each, index) =>( 
                   <div key={index} className='PlayerViewDeals_CommentImgName'>
                   {loading? <Skeleton variant="circular" width={35} height={32} /> :<img src={each?.comments?.sent_by == each?.comments?.player?.id ? each?.comments?.player?.profile_pics: each?.comments?.others?.profile_pics }  className='useTable_ImageRecipient' />}
                   <div className='PlayerViewDeals_CommentNameandDetails'>
@@ -184,7 +184,7 @@ const FanDealsMade = () => {
             </div>
             </div>
             <FanUpdateRequestDetail show={show} setShow={setShow} handleHide={handleHide} userId= {userId} id={id} />
-            <FanPayNow senderId={senderId}  showPay={showPay} handleHideShowPay={handleHideShowPay} gottenDetails={gottenDetails} userId={userId}  />
+            <FanPayNow senderId={senderId}  showPay={showPay} handleHideShowPay={handleHideShowPay} gottenDetails={each} userId={userId}  />
     </div>
   )
 }
