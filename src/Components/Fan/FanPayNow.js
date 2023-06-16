@@ -26,7 +26,8 @@ const FanPayNow = ({showPay, senderId, gottenDetails, handleHideShowPay, positio
     const userType = useSelector((state)=> state?.reducer?.LoginSlice?.logindata?.data?.user_type)
     const [loadingOffer, setLoadingOffer] = useState(false)
     const dispatch = useDispatch()
-    const AdvertValue = gottenDetails?.data?.offers?.recipient_earnings  
+    // console.log(gottenDetails)
+    const AdvertValue = gottenDetails?.request?.deal?.value 
 
 
     const handleChangePayValue =(e) =>{
