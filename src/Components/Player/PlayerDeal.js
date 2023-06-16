@@ -23,6 +23,7 @@ import ReactPaginate from 'react-paginate';
 
 const PlayerDeal = () => {
     const dispatch = useDispatch()
+    const [DataDisplay, setDataDisplay] = useState([])
     const handleLogout = async () =>{
         await dispatch(LogoutAuth())
         // await dispatch(resetPlayerProfileSlice())
@@ -87,6 +88,7 @@ const PlayerDeal = () => {
     width: 210,
     p: 4,
   };
+  
 
   //for paginating
   // Here we use item offsets; we could also use page offsets
@@ -98,8 +100,8 @@ const PlayerDeal = () => {
   // from an API endpoint with useEffect and useState)
   const endOffset = itemOffset + 5;
   // console.log(`Loading items from ${itemOffset} to ${endOffset}`);
-  const currentItems = dataTable.slice(itemOffset, endOffset);
-  const pageCount = Math.ceil(dataTable.length / 5);
+  const currentItems = dataTable?.slice(itemOffset, endOffset);
+  const pageCount = Math.ceil(dataTable?.length / 5);
 
   const handlePageClick = (event) => {
     const newOffset = (event.selected * 5) % dataTable.length;

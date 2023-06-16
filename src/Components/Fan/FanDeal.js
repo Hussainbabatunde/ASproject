@@ -17,10 +17,14 @@ import { PlayerDealsApi } from '../../Slice/Player/PlayerDeal/PlayerDealSlice';
 import { reset as resetPlayerProfileSlice } from "../../Slice/Player/Playerprofile/PlayerProfileSlice";
 import {reset as resetGetAllPlayerDealSlice} from "../../Slice/Player/PlayerDeal/PlayerDealSlice"
 import { UserLogout } from '../Player/UserLogOut';
+import { ClockLoader } from "react-spinners";
+import ReactPaginate from 'react-paginate';
 import { fanDealsApi } from '../../Slice/Fan/FanDealsApiPage/FanDealSlice';
 
 const FanDeal = () => {
     const dispatch = useDispatch()
+    
+const dataTable = useSelector((state)=> state?.reducer?.FanDealsSlice?.fanDealData?.data)
     const handleLogout = async () =>{
         await dispatch(LogoutAuth())
         // await dispatch(resetPlayerProfileSlice())
@@ -75,6 +79,29 @@ const FanDeal = () => {
     p: 4,
   };
   
+  
+  //for paginating
+  // Here we use item offsets; we could also use page offsets
+  // following the API or data you're working with.
+  const [itemOffset, setItemOffset] = useState(0);
+
+  // Simulate fetching items from another resources.
+  // (This could be items from props; or items loaded in a local state
+  // from an API endpoint with useEffect and useState)
+  const endOffset = itemOffset + 5;
+  // console.log(`Loading items from ${itemOffset} to ${endOffset}`);
+  const currentItems = dataTable?.slice(itemOffset, endOffset);
+  const pageCount = Math.ceil(dataTable?.length / 5);
+
+  const handlePageClick = (event) => {
+    const newOffset = (event.selected * 5) % dataTable.length;
+    // console.log(
+    //   `User requested page number ${event.selected}, which is offset ${newOffset}`
+    // );
+    setItemOffset(newOffset);
+  };
+
+
   const [show, setShow] = useState(false);
 
   useEffect(()=>{
@@ -92,8 +119,7 @@ const FanDeal = () => {
 //     }
 // ]
 
-const dataTable = useSelector((state)=> state?.reducer?.FanDealsSlice?.fanDealData?.data)
-console.log(dataTable)
+// console.log(dataTable)
 
   return (
     <div  className='Scoutpage_contents'>
@@ -111,11 +137,36 @@ console.log(dataTable)
           <div style={{display:'flex', justifyContent:'center', alignItems:'center', width:'100%'}}>
                 <Lottie style={{width: '200px', height:'200px'}} animationData={empty} />
         </div>
-        : 
+        : show ?
+        <div className='flex justify-center p-2'>
+          <ClockLoader
+                                  color="#7F351D"
+                                  size={25}
+                                  aria-label="Loading Spinner"
+                                  data-testid="loader"
+                                />
+        </div>
+        :
+        <>
             <UseTable header={header} data={dataTable} />
+            <ReactPaginate
+        previousLabel="Previous"
+        nextLabel="Next"
+        pageClassName="page-item"
+        previousLinkClassName="page-link"
+        nextLinkClassName="page-link"
+        breakLabel="..."
+        pageCount={pageCount}
+        pageRangeDisplayed={5}
+        pageLinkClassName='page-link'
+        onPageChange={handlePageClick}
+        containerClassName="pagination"
+        activeLinkClassName="active"
+      />
+      </>
         }
         </div>
-        <Modal
+        {/* <Modal
         open={show}
         // onClose={handleClose}
         aria-labelledby="modal-modal-title"
@@ -125,7 +176,7 @@ console.log(dataTable)
             <Lottie style={{width: '200px', height:'200px'}} animationData={football} />
             </Box>
         
-      </Modal>
+      </Modal> */}
         </div>
   )
 }
