@@ -35,10 +35,12 @@ function NegotiationDetails() {
 
     return () => {};
   }, []);
-
-  let negotiation_data = Admin___Negotiations_detail[0];
-
   let comment_message = Admin___Negotiations_comment?.data[1];
+
+  console.log(Admin___Negotiations_detail);
+  let negotiation_data = Admin___Negotiations_detail[0];
+  console.log(negotiation_data);
+  console.log(negotiation_data);
 
   function calculateMonthDuration(startDate, endDate) {
     const start = new Date(startDate);
@@ -232,7 +234,7 @@ function NegotiationDetails() {
   return (
     <>
       <ToastContainer />
-      <div className="AdminDashboard">
+      <div className="AdminDashboard ">
         <div className="AdminPage_Dashboard">
           <div className="">
             <div className="PlayersViewDeals_Container">
@@ -243,7 +245,7 @@ function NegotiationDetails() {
                       to="/admin/negotiations"
                       className="ScoutViewProfile_navigationback"
                     >
-                      Deals
+                      Deal
                     </Link>
                     <GrFormNext style={{ fontSize: "16px" }} />
                     <p className="ScoutViewProfile_navigationprofile">
