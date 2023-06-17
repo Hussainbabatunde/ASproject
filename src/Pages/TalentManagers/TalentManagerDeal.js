@@ -249,6 +249,8 @@ const TalentManagerDeal = () => {
       <div className="Scoutpage_contents ">
         <Talent_Header />
 
+        {console.log(Talent_manager_Deals)}
+
         <div className="Scoutpage_DealContent">
           {Talent_manager_Deals?.data?.length === 0 ? (
             <div

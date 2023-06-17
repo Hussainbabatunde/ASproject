@@ -55,10 +55,10 @@ const AdminPlayerAllNegotiate = ({
   const [searchInput, setSearchInput] = useState("");
 
   console.log(Admin_Get_All_Player);
-  const filteredUsersArray = Admin_Get_All_Player.filter(
+  const filteredUsersArray = Admin_Get_All_Player?.filter(
     (user) =>
-      user.firstname.toLowerCase().includes(searchInput.toLowerCase()) ||
-      user.surname.toLowerCase().includes(searchInput.toLowerCase())
+      user?.firstname.toLowerCase().includes(searchInput.toLowerCase()) ||
+      user?.surname.toLowerCase().includes(searchInput.toLowerCase())
   );
 
   const handleInputChange = (event) => {
