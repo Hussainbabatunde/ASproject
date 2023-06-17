@@ -48,7 +48,7 @@ const MyComponent = ({ player }) => {
 
   return (
     <div className="">
-      {Talent_manager_Interaction.map((comment, index) => {
+      {Talent_manager_Interaction?.map((comment, index) => {
         console.log(comment);
         console.log(comment);
 
@@ -87,7 +87,7 @@ const MyComponent = ({ player }) => {
               <>
                 {player_id == comment?.comments?.sent_by ? (
                   <div className=" flex justify-start mb-5  ">
-                    <div className="flex gap-1  border-2 border-white w-[50%]">
+                    <div className="flex gap-1   w-[50%]">
                       <div>
                         <img
                           src={player?.profile_pics}
