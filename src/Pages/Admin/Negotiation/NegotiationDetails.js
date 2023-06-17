@@ -21,6 +21,8 @@ function NegotiationDetails() {
   const { Admin___Negotiations_detail, Admin___Negotiations_comment } =
     useSelector((state) => state.reducer.Admin_NegotiationsSlice);
 
+  console.log(Admin___Negotiations_detail);
+
   const dispatch = useDispatch();
   let { state } = useLocation();
   // const {each} = Offer_data.state
@@ -253,44 +255,68 @@ function NegotiationDetails() {
                     </p>
                   </div>
 
-                  <div className="flex gap-2">
-                    <button
-                      className="bg-[#FEFDF2] border-[#7F351D] px-3 py-1 border rounded"
-                      onClick={() => Suspend_Mutation.mutate()}
-                    >
-                      {Suspend_Mutation?.isLoading ? (
-                        <PulseLoader
-                          color="black"
-                          size={13}
-                          aria-label="Loading Spinner"
-                          data-testid="loader"
-                        />
+                  {negotiation_data?.payment_status === "not paid" && (
+                    <div className="flex gap-2">
+                      {negotiation_data?.status === "suspended" ? (
+                        <button
+                          className="bg-[#FEFDF2] border-[#7F351D] px-3 py-1 border rounded"
+                          onClick={() => Suspend_Mutation.mutate()}
+                        >
+                          {Suspend_Mutation?.isLoading ? (
+                            <PulseLoader
+                              color="black"
+                              size={13}
+                              aria-label="Loading Spinner"
+                              data-testid="loader"
+                            />
+                          ) : (
+                            "Unsuspend "
+                          )}
+                        </button>
                       ) : (
-                        "Suspend"
+                        <button
+                          className="bg-[#FEFDF2] border-[#7F351D] px-3 py-1 border rounded"
+                          onClick={() => Suspend_Mutation.mutate()}
+                        >
+                          {Suspend_Mutation?.isLoading ? (
+                            <PulseLoader
+                              color="black"
+                              size={13}
+                              aria-label="Loading Spinner"
+                              data-testid="loader"
+                            />
+                          ) : (
+                            "Suspend"
+                          )}
+                        </button>
                       )}
-                    </button>
-                    <button
-                      className="bg-[#FEF2F2] border-[#7F1D1D] px-3 py-1 border rounded"
-                      onClick={() => Terminante_Mutation.mutate()}
-                    >
-                      {Suspend_Mutation?.isLoading ? (
-                        <PulseLoader
-                          color="black"
-                          size={13}
-                          aria-label="Loading Spinner"
-                          data-testid="loader"
-                        />
-                      ) : (
-                        "Terminante"
-                      )}
-                    </button>
-                  </div>
+
+                      <button
+                        className="bg-[#FEF2F2] border-[#7F1D1D] px-3 py-1 border rounded"
+                        onClick={() => Terminante_Mutation.mutate()}
+                      >
+                        {Suspend_Mutation?.isLoading ? (
+                          <PulseLoader
+                            color="black"
+                            size={13}
+                            aria-label="Loading Spinner"
+                            data-testid="loader"
+                          />
+                        ) : (
+                          "Terminante"
+                        )}
+                      </button>
+                    </div>
+                  )}
                 </div>
                 <div className="PlayerViewDeals_InfoSection">
                   <div className="PlayerViewDeals_InfoSection_UpperSegment">
                     <div className="PlayerViewdetails_TopicSec">
                       <p className="PlayerViewdetails_DetailsText">
-                        Details (Not Paid)
+                        Details{" "}
+                        {negotiation_data?.payment_status === "paid"
+                          ? " (Paid)"
+                          : " (Not Paid) "}
                       </p>
                       <div className="PlayerViewdetails_DownloadButtons">
                         <button className="PlayerViewdetails_DownloadPdf flex items-center">
