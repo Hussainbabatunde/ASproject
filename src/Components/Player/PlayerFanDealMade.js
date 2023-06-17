@@ -31,7 +31,7 @@ const PlayerFanDealMade = () => {
   const expireData = gottenDetails?.data?.offers?.expiration.slice(0,11);
   const senderInfo = useSelector((state)=> state.reducer?.GetAllPlayerDealSlice?.detailsDealData?.data)
   const CommentsGotten = useSelector((state)=> state.reducer?.PlayerFanSlice?.PlayerFanCommentsMadeData?.data?.data)
-  console.log('comments from store ', CommentsGotten)
+  console.log('comments from store ', gottenDetails)
   const senderId = each?.request?.requests?.from
 
 
