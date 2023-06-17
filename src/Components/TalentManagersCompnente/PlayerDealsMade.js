@@ -18,8 +18,6 @@ import {
 let baseURL = process.env.REACT_APP_AFRISPORTURL;
 
 const MyComponent = ({ player }) => {
-  console.log(player);
-
   let player_id = player?.id;
 
   const {
@@ -30,17 +28,11 @@ const MyComponent = ({ player }) => {
     Talent_manager_details,
   } = useSelector((state) => state?.reducer?.Talent_manager_slice);
 
-  console.log(Talent_manager_Interaction);
-
-  console.log(Talent_manager_details);
-
   let managerId = Talent_manager_details?.data?.id;
 
   const [filteredData, setFilteredData] = useState([]);
 
   const exampleDate = "2021-06-09T11:42:26.000000Z";
-
-  console.log(filteredData);
 
   const formatDate = (date) => {
     return moment(date).fromNow();
@@ -49,9 +41,6 @@ const MyComponent = ({ player }) => {
   return (
     <div className="">
       {Talent_manager_Interaction?.map((comment, index) => {
-        console.log(comment);
-        console.log(comment);
-
         return (
           <div key={index} className="">
             {managerId == comment?.comments?.sent_by ? (
@@ -159,6 +148,8 @@ const PlayerDealsMade = () => {
   let request = state?.data?.request;
   let sender = state?.data?.sender;
 
+  console.log(request);
+
   const {
     Talent_manager_deal_details,
     Talent_manager_Deals_isLoading,
@@ -231,17 +222,18 @@ const PlayerDealsMade = () => {
       // Your API request code here
       // Use formData to send the image data to the API
 
-      let id = data?.data?.id;
-      let from_person = data?.data?.from;
-      let API_URL = `${baseURL}talent-manager/offer/download/${id}/${from_person}`;
+      console.log(request);
+      let id = request?.id;
+      let from_person = request?.from;
+
+      let API_URL = `${baseURL}talent-manager/offer/download/31/60`;
+
       const tokengot = localStorage.getItem("token");
 
       console.log(API_URL);
 
       const config = {
         headers: {
-          "Content-Type": "multipart/form-data",
-          Accept: "multipart/form-data",
           Authorization: `Bearer ${tokengot}`,
         },
       };
@@ -249,7 +241,6 @@ const PlayerDealsMade = () => {
       try {
         const response = await axios.get(API_URL, config);
         console.log(response.data); // Logging the response data
-
         return response;
       } catch (error) {
         console.error(error);
@@ -286,10 +277,6 @@ const PlayerDealsMade = () => {
       },
     }
   );
-
-  const handleDownload = async () => {
-    Download_Mutation.mutate(request);
-  };
 
   const Comment_Mutation = useMutation(
     async (data) => {
@@ -384,7 +371,7 @@ const PlayerDealsMade = () => {
               <div className="PlayerViewdetails_DownloadButtons">
                 <button
                   className="PlayerViewdetails_DownloadPdf"
-                  onClick={handleDownload}
+                  onClick={() => Download_Mutation.mutate()}
                   style={{ display: "flex", alignItems: "center" }}
                 >
                   <FaDownload
