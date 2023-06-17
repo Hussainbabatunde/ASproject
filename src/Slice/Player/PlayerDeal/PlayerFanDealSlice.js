@@ -193,7 +193,7 @@ const initialState = {
       return await instance
         .get(`player/fans-request-detail/${id}/${userId}/${senderId}`)
         .then(async (response) => {
-          // console.log('request details deals ',response.data)
+          console.log('request details deals ',response.data)
           return response.data;
         })
   
