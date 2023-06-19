@@ -35,7 +35,7 @@ const FanDealsMade = () => {
   
   const senderId = each?.request?.deal?.to
   // console.log('CommentsGotten ', gottenDetails)
-  // console.log('user id', userId)
+  console.log('user id', each)
   useEffect(()=>{
     const offerDetails = async()=>{
       setLoading(true)
@@ -109,7 +109,7 @@ const FanDealsMade = () => {
             <div className='PlayerViewDeals_InfoSection'>
             <div className='PlayerViewDeals_InfoSection_UpperSegment'>
               <div className='PlayerViewdetails_TopicSec'>                
-                <p className='PlayerViewdetails_DetailsText'>Details {gottenDetails?.data?.offers?.payment_status == 'paid' ? '(Paid)' : '(Not Paid)'}</p>
+                <p className='PlayerViewdetails_DetailsText'>Details {each?.request?.deal?.payment_status == 'paid' ? '(Paid)' : '(Not Paid)'}</p>
                 <div className='PlayerViewdetails_DownloadButtons'>
                   {/* <button className='PlayerViewdetails_DownloadPdf' onClick={handleDownload} style={{display:'flex', alignItems:"center"}}>
                     <FaDownload style={{color:'#3D413D', marginRight: '7px'}} /> 
@@ -123,7 +123,11 @@ const FanDealsMade = () => {
                     </button> */}
                   {userType!= 'player' && <div style={{display:'flex', justifyContent:'center', alignItems:'center'}}>
                   {/* <button className='PlayerViewdetails_Updatebutton' onClick={handleShowUpdate}>Update</button> */}
-                  <button className='PlayerViewdetails_Paynowbutton' onClick={()=> setShowPay(true)}>Pay Now</button>
+                  {each?.request?.deal?.payment_status == 'paid' ?
+                   <span></span>
+                   :
+                   <button className='PlayerViewdetails_Paynowbutton' onClick={()=> setShowPay(true)}>Pay Now</button>
+                  }
                   </div>}
                 </div>
               </div>

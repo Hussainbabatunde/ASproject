@@ -25,7 +25,11 @@ const ScoutPayNow = ({showPay, gottenDetails, handleHideShowPay, positionPlayed}
     const userType = useSelector((state)=> state?.reducer?.LoginSlice?.logindata?.data?.user_type)
     const [loadingOffer, setLoadingOffer] = useState(false)
     const dispatch = useDispatch()
-    const AdvertValue = gottenDetails?.data?.offers?.recipient_earnings  
+
+    const gottenMarketfee= useSelector((state)=> state?.reducer?.GetPaymentSlice?.getMarketPriceData?.data)
+    const recipientfee= Number(gottenDetails?.data?.offers?.recipient_earnings)
+    const marketFee= Number(gottenMarketfee)
+    const AdvertValue = recipientfee + marketFee  
 
 
     const handleChangePayValue =(e) =>{
@@ -61,7 +65,9 @@ const ScoutPayNow = ({showPay, gottenDetails, handleHideShowPay, positionPlayed}
        <div style={{margin:'15px 25px', padding: '1rem'}}>
         <p className='text-xl font-bold mb-2'>Pay Now</p>
         
-        <p className=' mt-[15px]'><span className='font-bold'>Amount:</span> ${AdvertValue}</p>
+        <p className=' mt-[15px]'><span className='font-bold'>Recipient Amount:</span> ${recipientfee}</p>
+        <p className=' mt-[5px]'><span className='font-bold'>Market Fee:</span> ${marketFee}</p>
+        <p className=' mt-[5px]'><span className='font-bold'>Total Amount:</span> ${AdvertValue}</p>
         
         <div className='flex justify-between'>
             <div>

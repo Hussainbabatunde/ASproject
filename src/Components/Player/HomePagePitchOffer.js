@@ -54,7 +54,10 @@ const HomePagePitchOffer = ({
     }
   }, [PlayerDetails]);
 
-  const marketfee = (10 / 100) * Number(payValue);
+  const gottenMarketfee= useSelector((state)=> state?.reducer?.GetPaymentSlice?.getMarketPriceData?.data)
+  // console.log('got market ',gottenMarketfee)
+
+  const marketfee = Number(gottenMarketfee);
   const TotalFee = marketfee + Number(payValue);
 
   const handleChangePayValue = (e) => {
@@ -129,6 +132,20 @@ const HomePagePitchOffer = ({
               name="detail"
               onChange={handleOfferChange}
               className="OfferModal_TitleTextarea"
+            />
+            <p style={{ fontSize: "13px" }}>State Date</p>
+            <input
+              type="date"
+              name="to_start"
+              onChange={handleOfferChange}
+              className="OfferModal_TitleInput"
+            />
+            <p style={{ fontSize: "13px" }}>End Date</p>
+            <input
+              type="date"
+              name="to_end"
+              onChange={handleOfferChange}
+              className="OfferModal_TitleInput"
             />
             <p style={{ fontSize: "13px", margin: "7px 0 0" }}>
               Expiration date (optional)

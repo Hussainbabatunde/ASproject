@@ -10,7 +10,7 @@ import {BsFillPatchCheckFill, BsHouseDoor, BsDot} from 'react-icons/bs'
 import { PlayerProfileAdvertiseApi } from '../../Slice/Player/Playerprofile/PlayerProfileSlice';
 import { CircularProgress } from '@mui/material';
 import { GetScoutOfferDetailsApi, ScoutMakePaymentApi } from '../../Slice/Scout/ScoutDealsApiPage/ScoutDealSlice';
-import { FanDealPaymentApi, FanFanDealCommentsApi } from '../../Slice/Fan/FanDealsApiPage/FanDealSlice';
+import { FanDealPaymentApi, FanFanDealCommentsApi, fanDealsApi } from '../../Slice/Fan/FanDealsApiPage/FanDealSlice';
 
 
 
@@ -27,7 +27,11 @@ const FanPayNow = ({showPay, senderId, gottenDetails, handleHideShowPay, positio
     const [loadingOffer, setLoadingOffer] = useState(false)
     const dispatch = useDispatch()
     // console.log(gottenDetails)
-    const AdvertValue = gottenDetails?.request?.deal?.value 
+
+    const gottenMarketfee= useSelector((state)=> state?.reducer?.GetPaymentSlice?.getMarketPriceData?.data)
+    const recipientfee= Number(gottenDetails?.request?.deal?.value )
+    const marketFee= Number(gottenMarketfee)
+    const AdvertValue = marketFee + recipientfee
 
 
     const handleChangePayValue =(e) =>{
@@ -44,6 +48,7 @@ const FanPayNow = ({showPay, senderId, gottenDetails, handleHideShowPay, positio
       setLoadingOffer(true)
       await dispatch(FanDealPaymentApi(data))
       await dispatch(FanFanDealCommentsApi({id, userId, senderId}))
+      await dispatch(fanDealsApi())
       setLoadingOffer(false)
       console.log(data)
       handleHideShowPay()
@@ -64,7 +69,9 @@ const FanPayNow = ({showPay, senderId, gottenDetails, handleHideShowPay, positio
        <div style={{margin:'15px 25px', padding: '1rem'}}>
         <p className='text-xl font-bold mb-2'>Pay Now</p>
         
-        <p className=' mt-[15px]'><span className='font-bold'>Amount:</span> ${AdvertValue}</p>
+        <p className=' mt-[15px]'><span className='font-bold'>Recipient Amount:</span> ${recipientfee}</p>
+        <p className=' mt-[5px]'><span className='font-bold'>Market Fee:</span> ${marketFee}</p>
+        <p className=' mt-[5px]'><span className='font-bold'>Total Amount:</span> ${AdvertValue}</p>
         
         <div className='flex justify-between'>
             <div>
