@@ -9,6 +9,7 @@ import AdminUseTable from "../../../Components/Table/AdminUseTable";
 import { Admin_talent_get_negotiations_fun } from "../../../Slice/Admin/AdminTalentMangerSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import TableWithPagination from "../TableWithPagination";
 
 function TalentManagerNegotiateStep() {
   const dispatch = useDispatch();
@@ -125,11 +126,9 @@ function TalentManagerNegotiateStep() {
           Closed <span className="AdminPage_NegotiateTab_TabNumber">10k</span>
         </p>
       </div>
-
       {console.log(
         Admin_talent_manager_negotiation?.Admin__Talent__Active_Negotiations
       )}
-
       {step === 1 && (
         <div className="AdminTable_NegotiateTable">
           {Admin_talent_manager_negotiation?.Admin__Talent__Active_Negotiations
@@ -148,7 +147,7 @@ function TalentManagerNegotiateStep() {
               />
             </div>
           ) : (
-            <AdminUseTable
+            <TableWithPagination
               header={header}
               data={
                 Admin_talent_manager_negotiation
@@ -158,7 +157,6 @@ function TalentManagerNegotiateStep() {
           )}
         </div>
       )}
-
       {step === 2 && (
         <div className="AdminTable_NegotiateTable">
           {Admin_talent_manager_negotiation?.Admin__Talent__Active_Negotiations
@@ -177,7 +175,7 @@ function TalentManagerNegotiateStep() {
               />
             </div>
           ) : (
-            <AdminUseTable
+            <TableWithPagination
               header={header}
               data={
                 Admin_talent_manager_negotiation
@@ -187,7 +185,10 @@ function TalentManagerNegotiateStep() {
           )}
         </div>
       )}
-
+      {console.log(
+        Admin_talent_manager_negotiation?.Admin__Talent__Active_Negotiations
+          ?.data?.data
+      )}
       {step === 3 && (
         <div className="AdminTable_NegotiateTable">
           {Admin_talent_manager_negotiation?.Admin__Talent__Active_Negotiations
@@ -206,7 +207,7 @@ function TalentManagerNegotiateStep() {
               />
             </div>
           ) : (
-            <AdminUseTable
+            <TableWithPagination
               header={header}
               data={
                 Admin_talent_manager_negotiation

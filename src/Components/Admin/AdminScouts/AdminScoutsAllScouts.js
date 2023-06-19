@@ -18,6 +18,7 @@ import { Admin_dashboard_approved_player_fun } from "../../../Slice/Admin/AdminD
 import Scout_message_modal from "../../../Pages/Admin/Souts/Scout_message_modal";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
+import TableWithPagination from "../../../Pages/Admin/TableWithPagination";
 
 let baseURL = process.env.REACT_APP_AFRISPORTURL;
 
@@ -161,6 +162,18 @@ const AdminScoutsAllScouts = ({
     handleSuspend_Unsuspend(data?.user?.id);
   };
 
+  const [searchInput, setSearchInput] = useState("");
+
+  const filteredUsersArray = Admin_Get_All_Scouts?.filter(
+    (user) =>
+      user?.user?.firstname.toLowerCase().includes(searchInput.toLowerCase()) ||
+      user?.user?.surname.toLowerCase().includes(searchInput.toLowerCase())
+  );
+
+  const handleInputChange = (event) => {
+    setSearchInput(event.target.value);
+  };
+
   return (
     <>
       <ToastContainer />
@@ -196,8 +209,10 @@ const AdminScoutsAllScouts = ({
           <div className="AdminDashboard_Search">
             <input
               type="text"
-              placeholder="Search name"
+              value={searchInput}
+              onChange={handleInputChange}
               className="AdminDashboard_SearchInput"
+              placeholder="Search name"
             />
             <RiSearchLine className="AdminDashboard_SearchIcon" />
           </div>
@@ -224,9 +239,9 @@ const AdminScoutsAllScouts = ({
               />
             </div>
           ) : (
-            <AdminUseTable
+            <TableWithPagination
               header={header}
-              data={Admin_Get_All_Scouts}
+              data={filteredUsersArray}
               handleEdit={handleEdit}
               handleDelete={handleDelete}
             />

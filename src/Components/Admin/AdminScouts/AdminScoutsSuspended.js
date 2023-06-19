@@ -16,6 +16,7 @@ import {
 } from "../../../Slice/Admin/Admin_Scouts_Slice";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
+import TableWithPagination from "../../../Pages/Admin/TableWithPagination";
 
 let baseURL = process.env.REACT_APP_AFRISPORTURL;
 
@@ -140,6 +141,20 @@ const AdminScoutsSuspended = ({
   const handleEdit = (data) => {
     handleSuspend_Unsuspend(data?.User);
   };
+
+  const [searchInput, setSearchInput] = useState("");
+
+  console.log(Admin_Get_All_Suspended_Scouts);
+
+  const filteredUsersArray = Admin_Get_All_Suspended_Scouts?.filter(
+    (user) =>
+      user?.firstname.toLowerCase().includes(searchInput.toLowerCase()) ||
+      user?.surname.toLowerCase().includes(searchInput.toLowerCase())
+  );
+
+  const handleInputChange = (event) => {
+    setSearchInput(event.target.value);
+  };
   return (
     <>
       <ToastContainer />
@@ -195,9 +210,9 @@ const AdminScoutsSuspended = ({
               />
             </div>
           ) : (
-            <AdminUseTable
+            <TableWithPagination
               header={header}
-              data={Admin_Get_All_Suspended_Scouts}
+              data={filteredUsersArray}
               handleEdit={handleEdit}
             />
           )}
