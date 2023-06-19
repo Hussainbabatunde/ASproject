@@ -12,6 +12,7 @@ import { Admin_FanData__fun } from "../../../Slice/Admin/Admin_FanData_Slice";
 import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
 import FanSuspended from "./FanComponent/FanSuspended";
+import TableWithPagination from "../TableWithPagination";
 let baseURL = process.env.REACT_APP_AFRISPORTURL;
 
 const Admin_Fans = ({}) => {
@@ -166,6 +167,19 @@ const Admin_Fans = ({}) => {
     handleSuspend_Unsuspend(data?.user?.id);
   };
 
+  // const [searchInput, setSearchInput] = useState("");
+
+  // console.log(Admin_Get_All_Suspended_Scouts);
+
+  // const filteredUsersArray = Admin_Get_All_Suspended_Scouts?.filter(
+  //   (user) =>
+  //     user?.firstname.toLowerCase().includes(searchInput.toLowerCase()) ||
+  //     user?.surname.toLowerCase().includes(searchInput.toLowerCase())
+  // );
+
+  // const handleInputChange = (event) => {
+  //   setSearchInput(event.target.value);
+  // };
   return (
     <>
       <ToastContainer />
@@ -232,7 +246,7 @@ const Admin_Fans = ({}) => {
                         />
                       </div>
                     ) : (
-                      <AdminUseTable
+                      <TableWithPagination
                         header={header}
                         data={Admin_Fan?.AllFan_data}
                         handleEdit={handleEdit}

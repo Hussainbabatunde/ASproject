@@ -17,6 +17,7 @@ import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 
 import football from "../../../assets/lottie/92356-football.json";
+import TableWithPagination from "../TableWithPagination";
 
 let baseURL = process.env.REACT_APP_AFRISPORTURL;
 
@@ -181,7 +182,7 @@ const Ads = ({
                     />
                   </div>
                 ) : (
-                  <AdminUseTable
+                  <TableWithPagination
                     header={header}
                     data={Admin_Ads}
                     handleDelete={handleDelete}

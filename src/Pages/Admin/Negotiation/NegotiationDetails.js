@@ -28,8 +28,10 @@ function NegotiationDetails() {
   // const {each} = Offer_data.state
   console.log(state);
 
-  let offer_id = state?.comments?.active_offers?.OfferId || state?.OfferId;
-  let from_id = state?.comments?.active_offers?.from || state?.from;
+  let offer_id =
+    state?.comments?.active_offers?.OfferId || state?.OfferId || state?.OfferId;
+  let from_id =
+    state?.comments?.active_offers?.from || state?.from || state?.User;
 
   console.log(offer_id);
   console.log(from_id);
@@ -111,59 +113,56 @@ function NegotiationDetails() {
       // Your API request code here
       // Use formData to send the image data to the API
 
+      // Your API request code here
+      // Use formData to send the image data to the API
+
       let API_URL = `${baseURL}admin/negotiations/offer/download/${offer_id}/${from_id}`;
       const tokengot = localStorage.getItem("token");
 
       const config = {
         headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
           Authorization: `Bearer ${tokengot}`,
         },
+        responseType: "blob", // Set the response type to 'blob'
       };
 
       try {
         const response = await axios.get(API_URL, config);
-        console.log(response.data); // Logging the response data
 
-        return response;
+        // Create a download link
+        const downloadLink = document.createElement("a");
+        const objectUrl = URL.createObjectURL(response.data);
+
+        downloadLink.href = objectUrl;
+        downloadLink.download = "file.pdf";
+        downloadLink.click();
+
+        URL.revokeObjectURL(objectUrl);
+
+        return response.data;
       } catch (error) {
         console.error(error);
-        throw error;
+        throw new Error(error.message);
       }
     },
     {
-      onSuccess: (response) => {
-        // Check if the file was successfully downloaded
-        const contentDisposition = response.headers["content-disposition"];
-        const isFileDownloaded =
-          contentDisposition && contentDisposition.includes("attachment");
-
-        if (isFileDownloaded) {
-          toast.success("File downloaded successfully!", {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-          });
-        } else {
-          toast.error("Error occurred while downloading the file.", {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-            className: "Forbidden403",
-          });
-        }
+      onSuccess: () => {
+        // Success toast notification
+        toast.success("Downloded successfully!", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
       },
-
-      onError: (error) => {
+      onError: () => {
+        // Error toast notification
         toast.error("Error occurred while submitting the form.", {
           position: "top-right",
           autoClose: 5000,
@@ -178,7 +177,6 @@ function NegotiationDetails() {
       },
     }
   );
-
   const Suspend_Mutation = useMutation(
     async (data) => {
       // Your API request code here
@@ -275,6 +273,67 @@ function NegotiationDetails() {
 
         // Success toast notification
         toast.success("Terminanted successfully!", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      },
+      onError: () => {
+        // Error toast notification
+        toast.error("Error occurred while submitting the form.", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          className: "Forbidden403",
+        });
+      },
+    }
+  );
+
+  const PIn_Mutation = useMutation(
+    async (data) => {
+      // Your API request code here
+      // Use formData to send the image data to the API
+
+      let item = {
+        offer_id: offer_id,
+      };
+
+      let API_URL = `${baseURL}admin/negotiations/unpin-offer`;
+      const tokengot = localStorage.getItem("token");
+
+      const config = {
+        headers: {
+          // "Content-Type": "multipart/form-data",
+          // Accept: "multipart/form-data",
+          Authorization: `Bearer ${tokengot}`,
+        },
+      };
+
+      try {
+        const response = await axios.post(API_URL, item, config);
+
+        return response;
+      } catch (error) {
+        throw error;
+      }
+    },
+    {
+      onSuccess: () => {
+        // dispatch(Talent_manager_Interaction_fun({ player, request, sender }));
+
+        // Success toast notification
+        toast.success(" successfully!", {
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,
@@ -410,7 +469,10 @@ function NegotiationDetails() {
                           )}
                         </button>
 
-                        <button className="flex gap-2 bg-[#DBDBDB] px-3 py-1 rounded items-center">
+                        <button
+                          className="flex gap-2 bg-[#DBDBDB] px-3 py-1 rounded items-center"
+                          onClick={() => PIn_Mutation.mutate("PIN")}
+                        >
                           <BsPinAngleFill />
 
                           <span> Pin </span>

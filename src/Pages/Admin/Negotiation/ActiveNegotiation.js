@@ -13,6 +13,7 @@ import {
   Admin___Negotiations_fun,
 } from "../../../Slice/Admin/Admin_NegotiationsSlice";
 import { useDispatch, useSelector } from "react-redux";
+import TableWithPagination from "../TableWithPagination";
 
 const ActiveNegotiation = ({}) => {
   const dispatch = useDispatch();
@@ -42,10 +43,6 @@ const ActiveNegotiation = ({}) => {
     Admin___Negotiations_isLoading,
     Admin___Negotiations_message,
   } = useSelector((state) => state.reducer.Admin_NegotiationsSlice);
-
-  console.log(Admin___Negotiations?.Admin__Active_Negotiations);
-  console.log(Admin___Negotiations?.Admin__Active_Negotiations);
-  console.log(Admin___Negotiations?.Admin__Active_Negotiations);
 
   const header = [
     {
@@ -100,6 +97,39 @@ const ActiveNegotiation = ({}) => {
 
     return () => {};
   }, [Admin___Negotiations_isSuccess]);
+
+  const [searchInput, setSearchInput] = useState("");
+
+  const filteredUsersArray =
+    Admin___Negotiations?.Admin__Terminate_Negotiations?.filter(
+      (user) =>
+        user?.firstname.toLowerCase().includes(searchInput.toLowerCase()) ||
+        user?.surname.toLowerCase().includes(searchInput.toLowerCase())
+    );
+
+  const filteredArray_suspend =
+    Admin___Negotiations?.Admin__Suspended_Negotiations?.filter(
+      (user) =>
+        user?.firstname.toLowerCase().includes(searchInput.toLowerCase()) ||
+        user?.surname.toLowerCase().includes(searchInput.toLowerCase())
+    );
+
+  const filteredArray_close =
+    Admin___Negotiations?.Admin__Close_Negotiations?.filter(
+      (user) =>
+        user?.firstname.toLowerCase().includes(searchInput.toLowerCase()) ||
+        user?.surname.toLowerCase().includes(searchInput.toLowerCase())
+    );
+
+  const filteredArray_Terminante =
+    Admin___Negotiations?.Admin__Terminate_Negotiations?.filter(
+      (user) =>
+        user?.firstname.toLowerCase().includes(searchInput.toLowerCase()) ||
+        user?.surname.toLowerCase().includes(searchInput.toLowerCase())
+    );
+  const handleInputChange = (event) => {
+    setSearchInput(event.target.value);
+  };
 
   return (
     <div className="AdminDashboard">
@@ -163,17 +193,19 @@ const ActiveNegotiation = ({}) => {
                   </span>
                 </div>
                 <div className="AdminPage_TableTitleandLink">
-                  <button
+                  {/* <button
                     className="AdminPage_NegotiateCreateButton"
                     onClick={handleShow}
                   >
                     Create Negotiate
-                  </button>
+                  </button> */}
                   <div className="AdminDashboard_Search">
                     <input
                       type="text"
-                      placeholder="Search name"
+                      value={searchInput}
+                      onChange={handleInputChange}
                       className="AdminDashboard_SearchInput"
+                      placeholder="Search name"
                     />
                     <RiSearchLine className="AdminDashboard_SearchIcon" />
                   </div>
@@ -196,16 +228,19 @@ const ActiveNegotiation = ({}) => {
                       />
                     </div>
                   ) : (
-                    <AdminUseTable
+                    // <AdminUseTable
+                    //   header={header}
+                    //   data={Admin___Negotiations?.Admin__Active_Negotiations}
+                    // />
+
+                    <TableWithPagination
                       header={header}
-                      data={Admin___Negotiations?.Admin__Active_Negotiations}
+                      data={filteredUsersArray}
                     />
                   )}
                 </div>
               </>
             )}
-
-            {console.log(Admin___Negotiations?.Admin__Suspended_Negotiations)}
 
             {step === 2 && (
               <>
@@ -234,9 +269,9 @@ const ActiveNegotiation = ({}) => {
                       />
                     </div>
                   ) : (
-                    <AdminUseTable
+                    <TableWithPagination
                       header={header}
-                      data={Admin___Negotiations?.Admin__Suspended_Negotiations}
+                      data={filteredArray_suspend}
                     />
                   )}
                 </div>
@@ -253,17 +288,19 @@ const ActiveNegotiation = ({}) => {
                   </span>
                 </div>
                 <div className="AdminPage_TableTitleandLink">
-                  <button
+                  {/* <button
                     className="AdminPage_NegotiateCreateButton"
                     onClick={handleShow}
                   >
                     Create Negotiate
-                  </button>
+                  </button> */}
                   <div className="AdminDashboard_Search">
                     <input
                       type="text"
-                      placeholder="Search name"
+                      value={searchInput}
+                      onChange={handleInputChange}
                       className="AdminDashboard_SearchInput"
+                      placeholder="Search name"
                     />
                     <RiSearchLine className="AdminDashboard_SearchIcon" />
                   </div>
@@ -285,9 +322,9 @@ const ActiveNegotiation = ({}) => {
                       />
                     </div>
                   ) : (
-                    <AdminUseTable
+                    <TableWithPagination
                       header={header}
-                      data={Admin___Negotiations?.Admin__Close_Negotiations}
+                      data={filteredArray_close}
                     />
                   )}
                 </div>
@@ -320,9 +357,6 @@ const ActiveNegotiation = ({}) => {
                   </div>
                 </div>
 
-                {console.log(
-                  Admin___Negotiations?.Admin__Terminate_Negotiations
-                )}
                 <div className="AdminTable_NegotiateTable">
                   {Admin___Negotiations?.Admin__Terminate_Negotiations
                     ?.length === 0 ? (
@@ -340,9 +374,9 @@ const ActiveNegotiation = ({}) => {
                       />
                     </div>
                   ) : (
-                    <AdminUseTable
+                    <TableWithPagination
                       header={header}
-                      data={Admin___Negotiations?.Admin__Terminate_Negotiations}
+                      data={filteredArray_Terminante}
                     />
                   )}
                 </div>

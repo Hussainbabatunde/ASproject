@@ -12,15 +12,18 @@ import empty from "../../../assets/lottie/emptyState.json";
 import AdminUseTable from "../../../Components/Table/AdminUseTable";
 import { Link } from "react-router-dom";
 import AdminTalentMangersStep from "../AdminTalentManagers/AdminTalentManagersStep";
+import TableWithPagination from "../../../Pages/Admin/TableWithPagination";
 
 // import { Admin_Get_ALLPlayers_fun } from "../../../Slice/Admin/AdminUpdate_profileSlice";
-
 const AdminFinanaceTransaction = () => {
   const { Transaction_total_amount, Transaction_list } = useSelector(
     (state) => state.reducer.TransactionSlice
   );
 
   console.log(Transaction_list);
+
+  const reversedTransactionList = [...Transaction_list].reverse();
+
   const header = [
     {
       id: 1,
@@ -67,7 +70,7 @@ const AdminFinanaceTransaction = () => {
     return () => {};
   }, []);
   return (
-    <div className="AdminDashboard">
+    <div className="AdminDashboard ">
       <div className="AdminPage_Dashboard">
         <div className="AdminPage_DashboardTAbleCat">
           <div className="AdminPage_NegotiateTab">
@@ -99,12 +102,12 @@ const AdminFinanaceTransaction = () => {
                   />
                 </div>
               ) : (
-                <AdminUseTable
-                  header={header}
-                  data={Transaction_list}
-                  // handleEdit={handleEdit}
-                  // handleDelete={handleDelete}
-                />
+                <>
+                  <TableWithPagination
+                    data={reversedTransactionList}
+                    header={header}
+                  />
+                </>
               )}
             </div>
           </div>
