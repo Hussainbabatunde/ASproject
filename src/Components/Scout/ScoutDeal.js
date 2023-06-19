@@ -18,9 +18,12 @@ import { reset as resetPlayerProfileSlice } from "../../Slice/Player/Playerprofi
 import {reset as resetGetAllPlayerDealSlice} from "../../Slice/Player/PlayerDeal/PlayerDealSlice"
 import { UserLogout } from '../Player/UserLogOut';
 import { ScoutDealsApi } from '../../Slice/Scout/ScoutDealsApiPage/ScoutDealSlice';
+import { ClockLoader } from "react-spinners";
+import ReactPaginate from 'react-paginate';
 
 const ScoutDeal = () => {
     const dispatch = useDispatch()
+    const dataTable = useSelector((state)=> state?.reducer?.ScoutDealsSlice?.ScoutDealData)
     const handleLogout = async () =>{
         await dispatch(LogoutAuth())
         // await dispatch(resetPlayerProfileSlice())
@@ -75,6 +78,28 @@ const ScoutDeal = () => {
     p: 4,
   };
   
+    //for paginating
+  // Here we use item offsets; we could also use page offsets
+  // following the API or data you're working with.
+  const [itemOffset, setItemOffset] = useState(0);
+
+  // Simulate fetching items from another resources.
+  // (This could be items from props; or items loaded in a local state
+  // from an API endpoint with useEffect and useState)
+  const endOffset = itemOffset + 5;
+  // console.log(`Loading items from ${itemOffset} to ${endOffset}`);
+  const currentItems = dataTable?.slice(itemOffset, endOffset);
+  const pageCount = Math.ceil(dataTable?.length / 5);
+
+  const handlePageClick = (event) => {
+    const newOffset = (event.selected * 5) % dataTable.length;
+    // console.log(
+    //   `User requested page number ${event.selected}, which is offset ${newOffset}`
+    // );
+    setItemOffset(newOffset);
+  };
+
+
   const [show, setShow] = useState(false);
 
   useEffect(()=>{
@@ -92,7 +117,7 @@ const ScoutDeal = () => {
 //     }
 // ]
 
-const dataTable = useSelector((state)=> state?.reducer?.ScoutDealsSlice?.ScoutDealData)
+// const dataTable = useSelector((state)=> state?.reducer?.ScoutDealsSlice?.ScoutDealData)
 // console.log('dataTable ', dataTable)
 
   return (
@@ -111,11 +136,35 @@ const dataTable = useSelector((state)=> state?.reducer?.ScoutDealsSlice?.ScoutDe
           <div style={{display:'flex', justifyContent:'center', alignItems:'center', width:'100%'}}>
                 <Lottie style={{width: '200px', height:'200px'}} animationData={empty} />
         </div>
-        : 
-            <UseTable header={header} data={dataTable} />
+        : show ?
+        <div className='flex justify-center p-2'>
+          <ClockLoader
+                                  color="#7F351D"
+                                  size={25}
+                                  aria-label="Loading Spinner"
+                                  data-testid="loader"
+                                />
+        </div>
+        :<>
+            <UseTable header={header} data={currentItems} />
+            <ReactPaginate
+        previousLabel="Previous"
+        nextLabel="Next"
+        pageClassName="page-item"
+        previousLinkClassName="page-link"
+        nextLinkClassName="page-link"
+        breakLabel="..."
+        pageCount={pageCount}
+        pageRangeDisplayed={5}
+        pageLinkClassName='page-link'
+        onPageChange={handlePageClick}
+        containerClassName="pagination"
+        activeLinkClassName="active"
+      />
+            </>
         }
         </div>
-        <Modal
+        {/* <Modal
         open={show}
         // onClose={handleClose}
         aria-labelledby="modal-modal-title"
@@ -125,7 +174,7 @@ const dataTable = useSelector((state)=> state?.reducer?.ScoutDealsSlice?.ScoutDe
             <Lottie style={{width: '200px', height:'200px'}} animationData={football} />
             </Box>
         
-      </Modal>
+      </Modal> */}
         </div>
   )
 }

@@ -20,9 +20,12 @@ import { UserLogout } from './UserLogOut';
 import { ToastContainer } from 'react-toastify';
 import { ClockLoader } from "react-spinners";
 import { PlayerFanDealsApi } from '../../Slice/Player/PlayerDeal/PlayerFanDealSlice';
+import ReactPaginate from 'react-paginate';
 
 const PlayerFanDeal = () => {
     const dispatch = useDispatch()
+    
+const dataTable = useSelector((state)=> state?.reducer?.PlayerFanSlice?.PlayerFanDealData?.data)
     const handleLogout = async () =>{
         await dispatch(LogoutAuth())
         // await dispatch(resetPlayerProfileSlice())
@@ -85,6 +88,27 @@ const PlayerFanDeal = () => {
     width: 210,
     p: 4,
   };
+
+    //for paginating
+  // Here we use item offsets; we could also use page offsets
+  // following the API or data you're working with.
+  const [itemOffset, setItemOffset] = useState(0);
+
+  // Simulate fetching items from another resources.
+  // (This could be items from props; or items loaded in a local state
+  // from an API endpoint with useEffect and useState)
+  const endOffset = itemOffset + 5;
+  // console.log(`Loading items from ${itemOffset} to ${endOffset}`);
+  const currentItems = dataTable?.slice(itemOffset, endOffset);
+  const pageCount = Math.ceil(dataTable?.length / 5);
+
+  const handlePageClick = (event) => {
+    const newOffset = (event.selected * 5) % dataTable.length;
+    // console.log(
+    //   `User requested page number ${event.selected}, which is offset ${newOffset}`
+    // );
+    setItemOffset(newOffset);
+  };
   
   const [show, setShow] = useState(false);
 
@@ -104,7 +128,6 @@ const PlayerFanDeal = () => {
 //     }
 // ]
 
-const dataTable = useSelector((state)=> state?.reducer?.PlayerFanSlice?.PlayerFanDealData?.data)
 // console.log('fan deals ', dataTable)
   return (
     <div  className='Scoutpage_contents'>
@@ -132,9 +155,24 @@ const dataTable = useSelector((state)=> state?.reducer?.PlayerFanSlice?.PlayerFa
                                   data-testid="loader"
                                 />
         </div>
-        :
-            <UseTable header={header} data={dataTable} />
-        }
+        :<>
+            <UseTable header={header} data={currentItems} />
+            <ReactPaginate
+        previousLabel="Previous"
+        nextLabel="Next"
+        pageClassName="page-item"
+        previousLinkClassName="page-link"
+        nextLinkClassName="page-link"
+        breakLabel="..."
+        pageCount={pageCount}
+        pageRangeDisplayed={5}
+        pageLinkClassName='page-link'
+        onPageChange={handlePageClick}
+        containerClassName="pagination"
+        activeLinkClassName="active"
+      />
+      </>
+            }
         </div>
         {/* <Modal
         open={show}

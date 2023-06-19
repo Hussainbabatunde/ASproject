@@ -10,12 +10,14 @@ import { NavLink, Route, Routes } from 'react-router-dom';
 import { UserLogout } from './UserLogOut'
 import { GetAdvertPaymentApi, GetAllPaymentApi, GetOfferPaymentApi } from '../../Slice/Player/PlayerPayment/PaymentSlice'
 import { format } from 'date-fns'
+import { ClockLoader } from "react-spinners";
 
 const PlayerPayment = () => {
     const dispatch = useDispatch()
     const [totalPayment, setTotalPayment] = useState(null)
     const [totalFirstmonth, setTotalFirstMonth] = useState(null)
     const [totalLastmonth, setTotalLastMonth] = useState(null)
+    const [loading, setloading] = useState(false)
     const handleLogout = async () =>{
         await dispatch(LogoutAuth())
         UserLogout()
@@ -32,13 +34,18 @@ const PlayerPayment = () => {
     useEffect(()=>{
         const calcPayment = () =>{
             let amountSum = 0
+            if (AllPaymentTrans && AllPaymentTrans.length > 0) {
             for (let i=0; i<AllPaymentTrans?.length; i++){
-                amountSum += Number(AllPaymentTrans[i].amount)
+                amountSum += Number(AllPaymentTrans[i]?.amount)
+                // console.log(AllPaymentTrans[i].amount)
             }
+            console.log(format(new Date(AllPaymentTrans[0].created_at), 'MMMM yyyy'))
+            console.log(format(new Date(AllPaymentTrans[AllPaymentTrans.length-1].created_at), 'MMMM yyyy'))
             const firstMonth = format(new Date(AllPaymentTrans[0].created_at), 'MMMM yyyy');
             const lastMonth = format(new Date(AllPaymentTrans[AllPaymentTrans.length-1].created_at), 'MMMM yyyy');
             setTotalFirstMonth(firstMonth)
             setTotalLastMonth(lastMonth)
+        }
             setTotalPayment(amountSum)
         }
         calcPayment()
@@ -59,9 +66,11 @@ const PlayerPayment = () => {
 
     useEffect(()=>{
         const paymentCall = async () =>{
+            setloading(true)
             await dispatch(GetAllPaymentApi())
             await dispatch(GetOfferPaymentApi())
             await dispatch(GetAdvertPaymentApi())
+            setloading(false)
         }
         paymentCall()
     },[])
@@ -74,10 +83,20 @@ const PlayerPayment = () => {
         <p className='Scoutpage_AccountWord' style={{cursor:'pointer'}} onClick={handleLogout}>Logout <RxExit /></p>
     </div>
     <div className='Scoutpage_LinkPages'>
-       {data.map((each, index)=>(
+       {data?.map((each, index)=>(
          <NavLink to={each?.pathTo} key={index} className={({isActive})=> (isActive ? 'Scoutpage_Profileactivepage':'Scoutpage_Profilepage')}>{each?.pathName}</NavLink>
         ))}
     </div>
+    {loading? 
+    <div className='flex justify-center align-center bg-white min-h-full p-2'>
+        <ClockLoader
+                                  color="#7F351D"
+                                  size={25}
+                                  aria-label="Loading Spinner"
+                                  data-testid="loader"
+                                />
+    </div>
+    :
     <div className='Scoutpage_PaymentContent'>
         <div className='Scoutpage_PaymentEarnings'>
             <div className='Scoutpage_PaymentEarnings_firstrow'>
@@ -110,7 +129,7 @@ const PlayerPayment = () => {
                 <p className='Scoutpage_PaymentEarnings_earntext'>Adverts Transaction</p>
                 
                 <div className='Scoutpage_TransGetpaid_dateandamt'>
-                {AdvertPaymentTrans.map((each,index)=>(
+                {AdvertPaymentTrans?.map((each,index)=>(
                 <div key={index} className='Scoutpage_Getpaid_dateSec'>
                     <p className='Scoutpage_Getpaid_monthandyear'>{format(new Date(each?.created_at), 'MMMM yyyy')}</p>
                 <p className='Scoutpage_Getpaid_monthandyear'>${each?.amount}</p>
@@ -151,7 +170,7 @@ const PlayerPayment = () => {
                 <Link  className='Scoutpage_transaction_Linkotherpages'>Change Payment</Link>
             </div>
         </div>
-        </div>
+        </div>}
     </div>
   )
 }
