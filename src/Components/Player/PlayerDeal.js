@@ -34,7 +34,7 @@ const PlayerDeal = () => {
         window.location.reload();
     }
     const dataTable = useSelector((state)=> state?.reducer?.GetAllPlayerDealSlice?.PlayerDealData?.data)
-    // console.log(dataTable.length)
+   
     const data = [
         {id: 1, pathTo: '/afrisport/player/profile', pathName: 'Profile'},
         {id: 2, pathTo: '/afrisport/player/deal', pathName: 'Scout Deals'},
@@ -102,7 +102,7 @@ const PlayerDeal = () => {
   // console.log(`Loading items from ${itemOffset} to ${endOffset}`);
   const currentItems = dataTable?.slice(itemOffset, endOffset);
   const pageCount = Math.ceil(dataTable?.length / 5);
-
+  console.log('currentItems ',currentItems)
   const handlePageClick = (event) => {
     const newOffset = (event.selected * 5) % dataTable.length;
     // console.log(
