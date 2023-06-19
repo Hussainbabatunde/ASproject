@@ -30,32 +30,7 @@ const AdminSidebar = () => {
       pathTo: "/admin/negotiations",
       pathName: "Negotiate",
       pathIcon: <IoIosPaper />,
-      children: [
-        // {
-        //   id: "name1",
-        //   navName: "Active",
-        //   slug: "admin_active",
-        //   navSubLink: "/admin/negotiations",
-        // },
-        // {
-        //   id: "name2",
-        //   navName: "Closed",
-        //   slug: "admin_closed",
-        //   navSubLink: "/admin/admin/negotiate/closed",
-        // },
-        // {
-        //   id: "name3",
-        //   navName: "Suspended",
-        //   slug: "admin_suspended",
-        //   navSubLink: "/admin/admin/negotiate/suspended",
-        // },
-        // {
-        //   id: "name4",
-        //   navName: "Terminated",
-        //   slug: "admin_terminated",
-        //   navSubLink: "/admin/admin/negotiate/terminated",
-        // },
-      ],
+      children: [],
     },
     {
       id: 3,
@@ -98,39 +73,6 @@ const AdminSidebar = () => {
       pathName: "Admins",
       pathIcon: <GiMeepleGroup />,
       children: [],
-
-      // children: [
-      //   {
-      //     id: "name5",
-      //     navName: "Autorisation",
-      //     slug: "autorisation",
-      //     navSubLink: "/admin/authorization",
-      //   },
-      //   {
-      //     id: "name6",
-      //     navName: "All Admin",
-      //     slug: "admin_alladmin",
-      //     navSubLink: "/admin/admin/admins/alladmins",
-      //   },
-      //   {
-      //     id: "name7",
-      //     navName: "Roles",
-      //     slug: "admin_roles",
-      //     navSubLink: "/admin/admin/admins/roles",
-      //   },
-      //   {
-      //     id: "name8",
-      //     navName: "Permission",
-      //     slug: "admin_permission",
-      //     navSubLink: "/admin/admin/admins/permission",
-      //   },
-      //   {
-      //     id: "name9",
-      //     navName: "Privilege",
-      //     slug: "admin_privilege",
-      //     navSubLink: "/admin/admin/admins/privilege",
-      //   },
-      // ],
     },
     {
       id: 9,
