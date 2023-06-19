@@ -21,6 +21,8 @@ function NegotiationDetails() {
   const { Admin___Negotiations_detail, Admin___Negotiations_comment } =
     useSelector((state) => state.reducer.Admin_NegotiationsSlice);
 
+  console.log(Admin___Negotiations_detail);
+
   const dispatch = useDispatch();
   let { state } = useLocation();
   // const {each} = Offer_data.state
@@ -29,16 +31,21 @@ function NegotiationDetails() {
   let offer_id = state?.comments?.active_offers?.OfferId || state?.OfferId;
   let from_id = state?.comments?.active_offers?.from || state?.from;
 
+  console.log(offer_id);
+  console.log(from_id);
+
   useEffect(() => {
     dispatch(Admin___Negotiations_detail_fun({ offer_id, from_id }));
     dispatch(Admin___Negotiations_comment_fun(offer_id));
 
     return () => {};
   }, []);
-
-  let negotiation_data = Admin___Negotiations_detail[0];
-
   let comment_message = Admin___Negotiations_comment?.data[1];
+
+  console.log(Admin___Negotiations_detail);
+  let negotiation_data = Admin___Negotiations_detail;
+  console.log(negotiation_data);
+  console.log(negotiation_data);
 
   function calculateMonthDuration(startDate, endDate) {
     const start = new Date(startDate);
@@ -99,6 +106,79 @@ function NegotiationDetails() {
     }
   }
 
+  const Download_Mutation = useMutation(
+    async (data) => {
+      // Your API request code here
+      // Use formData to send the image data to the API
+
+      let API_URL = `${baseURL}admin/negotiations/offer/download/${offer_id}/${from_id}`;
+      const tokengot = localStorage.getItem("token");
+
+      const config = {
+        headers: {
+          Authorization: `Bearer ${tokengot}`,
+        },
+      };
+
+      try {
+        const response = await axios.get(API_URL, config);
+        console.log(response.data); // Logging the response data
+
+        return response;
+      } catch (error) {
+        console.error(error);
+        throw error;
+      }
+    },
+    {
+      onSuccess: (response) => {
+        // Check if the file was successfully downloaded
+        const contentDisposition = response.headers["content-disposition"];
+        const isFileDownloaded =
+          contentDisposition && contentDisposition.includes("attachment");
+
+        if (isFileDownloaded) {
+          toast.success("File downloaded successfully!", {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
+        } else {
+          toast.error("Error occurred while downloading the file.", {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            className: "Forbidden403",
+          });
+        }
+      },
+
+      onError: (error) => {
+        toast.error("Error occurred while submitting the form.", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          className: "Forbidden403",
+        });
+      },
+    }
+  );
+
   const Suspend_Mutation = useMutation(
     async (data) => {
       // Your API request code here
@@ -107,8 +187,6 @@ function NegotiationDetails() {
       let item = {
         offer_id: offer_id,
       };
-
-      console.log(item);
 
       let API_URL = `${baseURL}admin/negotiations/suspend-offer`;
       const tokengot = localStorage.getItem("token");
@@ -123,7 +201,6 @@ function NegotiationDetails() {
 
       try {
         const response = await axios.post(API_URL, item, config);
-        console.log(response.data); // Logging the response data
 
         return response;
       } catch (error) {
@@ -173,8 +250,6 @@ function NegotiationDetails() {
         offer_id: offer_id,
       };
 
-      console.log(item);
-
       let API_URL = `${baseURL}admin/negotiations/terminate-offer`;
       const tokengot = localStorage.getItem("token");
 
@@ -188,11 +263,9 @@ function NegotiationDetails() {
 
       try {
         const response = await axios.post(API_URL, item, config);
-        console.log(response.data); // Logging the response data
 
         return response;
       } catch (error) {
-        console.error(error);
         throw error;
       }
     },
@@ -232,7 +305,7 @@ function NegotiationDetails() {
   return (
     <>
       <ToastContainer />
-      <div className="AdminDashboard">
+      <div className="AdminDashboard ">
         <div className="AdminPage_Dashboard">
           <div className="">
             <div className="PlayersViewDeals_Container">
@@ -243,7 +316,7 @@ function NegotiationDetails() {
                       to="/admin/negotiations"
                       className="ScoutViewProfile_navigationback"
                     >
-                      Deals
+                      Deal
                     </Link>
                     <GrFormNext style={{ fontSize: "16px" }} />
                     <p className="ScoutViewProfile_navigationprofile">
@@ -251,51 +324,90 @@ function NegotiationDetails() {
                     </p>
                   </div>
 
-                  <div className="flex gap-2">
-                    <button
-                      className="bg-[#FEFDF2] border-[#7F351D] px-3 py-1 border rounded"
-                      onClick={() => Suspend_Mutation.mutate()}
-                    >
-                      {Suspend_Mutation?.isLoading ? (
-                        <PulseLoader
-                          color="black"
-                          size={13}
-                          aria-label="Loading Spinner"
-                          data-testid="loader"
-                        />
+                  {negotiation_data?.payment_status === "not paid" && (
+                    <div className="flex gap-2">
+                      {negotiation_data?.status === "suspended" ? (
+                        <button
+                          className="bg-[#FEFDF2] border-[#7F351D] px-3 py-1 border rounded"
+                          onClick={() => Suspend_Mutation.mutate()}
+                        >
+                          {Suspend_Mutation?.isLoading ? (
+                            <PulseLoader
+                              color="black"
+                              size={13}
+                              aria-label="Loading Spinner"
+                              data-testid="loader"
+                            />
+                          ) : (
+                            "Unsuspend "
+                          )}
+                        </button>
                       ) : (
-                        "Suspend"
+                        <button
+                          className="bg-[#FEFDF2] border-[#7F351D] px-3 py-1 border rounded"
+                          onClick={() => Suspend_Mutation.mutate()}
+                        >
+                          {Suspend_Mutation?.isLoading ? (
+                            <PulseLoader
+                              color="black"
+                              size={13}
+                              aria-label="Loading Spinner"
+                              data-testid="loader"
+                            />
+                          ) : (
+                            "Suspend"
+                          )}
+                        </button>
                       )}
-                    </button>
-                    <button
-                      className="bg-[#FEF2F2] border-[#7F1D1D] px-3 py-1 border rounded"
-                      onClick={() => Terminante_Mutation.mutate()}
-                    >
-                      {Suspend_Mutation?.isLoading ? (
-                        <PulseLoader
-                          color="black"
-                          size={13}
-                          aria-label="Loading Spinner"
-                          data-testid="loader"
-                        />
-                      ) : (
-                        "Terminante"
-                      )}
-                    </button>
-                  </div>
+
+                      <button
+                        className="bg-[#FEF2F2] border-[#7F1D1D] px-3 py-1 border rounded"
+                        onClick={() => Terminante_Mutation.mutate()}
+                      >
+                        {Suspend_Mutation?.isLoading ? (
+                          <PulseLoader
+                            color="black"
+                            size={13}
+                            aria-label="Loading Spinner"
+                            data-testid="loader"
+                          />
+                        ) : (
+                          "Terminante"
+                        )}
+                      </button>
+                    </div>
+                  )}
                 </div>
                 <div className="PlayerViewDeals_InfoSection">
                   <div className="PlayerViewDeals_InfoSection_UpperSegment">
                     <div className="PlayerViewdetails_TopicSec">
                       <p className="PlayerViewdetails_DetailsText">
-                        Details (Not Paid)
+                        Details{" "}
+                        {negotiation_data?.payment_status === "paid"
+                          ? " (Paid)"
+                          : " (Not Paid) "}
                       </p>
                       <div className="PlayerViewdetails_DownloadButtons">
-                        <button className="PlayerViewdetails_DownloadPdf flex items-center">
-                          <FaDownload
-                            style={{ color: "#3D413D", marginRight: "7px" }}
-                          />{" "}
-                          <span> Download</span>
+                        <button
+                          className="PlayerViewdetails_DownloadPdf flex items-center"
+                          onClick={() => Download_Mutation.mutate()}
+                        >
+                          {Download_Mutation?.isLoading ? (
+                            <PulseLoader
+                              color="black"
+                              size={13}
+                              aria-label="Loading Spinner"
+                              data-testid="loader"
+                            />
+                          ) : (
+                            <>
+                              {" "}
+                              <FaDownload
+                                style={{ color: "#3D413D", marginRight: "7px" }}
+                              />{" "}
+                              <span> Downloads</span>
+                            </>
+                          )}
                         </button>
 
                         <button className="flex gap-2 bg-[#DBDBDB] px-3 py-1 rounded items-center">

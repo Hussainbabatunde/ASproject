@@ -142,15 +142,13 @@ const Ads = ({
     return () => {};
   }, []);
 
-  const dataTable = [
-    {
-      id: 1,
-      playerName: "mayana",
-      position: "striker",
-      club: "chelsea",
-      recentNegotiate: "league ball",
-    },
-  ];
+  // const [searchInput, setSearchInput] = useState("");
+
+  // const filteredUsersArray = Admin_Get_All_Player?.filter(
+  //   (user) =>
+  //     user?.firstname.toLowerCase().includes(searchInput.toLowerCase()) ||
+  //     user?.surname.toLowerCase().includes(searchInput.toLowerCase())
+  // );
 
   return (
     <>

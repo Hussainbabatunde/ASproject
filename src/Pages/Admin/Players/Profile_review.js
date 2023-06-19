@@ -39,8 +39,6 @@ function Profile_review() {
     <>
       <ToastContainer />
       <div className="AdminDashboard">
-        <div className="pt-10"> this is the component </div>
-
         <div className="AdminPage_Dashboard">
           <div>
             <div className="ScoutViewProfile_navigationprogress">
@@ -54,44 +52,46 @@ function Profile_review() {
               <p className="ScoutViewProfile_navigationprofile">Profile</p>
             </div>
 
-            <div className="w-[70%] m-auto">
-              <UploadImage
-                Admin_Get_Players_Profile_details={
-                  Admin_Get_Players_Profile_details
-                }
-              />
-              <Profile_detail
-                Admin_Get_Players_Profile_details={
-                  Admin_Get_Players_Profile_details
-                }
-              />
-              <Admin_update_Physical_Stats
-                Admin_Get_Players_Profile_details={
-                  Admin_Get_Players_Profile_details
-                }
-              />
+            {Admin_Get_Players_Profile_details && (
+              <div className="w-[70%] m-auto">
+                <UploadImage
+                  Admin_Get_Players_Profile_details={
+                    Admin_Get_Players_Profile_details
+                  }
+                />
+                <Profile_detail
+                  Admin_Get_Players_Profile_details={
+                    Admin_Get_Players_Profile_details
+                  }
+                />
+                <Admin_update_Physical_Stats
+                  Admin_Get_Players_Profile_details={
+                    Admin_Get_Players_Profile_details
+                  }
+                />
 
-              <Admin_PlayerProfileBusinessService
-                Admin_Get_Players_Profile_details={
-                  Admin_Get_Players_Profile_details
-                }
-              />
-              <Admin_upload_id
-                Admin_Get_Players_Profile_details={
-                  Admin_Get_Players_Profile_details
-                }
-              />
-              <Admin_upload_Players_image
-                Admin_Get_Players_Profile_details={
-                  Admin_Get_Players_Profile_details
-                }
-              />
-              <Admin_PlayerProfileVideo
-                Admin_Get_Players_Profile_details={
-                  Admin_Get_Players_Profile_details
-                }
-              />
-            </div>
+                <Admin_PlayerProfileBusinessService
+                  Admin_Get_Players_Profile_details={
+                    Admin_Get_Players_Profile_details
+                  }
+                />
+                <Admin_upload_id
+                  Admin_Get_Players_Profile_details={
+                    Admin_Get_Players_Profile_details
+                  }
+                />
+                <Admin_upload_Players_image
+                  Admin_Get_Players_Profile_details={
+                    Admin_Get_Players_Profile_details
+                  }
+                />
+                <Admin_PlayerProfileVideo
+                  Admin_Get_Players_Profile_details={
+                    Admin_Get_Players_Profile_details
+                  }
+                />
+              </div>
+            )}
           </div>
         </div>
       </div>

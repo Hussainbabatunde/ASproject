@@ -126,6 +126,10 @@ function TalentManagerNegotiateStep() {
         </p>
       </div>
 
+      {console.log(
+        Admin_talent_manager_negotiation?.Admin__Talent__Active_Negotiations
+      )}
+
       {step === 1 && (
         <div className="AdminTable_NegotiateTable">
           {Admin_talent_manager_negotiation?.Admin__Talent__Active_Negotiations
