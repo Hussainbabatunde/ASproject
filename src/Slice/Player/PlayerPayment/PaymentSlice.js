@@ -10,7 +10,8 @@ const initialState = {
     message: null,
     gottenAllPaymentData: null,
     getOfferPaymentData: null,
-    getAdvertPaymentData: null
+    getAdvertPaymentData: null,
+    getMarketPriceData: null
   };
 
 
@@ -112,6 +113,38 @@ const initialState = {
   );
 
 
+  export const GetMarketPriceApi = createAsyncThunk(
+    "getMarketPriceApi/userGetMarketPriceApi",
+    async (_, { rejectWithValue }) => {
+        
+        const tokengot = localStorage.getItem("token");
+        const infoneeded = `Bearer ${tokengot}`;
+      const instance = axios.create({
+        baseURL: process.env.REACT_APP_AFRISPORTURL ,
+        timeout: 20000,
+  
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: infoneeded
+        },
+      });
+      return await instance
+        .get('market-fee')
+        .then(async (response) => {
+            console.log('market place price ',response.data)
+          return response.data;
+        })
+  
+        .catch((err) => {
+          let errdata = err.response.data;
+          console.log('error ', errdata)
+          return rejectWithValue(errdata);
+          // console.log(err)
+        });
+    }
+  );
+
 
   export const GetPaymentSlice = createSlice({
     name: "GetAllPlayersPayment",
@@ -162,6 +195,21 @@ const initialState = {
         state.getAdvertPaymentData = action.payload;        
       })
       .addCase(GetAdvertPaymentApi.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+      })
+      .addCase(GetMarketPriceApi.pending, (state) => {
+        state.isLoading = true;
+        state.null = true;
+      })
+      .addCase(GetMarketPriceApi.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.user = true;
+        state.getMarketPriceData = action.payload;        
+      })
+      .addCase(GetMarketPriceApi.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;

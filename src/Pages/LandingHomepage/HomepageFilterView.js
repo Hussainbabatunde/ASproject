@@ -53,8 +53,13 @@ const HomepageFilterView = () => {
 
     useEffect(()=>{
         setAllPlayers(filteredPlayer)
-        console.log(filteredPlayer)
+        // console.log(filteredPlayer)
     }, [filteredPlayer])
+
+    useEffect(()=>{
+        setAllPlayers(filteredClubPlayer)
+        // console.log(filteredClubPlayer)
+    }, [filteredClubPlayer])
 
 
     const handleCheckedPosition = (positionChecked) =>{
@@ -96,7 +101,7 @@ const HomepageFilterView = () => {
         data.max_price = maxPrice
         data.height = height
         data.country = country
-        console.log('data ',data)
+        // console.log('data ',data)
         await dispatch(FilteredPlayersApi(data))
         setSearchloader(true)
         setSearchloader(false)

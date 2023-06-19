@@ -29,6 +29,8 @@ const ScoutProfileUploadId = ({userId}) => {
         setLoadUploadId(true)
           await dispatch(ScoutProfileUploadIdApi(formData))
           await dispatch(ScoutProfileVerificationStatus(userId))
+          setUploadId(null)
+          setUploaded(false)
           setLoadUploadId(false)
       }
 

@@ -13,6 +13,7 @@ import UpdateOfferDetail from './UpdateOfferDetail'
 import moment from 'moment'
 import { ToastContainer } from 'react-toastify'
 import ScoutPayNow from './ScoutPayNow'
+import { differenceInWeeks } from 'date-fns'
 
 const ScoutDealsMade = () => {
   const {id} = useParams()
@@ -32,6 +33,12 @@ const ScoutDealsMade = () => {
   // console.log('comments ', CommentsGotten)
   // console.log('id ', id)
   // console.log('user id', userId)
+
+  const startDate = new Date(gottenDetails?.data?.offers?.to_start);
+const endDate = new Date(gottenDetails?.data?.offers?.to_end);
+
+const numberOfWeeks = differenceInWeeks(endDate, startDate);
+// console.log( 'no of weeks ',numberOfWeeks)
 
   
   useEffect(()=>{
@@ -91,7 +98,7 @@ const ScoutDealsMade = () => {
   }
     
 
-  // console.log('gottenDetails ', gottenDetails)
+  console.log('gottenDetails ', gottenDetails)
 
 
   return (
@@ -120,7 +127,7 @@ const ScoutDealsMade = () => {
                     </button>
                   {userType!= 'player' && <div style={{display:'flex', justifyContent:'center', alignItems:'center'}}>
                   <button className='PlayerViewdetails_Updatebutton' onClick={handleShowUpdate}>Update</button>
-                  <button className='PlayerViewdetails_Paynowbutton' onClick={()=> setShowPay(true)}>Pay Now</button>
+                  {gottenDetails?.data?.offers?.recipient_earnings != '0.00'  && <button className='PlayerViewdetails_Paynowbutton' onClick={()=> setShowPay(true)}> Pay Now</button>}
                   </div>}
                 </div>
               </div>
@@ -133,7 +140,7 @@ const ScoutDealsMade = () => {
               </div>
               <div className='PlayerViewdetails_LabelAndAnswer'>
                 <label className='PlayerViewdetails_LabelText'>Duration:</label>
-                {loading? <Skeleton variant="rounded" width={105} height={22} />:<p className='PlayerViewdetails_labelresponse'> 6 months</p>}
+                {loading? <Skeleton variant="rounded" width={105} height={22} />:<p className='PlayerViewdetails_labelresponse'> {numberOfWeeks} weeks</p>}
               </div>
               <div className='PlayerViewdetails_LabelAndAnswer'>
                 <label className='PlayerViewdetails_LabelText'>Expiring:</label>

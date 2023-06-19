@@ -88,6 +88,11 @@ const HomeViewPlayerProfile = () => {
         handleShowVideoRequest()
       }
 
+      useEffect(() => {
+        
+        window.scrollTo(0, 0)
+      }, []);
+
       const handleImageClicked = (img) =>{
         console.log(img)
         setImgModal(img)
@@ -164,7 +169,20 @@ const HomeViewPlayerProfile = () => {
               {loading? <Skeleton variant="rounded" width={105} height={22} />:<p className='ScoutViewProfile_UserProfilePosition'>{positionPlayed}</p>}
                 </div>
 
-                <p className='ScoutViewProfile_UserProfilePricerange'>Contract: {loading == true? <Skeleton variant="rounded" width='90%' height={20} /> : <span style={{display:'flex', alignItems:'center'}}><TbCurrencyNaira style={{fontSize:"18px"}} />{PlayerDetails?.price?.minimum} - {PlayerDetails?.price?.maximum}</span>}</p>
+                <p className='ScoutViewProfile_UserProfilePricerange'>Contract:
+                {loading == true? 
+                <Skeleton variant="rounded" width='90%' height={20} /> 
+                : 
+                // <span style={{display:'flex', alignItems:'center'}}>
+                //   <TbCurrencyNaira style={{fontSize:"18px"}} />{PlayerDetails?.price?.minimum} - {PlayerDetails?.price?.maximum}
+                //   </span>
+                PlayerDetails?.price?.service_type == 'open'?<span style={{display:'flex', alignItems:'center'}}>{ PlayerDetails?.price?.minimum}</span>
+                :  PlayerDetails?.price?.service_type == 'free' ? <span style={{display:'flex', alignItems:'center'}}> { PlayerDetails?.price?.minimum}</span> 
+                :  PlayerDetails?.price?.service_type == 'actual'? <span style={{display:'flex', alignItems:'center'}}>${ PlayerDetails?.price?.minimum}</span>
+                : <span style={{display:'flex', alignItems:'center'}}>${ PlayerDetails?.price?.minimum} - ${ PlayerDetails?.price?.maximum}</span>
+                
+                  }
+                  </p>
             </div>
           </div>
 

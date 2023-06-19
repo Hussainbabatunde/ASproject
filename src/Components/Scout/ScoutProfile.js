@@ -13,6 +13,7 @@ import ScoutProfileProfileform from './ScoutProfileProfileform'
 import ScoutProfileUploadId from './ScoutProfileUploadId'
 import { UserLogout } from '../Player/UserLogOut'
 import { AiFillCamera } from 'react-icons/ai'
+import { GetMarketPriceApi } from '../../Slice/Player/PlayerPayment/PaymentSlice'
 
 const ScoutProfile = () => {
 
@@ -79,7 +80,7 @@ const ScoutProfile = () => {
     useEffect(()=>{
       const checkingVerification = async() =>{
         await dispatch(ProfileDetailsScout(userId))
-        // await dispatch(ScoutProfileVerificationStatus(userId))
+        await dispatch(GetMarketPriceApi())
         setFile(PlayerDetails?.profile_pics)
       }
       checkingVerification()

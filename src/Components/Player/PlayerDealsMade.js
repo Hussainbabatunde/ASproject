@@ -9,6 +9,7 @@ import { DealCommentsApi, GetPlayerOfferDetailsApi, GetPlayerOfferDownloadApi, M
 import { PulseLoader } from 'react-spinners'
 import { CircularProgress, Skeleton } from '@mui/material'
 import moment from 'moment';
+import { differenceInWeeks } from 'date-fns'
 
 const PlayerDealsMade = () => {
   const {id} = useParams()
@@ -29,6 +30,13 @@ const PlayerDealsMade = () => {
   const expireData = gottenDetails?.data?.offers?.expiration.slice(0,11);
   const senderInfo = useSelector((state)=> state.reducer?.GetAllPlayerDealSlice?.detailsDealData?.data)
   const CommentsGotten = useSelector((state)=> state.reducer?.GetAllPlayerDealSlice?.commentsOfferData)
+
+
+  const startDate = new Date(gottenDetails?.data?.offers?.to_start);
+  const endDate = new Date(gottenDetails?.data?.offers?.to_end);
+  
+  const numberOfWeeks = differenceInWeeks(endDate, startDate);
+
 
   useEffect(()=>{
     const offerDetails = async()=>{
@@ -119,7 +127,7 @@ const PlayerDealsMade = () => {
               </div>
               <div className='PlayerViewdetails_LabelAndAnswer'>
                 <label className='PlayerViewdetails_LabelText'>Duration:</label>
-                {loading? <Skeleton variant="rounded" width={105} height={22} />:<p className='PlayerViewdetails_labelresponse'> 6 months</p>}
+                {loading? <Skeleton variant="rounded" width={105} height={22} />:<p className='PlayerViewdetails_labelresponse'> {numberOfWeeks} weeks</p>}
               </div>
               <div className='PlayerViewdetails_LabelAndAnswer'>
                 <label className='PlayerViewdetails_LabelText'>Expiring:</label>

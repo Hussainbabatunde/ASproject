@@ -36,7 +36,7 @@ const initialState = {
       return await instance
         .get('fan/requests')
         .then(async (response) => {
-            // console.log('gotten deals ',response.data)
+            console.log('gotten deals ',response.data)
           return response.data;
         })
   
@@ -300,8 +300,8 @@ const initialState = {
       return await instance
         .post('fan/payment/request/pay', data)
         .then(async (response) => {
-          console.log(' fan payment',response.data)
-          if (response.data?.status == 'succeeded'){
+          // console.log(' fan payment',response.data)
+          if (response.data?.data == 'Payment Successful.'){
             toast.success("Payment successful", {
               position: "top-right",
               autoClose: 5000,
