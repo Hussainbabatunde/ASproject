@@ -36,7 +36,9 @@ function ScoutsNegotiateStep() {
   let active_negotiations_data =
     Single_Scout_Negotiations_Detail?.active_negotiations_data?.data;
   let close_negotiations_data =
-    Single_Scout_Negotiations_Detail?.close_negotiations_data?.data;
+    Single_Scout_Negotiations_Detail?.close_negotiations_data;
+
+  console.log(close_negotiations_data);
 
   let suspended_negotiations_data =
     Single_Scout_Negotiations_Detail?.suspended_negotiations_data?.data;
@@ -75,14 +77,7 @@ function ScoutsNegotiateStep() {
       name: "Scout",
       case: "scout_ne_name",
     },
-    // {
-    //   id: 3,
-    //   name: "Initial Offer",
-    // },
-    // {
-    //   id: 4,
-    //   name: "Current Offer",
-    // },
+
     {
       id: 3,
       name: "Payment",
