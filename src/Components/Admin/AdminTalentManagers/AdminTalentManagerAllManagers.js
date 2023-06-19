@@ -13,6 +13,7 @@ import { Admin_talent_manager_fun } from "../../../Slice/Admin/AdminTalentManger
 import Talent_manger_message_modal from "../../../Pages/Admin/TalentManagers/Talent_manger_message_modal";
 import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
+import TableWithPagination from "../../../Pages/Admin/TableWithPagination";
 let baseURL = process.env.REACT_APP_AFRISPORTURL;
 
 const AdminTalentManagerAllManagers = ({
@@ -232,7 +233,7 @@ const AdminTalentManagerAllManagers = ({
               />
             </div>
           ) : (
-            <AdminUseTable
+            <TableWithPagination
               header={header}
               data={filteredArray}
               handleEdit={handleEdit}

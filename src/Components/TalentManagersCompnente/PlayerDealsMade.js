@@ -197,6 +197,7 @@ const PlayerDealsMade = () => {
   };
 
   console.log(Talent_manager_Interaction);
+  console.log(Talent_manager_Interaction);
 
   const duration = calculateDuration(info?.to_start, info?.to_end);
 
@@ -226,7 +227,7 @@ const PlayerDealsMade = () => {
       let id = request?.id;
       let from_person = request?.from;
 
-      let API_URL = `${baseURL}talent-manager/offer/download/31/60`;
+      let API_URL = `${baseURL}talent-manager/offer/download/${id}/${from_person}`;
 
       const tokengot = localStorage.getItem("token");
 
@@ -234,17 +235,30 @@ const PlayerDealsMade = () => {
 
       const config = {
         headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
           Authorization: `Bearer ${tokengot}`,
         },
+        responseType: "blob", // Set the response type to 'blob'
       };
 
       try {
         const response = await axios.get(API_URL, config);
-        console.log(response.data); // Logging the response data
-        return response;
+
+        // Create a download link
+        const downloadLink = document.createElement("a");
+        const objectUrl = URL.createObjectURL(response.data);
+
+        downloadLink.href = objectUrl;
+        downloadLink.download = "file.pdf";
+        downloadLink.click();
+
+        URL.revokeObjectURL(objectUrl);
+
+        return response.data;
       } catch (error) {
         console.error(error);
-        throw error;
+        throw new Error(error.message);
       }
     },
     {
@@ -349,6 +363,40 @@ const PlayerDealsMade = () => {
     Comment_Mutation.mutate(sentData);
   };
 
+  const Download_pdf = async () => {
+    try {
+      let API_URL = `${baseURL}talent-manager/offer/download/31/60`;
+
+      const tokengot = localStorage.getItem("token");
+
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: `Bearer ${tokengot}`,
+        },
+        responseType: "blob", // Set the response type to 'blob'
+      };
+
+      const response = await axios.get(API_URL, config);
+
+      // Create a download link
+      const downloadLink = document.createElement("a");
+      const objectUrl = URL.createObjectURL(response.data);
+
+      downloadLink.href = objectUrl;
+      downloadLink.download = "file.pdf";
+      downloadLink.click();
+
+      URL.revokeObjectURL(objectUrl);
+
+      return response.data;
+    } catch (error) {
+      console.error(error);
+      throw new Error(error.message);
+    }
+  };
+
   return (
     <div className="PlayersViewDeals_Container">
       <div className="PlayersDealsMade_Page">
@@ -366,12 +414,14 @@ const PlayerDealsMade = () => {
           <div className="PlayerViewDeals_InfoSection_UpperSegment">
             <div className="PlayerViewdetails_TopicSec">
               <p className="PlayerViewdetails_DetailsText">
-                Details (Not Paid)
+                Details
+                {info?.payment_status === "paid" ? "(Paid)" : "(Not Paid)"}
               </p>
               <div className="PlayerViewdetails_DownloadButtons">
                 <button
                   className="PlayerViewdetails_DownloadPdf"
                   onClick={() => Download_Mutation.mutate()}
+                  // onClick={Download_pdf}
                   style={{ display: "flex", alignItems: "center" }}
                 >
                   <FaDownload
@@ -435,8 +485,7 @@ const PlayerDealsMade = () => {
                 <Skeleton variant="rounded" width={105} height={22} />
               ) : (
                 <p className="PlayerViewdetails_labelresponse">
-                  {" "}
-                  $ {/* ${gottenDetails?.data?.offers?.recipient_earnings} */}
+                  $ {info?.value}{" "}
                 </p>
               )}
             </div>

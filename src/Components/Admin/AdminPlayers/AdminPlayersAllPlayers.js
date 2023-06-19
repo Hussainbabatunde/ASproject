@@ -10,6 +10,7 @@ import imgRecipient from "../../../assets/imgRecipient.png";
 import ChatCircle from "../../../assets/ChatsCircle.png";
 import { useDispatch, useSelector } from "react-redux";
 import { Admin_Get_ALLPlayers_fun } from "../../../Slice/Admin/AdminUpdate_profileSlice";
+import TableWithPagination from "../../../Pages/Admin/TableWithPagination";
 
 const AdminPlayerAllNegotiate = ({
   handleAllNegotiate,
@@ -41,10 +42,7 @@ const AdminPlayerAllNegotiate = ({
       id: 3,
       name: "Club",
     },
-    // {
-    //   id: 4,
-    //   name: "Recent Negotiate",
-    // },
+
     {
       id: 4,
       name: "  ",
@@ -127,11 +125,7 @@ const AdminPlayerAllNegotiate = ({
             />
           </div>
         ) : (
-          <AdminUseTable
-            header={header}
-            data={filteredUsersArray}
-            // handleEdit={handleEdit}
-          />
+          <TableWithPagination header={header} data={filteredUsersArray} />
         )}
       </div>
     </div>

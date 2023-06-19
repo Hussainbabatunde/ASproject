@@ -137,13 +137,13 @@ const UseTable = ({
                   case "talent_DealPayment":
                     return (
                       <td className="useTable_tableDetails">
-                        {each?.offer?.deal?.surname}
+                        {each?.requests?.request?.payment_status}
                       </td>
                     );
                   case "talent_DealAmount":
                     return (
                       <td className="useTable_tableDetails">
-                        $ {each?.request?.deal?.value}
+                        ${each?.requests?.request?.value}
                       </td>
                     );
                   case "talent_DealDetails":

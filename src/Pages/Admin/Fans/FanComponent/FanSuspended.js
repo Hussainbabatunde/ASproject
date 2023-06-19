@@ -6,6 +6,7 @@ import axios from "axios";
 import empty from "../../../../assets/lottie/emptyState.json";
 
 import { Admin_FanData__fun } from "../../../../Slice/Admin/Admin_FanData_Slice";
+import TableWithPagination from "../../TableWithPagination";
 let baseURL = process.env.REACT_APP_AFRISPORTURL;
 
 function FanSuspended() {
@@ -138,7 +139,7 @@ function FanSuspended() {
   };
   return (
     <>
-      <AdminUseTable
+      <TableWithPagination
         header={Suspendheader}
         data={Admin_Fan?.suspendedFan_data}
         handleEdit={handleEdit}
