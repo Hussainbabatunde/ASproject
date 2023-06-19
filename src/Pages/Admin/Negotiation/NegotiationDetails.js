@@ -25,6 +25,8 @@ function NegotiationDetails() {
   let { state } = useLocation();
   // const {each} = Offer_data.state
 
+  console.log(Admin___Negotiations_detail);
+
   let offer_id =
     state?.comments?.active_offers?.OfferId || state?.OfferId || state?.OfferId;
   let from_id =
@@ -384,49 +386,13 @@ function NegotiationDetails() {
                     </p>
                   </div>
 
-                  {negotiation_data?.status !== "accepted" && (
-                    <>
-                      {negotiation_data?.payment_status === "not paid" && (
-                        <div className="flex gap-2">
-                          {negotiation_data?.status === "suspended" ? (
-                            <button
-                              className="bg-[#FEFDF2] border-[#7F351D] px-3 py-1 border rounded"
-                              onClick={() =>
-                                Suspend_Mutation.mutate("unsuspend")
-                              }
-                            >
-                              {Suspend_Mutation?.isLoading ? (
-                                <PulseLoader
-                                  color="black"
-                                  size={13}
-                                  aria-label="Loading Spinner"
-                                  data-testid="loader"
-                                />
-                              ) : (
-                                "Unsuspend "
-                              )}
-                            </button>
-                          ) : (
-                            <button
-                              className="bg-[#FEFDF2] border-[#7F351D] px-3 py-1 border rounded"
-                              onClick={() => Suspend_Mutation.mutate("suspend")}
-                            >
-                              {Suspend_Mutation?.isLoading ? (
-                                <PulseLoader
-                                  color="black"
-                                  size={13}
-                                  aria-label="Loading Spinner"
-                                  data-testid="loader"
-                                />
-                              ) : (
-                                "Suspend"
-                              )}
-                            </button>
-                          )}
-
+                  <>
+                    {negotiation_data?.payment_status === "not paid" && (
+                      <div className="flex gap-2">
+                        {negotiation_data?.status === "suspended" ? (
                           <button
-                            className="bg-[#FEF2F2] border-[#7F1D1D] px-3 py-1 border rounded"
-                            onClick={() => Terminante_Mutation.mutate()}
+                            className="bg-[#FEFDF2] border-[#7F351D] px-3 py-1 border rounded"
+                            onClick={() => Suspend_Mutation.mutate("unsuspend")}
                           >
                             {Suspend_Mutation?.isLoading ? (
                               <PulseLoader
@@ -436,13 +402,45 @@ function NegotiationDetails() {
                                 data-testid="loader"
                               />
                             ) : (
-                              "Terminante"
+                              "Unsuspend "
                             )}
                           </button>
-                        </div>
-                      )}
-                    </>
-                  )}
+                        ) : (
+                          <button
+                            className="bg-[#FEFDF2] border-[#7F351D] px-3 py-1 border rounded"
+                            onClick={() => Suspend_Mutation.mutate("suspend")}
+                          >
+                            {Suspend_Mutation?.isLoading ? (
+                              <PulseLoader
+                                color="black"
+                                size={13}
+                                aria-label="Loading Spinner"
+                                data-testid="loader"
+                              />
+                            ) : (
+                              "Suspend"
+                            )}
+                          </button>
+                        )}
+
+                        <button
+                          className="bg-[#FEF2F2] border-[#7F1D1D] px-3 py-1 border rounded"
+                          onClick={() => Terminante_Mutation.mutate()}
+                        >
+                          {Suspend_Mutation?.isLoading ? (
+                            <PulseLoader
+                              color="black"
+                              size={13}
+                              aria-label="Loading Spinner"
+                              data-testid="loader"
+                            />
+                          ) : (
+                            "Terminante"
+                          )}
+                        </button>
+                      </div>
+                    )}
+                  </>
                 </div>
                 <div className="PlayerViewDeals_InfoSection">
                   <div className="PlayerViewDeals_InfoSection_UpperSegment">

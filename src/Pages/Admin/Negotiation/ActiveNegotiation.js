@@ -101,12 +101,16 @@ const ActiveNegotiation = ({}) => {
   const [searchInput, setSearchInput] = useState("");
 
   const filteredUsersArray =
-    Admin___Negotiations?.Admin__Terminate_Negotiations?.filter(
+    Admin___Negotiations?.Admin__Active_Negotiations?.filter(
       (user) =>
-        user?.firstname.toLowerCase().includes(searchInput.toLowerCase()) ||
-        user?.surname.toLowerCase().includes(searchInput.toLowerCase())
+        user?.comments?.active_offers?.firstname
+          .toLowerCase()
+          .includes(searchInput.toLowerCase()) ||
+        user?.comments?.active_offers?.surname
+          .toLowerCase()
+          .includes(searchInput.toLowerCase())
     );
-
+  console.log(filteredUsersArray);
   const filteredArray_suspend =
     Admin___Negotiations?.Admin__Suspended_Negotiations?.filter(
       (user) =>
