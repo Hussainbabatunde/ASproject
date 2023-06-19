@@ -70,7 +70,7 @@ const AdminFinanaceTransaction = () => {
     return () => {};
   }, []);
   return (
-    <div className="AdminDashboard">
+    <div className="AdminDashboard ">
       <div className="AdminPage_Dashboard">
         <div className="AdminPage_DashboardTAbleCat">
           <div className="AdminPage_NegotiateTab">

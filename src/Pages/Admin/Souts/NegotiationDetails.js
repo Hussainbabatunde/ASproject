@@ -13,7 +13,7 @@ function NegotiationDetails() {
       <ToastContainer />
       <div className="AdminDashboard">
         <div className="AdminPage_Dashboard">
-          <div className="debug">
+          <div className="">
             <div className="PlayersViewDeals_Container">
               <div className="PlayersDealsMade_Page">
                 <div className="flex justify-between items-center">
