@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import AdminUseTable from "../../Components/Table/AdminUseTable";
 
-const TableWithPagination = ({ data, header }) => {
+const TableWithPagination = ({ data, header, handleDelete, handleEdit }) => {
   const dummyData = [
     { id: 1, name: "John Doe", email: "johndoe@example.com" },
     { id: 2, name: "Jane Smith", email: "janesmith@example.com" },
@@ -16,7 +16,7 @@ const TableWithPagination = ({ data, header }) => {
   ];
 
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 10;
+  const itemsPerPage = 5;
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -33,8 +33,8 @@ const TableWithPagination = ({ data, header }) => {
       <AdminUseTable
         header={header}
         data={currentItems}
-        // handleEdit={handleEdit}
-        // handleDelete={handleDelete}
+        handleEdit={handleEdit}
+        handleDelete={handleDelete}
       />
 
       <div className="flex justify-center mt-4">

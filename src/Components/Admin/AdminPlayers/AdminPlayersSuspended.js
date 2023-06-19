@@ -15,6 +15,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
+import TableWithPagination from "../../../Pages/Admin/TableWithPagination";
 
 let baseURL = process.env.REACT_APP_AFRISPORTURL;
 const tokengot = localStorage.getItem("token");
@@ -29,6 +30,7 @@ const AdminPlayersSuspended = ({
     (state) => state.reducer.AdminUpdate_profileSlice
   );
 
+  console.log(Admin_Get_All_Suspended_Player);
   const dispatch = useDispatch();
 
   const [loading, setLoading] = useState(false);
@@ -50,12 +52,9 @@ const AdminPlayersSuspended = ({
       id: 3,
       name: "Club",
     },
+
     {
       id: 4,
-      name: "Recent Negotiate",
-    },
-    {
-      id: 5,
       name: "  ",
       case: "Admin_All_player_View_Edit_Suspend",
     },
@@ -119,16 +118,6 @@ const AdminPlayersSuspended = ({
     }
   };
 
-  const dataTable = [
-    {
-      id: 19,
-      playerName: "mayana",
-      position: "striker",
-      club: "chelsea",
-      recentNegotiate: "league ball",
-    },
-  ];
-
   const [searchInput, setSearchInput] = useState("");
 
   const filteredArray = Admin_Get_All_Suspended_Player?.data.filter(
@@ -140,6 +129,7 @@ const AdminPlayersSuspended = ({
   const handleInputChange = (event) => {
     setSearchInput(event.target.value);
   };
+
   return (
     <>
       <ToastContainer />
@@ -203,7 +193,7 @@ const AdminPlayersSuspended = ({
               />
             </div>
           ) : (
-            <AdminUseTable
+            <TableWithPagination
               header={header}
               data={filteredArray}
               handleEdit={handleEdit}
