@@ -392,7 +392,7 @@ const AdminUseTable = ({
                       >
                         <span
                           onClick={() => handleDelete(each)}
-                          className="Admin_playersviewprofile cursor-pointer"
+                          className="Admin_playersSuspendprofile cursor-pointer"
                         >
                           Suspend
                         </span>

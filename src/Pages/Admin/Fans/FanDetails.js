@@ -209,7 +209,7 @@ function FanDetails() {
 
                   <span className=" font-normal text-sm py-2 px-5">
                     {/* {user_Data?.bio?.position.toUpperCase()} */}
-                    Scout
+                    Fan
                   </span>
                 </div>
               </div>
