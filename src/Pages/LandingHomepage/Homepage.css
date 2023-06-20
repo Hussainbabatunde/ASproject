@@ -38,7 +38,7 @@
     width: 290px;
     height: 215px;
     border-radius: 5px;
-    object-fit: contain;
+    /* object-fit: contain; */
 }
 .Homepage_PlayerStatus{
     background-color: white;
