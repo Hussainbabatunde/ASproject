@@ -265,12 +265,17 @@ const PlayerProfile = () => {
                 <p className="Scoutpage_profile_Usertype">Player Account</p>
               </div>
             </div>
+            {
+            userDataInfo?.reviewed == 'pending' || userDataInfo?.reviewed == 'inactive' ?
+            <span></span>
+            :
             <Link
               to="/afrisport/player/viewprofile"
               className="Scoutpage_Profile_Viewprofilebutton"
             >
               View Profile
             </Link>
+}
           </div>
           <PlayerProfileProfileform userId={userId} />
           <PlayerProfilePhysicalStats userId={userId} />

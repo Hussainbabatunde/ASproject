@@ -26,6 +26,7 @@ const PlayerFanDeal = () => {
     const dispatch = useDispatch()
     
 const dataTable = useSelector((state)=> state?.reducer?.PlayerFanSlice?.PlayerFanDealData?.data)
+console.log("fan ", dataTable)
     const handleLogout = async () =>{
         await dispatch(LogoutAuth())
         // await dispatch(resetPlayerProfileSlice())

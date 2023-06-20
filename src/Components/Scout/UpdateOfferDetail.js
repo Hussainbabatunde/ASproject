@@ -17,7 +17,7 @@ const UpdateOfferDetail = ({show, handleHide, id, userId, setShow}) => {
 
   const gottenDetailsUpdate = useSelector((state)=> state.reducer?.ScoutDealsSlice?.getOfferDetailsData?.data?.offers)
   useEffect(()=>{
-    setPriceAmt(gottenDetailsUpdate?.recipient_earnings)
+    setPriceAmt(gottenDetailsUpdate?.value)
     setTitleDetail(gottenDetailsUpdate?.name)
     setDetailUpdate(gottenDetailsUpdate?.detail)
   },[gottenDetailsUpdate])

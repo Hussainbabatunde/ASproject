@@ -24,6 +24,7 @@ const PlayerFanDealMade = () => {
   const [senderload, setSenderLoad] = useState(false)
   let Offer_data = useLocation()
   const {each} = Offer_data.state
+  // console.log(each)
 
   const gottenDetails = useSelector((state)=> state.reducer?.PlayerFanSlice?.PlayerFanRequestData?.data?.requests?.request)
 //   console.log('gotten info ', gottenDetails)
@@ -32,7 +33,7 @@ const PlayerFanDealMade = () => {
   const senderInfo = useSelector((state)=> state.reducer?.GetAllPlayerDealSlice?.detailsDealData?.data)
   const CommentsGotten = useSelector((state)=> state.reducer?.PlayerFanSlice?.PlayerFanCommentsMadeData?.data?.data)
   console.log('comments from store ', gottenDetails)
-  const senderId = each?.request?.requests?.from
+  const senderId = each?.request?.deal?.from
 
 
   useEffect(()=>{
@@ -121,13 +122,9 @@ const PlayerFanDealMade = () => {
               <div className='PlayerViewdetails_LabelAndAnswer'>
                 <label className='PlayerViewdetails_LabelText'>Sent By:</label>
                 <p className='PlayerViewdetails_labelresponse'>
-                  {senderload? <Skeleton variant="circular" width={35} height={32} /> :<img src={senderInfo?.profile_pics}  className='useTable_ImageRecipient' />}
-                {senderload?  <Skeleton variant="rounded" width={105} height={22} /> : <span className='PlayerViewdetails_sendername'> {senderInfo?.firstname} {senderInfo?.surname}</span>}
+                  {senderload? <Skeleton variant="circular" width={35} height={32} /> :<img src={each?.request?.deal?.profile_pics}  className='useTable_ImageRecipient' />}
+                {senderload?  <Skeleton variant="rounded" width={105} height={22} /> : <span className='PlayerViewdetails_sendername'> {each?.request?.deal?.firstname} {each?.request?.deal?.surname}</span>}
                 </p>
-              </div>
-              <div className='PlayerViewdetails_LabelAndAnswer'>
-                <label className='PlayerViewdetails_LabelText'>Duration:</label>
-                {loading? <Skeleton variant="rounded" width={105} height={22} />:<p className='PlayerViewdetails_labelresponse'> 6 months</p>}
               </div>
               <div className='PlayerViewdetails_LabelAndAnswer'>
                 <label className='PlayerViewdetails_LabelText'>Expiring:</label>

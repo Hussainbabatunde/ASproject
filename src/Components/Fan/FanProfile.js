@@ -15,6 +15,7 @@ import FanProfileUploadId from './FanProfileUploadId'
 import { ProfileDetailsfan, fanProfilePicture } from '../../Slice/Fan/ProfileFanSlice/ProfileFanSlice'
 import { ProfileDetailsPlayer } from '../../Slice/Player/Playerprofile/PlayerProfileSlice'
 import { AiFillCamera } from 'react-icons/ai'
+import { GetMarketPriceApi } from '../../Slice/Player/PlayerPayment/PaymentSlice'
 
 const FanProfile = () => {
 
@@ -80,6 +81,7 @@ const FanProfile = () => {
     useEffect(()=>{
       const checkingVerification = async() =>{
         await dispatch(ProfileDetailsfan(userId))
+        await dispatch(GetMarketPriceApi())
         // await dispatch(ScoutProfileVerificationStatus(userId))
         setFile(PlayerDetails?.profile_pics)
       }
