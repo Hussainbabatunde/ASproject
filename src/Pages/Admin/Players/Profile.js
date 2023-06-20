@@ -35,8 +35,6 @@ function Profile() {
     return () => {};
   }, [Admin_update_user_image_isSuccess]);
 
-  console.log(Admin_Get_Players_Profile_details);
-
   return (
     <>
       <ToastContainer />
@@ -60,7 +58,6 @@ function Profile() {
                 }
               />
 
-              {console.log(Admin_Get_Players_Profile_details)}
               <Profile_detail
                 Admin_Get_Players_Profile_details={
                   Admin_Get_Players_Profile_details

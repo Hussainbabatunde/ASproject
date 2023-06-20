@@ -15,6 +15,8 @@ function UploadImage({ Admin_Get_Players_Profile_details }) {
 
   console.log(Admin_Get_Players_Profile_details);
 
+  console.log(userDataInfo);
+
   let img_Data = userDataInfo?.profile_pics;
 
   const [file, setFile] = useState(img_Data);
