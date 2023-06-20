@@ -687,7 +687,7 @@ const AdminUseTable = ({
                   case "dash_ne_Payment":
                     return (
                       <td className="useTable_tableDetails">
-                        {`${each?.payment_state} `}
+                        {`${each?.payment_status} `}
                       </td>
                     );
 

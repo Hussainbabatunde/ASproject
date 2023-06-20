@@ -21,6 +21,7 @@ import AdminUser_message_modal, {
   ReseAdminPassoword,
 } from "./AdminUser_message_modal";
 import { CircularProgress } from "@mui/material";
+import TableWithPagination from "../TableWithPagination";
 
 const AdminAllAdmins = () => {
   const { logindata } = useSelector((state) => state.reducer.LoginSlice);
@@ -184,6 +185,21 @@ const AdminAllAdmins = () => {
 
   const [modal_permission, setModal_permission] = useState(false);
   const [permission_item, setPermission_item] = useState(null);
+
+  const [searchInput, setSearchInput] = useState("");
+
+  const handleInputChange = (event) => {
+    setSearchInput(event.target.value);
+  };
+
+  const filteredAdmin = filteredData?.filter((user) => {
+    return (
+      user?.user?.firstname.toLowerCase().includes(searchInput.toLowerCase()) ||
+      user?.user?.surname.toLowerCase().includes(searchInput.toLowerCase())
+    );
+  });
+
+  console.log(filteredAdmin);
 
   const AdminUser__modal = () => {
     const [userAdmin, setUserAdmin] = useState({
@@ -400,15 +416,17 @@ const AdminAllAdmins = () => {
               <div className="AdminDashboard_Search">
                 <input
                   type="text"
-                  placeholder="Search name"
+                  value={searchInput}
+                  onChange={handleInputChange}
                   className="AdminDashboard_SearchInput"
+                  placeholder="Search name"
                 />
                 <RiSearchLine className="AdminDashboard_SearchIcon" />
               </div>
             </div>
 
             <div className="AdminTable_NegotiateTable">
-              {dataTable?.length === 0 ? (
+              {filteredAdmin?.length === 0 ? (
                 <div
                   style={{
                     display: "flex",
@@ -423,9 +441,9 @@ const AdminAllAdmins = () => {
                   />
                 </div>
               ) : (
-                <AdminUseTable
+                <TableWithPagination
                   header={header}
-                  data={filteredData}
+                  data={filteredAdmin}
                   handleDelete={handleDelete}
                   handleEdit={handleEdit}
                   handleRestpassword={handleRestpassword}

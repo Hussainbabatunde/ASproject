@@ -18,6 +18,8 @@ import { TbCurrencyNaira } from "react-icons/tb";
 export const Profile_detail = ({ Admin_Get_Players_Profile_details }) => {
   const dispatch = useDispatch();
 
+  console.log(Admin_Get_Players_Profile_details);
+
   const {
     Admin_update_user_bio,
     Admin_update_user_bio_isError,
@@ -25,6 +27,8 @@ export const Profile_detail = ({ Admin_Get_Players_Profile_details }) => {
     Admin_update_user_bio_isLoading,
     Admin_update_user_bio_message,
   } = useSelector((state) => state.reducer.AdminUpdate_profileSlice);
+
+  console.log(Admin_Get_Players_Profile_details);
 
   const [formData, setFormData] = useState({
     user_id: Admin_Get_Players_Profile_details?.data?.bio?.user_id,

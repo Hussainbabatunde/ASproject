@@ -103,62 +103,66 @@ const AdminSidebar = () => {
   };
 
   return (
-    <div className="SuperAdmin_Sidebar">
-      <div>
-        {data.map((each, index) => (
-          <div key={index}>
-            <NavLink
-              to={each?.pathTo}
-              onClick={() => handleReveal(index)}
-              className={({ isActive }) =>
-                isActive
-                  ? "SuperAdmin_SidebarNavLink"
-                  : "SuperAdmin_SidebarInactiveNavLink"
-              }
-            >
-              <div className="flex">
-                {each?.pathIcon}
-                <span className="SuperAdmin_SidebarText">{each?.pathName}</span>
-              </div>
-              {each?.children?.length > 0 && (
-                <BsChevronDown style={{ fontSize: "14px" }} />
+    <div className="w-1/4 bg-white">
+      <div className="SuperAdmin_Sidebar ">
+        <div>
+          {data.map((each, index) => (
+            <div key={index}>
+              <NavLink
+                to={each?.pathTo}
+                onClick={() => handleReveal(index)}
+                className={({ isActive }) =>
+                  isActive
+                    ? "SuperAdmin_SidebarNavLink"
+                    : "SuperAdmin_SidebarInactiveNavLink"
+                }
+              >
+                <div className="flex">
+                  {each?.pathIcon}
+                  <span className="SuperAdmin_SidebarText">
+                    {each?.pathName}
+                  </span>
+                </div>
+                {each?.children?.length > 0 && (
+                  <BsChevronDown style={{ fontSize: "14px" }} />
+                )}
+              </NavLink>
+
+              {reveal === index && each?.children?.length > 0 && (
+                <ul className="Sidebar_unorderlist">
+                  {each?.children.map((child, key) => {
+                    return (
+                      <li key={key}>
+                        <NavLink
+                          to={child?.navSubLink}
+                          className={({ isActive }) =>
+                            isActive
+                              ? "SuperAdmin_SidebarListNavLink"
+                              : "SuperAdmin_SidebarInactiveListNavLink"
+                          }
+                        >
+                          <div>
+                            <span className="SuperAdmin_SidebarListText">
+                              {child?.navName}
+                            </span>
+                          </div>
+                        </NavLink>
+                      </li>
+                    );
+                  })}
+                </ul>
               )}
-            </NavLink>
+            </div>
+          ))}
+        </div>
 
-            {reveal === index && each?.children?.length > 0 && (
-              <ul className="Sidebar_unorderlist">
-                {each?.children.map((child, key) => {
-                  return (
-                    <li key={key}>
-                      <NavLink
-                        to={child?.navSubLink}
-                        className={({ isActive }) =>
-                          isActive
-                            ? "SuperAdmin_SidebarListNavLink"
-                            : "SuperAdmin_SidebarInactiveListNavLink"
-                        }
-                      >
-                        <div>
-                          <span className="SuperAdmin_SidebarListText">
-                            {child?.navName}
-                          </span>
-                        </div>
-                      </NavLink>
-                    </li>
-                  );
-                })}
-              </ul>
-            )}
-          </div>
-        ))}
-      </div>
-
-      <div
-        onClick={handleLogout}
-        className="SuperAdmin_SidebarLogoutInactiveNavLink"
-      >
-        <ImExit />
-        <span className="SuperAdmin_SidebarText">Logout</span>
+        <div
+          onClick={handleLogout}
+          className="SuperAdmin_SidebarLogoutInactiveNavLink"
+        >
+          <ImExit />
+          <span className="SuperAdmin_SidebarText">Logout</span>
+        </div>
       </div>
     </div>
   );

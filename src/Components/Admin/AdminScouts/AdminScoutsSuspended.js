@@ -195,7 +195,7 @@ const AdminScoutsSuspended = ({
           </span>
         </div>
         <div className="AdminTable_NegotiateTable">
-          {Admin_Get_All_Suspended_Scouts?.data?.length === 0 ? (
+          {filteredUsersArray?.length === 0 ? (
             <div
               style={{
                 display: "flex",

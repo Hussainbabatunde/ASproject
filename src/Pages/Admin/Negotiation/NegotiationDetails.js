@@ -21,20 +21,16 @@ function NegotiationDetails() {
   const { Admin___Negotiations_detail, Admin___Negotiations_comment } =
     useSelector((state) => state.reducer.Admin_NegotiationsSlice);
 
-  console.log(Admin___Negotiations_detail);
-
   const dispatch = useDispatch();
   let { state } = useLocation();
   // const {each} = Offer_data.state
-  console.log(state);
+
+  console.log(Admin___Negotiations_detail);
 
   let offer_id =
     state?.comments?.active_offers?.OfferId || state?.OfferId || state?.OfferId;
   let from_id =
     state?.comments?.active_offers?.from || state?.from || state?.User;
-
-  console.log(offer_id);
-  console.log(from_id);
 
   useEffect(() => {
     dispatch(Admin___Negotiations_detail_fun({ offer_id, from_id }));
@@ -44,10 +40,7 @@ function NegotiationDetails() {
   }, []);
   let comment_message = Admin___Negotiations_comment?.data[1];
 
-  console.log(Admin___Negotiations_detail);
   let negotiation_data = Admin___Negotiations_detail;
-  console.log(negotiation_data);
-  console.log(negotiation_data);
 
   function calculateMonthDuration(startDate, endDate) {
     const start = new Date(startDate);
@@ -180,13 +173,23 @@ function NegotiationDetails() {
   const Suspend_Mutation = useMutation(
     async (data) => {
       // Your API request code here
+      let API_URL;
       // Use formData to send the image data to the API
+      if (data === "unsuspend") {
+        API_URL = `${baseURL}admin/negotiations/unsuspend-offer`;
+      }
 
+      if (data === "suspend") {
+        API_URL = `${baseURL}admin/negotiations/suspend-offer`;
+      }
+
+      console.log(API_URL);
       let item = {
         offer_id: offer_id,
       };
 
-      let API_URL = `${baseURL}admin/negotiations/suspend-offer`;
+      console.log(item);
+
       const tokengot = localStorage.getItem("token");
 
       const config = {
@@ -383,59 +386,61 @@ function NegotiationDetails() {
                     </p>
                   </div>
 
-                  {negotiation_data?.payment_status === "not paid" && (
-                    <div className="flex gap-2">
-                      {negotiation_data?.status === "suspended" ? (
-                        <button
-                          className="bg-[#FEFDF2] border-[#7F351D] px-3 py-1 border rounded"
-                          onClick={() => Suspend_Mutation.mutate()}
-                        >
-                          {Suspend_Mutation?.isLoading ? (
-                            <PulseLoader
-                              color="black"
-                              size={13}
-                              aria-label="Loading Spinner"
-                              data-testid="loader"
-                            />
-                          ) : (
-                            "Unsuspend "
-                          )}
-                        </button>
-                      ) : (
-                        <button
-                          className="bg-[#FEFDF2] border-[#7F351D] px-3 py-1 border rounded"
-                          onClick={() => Suspend_Mutation.mutate()}
-                        >
-                          {Suspend_Mutation?.isLoading ? (
-                            <PulseLoader
-                              color="black"
-                              size={13}
-                              aria-label="Loading Spinner"
-                              data-testid="loader"
-                            />
-                          ) : (
-                            "Suspend"
-                          )}
-                        </button>
-                      )}
-
-                      <button
-                        className="bg-[#FEF2F2] border-[#7F1D1D] px-3 py-1 border rounded"
-                        onClick={() => Terminante_Mutation.mutate()}
-                      >
-                        {Suspend_Mutation?.isLoading ? (
-                          <PulseLoader
-                            color="black"
-                            size={13}
-                            aria-label="Loading Spinner"
-                            data-testid="loader"
-                          />
+                  <>
+                    {negotiation_data?.payment_status === "not paid" && (
+                      <div className="flex gap-2">
+                        {negotiation_data?.status === "suspended" ? (
+                          <button
+                            className="bg-[#FEFDF2] border-[#7F351D] px-3 py-1 border rounded"
+                            onClick={() => Suspend_Mutation.mutate("unsuspend")}
+                          >
+                            {Suspend_Mutation?.isLoading ? (
+                              <PulseLoader
+                                color="black"
+                                size={13}
+                                aria-label="Loading Spinner"
+                                data-testid="loader"
+                              />
+                            ) : (
+                              "Unsuspend "
+                            )}
+                          </button>
                         ) : (
-                          "Terminante"
+                          <button
+                            className="bg-[#FEFDF2] border-[#7F351D] px-3 py-1 border rounded"
+                            onClick={() => Suspend_Mutation.mutate("suspend")}
+                          >
+                            {Suspend_Mutation?.isLoading ? (
+                              <PulseLoader
+                                color="black"
+                                size={13}
+                                aria-label="Loading Spinner"
+                                data-testid="loader"
+                              />
+                            ) : (
+                              "Suspend"
+                            )}
+                          </button>
                         )}
-                      </button>
-                    </div>
-                  )}
+
+                        <button
+                          className="bg-[#FEF2F2] border-[#7F1D1D] px-3 py-1 border rounded"
+                          onClick={() => Terminante_Mutation.mutate()}
+                        >
+                          {Suspend_Mutation?.isLoading ? (
+                            <PulseLoader
+                              color="black"
+                              size={13}
+                              aria-label="Loading Spinner"
+                              data-testid="loader"
+                            />
+                          ) : (
+                            "Terminante"
+                          )}
+                        </button>
+                      </div>
+                    )}
+                  </>
                 </div>
                 <div className="PlayerViewDeals_InfoSection">
                   <div className="PlayerViewDeals_InfoSection_UpperSegment">
