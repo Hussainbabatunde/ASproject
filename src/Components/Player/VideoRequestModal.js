@@ -49,8 +49,12 @@ const VideoRequestModal = ({show,setRequestType, loader,requestType , handleSubm
     }
     },[requestType])
 
-    const marketfee = 10/100 * Number(payValue);
-    const TotalFee = marketfee + Number(payValue);
+    
+  const gottenMarketfee= useSelector((state)=> state?.reducer?.GetPaymentSlice?.getMarketPriceData?.data)
+
+
+  const marketfee = Number(gottenMarketfee);
+  const TotalFee = marketfee + Number(payValue);
 
     const handleChangePayValue =(e) =>{
       setPayValue(e.target.value)
