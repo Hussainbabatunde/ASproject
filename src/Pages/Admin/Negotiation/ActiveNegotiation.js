@@ -171,7 +171,9 @@ const ActiveNegotiation = ({}) => {
                 }`}
               >
                 Closed{" "}
-                <span className="AdminPage_NegotiateTab_TabNumber">10k</span>
+                <span className="AdminPage_NegotiateTab_TabNumber">
+                  {Admin___Negotiations?.Admin__Close_Negotiations?.length}
+                </span>
               </p>
               <p
                 className={`${

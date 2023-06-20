@@ -426,7 +426,7 @@ const AdminAllAdmins = () => {
             </div>
 
             <div className="AdminTable_NegotiateTable">
-              {dataTable?.length === 0 ? (
+              {filteredAdmin?.length === 0 ? (
                 <div
                   style={{
                     display: "flex",
