@@ -253,6 +253,7 @@ const AdminDashboard = () => {
               This is a table of recent Active negotiaties on this platform
             </span>
           </div>
+          {console.log(last5Object_Admin_dashboard_active_negotiations)}
           {last5Object_Admin_dashboard_active_negotiations?.length === 0 ? (
             <div
               style={{

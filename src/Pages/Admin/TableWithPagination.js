@@ -1,7 +1,13 @@
 import React, { useState } from "react";
 import AdminUseTable from "../../Components/Table/AdminUseTable";
 
-const TableWithPagination = ({ data, header, handleDelete, handleEdit }) => {
+const TableWithPagination = ({
+  data,
+  header,
+  handleDelete,
+  handleEdit,
+  handleRestpassword,
+}) => {
   const dummyData = [
     { id: 1, name: "John Doe", email: "johndoe@example.com" },
     { id: 2, name: "Jane Smith", email: "janesmith@example.com" },
@@ -35,6 +41,7 @@ const TableWithPagination = ({ data, header, handleDelete, handleEdit }) => {
         data={currentItems}
         handleEdit={handleEdit}
         handleDelete={handleDelete}
+        handleRestpassword={handleRestpassword}
       />
 
       <div className="flex justify-center mt-4">

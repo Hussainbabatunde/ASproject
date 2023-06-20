@@ -345,12 +345,12 @@ const ActiveNegotiation = ({}) => {
                   </span>
                 </div>
                 <div className="AdminPage_TableTitleandLink">
-                  <button
+                  {/* <button
                     className="AdminPage_NegotiateCreateButton"
                     onClick={handleShow}
                   >
                     Create Negotiate
-                  </button>
+                  </button> */}
                   <div className="AdminDashboard_Search">
                     <input
                       type="text"
