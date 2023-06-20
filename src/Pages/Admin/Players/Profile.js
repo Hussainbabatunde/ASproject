@@ -35,31 +35,32 @@ function Profile() {
     return () => {};
   }, [Admin_update_user_image_isSuccess]);
 
+  console.log(Admin_Get_Players_Profile_details);
+
   return (
     <>
       <ToastContainer />
       <div className="AdminDashboard">
-        <div className="pt-10"> this is the component </div>
-
         <div className="AdminPage_Dashboard">
           <div>
-            <div className="ScoutViewProfile_navigationprogress">
-              <Link
-                to={`/admin/players`}
-                className="ScoutViewProfile_navigationback"
-              >
-                Back
-              </Link>
-              <GrFormNext style={{ fontSize: "16px" }} />
-              <p className="ScoutViewProfile_navigationprofile">Profile</p>
-            </div>
-
             <div className="w-[60%] m-auto">
+              <div className="ScoutViewProfile_navigationprogress">
+                <Link
+                  to={`/admin/players`}
+                  className="ScoutViewProfile_navigationback"
+                >
+                  Back
+                </Link>
+                <GrFormNext style={{ fontSize: "16px" }} />
+                <p className="ScoutViewProfile_navigationprofile">Profile</p>
+              </div>
               <UploadImage
                 Admin_Get_Players_Profile_details={
                   Admin_Get_Players_Profile_details
                 }
               />
+
+              {console.log(Admin_Get_Players_Profile_details)}
               <Profile_detail
                 Admin_Get_Players_Profile_details={
                   Admin_Get_Players_Profile_details

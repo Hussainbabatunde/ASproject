@@ -15,7 +15,7 @@ import FinanceRoute from "./Finance/FinanceRoute";
 
 const AdminRote = () => {
   return (
-    <div className=" ">
+    <div>
       <AdminHeader />
       <div className="AdminMainPage">
         <AdminSidebar />
