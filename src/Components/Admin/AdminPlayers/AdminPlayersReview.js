@@ -62,8 +62,9 @@ const AdminPlayersReview = ({
   }, []);
 
   const [searchInput, setSearchInput] = useState("");
+  console.log(Admin_Get_All_Review_Player);
 
-  const filteredArray = Admin_Get_All_Review_Player?.plus.filter(
+  const filteredArray = Admin_Get_All_Review_Player?.filter(
     (user) =>
       user.firstname.toLowerCase().includes(searchInput.toLowerCase()) ||
       user.surname.toLowerCase().includes(searchInput.toLowerCase())
@@ -72,6 +73,8 @@ const AdminPlayersReview = ({
   const handleInputChange = (event) => {
     setSearchInput(event.target.value);
   };
+
+  console.log(filteredArray);
 
   return (
     <div className="AdminPage_NegotiateTab">

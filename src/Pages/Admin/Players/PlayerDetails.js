@@ -220,7 +220,7 @@ function PlayerDetails() {
                 <div>
                   <button
                     className="Admin_playersviewprofile"
-                    onClick={() => navigate(`/admin/players/profile/19`)}
+                    onClick={() => navigate(`/admin/players/profile/${id}`)}
                   >
                     edit
                   </button>

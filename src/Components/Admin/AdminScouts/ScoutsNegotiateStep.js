@@ -136,7 +136,10 @@ function ScoutsNegotiateStep() {
           }`}
           onClick={handleClosed}
         >
-          Closed <span className="AdminPage_NegotiateTab_TabNumber">10k</span>
+          Closed{" "}
+          <span className="AdminPage_NegotiateTab_TabNumber">
+            {close_negotiations_data?.length}
+          </span>
         </p>
         <p
           className={`${

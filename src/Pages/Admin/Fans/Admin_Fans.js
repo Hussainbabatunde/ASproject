@@ -38,7 +38,7 @@ const Admin_Fans = ({}) => {
   const header = [
     {
       id: 1,
-      name: "Scout",
+      name: "Fan",
       case: "Admin_fan_scout",
     },
     {
@@ -63,7 +63,7 @@ const Admin_Fans = ({}) => {
   const Suspendheader = [
     {
       id: 1,
-      name: "Scout",
+      name: "Fan",
       case: "Admin_fan_scout_suspend",
     },
 

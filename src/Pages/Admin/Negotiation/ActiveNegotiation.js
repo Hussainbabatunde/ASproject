@@ -101,12 +101,16 @@ const ActiveNegotiation = ({}) => {
   const [searchInput, setSearchInput] = useState("");
 
   const filteredUsersArray =
-    Admin___Negotiations?.Admin__Terminate_Negotiations?.filter(
+    Admin___Negotiations?.Admin__Active_Negotiations?.filter(
       (user) =>
-        user?.firstname.toLowerCase().includes(searchInput.toLowerCase()) ||
-        user?.surname.toLowerCase().includes(searchInput.toLowerCase())
+        user?.comments?.active_offers?.firstname
+          .toLowerCase()
+          .includes(searchInput.toLowerCase()) ||
+        user?.comments?.active_offers?.surname
+          .toLowerCase()
+          .includes(searchInput.toLowerCase())
     );
-
+  console.log(filteredUsersArray);
   const filteredArray_suspend =
     Admin___Negotiations?.Admin__Suspended_Negotiations?.filter(
       (user) =>
@@ -167,7 +171,9 @@ const ActiveNegotiation = ({}) => {
                 }`}
               >
                 Closed{" "}
-                <span className="AdminPage_NegotiateTab_TabNumber">10k</span>
+                <span className="AdminPage_NegotiateTab_TabNumber">
+                  {Admin___Negotiations?.Admin__Close_Negotiations?.length}
+                </span>
               </p>
               <p
                 className={`${
@@ -341,12 +347,12 @@ const ActiveNegotiation = ({}) => {
                   </span>
                 </div>
                 <div className="AdminPage_TableTitleandLink">
-                  <button
+                  {/* <button
                     className="AdminPage_NegotiateCreateButton"
                     onClick={handleShow}
                   >
                     Create Negotiate
-                  </button>
+                  </button> */}
                   <div className="AdminDashboard_Search">
                     <input
                       type="text"
