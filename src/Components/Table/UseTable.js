@@ -330,7 +330,8 @@ const UseTable = ({
                       <td className="useTable_tableDetails">
                         {each?.offer?.deal?.DealName ||
                           each?.request?.requests?.RequestName ||
-                          each?.request?.deal?.fanRequest}
+                          each?.request?.deal?.fanRequest ||
+                          each?.DealName}
                       </td>
                     );
                   case "Recipient":
@@ -359,15 +360,18 @@ const UseTable = ({
                           <img
                             src={
                               each?.offer?.sender?.profile_pics ||
-                              each?.request?.requests?.profile_pics
+                              each?.request?.requests?.profile_pics ||
+                              each?.profile_pics
                             }
                             className="useTable_ImageRecipient"
                             alt="Recipient image"
                           />
                           {each?.offer?.sender?.firstname ||
-                            each?.request?.requests?.firstname}{" "}
+                            each?.request?.requests?.firstname ||
+                            each?.firstname}{" "}
                           {each?.offer?.sender?.surname ||
-                            each?.request?.requests?.surname}
+                            each?.request?.requests?.surname ||
+                            each?.surname}
                         </div>
                       </td>
                     );
@@ -391,7 +395,8 @@ const UseTable = ({
                         {each?.offer?.deal?.about ||
                           each?.offer?.deal?.detail ||
                           each?.request?.requests?.detail ||
-                          each?.request?.deal?.detail}
+                          each?.request?.deal?.detail ||
+                          each?.detail}
                       </td>
                     );
                   case "Phone number":
@@ -412,7 +417,8 @@ const UseTable = ({
                         ${" "}
                         {each?.offer?.deal?.value ||
                           each?.request?.requests?.recipient_earnings ||
-                          each?.request?.deal?.value}
+                          each?.request?.deal?.value ||
+                          each?.value}
                       </td>
                     );
                   case "Request Type":
@@ -424,10 +430,9 @@ const UseTable = ({
                   case "Payment":
                     return (
                       <td className="useTable_tableDetails">
-                        {each?.offer?.deal?.payment_status == "paid" ||
-                        each?.request?.deal?.payment_status == "paid"
-                          ? "Paid"
-                          : "Not Paid"}
+                        {each?.offer?.deal?.payment_status == 'paid' || 
+                        each?.request?.deal?.payment_status == 'paid' ||
+                        each?.payment_status == 'paid'? 'Paid' : 'Not Paid'}
                       </td>
                     );
                   case "Status":
