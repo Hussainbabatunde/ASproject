@@ -8,11 +8,27 @@ import { LogoutAuth } from '../../Slice/auth/Login'
 import {RxExit} from 'react-icons/rx'
 import { NavLink, Route, Routes } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify'
-import { ProfileDetailsScout, ScoutProfilePicture, ScoutProfileVerificationStatus, reset as resetScoutProfileSlice } from "../../Slice/Scout/ProfileScoutSlice/ProfileScoutSlice";
+import { ProfileDetailsScout, ScoutProfilePicture, ScoutProfileVerificationStatus } from "../../Slice/Scout/ProfileScoutSlice/ProfileScoutSlice";
 import ScoutProfileProfileform from './ScoutProfileProfileform'
 import ScoutProfileUploadId from './ScoutProfileUploadId'
 import { UserLogout } from '../Player/UserLogOut'
 import { AiFillCamera } from 'react-icons/ai'
+import { reset as resetLoginSlice } from "../../Slice/auth/Login";
+import {reset as resetPlayerDealSlice} from "../../Slice/Player/PlayerDeal/PlayerDealSlice"
+import {reset as resetPlayerFanDealSlice} from "../../Slice/Player/PlayerDeal/PlayerFanDealSlice"
+import {reset as resetPlayerHomepageSlice} from "../../Slice/Player/PlayerHomePage/GetAllPlayersHomePage"
+import {reset as resetManagerSlice} from "../../Slice/Player/PlayerManager/PlayerManagerSlice"
+import {reset as resetPaymentSlice} from "../../Slice/Player/PlayerPayment/PaymentSlice"
+import {reset as resetViewSlice} from "../../Slice/Player/PlayerView/PlayerViewSlice"
+import {reset as resetPlayerProfileSlice} from "../../Slice/Player/Playerprofile/PlayerProfileSlice"
+import {reset as resetFanDealSlice} from "../../Slice/Fan/FanDealsApiPage/FanDealSlice"
+
+import {reset as resetFanProfileSlice} from "../../Slice/Fan/ProfileFanSlice/ProfileFanSlice"
+
+import {reset as resetScoutProfileSlice} from "../../Slice/Scout/ProfileScoutSlice/ProfileScoutSlice"
+
+import {reset as resetScoutDealSlice} from "../../Slice/Scout/ScoutDealsApiPage/ScoutDealSlice"
+
 import { GetMarketPriceApi } from '../../Slice/Player/PlayerPayment/PaymentSlice'
 
 const ScoutProfile = () => {
@@ -43,8 +59,9 @@ const ScoutProfile = () => {
       
       const [imgloader, setImgLoader] =useState(false)
 
-  const [file, setFile] = useState(imgPlaceHolder);
+  const [fileimg, setFileImg] = useState("");
   const [picFile, setPicFile] = useState(null);
+  const [loader, setLoader] = useState(false)
   const [checkedVideoLink, setCheckedVideoLink] = useState(false)
   const [checkedProfilePic, setCheckedProfilePic] = useState(false)
   const [checkedPhysicalStats, setCheckedPhysicalStats] = useState(false)
@@ -54,7 +71,19 @@ const ScoutProfile = () => {
     const handleLogout = async () =>{
         await dispatch(LogoutAuth())
         // await dispatch(resetScoutProfileSlice())
-        UserLogout()
+        // UserLogout()
+    await dispatch(resetLoginSlice())
+    await dispatch(resetPlayerDealSlice())
+    await dispatch(resetPlayerFanDealSlice())
+    await dispatch(resetPlayerHomepageSlice())
+    await dispatch(resetManagerSlice())
+    await dispatch(resetPaymentSlice())
+    await dispatch(resetViewSlice())
+    await dispatch(resetPlayerProfileSlice())
+    await dispatch(resetFanDealSlice())
+    await dispatch(resetFanProfileSlice())
+    await dispatch(resetScoutProfileSlice())
+    await dispatch(resetScoutDealSlice())
         localStorage.clear();
         sessionStorage.clear();
         window.location.reload();
@@ -66,7 +95,7 @@ const ScoutProfile = () => {
     function handleChange(e) {
       // console.log(e.target.files[0])
       setPicFile(e.target.files[0])
-      setFile(URL.createObjectURL(e.target.files[0]));
+      setFileImg(URL.createObjectURL(e.target.files[0]));
     }
 
     
@@ -79,16 +108,25 @@ const ScoutProfile = () => {
 
     useEffect(()=>{
       const checkingVerification = async() =>{
+        setLoader(true)
         await dispatch(ProfileDetailsScout(userId))
         await dispatch(GetMarketPriceApi())
-        setFile(PlayerDetails?.profile_pics)
+        setFileImg(PlayerDetails?.profile_pics)
+        setLoader(false)
       }
       checkingVerification()
     },[])
 
-    useEffect(()=>{
-      setFile(PlayerDetails?.profile_pics)
-    },[PlayerDetails])
+    useEffect(() => {
+      const redispatch = async () =>{
+        if (PlayerDetails) {
+          console.log(PlayerDetails?.profile_pics)
+          setFileImg(PlayerDetails?.profile_pics);
+          console.log(fileimg)
+        } 
+      }
+    redispatch()
+    }, [PlayerDetails]);
 
     const handleImgSubmit = async (e) =>{
       e.preventDefault()
@@ -122,7 +160,7 @@ const ScoutProfile = () => {
           <div className='Scoutpage_Profile_ImgNameSec'>
             <form onSubmit={handleImgSubmit}  style={{display:'flex',flexDirection:'column', alignItems:'center'}} >
             <label className="ProfileName_InputImage" for='imagePlcholder'>
-              <img src={file} className="Scoutpage_Profile_placeholder" />
+              {loader ? <img src={imgPlaceHolder} className="Scoutpage_Profile_placeholder" />: <img src={fileimg} className="Scoutpage_Profile_placeholder" />}
           <input type='file' id='imagePlcholder' 
           onChange={handleChange} 
           className='Scoutpage_Profile_ImagePlaceInput' 
