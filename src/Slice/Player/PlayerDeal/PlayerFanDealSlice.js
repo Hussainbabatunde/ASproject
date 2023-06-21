@@ -211,7 +211,9 @@ const initialState = {
     name: "PlayerFanDealsSlice",
     initialState,
     reducers: {
-      reset: (state) => initialState,
+      reset: (state) => {
+        Object.assign(state, initialState);
+      }
     },
     extraReducers: (builder) => {
       builder

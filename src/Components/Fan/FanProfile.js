@@ -8,13 +8,29 @@ import { LogoutAuth } from '../../Slice/auth/Login'
 import {RxExit} from 'react-icons/rx'
 import { NavLink, Route, Routes } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify'
-import { ProfileDetailsScout, ScoutProfilePicture, ScoutProfileVerificationStatus, reset as resetScoutProfileSlice } from "../../Slice/Scout/ProfileScoutSlice/ProfileScoutSlice";
+import { ProfileDetailsScout, ScoutProfilePicture, ScoutProfileVerificationStatus } from "../../Slice/Scout/ProfileScoutSlice/ProfileScoutSlice";
 import { UserLogout } from '../Player/UserLogOut'
 import FanProfileProfileform from './FanProfileProfileform'
 import FanProfileUploadId from './FanProfileUploadId'
 import { ProfileDetailsfan, fanProfilePicture } from '../../Slice/Fan/ProfileFanSlice/ProfileFanSlice'
 import { ProfileDetailsPlayer } from '../../Slice/Player/Playerprofile/PlayerProfileSlice'
 import { AiFillCamera } from 'react-icons/ai'
+import { reset as resetLoginSlice } from "../../Slice/auth/Login";
+import {reset as resetPlayerDealSlice} from "../../Slice/Player/PlayerDeal/PlayerDealSlice"
+import {reset as resetPlayerFanDealSlice} from "../../Slice/Player/PlayerDeal/PlayerFanDealSlice"
+import {reset as resetPlayerHomepageSlice} from "../../Slice/Player/PlayerHomePage/GetAllPlayersHomePage"
+import {reset as resetManagerSlice} from "../../Slice/Player/PlayerManager/PlayerManagerSlice"
+import {reset as resetPaymentSlice} from "../../Slice/Player/PlayerPayment/PaymentSlice"
+import {reset as resetViewSlice} from "../../Slice/Player/PlayerView/PlayerViewSlice"
+import {reset as resetPlayerProfileSlice} from "../../Slice/Player/Playerprofile/PlayerProfileSlice"
+import {reset as resetFanDealSlice} from "../../Slice/Fan/FanDealsApiPage/FanDealSlice"
+
+import {reset as resetFanProfileSlice} from "../../Slice/Fan/ProfileFanSlice/ProfileFanSlice"
+
+import {reset as resetScoutProfileSlice} from "../../Slice/Scout/ProfileScoutSlice/ProfileScoutSlice"
+
+import {reset as resetScoutDealSlice} from "../../Slice/Scout/ScoutDealsApiPage/ScoutDealSlice"
+
 import { GetMarketPriceApi } from '../../Slice/Player/PlayerPayment/PaymentSlice'
 
 const FanProfile = () => {
@@ -45,7 +61,7 @@ const FanProfile = () => {
       
       const [imgloader, setImgLoader] =useState(false)
 
-  const [file, setFile] = useState(imgPlaceHolder);
+  const [file, setFile] = useState(null);
   const [picFile, setPicFile] = useState(null);
   const [checkedVideoLink, setCheckedVideoLink] = useState(false)
   const [checkedProfilePic, setCheckedProfilePic] = useState(false)
@@ -56,7 +72,19 @@ const FanProfile = () => {
     const handleLogout = async () =>{
         await dispatch(LogoutAuth())
         // await dispatch(resetScoutProfileSlice())
-        UserLogout()
+        // UserLogout()
+    await dispatch(resetLoginSlice())
+    await dispatch(resetPlayerDealSlice())
+    await dispatch(resetPlayerFanDealSlice())
+    await dispatch(resetPlayerHomepageSlice())
+    await dispatch(resetManagerSlice())
+    await dispatch(resetPaymentSlice())
+    await dispatch(resetViewSlice())
+    await dispatch(resetPlayerProfileSlice())
+    await dispatch(resetFanDealSlice())
+    await dispatch(resetFanProfileSlice())
+    await dispatch(resetScoutProfileSlice())
+    await dispatch(resetScoutDealSlice())
         localStorage.clear();
         sessionStorage.clear();
         window.location.reload();
@@ -83,10 +111,13 @@ const FanProfile = () => {
         await dispatch(ProfileDetailsfan(userId))
         await dispatch(GetMarketPriceApi())
         // await dispatch(ScoutProfileVerificationStatus(userId))
-        setFile(PlayerDetails?.profile_pics)
       }
       checkingVerification()
     },[])
+
+    useEffect(() => {
+      setFile(PlayerDetails?.profile_pics);
+    }, [PlayerDetails]);
 
     const handleImgSubmit = async (e) =>{
       e.preventDefault()

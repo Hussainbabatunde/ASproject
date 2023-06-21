@@ -566,7 +566,9 @@ const initialState = {
     name: "playerprofile",
     initialState,
     reducers: {
-      reset: (state) => initialState,
+      reset: (state) => {
+        Object.assign(state, initialState);
+      }
     },
     extraReducers: (builder) => {
       builder
@@ -980,7 +982,7 @@ const initialState = {
     },
   });
   
-  // export const { reset } = PlayerProfileSlice.actions;
+  export const { reset } = PlayerProfileSlice.actions;
   export const { reducer, actions } = PlayerProfileSlice;
 
   
