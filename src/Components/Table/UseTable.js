@@ -361,17 +361,17 @@ const UseTable = ({
                             src={
                               each?.offer?.sender?.profile_pics ||
                               each?.request?.requests?.profile_pics ||
-                              each?.profile_pics
+                              each?.request?.deal?.profile_pics
                             }
                             className="useTable_ImageRecipient"
                             alt="Recipient image"
                           />
                           {each?.offer?.sender?.firstname ||
                             each?.request?.requests?.firstname ||
-                            each?.firstname}{" "}
+                            each?.request?.deal?.firstname}{" "}
                           {each?.offer?.sender?.surname ||
                             each?.request?.requests?.surname ||
-                            each?.surname}
+                            each?.request?.deal?.surname}
                         </div>
                       </td>
                     );
@@ -424,7 +424,8 @@ const UseTable = ({
                   case "Request Type":
                     return (
                       <td className="useTable_tableDetails">
-                        {each?.request?.requests?.type}
+                        {each?.request?.requests?.type
+                        || each?.request?.deal?.fanRequest}
                       </td>
                     );
                   case "Payment":
@@ -517,15 +518,15 @@ const UseTable = ({
                         style={{ flex: 1, width: "200px" }}
                       >
                         {/* <Link className="Admin_playersviewprofile">Edit</Link> */}
-                        {each?.request?.requests?.status == "accepted" ? (
+                        {each?.request?.deal?.requestStatus == "accepted" ? (
                           <button className="AcceptedPlayerUseTable">
                             Accepted
                           </button>
-                        ) : each?.request?.requests?.status == "rejected" ? (
+                        ) : each?.request?.deal?.requestStatus == "rejected" ? (
                           <button className="RejectedPlayerUseTable">
                             Rejected
                           </button>
-                        ) : each?.offer?.deal?.offerStatus == "expired" ? (
+                        ) : each?.request?.deal?.requestStatus == "expired" ? (
                           <button className="RejectedPlayerUseTable">
                             Expired
                           </button>
@@ -535,12 +536,12 @@ const UseTable = ({
                               className="Admin_playersviewprofile"
                               onClick={() =>
                                 handleAcceptRequest(
-                                  each?.request?.requests?.requestId
+                                  each?.request?.deal?.requestId
                                 )
                               }
                             >
                               {acceptRequestIndex ==
-                              each?.request?.requests?.requestId ? (
+                              each?.request?.deal?.requestId ? (
                                 <PulseLoader
                                   color="#1D7F33"
                                   size={13}
@@ -555,12 +556,12 @@ const UseTable = ({
                               className="Admin_playersSuspendprofile"
                               onClick={() =>
                                 handleDeleteRequest(
-                                  each?.request?.requests?.requestId
+                                  each?.request?.deal?.requestId
                                 )
                               }
                             >
                               {deleteRequestIndex ==
-                              each?.request?.requests?.requestId ? (
+                              each?.request?.deal?.requestId ? (
                                 <PulseLoader
                                   color="#7F351D"
                                   size={13}
@@ -688,7 +689,7 @@ const UseTable = ({
                       <>
                         <td className="useTable_tableDetails">
                           <Link
-                            to={`/afrisport/player/fandealsmade/${each?.request?.requests?.requestId}`}
+                            to={`/afrisport/player/fandealsmade/${each?.request?.deal?.requestId}`}
                             state={{ each }}
                             style={{ color: "white" }}
                             className="useTable_tableDetailsLink"

@@ -1,5 +1,7 @@
 .ScoutViewProfile{
     padding: 2rem 6rem;
+    max-width: 1350px;
+    margin: 0 auto;
 }
 .ScoutViewProfile_navigation{
     display: flex;

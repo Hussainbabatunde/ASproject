@@ -148,7 +148,7 @@ const numberOfWeeks = differenceInWeeks(endDate, startDate);
               </div>
               <div className='PlayerViewdetails_LabelAndAnswer'>
                 <label className='PlayerViewdetails_LabelText'>Amount:</label>
-                {loading? <Skeleton variant="rounded" width={105} height={22} />:<p className='PlayerViewdetails_labelresponse'> ${gottenDetails?.data?.offers?.recipient_earnings}</p>}
+                {loading? <Skeleton variant="rounded" width={105} height={22} />:<p className='PlayerViewdetails_labelresponse'> ${gottenDetails?.data?.offers?.value}</p>}
               </div>
               <div className='PlayerViewdetails_LabelAndAnswer'>
                 <label className='PlayerViewdetails_LabelText'>Negotiate Name:</label>

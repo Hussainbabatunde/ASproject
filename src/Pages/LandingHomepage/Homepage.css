@@ -17,7 +17,6 @@
 .Homepage_footballers{
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-evenly;
 }
 .Homepage_Sortfootballers{
     display: flex;

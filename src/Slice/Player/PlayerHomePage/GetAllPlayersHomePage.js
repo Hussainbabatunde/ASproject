@@ -10,7 +10,8 @@ const initialState = {
     message: null,
     gottenPlayerData: null,
     filteredPlayersData: null,
-    filteredClubPlayerData: null
+    filteredClubPlayerData: null,
+    recommendedPlayersData: null
   };
 
   export const GetPlayersApi = createAsyncThunk(
@@ -31,6 +32,36 @@ const initialState = {
         .get('players')
         .then(async (response) => {
             // console.log('gotten Players ',response.data)
+          return response.data;
+        })
+  
+        .catch((err) => {
+          let errdata = err.response.data;
+          console.log('error ', errdata)
+          return rejectWithValue(errdata);
+          // console.log(err)
+        });
+    }
+  );
+
+  export const GetRecommendedApi = createAsyncThunk(
+    "getRecommendedApi/userGetRecommendedApi",
+    async (_, { rejectWithValue }) => {
+        
+    
+      const instance = axios.create({
+        baseURL: process.env.REACT_APP_AFRISPORTURL ,
+        timeout: 20000,
+  
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+      });
+      return await instance
+        .get('players/recommend')
+        .then(async (response) => {
+            // console.log('recommended Players ',response.data)
           return response.data;
         })
   
@@ -108,7 +139,9 @@ const initialState = {
     name: "GetAllPlayersHomePage",
     initialState,
     reducers: {
-      reset: (state) => initialState,
+      reset: (state) => {
+        Object.assign(state, initialState);
+      }
     },
     extraReducers: (builder) => {
       builder
@@ -123,6 +156,21 @@ const initialState = {
         state.gottenPlayerData = action.payload;        
       })
       .addCase(GetPlayersApi.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+      })
+      .addCase(GetRecommendedApi.pending, (state) => {
+        state.isLoading = true;
+        state.null = true;
+      })
+      .addCase(GetRecommendedApi.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.user = true;
+        state.recommendedPlayersData = action.payload;        
+      })
+      .addCase(GetRecommendedApi.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;

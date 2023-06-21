@@ -33,7 +33,7 @@ const initialState = {
         },
       });
       return await instance
-        .get('player/requests')
+        .get('player/fans-request')
         .then(async (response) => {
             // console.log('gotten fan deals ',response.data)
           return response.data;
@@ -211,7 +211,9 @@ const initialState = {
     name: "PlayerFanDealsSlice",
     initialState,
     reducers: {
-      reset: (state) => initialState,
+      reset: (state) => {
+        Object.assign(state, initialState);
+      }
     },
     extraReducers: (builder) => {
       builder
