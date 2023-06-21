@@ -30,7 +30,6 @@ const AdminAllAdmins = () => {
 
   const {
     get_All_Admin,
-
     Create__Admin,
     Create__Admin_isError,
     Create__Admin_isSuccess,
@@ -44,6 +43,7 @@ const AdminAllAdmins = () => {
 
   const [modal, setModal] = useState(false);
 
+  console.log(modal);
   const [searchQuery, setSearchQuery] = useState("");
 
   const handleSearchInputChange = (event) => {
@@ -246,7 +246,6 @@ const AdminAllAdmins = () => {
 
     return (
       <>
-        {" "}
         <div className="fixed z-50 inset-0 overflow-y-auto ">
           <div className="flex items-center justify-center min-h-screen  px-4 ">
             <div className="fixed inset-0 transition-opacity">

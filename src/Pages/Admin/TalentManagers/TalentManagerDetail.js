@@ -41,7 +41,7 @@ function TalentManagerDetail() {
 
   let user_Data = Admin_talent_manager_single?.data;
   let PlayerDetails = user_Data;
-
+  console.log(id);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(Admin_talent_manager_single_fun(id));

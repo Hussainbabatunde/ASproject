@@ -13,7 +13,7 @@ let baseURL = process.env.REACT_APP_AFRISPORTURL;
 
 const Scout_message_modal = ({ scout_email, isOpen, onClose }) => {
   const dispatch = useDispatch();
-
+  console.log("this is white", scout_email);
   const [message_data, setMessage_data] = useState({
     title: "",
     message: "",

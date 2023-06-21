@@ -11,7 +11,10 @@ import imgPlaceHolder from "../../assets/imageplaceholder.png";
 import { ToastContainer } from "react-toastify";
 import Talent_Header from "../../Components/TalentManagersCompnente/Talent_Header";
 import Talent_Profileform from "../../Components/TalentManagersCompnente/Talent_Profileform";
-import { Talent_manager_details_Image_uplaod_fun } from "../../Slice/Talent_Manager/Talent_manager_slice";
+import {
+  Talent_manager_details_Image_uplaod_fun,
+  Talent_manager_details_fun,
+} from "../../Slice/Talent_Manager/Talent_manager_slice";
 import TalentProfileUploadId from "../../Components/TalentManagersCompnente/TalentProfileUploadId";
 
 const Talent_manager_Profile = () => {
@@ -50,6 +53,12 @@ const Talent_manager_Profile = () => {
 
     setImgLoader(false);
   };
+
+  useEffect(() => {
+    dispatch(Talent_manager_details_fun());
+
+    return () => {};
+  }, []);
 
   return (
     <div className="Scoutpage_contents">

@@ -16,7 +16,7 @@ import { AiFillBank } from "react-icons/ai";
 import { useDispatch } from "react-redux";
 import { LogoutAuth } from "../../Slice/auth/Login";
 
-const AdminSidebar = () => {
+function AdminSidebar() {
   const data = [
     {
       id: 1,
@@ -101,67 +101,37 @@ const AdminSidebar = () => {
     window.location.reload();
     dispatch(dispatch({ type: "RESET" }));
   };
-
   return (
-    <div className="SuperAdmin_Sidebar">
-      <div>
-        {data.map((each, index) => (
-          <div key={index}>
-            <NavLink
-              to={each?.pathTo}
-              onClick={() => handleReveal(index)}
-              className={({ isActive }) =>
-                isActive
-                  ? "SuperAdmin_SidebarNavLink"
-                  : "SuperAdmin_SidebarInactiveNavLink"
-              }
-            >
-              <div className="flex">
-                {each?.pathIcon}
-                <span className="SuperAdmin_SidebarText">{each?.pathName}</span>
-              </div>
-              {each?.children?.length > 0 && (
-                <BsChevronDown style={{ fontSize: "14px" }} />
-              )}
-            </NavLink>
-
-            {reveal === index && each?.children?.length > 0 && (
-              <ul className="Sidebar_unorderlist">
-                {each?.children.map((child, key) => {
-                  return (
-                    <li key={key}>
-                      <NavLink
-                        to={child?.navSubLink}
-                        className={({ isActive }) =>
-                          isActive
-                            ? "SuperAdmin_SidebarListNavLink"
-                            : "SuperAdmin_SidebarInactiveListNavLink"
-                        }
-                      >
-                        <div>
-                          <span className="SuperAdmin_SidebarListText">
-                            {child?.navName}
-                          </span>
-                        </div>
-                      </NavLink>
-                    </li>
-                  );
-                })}
-              </ul>
-            )}
+    // <div className="flex flex-col fixed flex-shrink-0 w-64 bg-gray-800 text-white  ">
+    <div className="  text-white  py-3">
+      {data.map((item, index) => (
+        <NavLink
+          onClick={handleReveal}
+          key={index}
+          to={item.pathTo}
+          className="flex items-center py-[14px] px-6 hover:bg-gray-100 hover:bg-opacity-1 border border-black hover:text-black"
+        >
+          <div className="mr-3 text-white transition-colors hover:text-black">
+            {item.pathIcon}
           </div>
-        ))}
-      </div>
+          <span className="text-white transition-colors hover:text-black">
+            {item.pathName}
+          </span>
+        </NavLink>
+      ))}
 
       <div
+        className="flex items-center py-2 px-6 hover:bg-gray-200 cursor-pointer hover:text-black"
         onClick={handleLogout}
-        className="SuperAdmin_SidebarLogoutInactiveNavLink"
       >
-        <ImExit />
-        <span className="SuperAdmin_SidebarText">Logout</span>
+        <div className="mr-3">
+          {" "}
+          <ImExit />
+        </div>
+        <span className="">Logout</span>
       </div>
     </div>
   );
-};
+}
 
 export default AdminSidebar;

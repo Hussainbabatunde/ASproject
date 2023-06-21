@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { AiOutlineInfoCircle } from "react-icons/ai";
 import {
   Transaction_list_fun,
@@ -8,19 +8,14 @@ import { useDispatch, useSelector } from "react-redux";
 
 import Lottie from "lottie-react";
 import empty from "../../../assets/lottie/emptyState.json";
+import { RiSearchLine } from "react-icons/ri";
 
-import AdminUseTable from "../../../Components/Table/AdminUseTable";
-import { Link } from "react-router-dom";
-import AdminTalentMangersStep from "../AdminTalentManagers/AdminTalentManagersStep";
 import TableWithPagination from "../../../Pages/Admin/TableWithPagination";
 
-// import { Admin_Get_ALLPlayers_fun } from "../../../Slice/Admin/AdminUpdate_profileSlice";
 const AdminFinanaceTransaction = () => {
   const { Transaction_total_amount, Transaction_list } = useSelector(
     (state) => state.reducer.TransactionSlice
   );
-
-  console.log(Transaction_list);
 
   const reversedTransactionList = [...Transaction_list].reverse();
 
@@ -69,6 +64,22 @@ const AdminFinanaceTransaction = () => {
 
     return () => {};
   }, []);
+
+  const [searchInput, setSearchInput] = useState("");
+
+  const filteredUsersArray = reversedTransactionList?.filter(
+    (user) =>
+      user?.payments?.payment_by?.firstname
+        .toLowerCase()
+        .includes(searchInput.toLowerCase()) ||
+      user?.payments?.payment_by?.surname
+        .toLowerCase()
+        .includes(searchInput.toLowerCase())
+  );
+
+  const handleInputChange = (event) => {
+    setSearchInput(event.target.value);
+  };
   return (
     <div className="AdminDashboard ">
       <div className="AdminPage_Dashboard">
@@ -86,8 +97,20 @@ const AdminFinanaceTransaction = () => {
                 Recent transaction made on the platform{" "}
               </span>
             </div>
+
+            <div className="AdminDashboard_Search">
+              <input
+                type="text"
+                value={searchInput}
+                onChange={handleInputChange}
+                className="AdminDashboard_SearchInput"
+                placeholder="Search name"
+              />
+
+              <RiSearchLine className="AdminDashboard_SearchIcon" />
+            </div>
             <div className="AdminTable_NegotiateTable">
-              {Transaction_list?.length === 0 ? (
+              {filteredUsersArray?.length === 0 ? (
                 <div
                   style={{
                     display: "flex",
@@ -104,7 +127,7 @@ const AdminFinanaceTransaction = () => {
               ) : (
                 <>
                   <TableWithPagination
-                    data={reversedTransactionList}
+                    data={filteredUsersArray}
                     header={header}
                   />
                 </>

@@ -232,6 +232,8 @@ function FanNegotiateStep() {
         </div>
       )}
 
+      {console.log(Admin_fan_get_negotiations)}
+
       {step === 3 && (
         <div className="AdminTable_NegotiateTable">
           {Admin_fan_get_negotiations?.Admin__Fan__Terminate_Negotiations?.data

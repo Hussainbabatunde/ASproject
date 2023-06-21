@@ -175,7 +175,7 @@ const AdminDashboard = () => {
   ];
 
   return (
-    <div className="AdminDashboard">
+    <div className="">
       {/* <AdminHeader /> */}
       <div className="AdminDashBoard_title">
         <p className="AdminDashboard_Dashboardtext">DashBoard</p>
@@ -279,7 +279,9 @@ const AdminDashboard = () => {
         <div className="AdminPage_DashboardTAbleCat">
           <div className="AdminPage_TableTitleandLink">
             <p className="AdminDashboard_Dashboardtext">Approve Players</p>
-            <Link className="AdminDashBoard_LinkViewall">View All</Link>
+            <Link to="/admin/players" className="AdminDashBoard_LinkViewall">
+              View All
+            </Link>
           </div>
           <div className="AdminPage_TableInfo">
             <AiOutlineInfoCircle style={{ fontSize: "18px" }} />

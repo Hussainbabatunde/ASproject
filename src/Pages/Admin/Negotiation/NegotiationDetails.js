@@ -32,6 +32,8 @@ function NegotiationDetails() {
   let from_id =
     state?.comments?.active_offers?.from || state?.from || state?.User;
 
+  console.log(offer_id);
+
   useEffect(() => {
     dispatch(Admin___Negotiations_detail_fun({ offer_id, from_id }));
     dispatch(Admin___Negotiations_comment_fun(offer_id));
@@ -307,12 +309,15 @@ function NegotiationDetails() {
     async (data) => {
       // Your API request code here
       // Use formData to send the image data to the API
-
       let item = {
         offer_id: offer_id,
       };
 
-      let API_URL = `${baseURL}admin/negotiations/unpin-offer`;
+      console.log(offer_id);
+
+      let API_URL = `${baseURL}admin/negotiations/${data}`;
+
+      console.log(API_URL);
       const tokengot = localStorage.getItem("token");
 
       const config = {
@@ -325,7 +330,7 @@ function NegotiationDetails() {
 
       try {
         const response = await axios.post(API_URL, item, config);
-
+        console.log(response?.data);
         return response;
       } catch (error) {
         throw error;
@@ -336,7 +341,10 @@ function NegotiationDetails() {
         // dispatch(Talent_manager_Interaction_fun({ player, request, sender }));
 
         // Success toast notification
-        toast.success(" successfully!", {
+
+        dispatch(Admin___Negotiations_detail_fun({ offer_id, from_id }));
+        dispatch(Admin___Negotiations_comment_fun(offer_id));
+        toast.success(` successfully!`, {
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,
@@ -349,7 +357,7 @@ function NegotiationDetails() {
       },
       onError: () => {
         // Error toast notification
-        toast.error("Error occurred while submitting the form.", {
+        toast.error(`Error occurred .`, {
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,
@@ -387,6 +395,7 @@ function NegotiationDetails() {
                   </div>
 
                   <>
+                    {console.log(negotiation_data?.payment_status)}
                     {negotiation_data?.payment_status === "not paid" && (
                       <div className="flex gap-2">
                         {negotiation_data?.status === "suspended" ? (
@@ -474,14 +483,27 @@ function NegotiationDetails() {
                           )}
                         </button>
 
-                        <button
-                          className="flex gap-2 bg-[#DBDBDB] px-3 py-1 rounded items-center"
-                          onClick={() => PIn_Mutation.mutate("PIN")}
-                        >
-                          <BsPinAngleFill />
+                        {negotiation_data?.display == 1 ? (
+                          <button
+                            className="flex gap-2 bg-[#DBDBDB] px-3 py-1 rounded items-center"
+                            onClick={() => PIn_Mutation.mutate("unpin-offer")}
+                          >
+                            <BsPinAngleFill />
 
-                          <span> Pin </span>
-                        </button>
+                            <span> UnPin </span>
+                            <span> {negotiation_data?.display} </span>
+                          </button>
+                        ) : (
+                          <button
+                            className="flex gap-2 bg-[#DBDBDB] px-3 py-1 rounded items-center"
+                            onClick={() => PIn_Mutation.mutate("pin-offer")}
+                          >
+                            <BsPinAngleFill />
+
+                            <span> Pin </span>
+                            <span> {negotiation_data?.display} </span>
+                          </button>
+                        )}
                       </div>
                     </div>
                     <div className="PlayerViewdetails_LabelAndAnswer">

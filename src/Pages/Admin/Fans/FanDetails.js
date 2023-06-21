@@ -63,13 +63,10 @@ function FanDetails() {
       API_URL = `${baseURL}admin/player/suspend`;
     }
 
-    console.log(API_URL);
-
     const tokengot = localStorage.getItem("token");
 
     try {
       // Set the loading state to true before sending the request
-      console.log("Sending POST request...");
       setLoading(true);
 
       const config = {
@@ -209,7 +206,7 @@ function FanDetails() {
 
                   <span className=" font-normal text-sm py-2 px-5">
                     {/* {user_Data?.bio?.position.toUpperCase()} */}
-                    Scout
+                    Fan
                   </span>
                 </div>
               </div>
