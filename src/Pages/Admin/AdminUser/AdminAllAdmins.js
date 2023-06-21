@@ -30,7 +30,6 @@ const AdminAllAdmins = () => {
 
   const {
     get_All_Admin,
-
     Create__Admin,
     Create__Admin_isError,
     Create__Admin_isSuccess,
@@ -44,6 +43,7 @@ const AdminAllAdmins = () => {
 
   const [modal, setModal] = useState(false);
 
+  console.log(modal);
   const [searchQuery, setSearchQuery] = useState("");
 
   const handleSearchInputChange = (event) => {

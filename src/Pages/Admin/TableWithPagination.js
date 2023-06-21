@@ -21,6 +21,8 @@ const TableWithPagination = ({
     { id: 10, name: "James Anderson", email: "jamesanderson@example.com" },
   ];
 
+  console.log(data);
+
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
 
