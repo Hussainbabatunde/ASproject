@@ -44,18 +44,16 @@ const AdminScoutsSuspended = ({
     },
     {
       id: 2,
-      name: "Position",
+      name: "Active Negotiate",
+      case: "Admin_scout_Acitive_Negotiate",
     },
     {
       id: 3,
-      name: "Club",
+      name: "Closed Negotiate",
+      case: "Admin_scout_Closed_Negotiate",
     },
     {
       id: 4,
-      name: "Recent Negotiate",
-    },
-    {
-      id: 5,
       name: "   ",
       case: "Admin_scout_view_suspend",
     },

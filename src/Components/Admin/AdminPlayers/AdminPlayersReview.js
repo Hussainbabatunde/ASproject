@@ -64,7 +64,7 @@ const AdminPlayersReview = ({
   const [searchInput, setSearchInput] = useState("");
   console.log(Admin_Get_All_Review_Player);
 
-  const filteredArray = Admin_Get_All_Review_Player?.filter(
+  const filteredArray = Admin_Get_All_Review_Player?.plus?.filter(
     (user) =>
       user.firstname.toLowerCase().includes(searchInput.toLowerCase()) ||
       user.surname.toLowerCase().includes(searchInput.toLowerCase())
@@ -89,7 +89,10 @@ const AdminPlayersReview = ({
           className="AdminPAge_Negotiate_TabNegotiateActive"
           onClick={handleClosed}
         >
-          Review <span className="AdminPage_NegotiateTab_TabNumber">4</span>
+          Review
+          <span className="AdminPage_NegotiateTab_TabNumber">
+            {filteredArray?.length}
+          </span>
         </p>
         <p
           className="AdminPAge_Negotiate_TabNegotiateInactive"

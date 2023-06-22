@@ -563,7 +563,6 @@ function NegotiationDetails() {
                         Negotiate Status:
                       </label>
                       <p className="PlayerViewdetails_labelresponse">
-                        {" "}
                         <span className="PlayerViewdetails_response_styling">
                           {negotiation_data?.status}
                         </span>

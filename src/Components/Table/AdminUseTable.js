@@ -562,7 +562,10 @@ const AdminUseTable = ({
                               <span>Reset Password</span>
                             </button>
 
-                            <button className="border border-[#1D217F] px-2 py-1 bg-green-50 text-[#1D217F]-500 font-bold rounded-md mr-2">
+                            <button
+                              onClick={() => handleDelete(each)}
+                              className="border border-[#1D217F] px-2 py-1 bg-green-50 text-[#1D217F]-500 font-bold rounded-md mr-2"
+                            >
                               Disable
                             </button>
                           </>
@@ -823,13 +826,13 @@ const AdminUseTable = ({
                   case "Images":
                     return (
                       <td className="useTable_tableDetails">
-                        {each?.images} Images
+                        {each?.images || each?.images_count} Images
                       </td>
                     );
                   case "Video":
                     return (
                       <td className="useTable_tableDetails">
-                        {each?.videos} Videos
+                        {each?.videos || each?.videos_count} Videos
                       </td>
                     );
                   case "View Details":
