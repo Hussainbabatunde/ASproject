@@ -25,7 +25,6 @@ const AdminPlayersReview = ({
   );
 
   console.log(Admin_Get_All_Review_Player);
-
   const dispatch = useDispatch();
 
   const header = [

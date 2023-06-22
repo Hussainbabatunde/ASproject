@@ -65,7 +65,6 @@ const AdminUseTable = ({
                       <td className="useTable_tableDetails">{formattedDate}</td>
                     );
                   case "Admin_Transaction_details":
-                    console.log(each?.payments);
                     return (
                       <td className="useTable_tableDetails">
                         <Link
@@ -147,7 +146,6 @@ const AdminUseTable = ({
                     );
 
                   case "Admin_All_Ads_View":
-                    console.log(each);
                     return (
                       <td
                         className="useTable_ViewEditSuspendDetails"
@@ -261,16 +259,17 @@ const AdminUseTable = ({
                       <td className="useTable_tableDetails">
                         <p className="AdminUse_TableComp">
                           <img
-                            src={each?.profile_pics}
+                            src={each?.user?.profile_pics}
                             className="useTable_ImageRecipient"
                             alt="Recipient image"
                           />
-                          <span>{` ${each?.firstname}  ${each?.surname}`}</span>
+                          <span>{` ${each?.user?.firstname}  ${each?.user?.surname}`}</span>
                         </p>
                       </td>
                     );
 
                   case "Admin_fan_Acitive_Negotiate":
+                    console.log(each);
                     return (
                       <td className="useTable_tableDetails">
                         <p className="AdminUse_TableComp">
@@ -384,7 +383,6 @@ const AdminUseTable = ({
                     );
 
                   case "Admin_fan_Suspend_message_view":
-                    console.log(each);
                     return (
                       <td
                         className="useTable_ViewEditSuspendDetails"
@@ -478,6 +476,7 @@ const AdminUseTable = ({
                     );
 
                   case "Admin_All_player_ViewDetail":
+                    console.log(each);
                     return (
                       <td
                         className="useTable_ViewEditSuspendDetails"
@@ -592,7 +591,6 @@ const AdminUseTable = ({
                     );
 
                   case "Neg_Current_Offer":
-                    console.log(each);
                     return (
                       <td className="useTable_tableDetails">
                         {each?.comments?.active_offers?.Amount || each?.Amount}
@@ -698,7 +696,7 @@ const AdminUseTable = ({
                     return (
                       <td className="useTable_tableDetails">
                         <Link
-                          to="/admin/scouts/negotiation-detail"
+                          to="/admin/negotiations/negotiation-detail"
                           state={each}
                         >
                           <p className="AdminUse_TableComp">
@@ -733,6 +731,55 @@ const AdminUseTable = ({
                             {each?.number}
                           </p>
                         </Link>
+                      </td>
+                    );
+
+                  case "talent_Admin_deal_name":
+                    return (
+                      <td className="useTable_tableDetails">
+                        {each?.DealName}
+                      </td>
+                    );
+                  case "talent_Admin_Payment":
+                    return (
+                      <td className="useTable_tableDetails">
+                        {each?.payment_status}
+                      </td>
+                    );
+
+                  case "talent_Admin_Active":
+                    return (
+                      <td
+                        className="useTable_ViewEditSuspendDetails"
+                        style={{ flex: 1 }}
+                      >
+                        <Link
+                          to="/admin/negotiations/negotiation-detail"
+                          state={each}
+                          className="Admin_playersviewprofile"
+                        >
+                          View
+                        </Link>
+                        {/* <button className="Admin_playersEditprofile">
+                          Edit
+                        </button>
+                        <button className="Admin_playersSuspendprofile">
+                          Suspend
+                        </button> */}
+                      </td>
+                    );
+
+                  case "talent_Admin_Scout":
+                    return (
+                      <td className="useTable_tableDetails">
+                        <p className="AdminUse_TableComp">
+                          <img
+                            src={each?.profile_pics}
+                            className="useTable_ImageRecipient"
+                            alt="Recipient image"
+                          />
+                          <span>{` ${each?.firstname}  ${each?.surname}`}</span>
+                        </p>
                       </td>
                     );
                 }

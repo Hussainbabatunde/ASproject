@@ -11,9 +11,12 @@ import {
 import { FaRegImages } from "react-icons/fa";
 import imgPlaceHolder from "../../../../assets/imageplaceholder.png";
 import { RiDeleteBin6Fill } from "react-icons/ri";
-import { toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
+import { useMutation } from "react-query";
+import axios from "axios";
 
 import { TbCurrencyNaira } from "react-icons/tb";
+let baseURL = process.env.REACT_APP_AFRISPORTURL;
 
 export const Profile_detail = ({ Admin_Get_Players_Profile_details }) => {
   const dispatch = useDispatch();
@@ -518,38 +521,139 @@ export const Admin_upload_Players_image = ({
 export const Admin_PlayerProfileVideo = ({
   Admin_Get_Players_Profile_details,
 }) => {
-  const [videoLinks, setVideoLinks] = useState([]);
+  const dispatch = useDispatch();
 
-  const handleVideoLinkChange = (event) => {
-    const link = event.target.value;
-    // const linksArray = link.split(" ");
-    // setVideoLinks((prevLinks) => [...prevLinks, ...linksArray]);
+  const [inputs, setInputs] = useState([""]);
+  const [videoLoader, setVideoLoader] = useState(false); // Initialize with one empty input
+  const [videoData, setVideoData] = useState({});
+  const userId = useSelector(
+    (state) => state?.reducer?.LoginSlice?.logindata?.data?.user?.id
+  );
+  const addInput = () => {
+    const newInputs = [...inputs, ""]; // Add an empty input
+    setInputs(newInputs);
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    // Here you can perform further processing or API calls to submit the data
-    const data = {
-      user_id: 19,
-      videos_url: videoLinks,
-    };
-    console.log(data); // You can replace this with your actual submission logic
+  const handleInputChange = (value, index) => {
+    const newInputs = [...inputs];
+    newInputs[index] = value; // Update the value of the input at the specified index
+    setInputs(newInputs);
+  };
+
+  const handleSubmitVideos = async (e) => {
+    e.preventDefault();
+    videoData.user_id = userId;
+    videoData.videos_url = inputs;
+
+    video_Mutation.mutate(videoData);
+    // setVideoLoader(true);
+    // await dispatch(PlayerProfileVideoLink(videoData));
+    // await dispatch(PlayerProfileVerificationStatus(userId));
+    // setVideoLoader(false);
+    // console.log('inputs ', inputs)
+  };
+
+  const video_Mutation = useMutation(
+    async (data) => {
+      // Your API request code here
+      // Use formData to send the image data to the API
+      console.log(data);
+
+      let API_URL = `${baseURL}admin/player/video_text_url`;
+      const tokengot = localStorage.getItem("token");
+
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: `Bearer ${tokengot}`,
+        },
+      };
+
+      try {
+        const response = await axios.post(API_URL, data, config);
+        console.log(response.data); // Logging the response data
+
+        return response;
+      } catch (error) {
+        console.error(error);
+        throw error;
+      }
+    },
+    {
+      onSuccess: () => {
+        // dispatch(Talent_manager_Interaction_fun({ player, request, sender }));
+        setInputs([""]);
+        // Success toast notification
+        toast.success("Form submitted successfully!", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      },
+      onError: () => {
+        // Error toast notification
+        toast.error("Error occurred while submitting the form.", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          className: "Forbidden403",
+        });
+      },
+    }
+  );
+
+  const removeInput = (index) => {
+    const newInputs = [...inputs]; // Copy the current inputs array
+    newInputs.splice(index, 1); // Remove the input at the specified index
+    setInputs(newInputs);
   };
   return (
-    <form className="Scoutpage_ProfileforContent" onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmitVideos} className="Scoutpage_ProfileforContent">
       <p className="Scoutpage_Profile_Profiledetailstext">Video</p>
       <p className="Scoutpage_Profile_filldetailstext">
-        Share a video or more of yourself in action. Must be from{" "}
-        <b>Google Drive</b>.
+        Share a video or more of yourself in action must be from{" "}
+        <b>Google Drive</b>
       </p>
-      <input
-        type="text"
-        className="Scoutpage_Profile_ProfileformlabelInput"
-        placeholder="Link to Video"
-        onChange={handleVideoLinkChange}
-      />
+      {inputs.map((input, index) => (
+        <div key={index} className="Scoutpage_Profile_VideoUploadDiv">
+          <input
+            type="text"
+            value={input}
+            onChange={(e) => handleInputChange(e.target.value, index)}
+            className="Scoutpage_Profile_ProfileformlabelInput"
+            placeholder="Link to Video"
+          />
+
+          <RiDeleteBin6Fill
+            onClick={() => removeInput(index)}
+            style={{ fontSize: "25px", cursor: "pointer" }}
+          />
+        </div>
+      ))}
+      <button
+        type="button"
+        onClick={addInput}
+        className="Scoutpage_Profileform_AddmoreVideos"
+      >
+        Add more
+      </button>
       <button type="submit" className="Scoutpage_Profileform_savebutton">
-        Save
+        {video_Mutation.isLoading ? (
+          <CircularProgress size={15} />
+        ) : (
+          <span>Save</span>
+        )}
       </button>
     </form>
   );

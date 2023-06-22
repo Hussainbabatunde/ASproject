@@ -4,6 +4,7 @@ import imgPlaceHolder from "../../../../assets/imageplaceholder.png";
 import { useDispatch, useSelector } from "react-redux";
 import { Admin_update_user_image_fun } from "../../../../Slice/Admin/AdminUpdate_profileSlice";
 import { CircularProgress } from "@mui/material";
+import { Link } from "react-router-dom";
 
 function UploadImage({ Admin_Get_Players_Profile_details }) {
   const dispatch = useDispatch();
@@ -61,7 +62,7 @@ function UploadImage({ Admin_Get_Players_Profile_details }) {
               {Admin_update_user_image_isLoading ? (
                 <CircularProgress size={15} />
               ) : (
-                <span>Upload photo</span>
+                <span>save photo</span>
               )}
             </button>
           </label>
@@ -78,21 +79,24 @@ function UploadImage({ Admin_Get_Players_Profile_details }) {
             <p className="">Player Account</p>
           </div>
 
-          <p className=" lg:text-[14px] text-xs font-semibold text-[#1B8550]">
+          <Link
+            className=" lg:text-[14px] text-xs font-semibold text-[#1B8550]"
+            to={`/admin/players/${userDataInfo?.id}`}
+          >
             View Profile
-          </p>
+          </Link>
           <div>
-            <button
+            {/* <button
               type="submit"
               className="w-32 h-10 text-white bg-[#1B8550]  text-base rounded-md border-none"
             >
-              {/* {imgloader ? (
+              {imgloader ? (
 <CircularProgress size={15} />
 ) : (
 <span>Upload photo</span>
-)} */}
+)}
               <span>Save </span>
-            </button>
+            </button> */}
           </div>
         </div>
       </div>

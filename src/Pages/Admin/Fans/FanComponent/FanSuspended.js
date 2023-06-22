@@ -27,9 +27,6 @@ function FanSuspended() {
     (state) => state.reducer.Admin_FanData_Slice
   );
 
-  console.log(Admin_Fan?.suspendedFan_data);
-
-  console.log(Admin_Fan?.suspendedFan_data?.data?.length);
   const Suspendheader = [
     {
       id: 1,
@@ -135,7 +132,8 @@ function FanSuspended() {
   };
 
   const handleDelete = (data) => {
-    handleSuspend_Unsuspend(data?.User);
+    let main_id = data?.user?.id;
+    handleSuspend_Unsuspend(main_id);
   };
   return (
     <>
