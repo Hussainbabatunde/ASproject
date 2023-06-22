@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { GrFormNext } from "react-icons/gr";
 import { BsPinAngleFill, BsShareFill } from "react-icons/bs";
@@ -39,7 +39,7 @@ function NegotiationDetails() {
     dispatch(Admin___Negotiations_comment_fun(offer_id));
 
     return () => {};
-  }, []);
+  }, [dispatch]);
   let comment_message = Admin___Negotiations_comment?.data[1];
 
   let negotiation_data = Admin___Negotiations_detail;
@@ -372,6 +372,86 @@ function NegotiationDetails() {
     }
   );
 
+  const [admincomment, setAdmincomment] = useState("");
+
+  const Commet_Mutation = useMutation(
+    async (data) => {
+      // Your API request code here
+      let API_URL = `${baseURL}admin/negotiations/offer-comments`;
+
+      const tokengot = localStorage.getItem("token");
+
+      let item = {
+        offer_id: Admin___Negotiations_detail?.id,
+        player: Admin___Negotiations_detail?.to,
+        others: Admin___Negotiations_detail?.from,
+        comment: admincomment,
+      };
+
+      console.log(item);
+
+      const config = {
+        headers: {
+          // "Content-Type": "multipart/form-data",
+          // Accept: "multipart/form-data",
+          Authorization: `Bearer ${tokengot}`,
+        },
+      };
+
+      try {
+        const response = await axios.post(API_URL, item, config);
+
+        return response;
+      } catch (error) {
+        console.error(error);
+        throw error;
+      }
+    },
+    {
+      onSuccess: () => {
+        // dispatch(Talent_manager_Interaction_fun({ player, request, sender }));
+        dispatch(Admin___Negotiations_comment_fun(offer_id));
+
+        // Success toast notification
+        toast.success("Form submitted successfully!", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      },
+      onError: () => {
+        // Error toast notification
+        toast.error("Error occurred while submitting the form.", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          className: "Forbidden403",
+        });
+      },
+    }
+  );
+
+  const handleChange = (e) => {
+    setAdmincomment(e.target.value);
+
+    //   {
+    //     "offer_id": 22,
+    //     "player": 21,
+    //     "others": 22,
+    //     "comment": "3 man talks"
+    // }
+  };
+
   return (
     <>
       <ToastContainer />
@@ -563,7 +643,6 @@ function NegotiationDetails() {
                         Negotiate Status:
                       </label>
                       <p className="PlayerViewdetails_labelresponse">
-                        {" "}
                         <span className="PlayerViewdetails_response_styling">
                           {negotiation_data?.status}
                         </span>
@@ -680,8 +759,13 @@ function NegotiationDetails() {
                         <textarea
                           placeholder="Make a comment"
                           style={{ flex: 1, border: "none", minHeight: "50px" }}
+                          value={admincomment}
+                          onChange={handleChange}
                         />
-                        <button className="PlayerViewDeals_CommentButton">
+                        <button
+                          className="PlayerViewDeals_CommentButton"
+                          onClick={() => Commet_Mutation.mutate()}
+                        >
                           Comment
                         </button>
                       </div>

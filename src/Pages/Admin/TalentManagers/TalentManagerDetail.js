@@ -31,6 +31,7 @@ let baseURL = process.env.REACT_APP_AFRISPORTURL;
 function TalentManagerDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
+  console.log(id);
 
   const { Admin_Get_ScoutsDetails } = useSelector(
     (state) => state.reducer.Admin_Scouts_Slice

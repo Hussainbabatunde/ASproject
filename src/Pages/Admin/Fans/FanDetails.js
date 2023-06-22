@@ -32,11 +32,13 @@ let baseURL = process.env.REACT_APP_AFRISPORTURL;
 function FanDetails() {
   const { id } = useParams();
   const navigate = useNavigate();
+  console.log(id);
 
   const { Single_Admin_Fan, Admin_fan_get_negotiations } = useSelector(
     (state) => state.reducer.Admin_FanData_Slice
   );
 
+  console.log(Single_Admin_Fan);
   let user_Data = Single_Admin_Fan?.data;
   let PlayerDetails = user_Data;
 
@@ -297,11 +299,6 @@ function FanDetails() {
               </div>
             </div>
           </div>
-
-          {/* <div className="AdminPage_DashboardTAbleCat">
-
-          <h1>sam</h1>
-        </div> */}
 
           <FanNegotiateStep />
         </div>

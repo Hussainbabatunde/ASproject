@@ -88,7 +88,7 @@ const AdminFinanaceTransaction = () => {
             <div className="AdminPage_TableTitleandLink">
               <p className="AdminPage_NegotiateTitleText">Transaction</p>
               <p className="AdminPage_NegotiateTitleText">
-                Total Amount: {Transaction_total_amount?.total_amount}
+                Total Amount:$ {Transaction_total_amount?.total_amount}
               </p>
             </div>
             <div className="AdminPage_TableInfo">

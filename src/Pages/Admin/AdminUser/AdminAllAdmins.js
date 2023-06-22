@@ -17,11 +17,16 @@ import cancle_icon from "../../../assets/cancel_icon.png";
 import { ToastContainer } from "react-toastify";
 import { get_All_Role_fun } from "../../../Slice/Admin/AdminAllAdmins/RoleSlice";
 import AdminUseTable from "../../../Components/Table/AdminUseTable";
-import AdminUser_message_modal, {
-  ReseAdminPassoword,
-} from "./AdminUser_message_modal";
+
 import { CircularProgress } from "@mui/material";
 import TableWithPagination from "../TableWithPagination";
+import Admin_model from "./Admin_model";
+import ReseAdminPassoword from "./ReseAdminPassoword";
+import axios from "axios";
+import { toast } from "react-toastify";
+import { useMutation } from "react-query";
+
+let baseURL = process.env.REACT_APP_AFRISPORTURL;
 
 const AdminAllAdmins = () => {
   const { logindata } = useSelector((state) => state.reducer.LoginSlice);
@@ -118,9 +123,6 @@ const AdminAllAdmins = () => {
       dispatch(get_All_Role_fun());
     }
 
-    // dispatch(reset_role_Create_options());
-    // setFilteredData(GetRole?.data);
-
     // The return function is optional and is used for cleanup
     return () => {
       // No cleanup necessary in this case, so an empty function is returned
@@ -149,10 +151,71 @@ const AdminAllAdmins = () => {
     dispatch(reset_Create__Admin_options());
   };
 
+  const Create_mutation = useMutation(
+    async (data) => {
+      // Your API request code here
+      // Use formData to send the image data to the API
+
+      let API_URL = `${baseURL}admin/user/delete/${data}`;
+
+      const tokengot = localStorage.getItem("token");
+
+      const config = {
+        headers: {
+          Authorization: `Bearer ${tokengot}`,
+        },
+      };
+
+      try {
+        const response = await axios.delete(API_URL, config);
+
+        console.log(response.data); // Logging the response data
+        return response;
+      } catch (error) {
+        console.error(error);
+        throw error;
+      }
+    },
+    {
+      onSuccess: () => {
+        // Success toast notification
+
+        dispatch(get_All_Admin_fun());
+
+        toast.success(" successfully!", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      },
+      onError: () => {
+        // Error toast notification
+        toast.error("Error occurred while submitting .", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          className: "Forbidden403",
+        });
+      },
+    }
+  );
+
   const handleDelete = (data) => {
     console.log(data);
     let id = data?.user?.id;
-    dispatch(Delete__Admin_fun(id));
+    // dispatch(Delete__Admin_fun(id));
+
+    Create_mutation.mutate(id);
   };
 
   const handleEdit = (item, asign) => {
@@ -201,181 +264,6 @@ const AdminAllAdmins = () => {
 
   console.log(filteredAdmin);
 
-  const AdminUser__modal = () => {
-    const [userAdmin, setUserAdmin] = useState({
-      role: formData.role,
-      fullname: formData.fullname,
-      email: formData.email,
-      phone: formData.phone,
-      id: formData.id,
-    });
-
-    console.log(userAdmin);
-
-    useEffect(() => {
-      if (Create__Admin_isSuccess) {
-        setFormData({
-          role: "",
-          fullname: "",
-          email: "",
-          phone: "",
-          id: null,
-        });
-
-        setModal(false);
-      }
-
-      return () => {};
-    }, [Create__Admin_isSuccess]);
-
-    const handleInputChange = (e) => {
-      const { name, value } = e.target;
-      setUserAdmin((prevState) => ({ ...prevState, [name]: value }));
-    };
-
-    const handleSubmit = (e) => {
-      setFormData({
-        role: userAdmin.role,
-        fullname: userAdmin.fullname,
-        email: userAdmin.email,
-        phone: userAdmin.phone,
-        id: userAdmin.id,
-      });
-      dispatch(Create__Admin_fun(userAdmin));
-    };
-
-    return (
-      <>
-        <div className="fixed z-50 inset-0 overflow-y-auto ">
-          <div className="flex items-center justify-center min-h-screen  px-4 ">
-            <div className="fixed inset-0 transition-opacity">
-              <div className="absolute inset-0 bg-gray-500 opacity-25"></div>
-            </div>
-            <div className="bg-white   rounded-lg overflow-hidden w-[60%] lg:w-[40%]  shadow-xl transform transition-all ">
-              <div className="border-b bord   ">
-                <div className=" flex justify-between    px-7 py-3 items-center ">
-                  <div>
-                    <h3 className="text-[20px] font-semibold ">Create Admin</h3>
-                  </div>
-
-                  <div>
-                    <button
-                      className="bg-[#B4B4B43D]  py-1 px-2 rounded-sm"
-                      onClick={() => setModal(false)}
-                    >
-                      X
-                    </button>
-                  </div>
-                </div>
-
-                <div>
-                  <div className="modal-content bg-white rounded-lg shadow-lg">
-                    <form className="" onSubmit={handleSubmit}>
-                      <div className="p-4">
-                        <div className="mb-4">
-                          <label htmlFor="" className="block mb-2">
-                            Fullname
-                          </label>
-                          <input
-                            className="w-full p-2 border border-gray-300 rounded"
-                            type="text"
-                            name="fullname"
-                            value={userAdmin.fullname}
-                            placeholder="fullname"
-                            onChange={handleInputChange}
-                          />
-                        </div>
-                        <div>
-                          <label htmlFor="" className="block mb-2">
-                            Email
-                          </label>
-                          <input
-                            className="w-full p-2 border border-gray-300 rounded"
-                            type="text"
-                            name="email"
-                            value={userAdmin.email}
-                            placeholder="email"
-                            onChange={handleInputChange}
-                          />
-                        </div>
-                        <div>
-                          <label htmlFor="" className="block mb-2">
-                            Phone
-                          </label>
-                          <input
-                            className="w-full p-2 border border-gray-300 rounded"
-                            type="tel"
-                            name="phone"
-                            value={userAdmin.phone}
-                            placeholder="phone"
-                            onChange={handleInputChange}
-                          />
-                        </div>
-
-                        <div>
-                          <label htmlFor="" className="block mb-2">
-                            Role
-                          </label>
-
-                          {formData?.id ? (
-                            <>
-                              <input
-                                className="w-full p-2 border border-gray-300 rounded"
-                                value={userAdmin.role}
-                              />
-                            </>
-                          ) : (
-                            <select
-                              name="role"
-                              value={userAdmin.role}
-                              onChange={handleInputChange}
-                              className="w-full p-2 border border-gray-300 rounded"
-                            >
-                              <>
-                                <option value="">Select a grade</option>
-                                {GetRole?.data.map((item) => (
-                                  <option
-                                    key={item.id}
-                                    value={item.name}
-                                    className=" w-24"
-                                  >
-                                    {item.name}
-                                  </option>
-                                ))}
-                              </>
-                            </select>
-                          )}
-                        </div>
-                      </div>
-                      {/* {!Create__Admin_isLoading && (
-                        <button className="form-submit" type="submit">
-                          Submit
-                        </button>
-                      )} */}
-
-                      <div className="text-center ">
-                        <button
-                          type="submit"
-                          className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 w-full"
-                        >
-                          {Create__Admin_isLoading ? (
-                            <CircularProgress style={{ color: "white" }} />
-                          ) : (
-                            "Submit"
-                          )}
-                        </button>
-                      </div>
-                    </form>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </>
-    );
-  };
-
   return (
     <>
       <ToastContainer />
@@ -397,7 +285,17 @@ const AdminAllAdmins = () => {
         <div className="AdminPage_Dashboard">
           <div className="AdminPage_DashboardTAbleCat">
             {logindata?.data?.user_type === "super-admin" && (
-              <>{modal && <AdminUser__modal />}</>
+              <>
+                {modal && (
+                  <Admin_model
+                    Create__Admin_isSuccess={Create__Admin_isSuccess}
+                    setFormData={setFormData}
+                    formData={formData}
+                    setModal={setModal}
+                  />
+                )}
+              </>
+              // <>{modal && <AdminUser__modal />}</>
             )}
 
             {logindata?.data?.user_type === "super-admin" && (

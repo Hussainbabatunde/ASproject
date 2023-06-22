@@ -101,27 +101,42 @@ function AdminSidebar() {
     window.location.reload();
     dispatch(dispatch({ type: "RESET" }));
   };
+
+  const [selectedItem, setSelectedItem] = useState(null);
+
+  const handleItemClick = (index) => {
+    setSelectedItem(index);
+  };
+
   return (
     // <div className="flex flex-col fixed flex-shrink-0 w-64 bg-gray-800 text-white  ">
-    <div className="  text-white  py-3">
+    <div className="    py-3">
       {data.map((item, index) => (
-        <NavLink
-          onClick={handleReveal}
-          key={index}
-          to={item.pathTo}
-          className="flex items-center py-[14px] px-6 hover:bg-gray-100 hover:bg-opacity-1 border border-black hover:text-black"
-        >
-          <div className="mr-3 text-white transition-colors hover:text-black">
-            {item.pathIcon}
-          </div>
-          <span className="text-white transition-colors hover:text-black">
-            {item.pathName}
-          </span>
-        </NavLink>
+        <div key={index} className="text-white">
+          <NavLink
+            onClick={() => handleItemClick(index)}
+            key={index}
+            to={item.pathTo}
+          >
+            <div
+              className={`flex  items-center py-[14px] px-6 hover:bg-white hover:bg-opacity-1 border border-black hover:text-black ${
+                selectedItem === index
+                  ? "bg-white text-black"
+                  : "bg-black text-white"
+              }`}
+            >
+              <div className="mr-3 transition-colors hover:text-black">
+                {item.pathIcon}
+              </div>
+              <span className="transition-colors hover:text-black">
+                {item.pathName}
+              </span>
+            </div>
+          </NavLink>
+        </div>
       ))}
-
       <div
-        className="flex items-center py-2 px-6 hover:bg-gray-200 cursor-pointer hover:text-black"
+        className="flex items-center py-2 px-6 hover:bg-gray-200 cursor-pointer hover:text-black text-white"
         onClick={handleLogout}
       >
         <div className="mr-3">

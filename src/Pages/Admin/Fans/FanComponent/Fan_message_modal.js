@@ -100,7 +100,7 @@ const Fan_message_modal = ({ scout_email, isOpen, onClose }) => {
             <div className="border-b bord   ">
               <div className=" flex justify-between    px-7 py-3 items-center ">
                 <div>
-                  <h3 className="text-[20px] font-semibold ">title</h3>
+                  <h3 className="text-[20px] font-semibold ">Message</h3>
                 </div>
 
                 <div>
