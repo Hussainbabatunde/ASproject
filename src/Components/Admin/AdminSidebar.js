@@ -121,14 +121,14 @@ function AdminSidebar() {
             <div
               className={`flex  items-center py-[14px] px-6 hover:bg-white hover:bg-opacity-1 border border-black hover:text-black ${
                 selectedItem === index
-                  ? "bg-white text-black"
-                  : "bg-black text-white"
+                  ? "bg-white text-[#262626]"
+                  : "bg-[#262626] text-white"
               }`}
             >
-              <div className="mr-3 transition-colors hover:text-black">
+              <div className="mr-3 transition-colors hover:text-[#262626]">
                 {item.pathIcon}
               </div>
-              <span className="transition-colors hover:text-black">
+              <span className="transition-colors hover:text-[#262626]">
                 {item.pathName}
               </span>
             </div>
@@ -139,7 +139,7 @@ function AdminSidebar() {
         className="flex items-center py-2 px-6 hover:bg-gray-200 cursor-pointer hover:text-black text-white"
         onClick={handleLogout}
       >
-        <div className="mr-3">
+        <div className="mr-3 ">
           {" "}
           <ImExit />
         </div>
