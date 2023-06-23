@@ -22,12 +22,12 @@ const Signup = () => {
       accDetails: "Scout and book players",
       value: "/create-account/scout",
     },
-    {
-      accType: "Fan",
-      image: iconscheerleader,
-      accDetails: "Reach out to your favorite players",
-      value: "/create-account/fan",
-    },
+    // {
+    //   accType: "Fan",
+    //   image: iconscheerleader,
+    //   accDetails: "Reach out to your favorite players",
+    //   value: "/create-account/fan",
+    // },
     {
       accType: "Talent Manager",
       image: iconsManager,
