@@ -571,7 +571,7 @@ function NegotiationDetails() {
                             <BsPinAngleFill />
 
                             <span> UnPin </span>
-                            <span> {negotiation_data?.display} </span>
+                            <span> </span>
                           </button>
                         ) : (
                           <button
@@ -581,7 +581,7 @@ function NegotiationDetails() {
                             <BsPinAngleFill />
 
                             <span> Pin </span>
-                            <span> {negotiation_data?.display} </span>
+                            <span> </span>
                           </button>
                         )}
                       </div>
