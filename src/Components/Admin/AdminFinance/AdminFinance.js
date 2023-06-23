@@ -29,51 +29,6 @@ const AdminFinance = () => {
     return () => {};
   }, []);
 
-  let dataww = {
-    id: 9,
-    user_id: "19",
-    others: "23",
-    offer_id: null,
-    advert_id: "49",
-    manager_id: null,
-    transaction_id: "ch_3NIRX7GbEDshCrwp1PiAl5ff",
-    amount: "1234.00",
-    amount_captured: "1234",
-    amount_refunded: "0",
-    currency: "usd",
-    application_fee: null,
-    application_fee_amount: null,
-    captured: "1",
-    paid: "1",
-    created: "1686640853",
-    status: "succeeded",
-    description: "Elizabeth Evelyn",
-    receipt_url:
-      "https://pay.stripe.com/receipts/payment/CAcaFwoVYWNjdF8xTkU5cThHYkVEc2hDcndwKNaxoKQGMgZc25kcMOI6LBZ4RgYFTsLfbZo-fDsb4L9z9kHCEEbGTT_mF07FJoxm4kfZPwEOwuXqlvDj",
-    payment_type: "advert",
-    payer: null,
-    created_at: "2023-06-13T18:21:14.000000Z",
-    updated_at: "2023-06-13T18:21:14.000000Z",
-    user_type: {
-      id: 6,
-      name: "admin",
-    },
-    sender: {
-      id: 19,
-      firstname: "samheart",
-      surname: "ndukwe",
-      profile_pics:
-        "https://certificate.bcodestech.com/images/profile-picture/1685632556-842154628722208-rola.jpeg",
-    },
-    player: {
-      id: 19,
-      firstname: "samheart",
-      surname: "ndukwe",
-      profile_pics:
-        "https://certificate.bcodestech.com/images/profile-picture/1685632556-842154628722208-rola.jpeg",
-    },
-  };
-
   const dateObject = new Date(Transaction_detail?.updated_at);
   const formattedDate = dateObject.toLocaleDateString("en-US", {
     year: "numeric",
@@ -124,16 +79,16 @@ const AdminFinance = () => {
         <div className="Scoutpage_TransGetpaid">
           <div className="Scoutpage_transactionContent_holder">
             <div className="Scoutpage_transactionContent">
-              <p className="Scoutpage_PaymentEarnings_earntext">Sender</p>
+              <p className="Scoutpage_PaymentEarnings_earntext">payment by</p>
 
               <div className="flex items-center mb-4">
                 <img
-                  src={Transaction_detail?.offer_from?.profile_pics}
+                  src={Transaction_detail?.payment_by?.profile_pics}
                   alt="Profile Picture"
                   className="w-10 h-10 rounded-full mr-3"
                 />
                 <div>
-                  <p>{`${Transaction_detail?.offer_from?.firstname}  ${Transaction_detail?.offer_from?.surname}`}</p>
+                  <p>{`${Transaction_detail?.payment_by?.firstname}  ${Transaction_detail?.payment_by?.surname}`}</p>
                 </div>
               </div>
             </div>
@@ -150,7 +105,7 @@ const AdminFinance = () => {
                   className="w-10 h-10 rounded-full mr-3"
                 />
                 <div>
-                  <p>{`${Transaction_detail?.offer_from?.firstname}  ${Transaction_detail?.offer_from?.surname}`}</p>
+                  <p>{`${Transaction_detail?.player?.firstname}  ${Transaction_detail?.player?.surname}`}</p>
                 </div>
               </div>
             </div>

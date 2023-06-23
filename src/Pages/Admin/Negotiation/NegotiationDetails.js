@@ -24,13 +24,22 @@ function NegotiationDetails() {
   const dispatch = useDispatch();
   let { state } = useLocation();
   // const {each} = Offer_data.state
+  console.log(state);
+  console.log(state?.OfferId);
+  console.log(state?.UserId);
 
   console.log(Admin___Negotiations_detail);
 
   let offer_id =
-    state?.comments?.active_offers?.OfferId || state?.OfferId || state?.OfferId;
+    state?.comments?.active_offers?.OfferId ||
+    state?.OfferId ||
+    state?.offerId ||
+    state?.id;
   let from_id =
-    state?.comments?.active_offers?.from || state?.from || state?.User;
+    state?.comments?.active_offers?.from ||
+    state?.from ||
+    state?.User ||
+    state?.UserId;
 
   console.log(offer_id);
 

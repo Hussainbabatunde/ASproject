@@ -116,7 +116,7 @@ function ScoutsNegotiateStep() {
               : "AdminPAge_Negotiate_TabNegotiateInactive"
           }`}
         >
-          All Negotiate
+          All Negotiations
         </p>
         <p
           className={`${

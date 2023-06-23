@@ -58,11 +58,6 @@ const Ads = ({
     },
     {
       id: 4,
-      name: "Reach",
-      case: "Admin_ads_reach",
-    },
-    {
-      id: 5,
       name: "  ",
       case: "Admin_All_Ads_View",
     },

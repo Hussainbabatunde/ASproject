@@ -63,7 +63,7 @@ function ScoutNegotiateAllNegotiate({
           className="AdminPAge_Negotiate_TabNegotiateActive"
           onClick={handleAllNegotiate}
         >
-          All Negotiate
+          All Negotiation
         </p>
         <p
           className="AdminPAge_Negotiate_TabNegotiateInactive"

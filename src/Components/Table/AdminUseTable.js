@@ -65,6 +65,7 @@ const AdminUseTable = ({
                       <td className="useTable_tableDetails">{formattedDate}</td>
                     );
                   case "Admin_Transaction_details":
+                    console.log(each);
                     return (
                       <td className="useTable_tableDetails">
                         <Link
@@ -363,7 +364,7 @@ const AdminUseTable = ({
                       >
                         <Link
                           onClick={() => handleDelete(each)}
-                          className="Admin_playersSuspendprofile"
+                          className="Admin_playersSuspendprofile cursor-pointer"
                         >
                           Suspend
                         </Link>
@@ -423,7 +424,7 @@ const AdminUseTable = ({
                         </span>
                         <span
                           onClick={() => handleEdit(each)}
-                          className="Admin_playersviewprofile"
+                          className="Admin_playersviewprofile cursor-pointer"
                         >
                           Message
                         </span>
@@ -782,6 +783,24 @@ const AdminUseTable = ({
                         </p>
                       </td>
                     );
+
+                  case "talent_Admin_Initial_Offer":
+                    return (
+                      <td className="useTable_tableDetails">
+                        <p className="AdminUse_TableComp">
+                          {each?.initialOffer}
+                        </p>
+                      </td>
+                    );
+
+                  case "talent_Admin_Current_Offer":
+                    return (
+                      <td className="useTable_tableDetails">
+                        <p className="AdminUse_TableComp">
+                          {each?.currentOffer}
+                        </p>
+                      </td>
+                    );
                 }
 
                 switch (item?.name) {
@@ -822,13 +841,13 @@ const AdminUseTable = ({
                         {each?.position}
                       </td>
                     );
-                  case "Active Negotiate":
+                  case "Active Negotiation":
                     return (
                       <td className="useTable_tableDetails">
                         {each?.activeNegotiate}
                       </td>
                     );
-                  case "Closed Negotiate":
+                  case "Closed Negotiations":
                     return (
                       <td className="useTable_tableDetails">
                         {each?.closedNegotiate}
@@ -886,7 +905,7 @@ const AdminUseTable = ({
                     return (
                       <td className="useTable_tableDetails">
                         <Link
-                          to={`/admin/players/19`}
+                          to={`/admin/players/${each?.id}`}
                           className="AdminPage_TableViewDetails"
                         >
                           View Details
@@ -1074,7 +1093,7 @@ const AdminUseTable = ({
                         <Link className="Admin_playersSuspendprofile">
                           Suspend
                         </Link>
-                        <Link className="Admin_playersviewprofile">
+                        <Link className="Admin_playersviewprofile cursor-pointer">
                           Message
                         </Link>
                         <Link className="Admin_playersEditprofile">View</Link>
