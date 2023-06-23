@@ -143,7 +143,7 @@ function UploadImage({ Admin_Get_Players_Profile_details }) {
 
           <button
             type="submit"
-            className="w-32 h-10 text-white bg-[#1B8550]  text-base rounded-md border-none"
+            className="w-32 text-[#1B8550] h-10 hover:text-white hover:bg-[#1B8550]  text-base rounded-md border-none"
             onClick={() => handleAprove_decline("approved")}
 
             // onClick={}
@@ -153,7 +153,7 @@ function UploadImage({ Admin_Get_Players_Profile_details }) {
               {loading ? (
                 <CircularProgress style={{ color: "white" }} />
               ) : (
-                "Approved"
+                "Approve"
               )}
             </span>
           </button>
