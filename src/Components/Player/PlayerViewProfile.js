@@ -38,7 +38,7 @@ const PlayerViewProfile = () => {
   const [showImgModal, setShowImgModal] = useState(false)
   const [show, setShow] = useState(false)
 
-  // console.log('PlayerDetails ', PlayerDetails)
+  console.log('PlayerDetails ', PlayerDetails)
   const originalString = PlayerDetails?.bio?.position;
   const positionPlayed = originalString.replace(/_/g, ' ');
   //set cover img
