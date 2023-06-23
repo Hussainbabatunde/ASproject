@@ -27,11 +27,11 @@ const ScoutPayNow = ({showPay, gottenDetails, handleHideShowPay, positionPlayed}
     const dispatch = useDispatch()
 
     const gottenMarketfee= useSelector((state)=> state?.reducer?.GetPaymentSlice?.getMarketPriceData?.data)
-    const recipientfee= Number(gottenDetails?.data?.offers?.recipient_earnings)
+    const recipientfee= Number(gottenDetails?.data?.offers?.value)
     const marketFee= Number(gottenMarketfee)
     const AdvertValue = recipientfee + marketFee  
 
-
+// console.log(gottenDetails)
     const handleChangePayValue =(e) =>{
       setPayValue(e.target.value)
     }

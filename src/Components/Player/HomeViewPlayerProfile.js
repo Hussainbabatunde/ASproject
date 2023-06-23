@@ -258,18 +258,18 @@ const HomeViewPlayerProfile = () => {
         </div>
         </div>
         <div className='HomepageViewProfile_OfferRequest'>
-        {userData?.data?.user_type == 'fan'  && 
+        {/* {userData?.data?.user_type == 'fan'  && 
         <div className='HomepageViewProfile_MakeRequestSec'>                
             <p className='ScoutViewProfile_AboutTopicText'>For Fans</p>
             <p className='ScoutViewProfile_UserProfileCurrentlyAvailable'>Request for personalized Video or Photo Content</p>
             <button className='HomepageViewProfile_requestButton' onClick={handleShow}>Make a request</button>
-            </div>}
-            {logindata == null  && 
+            </div>} */}
+            {/* {logindata == null  && 
         <div className='HomepageViewProfile_MakeRequestSec'>                
             <p className='ScoutViewProfile_AboutTopicText'>For Fans</p>
             <p className='ScoutViewProfile_UserProfileCurrentlyAvailable'>Request for personalized Video or Photo Content</p>
             <button className='HomepageViewProfile_requestButton' onClick={handleShow}>Make a request</button>
-            </div>}
+            </div>} */}
             {userData?.data?.user_type != 'player' && userData?.data?.user_type != 'fan' && logindata != null && 
             <div className='HomepageViewProfile_MakeRequestSec'>                
             <p className='ScoutViewProfile_AboutTopicText'>Negotiate this Player</p>
