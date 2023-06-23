@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import AdminUseTable from "../../../../Components/Table/AdminUseTable";
 import { Admin_fan_get_negotiations_fun } from "../../../../Slice/Admin/Admin_FanData_Slice";
+import TableWithPagination from "../../TableWithPagination";
 
 function FanNegotiateStep() {
   const dispatch = useDispatch();
@@ -26,23 +27,9 @@ function FanNegotiateStep() {
     dispatch(Admin_fan_get_negotiations_fun(id));
     return () => {};
   }, []);
+  console.log(Admin_fan_get_negotiations);
 
   const [step, setStep] = useState(1);
-
-  //   let active_negotiations_data =
-  //     Single_Scout_Negotiations_Detail?.active_negotiations_data?.data;
-  //   let close_negotiations_data =
-  //     Single_Scout_Negotiations_Detail?.close_negotiations_data?.data;
-
-  //   let suspended_negotiations_data =
-  //     Single_Scout_Negotiations_Detail?.suspended_negotiations_data?.data;
-
-  //   let terminated_negotiations_data =
-  //     Single_Scout_Negotiations_Detail?.terminated_negotiations_data?.data;
-
-  //   console.log(suspended_negotiations_data);
-  //   console.log(terminated_negotiations_data);
-  // console.log(close_negotiations_data);
 
   const handleAllNegotiate = () => {
     setStep(1);
@@ -63,27 +50,24 @@ function FanNegotiateStep() {
   const header = [
     {
       id: 1,
-      name: "Deal name",
+      name: "Deal Name",
+      case: "scout_Deal_name",
     },
     {
       id: 2,
       name: "Scout",
+      case: "scout_ne_name",
     },
+
     {
       id: 3,
-      name: "Initial Offer",
-    },
-    {
-      id: 4,
-      name: "Current Offer",
-    },
-    {
-      id: 5,
       name: "Payment",
+      case: "scout_ne_Payment",
     },
     {
       id: 6,
-      name: "Active Negotiaties",
+      name: " ",
+      case: "scout_All_Negotiaties",
     },
   ];
 
@@ -145,10 +129,10 @@ function FanNegotiateStep() {
           Terminated
         </p>
       </div>
-
+      {console.log(Admin_fan_get_negotiations?.Admin__Fan__Active_Negotiations)}
       {step === 1 && (
         <div className="AdminTable_NegotiateTable">
-          {Admin_fan_get_negotiations?.Admin__Fan__Active_Negotiations?.data
+          {Admin_fan_get_negotiations?.Admin__Fan__Active_Negotiations
             ?.length === 0 ? (
             <div
               style={{
@@ -164,20 +148,19 @@ function FanNegotiateStep() {
               />
             </div>
           ) : (
-            <AdminUseTable
+            <TableWithPagination
               header={header}
-              data={
-                Admin_fan_get_negotiations?.Admin__Fan__Active_Negotiations
-                  ?.data
-              }
+              data={Admin_fan_get_negotiations?.Admin__Fan__Active_Negotiations}
             />
           )}
         </div>
       )}
 
+      {console.log(Admin_fan_get_negotiations)}
+
       {step === 2 && (
         <div className="AdminTable_NegotiateTable">
-          {Admin_fan_get_negotiations?.Admin__Fan__Suspended_Negotiations?.data
+          {Admin_fan_get_negotiations?.Admin__Fan__Suspended_Negotiations
             ?.length === 0 ? (
             <div
               style={{
@@ -197,7 +180,6 @@ function FanNegotiateStep() {
               header={header}
               data={
                 Admin_fan_get_negotiations?.Admin__Fan__Suspended_Negotiations
-                  ?.data
               }
             />
           )}
@@ -206,7 +188,7 @@ function FanNegotiateStep() {
 
       {step === 3 && (
         <div className="AdminTable_NegotiateTable">
-          {Admin_fan_get_negotiations?.Admin__Fan__Close_Negotiations?.data
+          {Admin_fan_get_negotiations?.Admin__Fan__Close_Negotiations
             ?.length === 0 ? (
             <div
               style={{
@@ -222,19 +204,17 @@ function FanNegotiateStep() {
               />
             </div>
           ) : (
-            <AdminUseTable
+            <TableWithPagination
               header={header}
-              data={
-                Admin_fan_get_negotiations?.Admin__Fan__Close_Negotiations?.data
-              }
+              data={Admin_fan_get_negotiations?.Admin__Fan__Close_Negotiations}
             />
           )}
         </div>
       )}
 
-      {step === 3 && (
+      {step === 4 && (
         <div className="AdminTable_NegotiateTable">
-          {Admin_fan_get_negotiations?.Admin__Fan__Terminate_Negotiations?.data
+          {Admin_fan_get_negotiations?.Admin__Fan__Terminate_Negotiations
             ?.length === 0 ? (
             <div
               style={{
@@ -254,7 +234,6 @@ function FanNegotiateStep() {
               header={header}
               data={
                 Admin_fan_get_negotiations?.Admin__Fan__Terminate_Negotiations
-                  ?.data
               }
             />
           )}

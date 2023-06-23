@@ -23,7 +23,7 @@ const initialState = {
 };
 
 const Admin_fan_get_negotiations_fun_Service = async (data, token) => {
-  let API_URL = `${baseURL}admin/fans/active-negotiations/${data}`;
+  let API_URL = `${baseURL}admin/fans/negotiations/${data}`;
   let API_URL_close = `${baseURL}admin/fans/closed-negotiations/${data}`;
   let API_URL_terminante = `${baseURL}admin/fans/terminated-negotiations/${data}`;
   let API_URL_suspend = `${baseURL}admin/fans/suspended-negotiations/${data}`;

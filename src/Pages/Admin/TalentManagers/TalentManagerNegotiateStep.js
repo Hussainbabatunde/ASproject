@@ -24,16 +24,6 @@ function TalentManagerNegotiateStep() {
     return () => {};
   }, []);
 
-  console.log(Admin_talent_manager_negotiation);
-  console.log(
-    Admin_talent_manager_negotiation?.Admin__Talent__Active_Negotiations
-  );
-
-  console.log(
-    Admin_talent_manager_negotiation?.Admin__Talent__Active_Negotiations?.data
-      ?.data
-  );
-
   const handleAllNegotiate = () => {
     setStep(1);
   };
@@ -54,26 +44,32 @@ function TalentManagerNegotiateStep() {
     {
       id: 1,
       name: "Deal name",
+      case: "talent_Admin_deal_name",
     },
     {
       id: 2,
       name: "Scout",
+      case: "talent_Admin_Scout",
     },
     {
       id: 3,
       name: "Initial Offer",
+      case: "talent_Admin_Initial_Offer",
     },
     {
       id: 4,
       name: "Current Offer",
+      case: "talent_Admin_Current_Offer",
     },
     {
       id: 5,
       name: "Payment",
+      case: "talent_Admin_Payment",
     },
     {
       id: 6,
-      name: "Active Negotiaties",
+      name: " ",
+      case: "talent_Admin_Active",
     },
   ];
 
@@ -123,16 +119,19 @@ function TalentManagerNegotiateStep() {
               : "AdminPAge_Negotiate_TabNegotiateInactive"
           }`}
         >
-          Closed <span className="AdminPage_NegotiateTab_TabNumber">10k</span>
+          Closed{" "}
+          <span className="AdminPage_NegotiateTab_TabNumber">
+            {
+              Admin_talent_manager_negotiation
+                ?.Admin__Talent__Close_Negotiations?.data?.length
+            }
+          </span>
         </p>
       </div>
-      {console.log(
-        Admin_talent_manager_negotiation?.Admin__Talent__Active_Negotiations
-      )}
       {step === 1 && (
         <div className="AdminTable_NegotiateTable">
-          {Admin_talent_manager_negotiation?.Admin__Talent__Active_Negotiations
-            ?.data?.data?.length === 0 ? (
+          {Admin_talent_manager_negotiation?.Admin__Talent_All_Negotiations
+            ?.length === 0 ? (
             <div
               style={{
                 display: "flex",
@@ -150,8 +149,7 @@ function TalentManagerNegotiateStep() {
             <TableWithPagination
               header={header}
               data={
-                Admin_talent_manager_negotiation
-                  ?.Admin__Talent__Active_Negotiations?.data?.data
+                Admin_talent_manager_negotiation?.Admin__Talent_All_Negotiations
               }
             />
           )}
@@ -160,7 +158,7 @@ function TalentManagerNegotiateStep() {
       {step === 2 && (
         <div className="AdminTable_NegotiateTable">
           {Admin_talent_manager_negotiation?.Admin__Talent__Active_Negotiations
-            ?.data?.data?.length === 0 ? (
+            ?.data?.length === 0 ? (
             <div
               style={{
                 display: "flex",
@@ -179,20 +177,17 @@ function TalentManagerNegotiateStep() {
               header={header}
               data={
                 Admin_talent_manager_negotiation
-                  ?.Admin__Talent__Active_Negotiations?.data?.data
+                  ?.Admin__Talent__Active_Negotiations?.data
               }
             />
           )}
         </div>
       )}
-      {console.log(
-        Admin_talent_manager_negotiation?.Admin__Talent__Active_Negotiations
-          ?.data?.data
-      )}
+
       {step === 3 && (
         <div className="AdminTable_NegotiateTable">
           {Admin_talent_manager_negotiation?.Admin__Talent__Active_Negotiations
-            ?.data?.data?.length === 0 ? (
+            ?.data?.length === 0 ? (
             <div
               style={{
                 display: "flex",

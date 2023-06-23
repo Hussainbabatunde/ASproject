@@ -26,6 +26,7 @@ import {
 import axios from "axios";
 import { useMutation } from "react-query";
 import { ToastContainer, toast } from "react-toastify";
+import { RiSearchLine } from "react-icons/ri";
 
 let baseURL = process.env.REACT_APP_AFRISPORTURL;
 
@@ -244,6 +245,22 @@ const TalentManagerDeal = () => {
     Reject_Mutation.mutate(each);
   };
 
+  const [searchInput, setSearchInput] = useState("");
+
+  const filteredUsersArray = Talent_manager_Deals?.data?.filter(
+    (user) =>
+      user?.requests?.sender?.firstname
+        .toLowerCase()
+        .includes(searchInput.toLowerCase()) ||
+      user?.requests?.sender?.surname
+        .toLowerCase()
+        .includes(searchInput.toLowerCase())
+  );
+
+  const handleInputChange = (event) => {
+    setSearchInput(event.target.value);
+  };
+
   return (
     <>
       <ToastContainer />
@@ -253,6 +270,18 @@ const TalentManagerDeal = () => {
         <Talent_Header />
 
         {console.log(Talent_manager_Deals)}
+
+        <div className="AdminDashboard_Search">
+          <input
+            type="text"
+            value={searchInput}
+            onChange={handleInputChange}
+            className="AdminDashboard_SearchInput"
+            placeholder="Search name"
+          />
+
+          <RiSearchLine className="AdminDashboard_SearchIcon" />
+        </div>
 
         <div className="Scoutpage_DealContent">
           {Talent_manager_Deals?.data?.length === 0 ? (
@@ -272,7 +301,7 @@ const TalentManagerDeal = () => {
           ) : (
             <UseTable
               header={header}
-              data={Talent_manager_Deals?.data}
+              data={filteredUsersArray}
               handleEdit={handleEdit}
               handleDelete={handleDelete}
             />

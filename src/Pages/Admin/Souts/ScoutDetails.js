@@ -34,7 +34,7 @@ function ScoutDetails() {
   let user_Data = Admin_Get_ScoutsDetails?.data;
   let PlayerDetails = user_Data;
 
-  console.log(PlayerDetails);
+  console.log(user_Data);
 
   const dispatch = useDispatch();
   useEffect(() => {

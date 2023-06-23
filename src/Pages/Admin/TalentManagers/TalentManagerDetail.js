@@ -31,6 +31,7 @@ let baseURL = process.env.REACT_APP_AFRISPORTURL;
 function TalentManagerDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
+  console.log(id);
 
   const { Admin_Get_ScoutsDetails } = useSelector(
     (state) => state.reducer.Admin_Scouts_Slice
@@ -41,7 +42,7 @@ function TalentManagerDetail() {
 
   let user_Data = Admin_talent_manager_single?.data;
   let PlayerDetails = user_Data;
-
+  console.log(id);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(Admin_talent_manager_single_fun(id));

@@ -32,11 +32,13 @@ let baseURL = process.env.REACT_APP_AFRISPORTURL;
 function FanDetails() {
   const { id } = useParams();
   const navigate = useNavigate();
+  console.log(id);
 
   const { Single_Admin_Fan, Admin_fan_get_negotiations } = useSelector(
     (state) => state.reducer.Admin_FanData_Slice
   );
 
+  console.log(Single_Admin_Fan);
   let user_Data = Single_Admin_Fan?.data;
   let PlayerDetails = user_Data;
 
@@ -63,13 +65,10 @@ function FanDetails() {
       API_URL = `${baseURL}admin/player/suspend`;
     }
 
-    console.log(API_URL);
-
     const tokengot = localStorage.getItem("token");
 
     try {
       // Set the loading state to true before sending the request
-      console.log("Sending POST request...");
       setLoading(true);
 
       const config = {
@@ -209,7 +208,7 @@ function FanDetails() {
 
                   <span className=" font-normal text-sm py-2 px-5">
                     {/* {user_Data?.bio?.position.toUpperCase()} */}
-                    Scout
+                    Fan
                   </span>
                 </div>
               </div>
@@ -300,11 +299,6 @@ function FanDetails() {
               </div>
             </div>
           </div>
-
-          {/* <div className="AdminPage_DashboardTAbleCat">
-
-          <h1>sam</h1>
-        </div> */}
 
           <FanNegotiateStep />
         </div>

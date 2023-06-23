@@ -37,8 +37,8 @@
 }
 .AdminDashboard{
     width: 100%;
-    padding-left: 280px;
-    margin-top: 70px;
+    /* padding-left: 280px;
+    margin-top: 70px; */
 }
 .AdminDashBoard_ViewCategory{
     padding: 1rem;
