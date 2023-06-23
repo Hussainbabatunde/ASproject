@@ -91,7 +91,7 @@ const AdminDashboard = () => {
     },
     {
       id: 6,
-      name: "Active Negotiaties",
+      name: "Active Negotiation",
       case: "scout_All_Negotiaties",
     },
   ];
@@ -205,7 +205,7 @@ const AdminDashboard = () => {
           <div className="AdminDashBoard_ViewCategory2">
             <img src={document} />
             <div className="AdminDashBoard_CategoryTitileDet">
-              <p style={{ fontSize: "14px" }}>Active Negotiation</p>
+              <p style={{ fontSize: "12px" }}>Active Negotiation</p>
               <p className="AdminDashboard_categoryNum">
                 {/* {Admin_Active_Negotiations?.data?.total_active_negotiations} */}
 
@@ -239,7 +239,7 @@ const AdminDashboard = () => {
         </div>
         <div className="AdminPage_DashboardTAbleCat">
           <div className="AdminPage_TableTitleandLink">
-            <p className="AdminDashboard_Dashboardtext">Active Negotiaties</p>
+            <p className="AdminDashboard_Dashboardtext">Active Negotiation</p>
             <Link
               to="/admin/negotiations"
               className="AdminDashBoard_LinkViewall"

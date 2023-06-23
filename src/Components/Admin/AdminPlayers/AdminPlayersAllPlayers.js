@@ -94,9 +94,9 @@ const AdminPlayerAllNegotiate = ({
         </span>
       </div>
       <div className="AdminPage_TableTitleandLink">
-        <button className="AdminPage_NegotiateSortingAlgorithm">
+        {/* <button className="AdminPage_NegotiateSortingAlgorithm">
           Sorting Algorithm
-        </button>
+        </button> */}
         <div className="AdminDashboard_Search">
           <input
             type="text"

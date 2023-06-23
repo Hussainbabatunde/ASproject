@@ -65,6 +65,7 @@ const AdminUseTable = ({
                       <td className="useTable_tableDetails">{formattedDate}</td>
                     );
                   case "Admin_Transaction_details":
+                    console.log(each);
                     return (
                       <td className="useTable_tableDetails">
                         <Link
@@ -782,6 +783,24 @@ const AdminUseTable = ({
                         </p>
                       </td>
                     );
+
+                  case "talent_Admin_Initial_Offer":
+                    return (
+                      <td className="useTable_tableDetails">
+                        <p className="AdminUse_TableComp">
+                          {each?.initialOffer}
+                        </p>
+                      </td>
+                    );
+
+                  case "talent_Admin_Current_Offer":
+                    return (
+                      <td className="useTable_tableDetails">
+                        <p className="AdminUse_TableComp">
+                          {each?.currentOffer}
+                        </p>
+                      </td>
+                    );
                 }
 
                 switch (item?.name) {
@@ -886,7 +905,7 @@ const AdminUseTable = ({
                     return (
                       <td className="useTable_tableDetails">
                         <Link
-                          to={`/admin/players/19`}
+                          to={`/admin/players/${each?.id}`}
                           className="AdminPage_TableViewDetails"
                         >
                           View Details

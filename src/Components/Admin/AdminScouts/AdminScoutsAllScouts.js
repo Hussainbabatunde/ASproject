@@ -90,8 +90,7 @@ const AdminScoutsAllScouts = ({
   };
 
   const handleEdit = (data) => {
-    console.log(data);
-    setScout_email(data);
+    setScout_email(data?.user?.email);
     setIsModalOpen(true);
   };
 
