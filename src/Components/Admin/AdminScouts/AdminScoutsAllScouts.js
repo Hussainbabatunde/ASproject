@@ -44,12 +44,12 @@ const AdminScoutsAllScouts = ({
     },
     {
       id: 2,
-      name: "Active Negotiate",
+      name: "Active Negotiation",
       case: "Admin_scout_Acitive_Negotiate",
     },
     {
       id: 3,
-      name: "Closed Negotiate",
+      name: "Closed Negotiations",
       case: "Admin_scout_Closed_Negotiate",
     },
     {

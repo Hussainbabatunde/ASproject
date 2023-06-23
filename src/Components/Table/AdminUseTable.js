@@ -364,7 +364,7 @@ const AdminUseTable = ({
                       >
                         <Link
                           onClick={() => handleDelete(each)}
-                          className="Admin_playersSuspendprofile"
+                          className="Admin_playersSuspendprofile cursor-pointer"
                         >
                           Suspend
                         </Link>
@@ -424,7 +424,7 @@ const AdminUseTable = ({
                         </span>
                         <span
                           onClick={() => handleEdit(each)}
-                          className="Admin_playersviewprofile"
+                          className="Admin_playersviewprofile cursor-pointer"
                         >
                           Message
                         </span>
@@ -841,13 +841,13 @@ const AdminUseTable = ({
                         {each?.position}
                       </td>
                     );
-                  case "Active Negotiate":
+                  case "Active Negotiation":
                     return (
                       <td className="useTable_tableDetails">
                         {each?.activeNegotiate}
                       </td>
                     );
-                  case "Closed Negotiate":
+                  case "Closed Negotiations":
                     return (
                       <td className="useTable_tableDetails">
                         {each?.closedNegotiate}
@@ -1093,7 +1093,7 @@ const AdminUseTable = ({
                         <Link className="Admin_playersSuspendprofile">
                           Suspend
                         </Link>
-                        <Link className="Admin_playersviewprofile">
+                        <Link className="Admin_playersviewprofile cursor-pointer">
                           Message
                         </Link>
                         <Link className="Admin_playersEditprofile">View</Link>

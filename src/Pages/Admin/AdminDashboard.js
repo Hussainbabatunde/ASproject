@@ -230,7 +230,7 @@ const AdminDashboard = () => {
           <div className="AdminDashBoard_ViewCategory2">
             <img src={vector} />
             <div className="AdminDashBoard_CategoryTitileDet">
-              <p style={{ fontSize: "14px" }}>Closed Negotiation</p>
+              <p style={{ fontSize: "13px" }}>Closed Negotiation</p>
               <p className="AdminDashboard_categoryNum">
                 {Admin_Header_Summary?.data?.closed_negotiation}
               </p>
@@ -250,7 +250,7 @@ const AdminDashboard = () => {
           <div className="AdminPage_TableInfo">
             <AiOutlineInfoCircle style={{ fontSize: "18px" }} />
             <span className="AdminPage_TableInfoText">
-              This is a table of recent Active negotiaties on this platform
+              This is a table of recent Active negotiation on this platform
             </span>
           </div>
           {console.log(last5Object_Admin_dashboard_active_negotiations)}

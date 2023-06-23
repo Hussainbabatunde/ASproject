@@ -49,7 +49,7 @@ const Admin_Fans = ({}) => {
     },
     {
       id: 3,
-      name: "CLosed Negotiate",
+      name: "CLosed Negotiations",
       case: "Admin_fan_Closed_Negotiate",
     },
 

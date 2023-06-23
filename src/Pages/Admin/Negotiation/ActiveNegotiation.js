@@ -72,7 +72,7 @@ const ActiveNegotiation = ({}) => {
     },
     {
       id: 6,
-      name: "Active Negotiaties",
+      name: "Active Negotiations",
       case: "Neg_All_Negotiaties",
     },
   ];
@@ -150,7 +150,7 @@ const ActiveNegotiation = ({}) => {
                 // className="AdminPAge_Negotiate_TabNegotiateActive"
                 onClick={handleAllNegotiate}
               >
-                All Negotiate
+                All Negotiations
               </p>
               <p
                 onClick={handleSuspended}
@@ -190,7 +190,7 @@ const ActiveNegotiation = ({}) => {
             {step === 1 && (
               <>
                 <p className="AdminPage_NegotiateTitleText">
-                  Active Negotiates
+                  Active Negotiations
                 </p>
                 <div className="AdminPage_TableInfo">
                   <AiOutlineInfoCircle style={{ fontSize: "18px" }} />
@@ -290,7 +290,7 @@ const ActiveNegotiation = ({}) => {
                 <div className="AdminPage_TableInfo">
                   <AiOutlineInfoCircle style={{ fontSize: "18px" }} />
                   <span className="AdminPage_TableInfoText">
-                    This is a table of Closed Negotiates on the platform
+                    This is a table of Closed Negotiations on the platform
                   </span>
                 </div>
                 <div className="AdminPage_TableTitleandLink">
