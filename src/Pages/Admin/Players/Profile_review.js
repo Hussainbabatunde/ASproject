@@ -41,15 +41,17 @@ function Profile_review() {
       <div className="AdminDashboard">
         <div className="AdminPage_Dashboard">
           <div>
-            <div className="ScoutViewProfile_navigationprogress">
-              <Link
-                to={`/admin/players`}
-                className="ScoutViewProfile_navigationback"
-              >
-                Back
-              </Link>
-              <GrFormNext style={{ fontSize: "16px" }} />
-              <p className="ScoutViewProfile_navigationprofile">Profile</p>
+            <div className="w-[70%] m-auto">
+              <div className="ScoutViewProfile_navigationprogress mb-5">
+                <Link
+                  to={`/admin/players`}
+                  className="ScoutViewProfile_navigationback"
+                >
+                  Back
+                </Link>
+                <GrFormNext style={{ fontSize: "16px" }} />
+                <p className="ScoutViewProfile_navigationprofile">Profile</p>
+              </div>
             </div>
 
             {Admin_Get_Players_Profile_details && (
