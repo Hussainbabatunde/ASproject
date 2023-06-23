@@ -7,6 +7,7 @@ import iconsPersonaltrainer from "../../assets/icons-personaltrainer.png";
 import iconscheerleader from "../../assets/iconscheerleader.png";
 import iconsManager from "../../assets/iconsmanager.png";
 
+import footballLogo from "../../assets/footballLogo.png";
 const Signup = () => {
   const data = [
     {
@@ -37,8 +38,8 @@ const Signup = () => {
   return (
     <div className="Loginpage">
       <p className="Loginpage_Companyname">
-        <Link className="Loginpage_Companyname" to="/">
-          AfriSport-Pro
+      <Link className="Loginpage_companyImg" to="/">
+          <img src={footballLogo} width='70px' />
         </Link>
       </p>
       <form className="Loginpage_formSection">

@@ -8,6 +8,7 @@ import {
 import CircularProgress from "@mui/material/CircularProgress";
 import imgPlaceHolder from "../../assets/imageplaceholder.png";
 
+import { AiFillCamera } from 'react-icons/ai'
 import { ToastContainer } from "react-toastify";
 import Talent_Header from "../../Components/TalentManagersCompnente/Talent_Header";
 import Talent_Profileform from "../../Components/TalentManagersCompnente/Talent_Profileform";
@@ -18,6 +19,9 @@ const Talent_manager_Profile = () => {
   const { Talent_manager_details } = useSelector(
     (state) => state?.reducer?.Talent_manager_slice
   );
+
+  let PlayerDetails = Talent_manager_details?.data;
+
 
   let userDataInfo = Talent_manager_details?.data;
 
@@ -39,6 +43,9 @@ const Talent_manager_Profile = () => {
     (state) => state?.reducer?.LoginSlice?.logindata?.data?.user?.id
   );
 
+
+
+
   const handleImgSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData();
@@ -51,7 +58,12 @@ const Talent_manager_Profile = () => {
     setImgLoader(false);
   };
 
+  useEffect(() => {
+    setFile(PlayerDetails?.profile_pics);
+  }, [PlayerDetails]);
+
   return (
+    <div className="Scoutpage_maxWidthContainer">
     <div className="Scoutpage_contents">
       <ToastContainer />
 
@@ -69,20 +81,18 @@ const Talent_manager_Profile = () => {
                   alignItems: "center",
                 }}
               >
-                <label for="imagePlcholder">
-                  <img
-                    src={file}
-                    className="Scoutpage_Profile_placeholder"
-                    width="132px"
-                    height="136px"
-                  />
-                  <input
-                    type="file"
-                    id="imagePlcholder"
-                    onChange={handleChange}
-                    className="Scoutpage_Profile_ImagePlaceInput"
-                  />
-                </label>
+                <label className="ProfileName_InputImage" for='imagePlcholder'>
+              <img src={file} className="Scoutpage_Profile_placeholder" />
+          <input 
+          type='file'
+           id='imagePlcholder' 
+          onChange={handleChange} 
+          className='Scoutpage_Profile_ImagePlaceInput' 
+          />
+          <div className="ImageHolder_PrifilepicImg">
+            <AiFillCamera className="Profile_EditCameraImg" />
+          </div>
+          </label>
 
                 <button
                   type="submit"
@@ -108,6 +118,7 @@ const Talent_manager_Profile = () => {
           <TalentProfileUploadId userId={userId} />
         </div>
       </div>
+    </div>
     </div>
   );
 };

@@ -60,7 +60,7 @@ console.log(PlayerDetails)
     setLoadProfileform(true)
     // console.log('profile info submitted ', profileInfo)
     await dispatch(ScoutProfileProfileformApi(profileInfo))
-    await dispatch(ProfileDetailsScout())
+    // await dispatch(ProfileDetailsScout())
     await dispatch(ScoutProfileVerificationStatus(userId))
     setLoadProfileform(false)
   }

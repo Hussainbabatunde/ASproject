@@ -120,6 +120,8 @@ const PlayerTalentManagerDeal = () => {
 const dataTable = useSelector((state)=> state?.reducer?.PlayerManagerSlice?.PlayerManagerDealData?.data)
 console.log('manager deals ', dataTable)
   return (
+    
+    <div className="Scoutpage_maxWidthContainer">
     <div  className='Scoutpage_contents'>
         <ToastContainer />
     <div className='Scoutpage_AccountLogout_div'>
@@ -160,6 +162,7 @@ console.log('manager deals ', dataTable)
             </Box>
         
       </Modal> */}
+        </div>
         </div>
   )
 }

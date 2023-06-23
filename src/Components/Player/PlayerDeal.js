@@ -158,6 +158,7 @@ const PlayerDeal = () => {
 
 
   return (
+    <div className="Scoutpage_maxWidthContainer">
     <div  className='Scoutpage_contents'>
         <ToastContainer />
     <div className='Scoutpage_AccountLogout_div'>
@@ -213,6 +214,7 @@ const PlayerDeal = () => {
             </Box>
         
       </Modal> */}
+        </div>
         </div>
   )
 }

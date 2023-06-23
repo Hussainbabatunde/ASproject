@@ -10,6 +10,7 @@ const Create_players = ({ scout_email, isOpen, onClose }) => {
     email: "",
     fullname: "",
     phone: "",
+    password: ""
   });
 
   const [loading, setLoading] = useState(false);
@@ -151,6 +152,20 @@ const Create_players = ({ scout_email, isOpen, onClose }) => {
                           id="phone"
                           name="phone"
                           value={message_data.phone}
+                          onChange={handleInputChangemessage_data}
+                          className="w-full p-2 border border-gray-300 rounded"
+                        />
+                      </div>
+
+                      <div className="mb-4">
+                        <label htmlFor="title" className="block mb-2">
+                          Password:
+                        </label>
+                        <input
+                          type="text"
+                          id="password"
+                          name="password"
+                          value={message_data.password}
                           onChange={handleInputChangemessage_data}
                           className="w-full p-2 border border-gray-300 rounded"
                         />

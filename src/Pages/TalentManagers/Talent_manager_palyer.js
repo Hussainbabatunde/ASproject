@@ -15,6 +15,7 @@ import { ToastContainer, toast } from "react-toastify";
 
 import axios from "axios";
 import { useMutation } from "react-query";
+import Footer from "../../Components/Homepage/Footer";
 
 let baseURL = process.env.REACT_APP_AFRISPORTURL;
 
@@ -164,6 +165,7 @@ function Talent_manager_palyer() {
           onClose={closeModal}
         />
       )}
+      <div className="Scoutpage_maxWidthContainer">
       <div className="Scoutpage_contents ">
         <Talent_Header />
         <ToastContainer />
@@ -231,6 +233,7 @@ function Talent_manager_palyer() {
             </Box>
           </Modal>
         </div>
+      </div>
       </div>
     </>
   );

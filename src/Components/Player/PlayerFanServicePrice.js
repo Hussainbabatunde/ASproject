@@ -54,13 +54,13 @@ const PlayerProfileFanService = ({userId}) => {
         <div>
         <p className='Scoutpage_Profile_Profileformlabelnexttext'>Video Service </p>
                 <div className='Scoutprofile_nairainput'>
-                    <TbCurrencyNaira style={{fontSize:"18px"}} />
+                    $
                 <input type='text' name='preferred' value={videoPrice}  onChange={handleVideoPrice} className='Scoutprofile_frominput' required/>
                 </div>
 
                 <p className='Scoutpage_Profile_Profileformlabelnexttext'>Photo Service </p>
                 <div className='Scoutprofile_nairainput'>
-                    <TbCurrencyNaira style={{fontSize:"18px"}} />
+                    $
                 <input type='text' name='preferred' value={imgPrice}  onChange={handleImgPrice} className='Scoutprofile_frominput' required/>
                 </div>
         

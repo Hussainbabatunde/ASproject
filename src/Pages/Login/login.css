@@ -11,14 +11,23 @@
     font-size: 36px;
     font-weight: 500;
     margin-top: 20px;
+    background: linear-gradient(to right, rgba(88, 220, 83, 1) 50%,  rgba(253, 222, 73, 1) 100%);
+    width: 460px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
     color: white !important;
+}
+.Loginpage_companyImg{
+    margin-top: 0;
+    padding: 6px;
 }
 .Loginpage_formSection{
     background-color: white;
     color: black;
     padding: 3rem 2rem;
     border-radius: 5px;
-    margin-top: 20px;
+    margin-top: 10px;
     margin-bottom: 20px;
 }
 .Loginpage_formTopic{

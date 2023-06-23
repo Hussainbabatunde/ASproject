@@ -59,7 +59,7 @@ const ScoutProfile = () => {
       
       const [imgloader, setImgLoader] =useState(false)
 
-  const [fileimg, setFileImg] = useState("");
+  const [fileimg, setFileImg] = useState(null);
   const [picFile, setPicFile] = useState(null);
   const [loader, setLoader] = useState(false)
   const [checkedVideoLink, setCheckedVideoLink] = useState(false)
@@ -99,8 +99,6 @@ const ScoutProfile = () => {
     }
 
     
-
-
     const userId = useSelector((state)=> state?.reducer?.LoginSlice?.logindata?.data?.user?.id)
     const userDataInfo = useSelector((state)=> state?.reducer?.LoginSlice?.logindata?.data?.user)
 
@@ -111,22 +109,12 @@ const ScoutProfile = () => {
         setLoader(true)
         await dispatch(ProfileDetailsScout(userId))
         await dispatch(GetMarketPriceApi())
-        setFileImg(PlayerDetails?.profile_pics)
+        // setFileImg(PlayerDetails?.profile_pics)
         setLoader(false)
       }
       checkingVerification()
     },[])
 
-    useEffect(() => {
-      const redispatch = async () =>{
-        if (PlayerDetails) {
-          console.log(PlayerDetails?.profile_pics)
-          setFileImg(PlayerDetails?.profile_pics);
-          console.log(fileimg)
-        } 
-      }
-    redispatch()
-    }, [PlayerDetails]);
 
     const handleImgSubmit = async (e) =>{
       e.preventDefault()
@@ -141,8 +129,12 @@ const ScoutProfile = () => {
     }
 
 
+    useEffect(() => {
+      setFileImg(PlayerDetails?.profile_pics);
+    }, [PlayerDetails]);
 
   return (  
+    <div className="Scoutpage_maxWidthContainer">
     <div  className='Scoutpage_contents'>
       <ToastContainer />
         <div className='Scoutpage_AccountLogout_div'>
@@ -158,10 +150,13 @@ const ScoutProfile = () => {
       <div className='Scoutpage_ProfileContent_editformside'>
         <div className='Scoutpage_Profile_ImgVerificationSec'>
           <div className='Scoutpage_Profile_ImgNameSec'>
-            <form onSubmit={handleImgSubmit}  style={{display:'flex',flexDirection:'column', alignItems:'center'}} >
+            <form onSubmit={handleImgSubmit}  
+            style={{display:'flex',flexDirection:'column', alignItems:'center'}} >
             <label className="ProfileName_InputImage" for='imagePlcholder'>
-              {loader ? <img src={imgPlaceHolder} className="Scoutpage_Profile_placeholder" />: <img src={fileimg} className="Scoutpage_Profile_placeholder" />}
-          <input type='file' id='imagePlcholder' 
+              <img src={fileimg} className="Scoutpage_Profile_placeholder" />
+          <input 
+          type='file'
+           id='imagePlcholder' 
           onChange={handleChange} 
           className='Scoutpage_Profile_ImagePlaceInput' 
           />
@@ -217,6 +212,7 @@ const ScoutProfile = () => {
         </div>
       </div> */}
         </div>
+    </div>
     </div>
   )
 }

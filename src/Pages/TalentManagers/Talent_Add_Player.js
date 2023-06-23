@@ -100,6 +100,7 @@ function Talent_Add_Player() {
     <>
       <ToastContainer />
 
+      <div className="Scoutpage_maxWidthContainer">
       <div className="Scoutpage_contents ">
         <Talent_Header />
         <div className="Scoutpage_DealContent">
@@ -146,6 +147,7 @@ function Talent_Add_Player() {
             </Box>
           </Modal>
         </div>
+      </div>
       </div>
     </>
   );

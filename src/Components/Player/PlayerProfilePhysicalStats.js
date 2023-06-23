@@ -61,7 +61,7 @@ const PlayerProfilePhysicalStats = ({ userId }) => {
     // console.log(physicalStats)
     setLoadProfileStats(true);
     await dispatch(PlayerProfilePhysicalStatsApi(physicalStats));
-    await dispatch(ProfileDetailsPlayer());
+    // await dispatch(ProfileDetailsPlayer());
     await dispatch(PlayerProfileVerificationStatus(userId));
     setLoadProfileStats(false);
   };
