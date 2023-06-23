@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import trophy from "../../assets/lottie/107653-trophy.json";
 import Lottie from 'lottie-react';
 import './VerifySignup.css'
+import footballLogo from "../../assets/footballLogo.png";
 import { useDispatch } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
 
@@ -19,8 +20,8 @@ const VerifiedSignup = () => {
     <div className="Loginpage">
         <ToastContainer />
       <p className="Loginpage_Companyname">
-        <Link className="Loginpage_Companyname" to="/">
-          AfriSport-Pro
+      <Link className="Loginpage_companyImg" to="/">
+          <img src={footballLogo} width='70px' />
         </Link>
       </p>
         <div className="VerifySignupDiv">

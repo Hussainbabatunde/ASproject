@@ -64,7 +64,7 @@ const PlayerProfileProfileform = ({userId}) => {
     setLoadProfileform(true)
     console.log('profile info submitted ', profileInfo)
     await dispatch(PlayerProfileProfileformApi(profileInfo))
-    await dispatch(ProfileDetailsPlayer())
+    // await dispatch(ProfileDetailsPlayer())
     await dispatch(PlayerProfileVerificationStatus(userId))
     setLoadProfileform(false)
   }

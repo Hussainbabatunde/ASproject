@@ -11,6 +11,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useDispatch, useSelector } from 'react-redux'
 import { ForgotPasswordAuth, loginAuth } from '../../Slice/auth/Login'
 import { useEffect } from 'react'
+import footballLogo from "../../assets/footballLogo.png";
 
 const style = {
   position: 'absolute',
@@ -38,7 +39,11 @@ const ForgotPassword = () => {
   return (
     <div className='Loginpage'>
     <ToastContainer />
-        <p className='Loginpage_Companyname'><Link className='Loginpage_Companyname' to='/'>AfriSport-Pro</Link></p>
+        <p className='Loginpage_Companyname'>
+        <Link className="Loginpage_companyImg" to="/">
+          <img src={footballLogo} width='70px' />
+        </Link>
+            </p>
         <form  onSubmit={handleSubmit(onSubmit)} className='Loginpage_formSection'>
             <p className='Loginpage_formTopic'>Forgot Password</p>
             <p className='Loginpage_formTopicdetails'>Enter your email to reset your password</p>

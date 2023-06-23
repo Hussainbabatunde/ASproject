@@ -106,6 +106,7 @@ const PlayerPayment = () => {
 
 
   return (
+    <div className="Scoutpage_maxWidthContainer">
     <div  className='Scoutpage_contents'>
     <div className='Scoutpage_AccountLogout_div'>
         <p className='Scoutpage_AccountWord'>Account</p>
@@ -200,6 +201,7 @@ const PlayerPayment = () => {
             </div>
         </div>
         </div>}
+    </div>
     </div>
   )
 }

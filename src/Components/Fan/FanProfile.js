@@ -134,6 +134,7 @@ const FanProfile = () => {
 
 
   return (  
+    <div className="Scoutpage_maxWidthContainer">
     <div  className='Scoutpage_contents'>
       <ToastContainer />
         <div className='Scoutpage_AccountLogout_div'>
@@ -178,6 +179,7 @@ const FanProfile = () => {
         <FanProfileUploadId userId={userId}/>
       </div>
         </div>
+    </div>
     </div>
   )
 }

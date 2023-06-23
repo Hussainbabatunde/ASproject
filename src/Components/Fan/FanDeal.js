@@ -146,9 +146,10 @@ const dataTable = useSelector((state)=> state?.reducer?.FanDealsSlice?.fanDealDa
 //     }
 // ]
 
-// console.log(dataTable)
+console.log(dataTable)
 
   return (
+    <div className="Scoutpage_maxWidthContainer">
     <div  className='Scoutpage_contents'>
     <div className='Scoutpage_AccountLogout_div'>
         <p className='Scoutpage_AccountWord'>Account</p>
@@ -204,6 +205,7 @@ const dataTable = useSelector((state)=> state?.reducer?.FanDealsSlice?.fanDealDa
             </Box>
         
       </Modal> */}
+        </div>
         </div>
   )
 }

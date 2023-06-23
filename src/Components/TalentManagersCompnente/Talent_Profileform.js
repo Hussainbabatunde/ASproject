@@ -30,6 +30,7 @@ const Talent_Profileform = ({ userId }) => {
   );
 
   let PlayerDetails = Talent_manager_details?.data;
+  console.log(PlayerDetails)
 
   const [profileInfo, setProfileInfo] = useState({
     user_id: id,
@@ -41,6 +42,19 @@ const Talent_Profileform = ({ userId }) => {
     home_town: PlayerDetails?.bio?.home_town,
     email: PlayerDetails?.email,
   });
+
+  useEffect(()=>{
+    setProfileInfo({
+      user_id: id,
+    age: PlayerDetails?.bio?.age,
+    user_type: "talent-manager",
+    fullname: `${PlayerDetails?.firstname} ${PlayerDetails?.surname}`,
+    phone: PlayerDetails?.phone,
+    location: PlayerDetails?.bio?.location,
+    home_town: PlayerDetails?.bio?.home_town,
+    email: PlayerDetails?.email,
+    })
+  }, [PlayerDetails])
 
   const handleChange = (e) => {
     const { name, value } = e.target;

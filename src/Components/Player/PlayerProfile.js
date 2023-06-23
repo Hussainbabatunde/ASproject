@@ -215,6 +215,7 @@ const PlayerProfile = () => {
   }, [PlayerDetails]);
 
   return (
+    <div className="Scoutpage_maxWidthContainer">
     <div className="Scoutpage_contents">
       <ToastContainer />
       <div className="Scoutpage_AccountLogout_div">
@@ -370,6 +371,7 @@ const PlayerProfile = () => {
           </div>
         </div>
       </div>
+    </div>
     </div>
   );
 };

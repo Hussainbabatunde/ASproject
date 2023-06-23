@@ -65,6 +65,7 @@ const PlayerViews = () => {
         {id: 6, pathTo: '/afrisport/player/payment', pathName: 'Payment'}
     ]
   return (
+    <div className="Scoutpage_maxWidthContainer">
     <div  className='Scoutpage_contents'>
     <div className='Scoutpage_AccountLogout_div'>
         <p className='Scoutpage_AccountWord'>Account</p>
@@ -82,6 +83,7 @@ const PlayerViews = () => {
             {/* <p className='Scoutpage_View_NoofEnquiry'>30 Scouts Enquired About You</p> */}
         </div>
     </div>
+        </div>
         </div>
   )
 }

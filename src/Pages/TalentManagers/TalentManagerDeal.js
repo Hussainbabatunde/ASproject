@@ -265,7 +265,8 @@ const TalentManagerDeal = () => {
     <>
       <ToastContainer />
 
-      <div className="Scoutpage_contents ">
+      <div className="Scoutpage_maxWidthContainer">
+          <div className="Scoutpage_contents ">
         <Talent_Header />
 
         {console.log(Talent_manager_Deals)}
@@ -320,6 +321,7 @@ const TalentManagerDeal = () => {
             />
           </Box>
         </Modal>
+      </div>
       </div>
     </>
   );

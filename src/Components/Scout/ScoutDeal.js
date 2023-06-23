@@ -149,6 +149,7 @@ const ScoutDeal = () => {
 // console.log('dataTable ', dataTable)
 
   return (
+    <div className="Scoutpage_maxWidthContainer">
     <div  className='Scoutpage_contents'>
     <div className='Scoutpage_AccountLogout_div'>
         <p className='Scoutpage_AccountWord'>Account</p>
@@ -203,6 +204,7 @@ const ScoutDeal = () => {
             </Box>
         
       </Modal> */}
+        </div>
         </div>
   )
 }

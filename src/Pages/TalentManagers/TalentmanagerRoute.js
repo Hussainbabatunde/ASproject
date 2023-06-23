@@ -13,6 +13,7 @@ import PlayerDetails from "../Admin/Players/PlayerDetails";
 import Talent_PlayerDetails from "./Talent_PlayerDetails";
 import Talent_manger_Request from "./Talent_manger_Request";
 import PlayerDealsMade from "../../Components/TalentManagersCompnente/PlayerDealsMade";
+import Footer from "../../Components/Homepage/Footer";
 
 function TalentmanagerRoute() {
   return (
@@ -33,6 +34,9 @@ function TalentmanagerRoute() {
 
         <Route path="/deal_detail" element={<PlayerDealsMade />} />
       </Routes>
+
+      
+      <Footer />
     </div>
   );
 }

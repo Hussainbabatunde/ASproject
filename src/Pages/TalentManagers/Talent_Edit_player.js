@@ -245,6 +245,7 @@ const Talent_Edit_player = () => {
 
       <Talent_Header />
 
+      <div className="Scoutpage_maxWidthContainer">
       <div className="Scoutpage_ProfileContent">
         <div className="Scoutpage_ProfileContent_editformside">
           <div className="Scoutpage_Profile_ImgVerificationSec">
@@ -338,6 +339,7 @@ const Talent_Edit_player = () => {
             removeInput={removeInput}
           /> */}
         </div>
+      </div>
       </div>
     </div>
   );

@@ -15,6 +15,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { useDispatch, useSelector } from "react-redux";
 import { loginAuth } from "../../Slice/auth/Login";
 import { useEffect } from "react";
+import footballLogo from "../../assets/footballLogo.png";
 
 const style = {
   position: "absolute",
@@ -98,8 +99,8 @@ const Login = () => {
     <div className="Loginpage">
       <ToastContainer />
       <p className="Loginpage_Companyname">
-        <Link className="Loginpage_Companyname" to="/">
-          AfriSport-Pro
+        <Link className="Loginpage_companyImg" to="/">
+          <img src={footballLogo} width='70px' />
         </Link>
       </p>
       <form onSubmit={handleSubmit(onSubmit)} className="Loginpage_formSection">

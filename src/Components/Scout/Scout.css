@@ -5,6 +5,9 @@
     max-width: 1350px;
     margin: 0 auto;
 }
+.Scoutpage_maxWidthContainer{
+    background-color: #f6f6f6;
+}
 .Scoutpage_AccountLogout_div{
     display: flex;
     justify-content: space-between;

@@ -11,6 +11,7 @@ import { RegisterAuth } from '../../Slice/auth/Login'
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import Lottie from 'lottie-react';
+import footballLogo from "../../assets/footballLogo.png";
 import football from '../../assets/lottie/92356-football.json'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
@@ -77,7 +78,11 @@ const CreateAccount = () => {
   return (
     <div className='Loginpage'>
          <ToastContainer />
-        <p className='Loginpage_Companyname'><Link className='Loginpage_Companyname' to='/'>AfriSport-Pro</Link></p>
+        <p className='Loginpage_Companyname'>
+        <Link className="Loginpage_companyImg" to="/">
+          <img src={footballLogo} width='70px' />
+        </Link>
+            </p>
         <form  onSubmit={handleSubmit(onSubmit)} className='Loginpage_formSection'>
             <p className='Loginpage_formTopic'>Create your account</p>
             <div className='Loginpage_formInputfield'>

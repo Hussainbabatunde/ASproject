@@ -72,6 +72,7 @@ const Talent_manger_Request = () => {
 
   return (
     <>
+    <div className="Scoutpage_maxWidthContainer">
       <div className="Scoutpage_contents ">
         <Talent_Header />
 
@@ -110,6 +111,7 @@ const Talent_manger_Request = () => {
             />
           </Box>
         </Modal>
+      </div>
       </div>
     </>
   );
