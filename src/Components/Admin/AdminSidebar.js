@@ -28,7 +28,7 @@ function AdminSidebar() {
     {
       id: 2,
       pathTo: "/admin/negotiations",
-      pathName: "Negotiate",
+      pathName: "Negotiation",
       pathIcon: <IoIosPaper />,
       children: [],
     },

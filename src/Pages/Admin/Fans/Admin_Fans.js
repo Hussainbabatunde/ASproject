@@ -13,6 +13,7 @@ import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
 import FanSuspended from "./FanComponent/FanSuspended";
 import TableWithPagination from "../TableWithPagination";
+import Fan_message_modal from "./FanComponent/Fan_message_modal";
 let baseURL = process.env.REACT_APP_AFRISPORTURL;
 
 const Admin_Fans = ({}) => {
@@ -48,7 +49,7 @@ const Admin_Fans = ({}) => {
     },
     {
       id: 3,
-      name: "CLosed Negotiate",
+      name: "CLosed Negotiations",
       case: "Admin_fan_Closed_Negotiate",
     },
 
@@ -184,13 +185,13 @@ const Admin_Fans = ({}) => {
     <>
       <ToastContainer />
 
-      {/* {isModalOpen && (
+      {isModalOpen && (
         <Fan_message_modal
-          scout_email={scout_email}
+          scout_email={scout_email?.user?.email}
           isOpen={isModalOpen}
           onClose={closeModal}
         />
-      )} */}
+      )}
 
       <div className="AdminDashboard">
         <div className="AdminPage_Dashboard">

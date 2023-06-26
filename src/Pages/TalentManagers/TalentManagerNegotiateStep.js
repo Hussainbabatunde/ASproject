@@ -103,7 +103,7 @@ function TalentManagerNegotiateStep() {
           }`}
           onClick={handleAllNegotiate}
         >
-          All Negotiate
+          All Negotiations
         </p>
         <p
           onClick={handleSuspended}

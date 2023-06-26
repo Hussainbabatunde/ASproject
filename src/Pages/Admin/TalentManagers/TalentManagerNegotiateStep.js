@@ -98,7 +98,7 @@ function TalentManagerNegotiateStep() {
           }`}
           onClick={handleAllNegotiate}
         >
-          All Negotiate
+          All Negotiation
         </p>
         <p
           onClick={handleSuspended}
@@ -108,7 +108,7 @@ function TalentManagerNegotiateStep() {
               : "AdminPAge_Negotiate_TabNegotiateInactive"
           }`}
         >
-          Negotiate
+          Negotiation
         </p>
 
         <p

@@ -45,7 +45,7 @@ const AdminTalentManagerAllManagers = ({
     },
     {
       id: 3,
-      name: "Closed Negotiate",
+      name: "Closed Negotiations",
       case: "Admin_talent_manager_Closed_Negotiate",
     },
     {
