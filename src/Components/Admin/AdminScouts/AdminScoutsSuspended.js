@@ -189,7 +189,7 @@ const AdminScoutsSuspended = ({
         <div className="AdminPage_SuspendedTableInfo">
           <AiOutlineInfoCircle style={{ fontSize: "18px" }} />
           <span className="AdminPage_TableInfoText">
-            This is a table of Suspended Negotiates on the platform
+            This is a table of Suspended Negotiations on the platform
           </span>
         </div>
         <div className="AdminTable_NegotiateTable">

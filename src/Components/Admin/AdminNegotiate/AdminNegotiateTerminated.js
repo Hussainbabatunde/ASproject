@@ -70,7 +70,7 @@ const AdminNegotiateTerminated = ({
             <div className="AdminPage_TerminatedTableInfo">
               <AiOutlineInfoCircle style={{ fontSize: "18px" }} />
               <span className="AdminPage_TableInfoText">
-                This is a table of Terminated Negotiates on the platform
+                This is a table of Terminated Negotiations on the platform
               </span>
             </div>
             <div className="AdminPage_TableTitleandLink">
