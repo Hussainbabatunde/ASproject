@@ -40,7 +40,7 @@ const PlayerViewProfile = () => {
 
   console.log('PlayerDetails ', PlayerDetails)
   const originalString = PlayerDetails?.bio?.position;
-  const positionPlayed = originalString.replace(/_/g, ' ');
+  const positionPlayed = originalString?.replace(/_/g, ' ');
   //set cover img
   const handleSetCoverImg = async (id) =>{
     coverimg.user_id = userId

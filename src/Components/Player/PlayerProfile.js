@@ -309,7 +309,7 @@ const PlayerProfile = () => {
           <PlayerProfileProfileform userId={userId} />
           <PlayerProfilePhysicalStats userId={userId} />
           <PlayerProfileBusinessService userId={userId} />
-          <PlayerProfileFanService userId={userId} />
+          {/* <PlayerProfileFanService userId={userId} /> */}
           <PlayerProfileUploadId userId={userId} />
           <PlayerProfileYourImages userId={userId} />
           <PlayerProfileVideo

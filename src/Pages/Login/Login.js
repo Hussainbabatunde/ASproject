@@ -57,11 +57,11 @@ const Login = () => {
     ) {
       navigate("/admin/dashboard");
     } else if (userData?.data?.user_type == "scout") {
-      navigate("/afrisport/scout/profile");
+      navigate("/afrisport/player/homepage");
     } else if (userData?.data?.user_type == "talent-manager") {
       navigate("/afrisport/talent-manager/profile");
     } else if (userData?.data?.user_type == "fan") {
-      navigate("/afrisport/fan/profile");
+      // navigate("/afrisport/fan/profile");
     } else if (userData?.data?.user_type == "talent-manager") {
       console.log(userData?.data);
       navigate("/afrisport/talent-manager/profile");
