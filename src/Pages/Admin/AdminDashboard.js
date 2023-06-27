@@ -191,9 +191,9 @@ const AdminDashboard = () => {
         </div>
       </div>
       <div className="AdminPage_Dashboard">
-        <div className="flex  flex-wrap  justify-between">
+        <div className="flex flex-wrap  justify-between">
           <div
-            className={`lg:py-1 lg:px-1 bg-[#1B5285] rounded-lg flex justify-center gap-2 items-center  xl:w-[260px]  2xl:w-[285px]`}
+            className={`lg:py-1 lg:px-1 bg-[#1B5285] rounded-lg flex justify-center  items-center  xl:w-[230px]  2xl:w-[285px]`}
           >
             <div>
               <img src={people} />
@@ -207,7 +207,7 @@ const AdminDashboard = () => {
           </div>
 
           <div
-            className={`lg:py-1 lg:px-1 bg-[#1B8550] rounded-lg flex justify-center gap-2 items-center  xl:w-[260px]  2xl:w-[285px]`}
+            className={`lg:py-1 lg:px-1 bg-[#1B8550] rounded-lg flex justify-center gap-2 items-center  xl:w-[230px]  2xl:w-[285px]`}
           >
             <div>
               <img src={document} />
@@ -221,7 +221,7 @@ const AdminDashboard = () => {
           </div>
 
           <div
-            className={`lg:py-1 lg:px-1 bg-[#1B5285] rounded-lg flex justify-center gap-2 items-center  xl:w-[260px]  2xl:w-[285px]`}
+            className={`lg:py-1 lg:px-1 bg-[#1B5285] rounded-lg flex justify-center gap-2 items-center  xl:w-[230px]  2xl:w-[285px]`}
           >
             <div>
               <img src={volume} />
@@ -235,7 +235,7 @@ const AdminDashboard = () => {
           </div>
 
           <div
-            className={`lg:py-1 lg:px-1 bg-[#1B8550] rounded-lg flex justify-center gap-2 items-center  xl:w-[260px]  2xl:w-[285px]`}
+            className={`lg:py-1 lg:px-1 bg-[#1B8550] rounded-lg flex justify-center gap-2 items-center  xl:w-[230px]  2xl:w-[285px]`}
           >
             <div>
               <img src={vector} />
