@@ -254,7 +254,7 @@ const ActiveNegotiation = ({}) => {
                 <div className="AdminPage_SuspendedTableInfo">
                   <AiOutlineInfoCircle style={{ fontSize: "18px" }} />
                   <span className="AdminPage_TableInfoText">
-                    This is a table of Suspended Negotiates on the platform
+                    This is a table of Suspended negotiations on the platform
                   </span>
                 </div>
 
@@ -343,7 +343,7 @@ const ActiveNegotiation = ({}) => {
                 <div className="AdminPage_TerminatedTableInfo">
                   <AiOutlineInfoCircle style={{ fontSize: "18px" }} />
                   <span className="AdminPage_TableInfoText">
-                    This is a table of Terminated Negotiates on the platform
+                    This is a table of Terminated negotiations on the platform
                   </span>
                 </div>
                 <div className="AdminPage_TableTitleandLink">
