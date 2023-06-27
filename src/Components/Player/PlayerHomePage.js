@@ -17,6 +17,7 @@ import { GetPlayersApi, GetRecommendedApi } from '../../Slice/Player/PlayerHomeP
 const PlayerHomePage = () => {
 
   const dispatch = useDispatch()
+  const [Recommendeddata, setRecommendeddata] = useState(null)
   const [loader, setLoader] = useState(false)
 
   useEffect(()=>{
@@ -46,8 +47,16 @@ const PlayerHomePage = () => {
       //   {playername: 'Harry Kane', amount: 'Free', image: Player4, position: 'RWB', club: 'Enyimba'}
       // ]
       const Sortdata = useSelector((state)=> state.reducer?.GetPlayerSlice?.gottenPlayerData?.data)
-      const Recommendeddata = useSelector((state)=> state.reducer?.GetPlayerSlice?.recommendedPlayersData?.data)
-      // console.log('sort data', Sortdata)
+      const GottenRecommendeddata = useSelector((state)=> state.reducer?.GetPlayerSlice?.recommendedPlayersData?.data)
+      useEffect(()=>{
+        const initial = () =>{
+          const endIndex = 4;
+          const slicedArray = endIndex <= GottenRecommendeddata?.length ? GottenRecommendeddata.slice(0, endIndex) : GottenRecommendeddata;
+          setRecommendeddata(slicedArray)
+        }
+        initial()
+      },[GottenRecommendeddata])
+      console.log(Recommendeddata)
       const PositionSort = ['GoalKeeper', 'Center backs(Defender)', 'Fullbacks (Defender)', 'Center midfielders', 'Attacking midfielders', 'Defensive midfielders', 'Wingers', 'Strikers']
 
   return (
