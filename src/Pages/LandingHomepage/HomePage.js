@@ -19,6 +19,7 @@ const HomePage = () => {
 
   const dispatch = useDispatch()
   const [loader, setLoader] = useState(false)
+  const [Recommendeddata, setRecommendeddata] = useState(null)
 
   useEffect(()=>{
       const getPlayerDataHome = async () =>{
@@ -46,8 +47,17 @@ const HomePage = () => {
   //   {playername: 'Ngolo Kante', amount: '$300000', image: Player3, position: 'GoalKeeper', club: 'Kano Pillars'},
   //   {playername: 'Harry Kane', amount: 'Free', image: Player4, position: 'RWB', club: 'Enyimba'}
   // ]
+
   const Sortdata = useSelector((state)=> state.reducer?.GetPlayerSlice?.gottenPlayerData?.data)
-  const Recommendeddata = useSelector((state)=> state.reducer?.GetPlayerSlice?.recommendedPlayersData?.data)
+  const GottenRecommendeddata = useSelector((state)=> state.reducer?.GetPlayerSlice?.recommendedPlayersData?.data)
+  useEffect(()=>{
+    const initial = () =>{
+      const endIndex = 4;
+      const slicedArray = endIndex <= GottenRecommendeddata?.length ? GottenRecommendeddata.slice(0, endIndex) : GottenRecommendeddata;
+      setRecommendeddata(slicedArray)
+    }
+    initial()
+  },[GottenRecommendeddata])
   const PositionSort = ['GoalKeeper', 'Center backs(Defender)', 'Fullbacks (Defender)', 'Center midfielders', 'Attacking midfielders', 'Defensive midfielders', 'Wingers', 'Strikers']
   console.log('Sortdata ', Recommendeddata)
 
