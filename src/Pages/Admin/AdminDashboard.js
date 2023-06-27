@@ -34,6 +34,8 @@ const AdminDashboard = () => {
 
   console.log(Transaction_list);
 
+  let data = [1, 2, 3, 4];
+
   useEffect(() => {
     dispatch(Admin_Header_Summary_fun());
     dispatch(Admin_dashboard_approved_player_fun());
@@ -174,6 +176,38 @@ const AdminDashboard = () => {
     },
   ];
 
+  let dashBoard = [
+    {
+      id: 1,
+      name: "Review Players",
+      case: Admin_Header_Summary?.data?.players_under_reviewed,
+      icon: people,
+      color: "#1B5285",
+    },
+    {
+      id: 2,
+      name: "Active Negotiation",
+      case: Admin_Header_Summary?.data?.players_under_reviewed,
+      icon: document,
+      color: "#1B8550",
+    },
+    {
+      id: 3,
+      name: "Active Ads",
+      case: Admin_Header_Summary?.data?.players_under_reviewed,
+      icon: volume,
+      color: "#1B5285",
+    },
+
+    {
+      id: 4,
+      name: "Closed Negotiation",
+      case: Admin_Header_Summary?.data?.closed_negotiation,
+      icon: vector,
+      color: "#1B8550",
+    },
+  ];
+
   return (
     <div className="">
       {/* <AdminHeader /> */}
@@ -189,54 +223,23 @@ const AdminDashboard = () => {
         </div>
       </div>
       <div className="AdminPage_Dashboard">
-        <div className="AdminDashboard_CategorySection">
-          <div className="AdminDashBoard_ViewCategory">
-            <img src={people} />
-            <div className="AdminDashBoard_CategoryTitileDet">
-              <p style={{ fontSize: "14px" }}>Pending Review</p>
-              <p className="AdminDashboard_categoryNum">
-                {/* {Players_Under_Review?.data?.total_pending} */}
-
-                {Admin_Header_Summary?.data?.players_under_reviewed}
-              </p>
+        <div className="flex  flex-wrap  justify-between">
+          {dashBoard?.map((item) => (
+            <div
+              className={`lg:py-1 lg:px-1 bg-[${item?.color}] rounded-lg flex justify-center gap-2 items-center  xl:w-[260px]  2xl:w-[285px]`}
+            >
+              <div>
+                <img src={item?.icon} />
+              </div>
+              <div className="text-center">
+                <p className=" text-lg text-white">{item?.name}</p>
+                <p className=" text-lg text-white">{item?.case}</p>
+              </div>
             </div>
-          </div>
-
-          <div className="AdminDashBoard_ViewCategory2">
-            <img src={document} />
-            <div className="AdminDashBoard_CategoryTitileDet">
-              <p style={{ fontSize: "12px" }}>Active Negotiation</p>
-              <p className="AdminDashboard_categoryNum">
-                {/* {Admin_Active_Negotiations?.data?.total_active_negotiations} */}
-
-                {Admin_Header_Summary?.data?.active_negotiation}
-              </p>
-            </div>
-          </div>
-
-          <div className="AdminDashBoard_ViewCategory">
-            <img src={volume} />
-            <div className="AdminDashBoard_CategoryTitileDet">
-              <p style={{ fontSize: "14px" }}>Active Ads</p>
-
-              <p className="AdminDashboard_categoryNum">
-                {/* {Admin_Active_Negotiations?.data?.total_active_negotiations} */}
-
-                {Admin_Header_Summary?.data?.active_advertisement}
-              </p>
-            </div>
-          </div>
-
-          <div className="AdminDashBoard_ViewCategory2">
-            <img src={vector} />
-            <div className="AdminDashBoard_CategoryTitileDet">
-              <p style={{ fontSize: "13px" }}>Closed Negotiation</p>
-              <p className="AdminDashboard_categoryNum">
-                {Admin_Header_Summary?.data?.closed_negotiation}
-              </p>
-            </div>
-          </div>
+          ))}
         </div>
+        {/* this is for test */}
+
         <div className="AdminPage_DashboardTAbleCat">
           <div className="AdminPage_TableTitleandLink">
             <p className="AdminDashboard_Dashboardtext">Active Negotiation</p>
