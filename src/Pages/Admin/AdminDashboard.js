@@ -176,38 +176,6 @@ const AdminDashboard = () => {
     },
   ];
 
-  let dashBoard = [
-    {
-      id: 1,
-      name: "Review Players",
-      case: Admin_Header_Summary?.data?.players_under_reviewed,
-      icon: people,
-      color: "#1B5285",
-    },
-    {
-      id: 2,
-      name: "Active Negotiation",
-      case: Admin_Header_Summary?.data?.players_under_reviewed,
-      icon: document,
-      color: "#1B8550",
-    },
-    {
-      id: 3,
-      name: "Active Ads",
-      case: Admin_Header_Summary?.data?.players_under_reviewed,
-      icon: volume,
-      color: "#1B5285",
-    },
-
-    {
-      id: 4,
-      name: "Closed Negotiation",
-      case: Admin_Header_Summary?.data?.closed_negotiation,
-      icon: vector,
-      color: "#1B8550",
-    },
-  ];
-
   return (
     <div className="">
       {/* <AdminHeader /> */}
@@ -224,19 +192,61 @@ const AdminDashboard = () => {
       </div>
       <div className="AdminPage_Dashboard">
         <div className="flex  flex-wrap  justify-between">
-          {dashBoard?.map((item) => (
-            <div
-              className={`lg:py-1 lg:px-1 bg-[${item?.color}] rounded-lg flex justify-center gap-2 items-center  xl:w-[260px]  2xl:w-[285px]`}
-            >
-              <div>
-                <img src={item?.icon} />
-              </div>
-              <div className="text-center">
-                <p className=" text-lg text-white">{item?.name}</p>
-                <p className=" text-lg text-white">{item?.case}</p>
-              </div>
+          <div
+            className={`lg:py-1 lg:px-1 bg-[#1B5285] rounded-lg flex justify-center gap-2 items-center  xl:w-[260px]  2xl:w-[285px]`}
+          >
+            <div>
+              <img src={people} />
             </div>
-          ))}
+            <div className="text-center">
+              <p className=" text-lg text-white">Review Players</p>
+              <p className=" text-lg text-white">
+                {Admin_Header_Summary?.data?.players_under_reviewed}
+              </p>
+            </div>
+          </div>
+
+          <div
+            className={`lg:py-1 lg:px-1 bg-[#1B8550] rounded-lg flex justify-center gap-2 items-center  xl:w-[260px]  2xl:w-[285px]`}
+          >
+            <div>
+              <img src={document} />
+            </div>
+            <div className="text-center">
+              <p className=" text-lg text-white">Active Negotiation</p>
+              <p className=" text-lg text-white">
+                {Admin_Header_Summary?.data?.players_under_reviewed}
+              </p>
+            </div>
+          </div>
+
+          <div
+            className={`lg:py-1 lg:px-1 bg-[#1B5285] rounded-lg flex justify-center gap-2 items-center  xl:w-[260px]  2xl:w-[285px]`}
+          >
+            <div>
+              <img src={volume} />
+            </div>
+            <div className="text-center">
+              <p className=" text-lg text-white">Active Ads</p>
+              <p className=" text-lg text-white">
+                {Admin_Header_Summary?.data?.players_under_reviewed}
+              </p>
+            </div>
+          </div>
+
+          <div
+            className={`lg:py-1 lg:px-1 bg-[#1B8550] rounded-lg flex justify-center gap-2 items-center  xl:w-[260px]  2xl:w-[285px]`}
+          >
+            <div>
+              <img src={vector} />
+            </div>
+            <div className="text-center">
+              <p className=" text-lg text-white">Closed Negotiation</p>
+              <p className=" text-lg text-white">
+                {Admin_Header_Summary?.data?.closed_negotiation}
+              </p>
+            </div>
+          </div>
         </div>
         {/* this is for test */}
 
