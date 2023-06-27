@@ -176,38 +176,6 @@ const AdminDashboard = () => {
     },
   ];
 
-  let dashBoard = [
-    {
-      id: 1,
-      name: "Review Players",
-      case: Admin_Header_Summary?.data?.players_under_reviewed,
-      icon: people,
-      color: "#1B5285",
-    },
-    {
-      id: 2,
-      name: "Active Negotiation",
-      case: Admin_Header_Summary?.data?.players_under_reviewed,
-      icon: document,
-      color: "#1B8550",
-    },
-    {
-      id: 3,
-      name: "Active Ads",
-      case: Admin_Header_Summary?.data?.players_under_reviewed,
-      icon: volume,
-      color: "#1B5285",
-    },
-
-    {
-      id: 4,
-      name: "Closed Negotiation",
-      case: Admin_Header_Summary?.data?.closed_negotiation,
-      icon: vector,
-      color: "#1B8550",
-    },
-  ];
-
   return (
     <div className="">
       {/* <AdminHeader /> */}
