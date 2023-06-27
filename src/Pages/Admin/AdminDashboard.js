@@ -182,7 +182,7 @@ const AdminDashboard = () => {
       name: "Review Players",
       case: Admin_Header_Summary?.data?.players_under_reviewed,
       icon: people,
-      color: "#1B8550",
+      color: "#1B5285",
     },
     {
       id: 2,
@@ -196,7 +196,7 @@ const AdminDashboard = () => {
       name: "Active Ads",
       case: Admin_Header_Summary?.data?.players_under_reviewed,
       icon: volume,
-      color: "#1B8550",
+      color: "#1B5285",
     },
 
     {
