@@ -36,6 +36,7 @@ function Admin_model({ setFormData, formData, setModal }) {
     email: formData.email,
     phone: formData.phone,
     id: formData.id,
+    password: formData.password,
   });
 
   const handleInputChange = (e) => {
@@ -50,13 +51,6 @@ function Admin_model({ setFormData, formData, setModal }) {
       let API_URL;
       const tokengot = localStorage.getItem("token");
 
-      if (data === "suspend") {
-        API_URL = `${baseURL}admin/scout/suspend`;
-      }
-
-      if (data === "UnSuspend") {
-        API_URL = `${baseURL}admin/scout/unsuspend`;
-      }
       const config = {
         headers: {
           // "Content-Type": "multipart/form-data",
@@ -85,11 +79,14 @@ function Admin_model({ setFormData, formData, setModal }) {
         return response.data;
       } else {
         API_URL = `${baseURL}admin/user/create`;
+        console.log(data);
+
         let creat_Data = {
           role: data.role,
           fullname: data.fullname,
           email: data.email,
           phone: data.phone,
+          password: data.password,
         };
 
         const response = await axios.post(API_URL, creat_Data, config);
@@ -133,13 +130,7 @@ function Admin_model({ setFormData, formData, setModal }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    //   setFormData({
-    //     role: userAdmin.role,
-    //     fullname: userAdmin.fullname,
-    //     email: userAdmin.email,
-    //     phone: userAdmin.phone,
-    //     id: userAdmin.id,
-    //   });
+
     console.log(userAdmin);
 
     Create_mutation.mutate(userAdmin);
@@ -156,7 +147,9 @@ function Admin_model({ setFormData, formData, setModal }) {
             <div className="border-b bord   ">
               <div className=" flex justify-between    px-7 py-3 items-center ">
                 <div>
-                  <h3 className="text-[20px] font-semibold ">Create Admin</h3>
+                  <h3 className="text-[20px] font-semibold ">
+                    {formData?.id ? "Update Admin" : "Create Admin"}
+                  </h3>
                 </div>
 
                 <div>
@@ -169,6 +162,7 @@ function Admin_model({ setFormData, formData, setModal }) {
                         email: "",
                         phone: "",
                         id: null,
+                        password: "",
                       });
                       setModal(false);
                     }}
@@ -195,6 +189,23 @@ function Admin_model({ setFormData, formData, setModal }) {
                           onChange={handleInputChange}
                         />
                       </div>
+
+                      {!formData?.id && (
+                        <div className="mb-4">
+                          <label htmlFor="" className="block mb-2">
+                            Password
+                          </label>
+                          <input
+                            className="w-full p-2 border border-gray-300 rounded"
+                            type="text"
+                            name="password"
+                            value={userAdmin.password}
+                            placeholder="password"
+                            onChange={handleInputChange}
+                          />
+                        </div>
+                      )}
+
                       <div>
                         <label htmlFor="" className="block mb-2">
                           Email

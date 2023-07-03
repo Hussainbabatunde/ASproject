@@ -95,7 +95,7 @@ const HomePage = () => {
           </div>
         ) : (
           <>
-            <FootballerInfo
+            {/* <FootballerInfo
               title="TOP RATED TALENTS"
               pathTitle=""
               data={data}
@@ -104,7 +104,7 @@ const HomePage = () => {
               title="RECOMMENDED"
               pathTitle="/recommendedPage"
               data={Recommendeddata}
-            />
+            /> */}
           </>
         )}
         <div className="Homepage_topTalents">
