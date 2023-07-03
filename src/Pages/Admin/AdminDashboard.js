@@ -106,6 +106,7 @@ const AdminDashboard = () => {
     {
       id: 2,
       name: "Position",
+      case: "admin_player_Position",
     },
     {
       id: 3,
@@ -177,8 +178,7 @@ const AdminDashboard = () => {
   ];
 
   return (
-    <div className="">
-      {/* <AdminHeader /> */}
+    <div>
       <div className="AdminDashBoard_title">
         <p className="AdminDashboard_Dashboardtext">DashBoard</p>
         <div className="AdminDashboard_Search">
@@ -190,6 +190,7 @@ const AdminDashboard = () => {
           <RiSearchLine className="AdminDashboard_SearchIcon" />
         </div>
       </div>
+
       <div className="AdminPage_Dashboard">
         <div className="flex flex-wrap  justify-between">
           <div
@@ -248,7 +249,6 @@ const AdminDashboard = () => {
             </div>
           </div>
         </div>
-        {/* this is for test */}
 
         <div className="AdminPage_DashboardTAbleCat">
           <div className="AdminPage_TableTitleandLink">

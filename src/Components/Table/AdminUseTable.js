@@ -49,6 +49,18 @@ const AdminUseTable = ({
             <tr key={index}>
               {header?.map((item) => {
                 switch (item?.case) {
+                  case "admin_player_Position":
+                    console.log(each?.position);
+                    return (
+                      <td className="useTable_tableDetails">
+                        {each?.position?.map((item, index) => (
+                          <p key={index}>
+                            <p className="">{item?.position} </p>
+                          </p>
+                        ))}
+                      </td>
+                    );
+
                   case "Admin_Transaction_Date":
                     const dateObject = new Date(
                       each?.payments?.payment?.created_at
