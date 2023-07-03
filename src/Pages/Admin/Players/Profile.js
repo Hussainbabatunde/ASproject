@@ -8,6 +8,7 @@ import UploadProfile_detail, {
   Admin_upload_Players_image,
   Admin_upload_id,
   Profile_detail,
+  RatePlayer,
 } from "./ProfileCoponent/UploadProfile_detail";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -41,8 +42,8 @@ function Profile() {
       <div className="AdminDashboard">
         <div className="AdminPage_Dashboard">
           <div>
-            <div className="w-[60%] m-auto">
-              <div className="ScoutViewProfile_navigationprogress">
+            <div className="w-[60%]  ml-20 ">
+              <div className="ScoutViewProfile_navigationprogress mb-10">
                 <Link
                   to={`/admin/players`}
                   className="ScoutViewProfile_navigationback"
@@ -50,9 +51,15 @@ function Profile() {
                   Back
                 </Link>
                 <GrFormNext style={{ fontSize: "16px" }} />
-                <p className="ScoutViewProfile_navigationprofile">Profile</p>
+                <p className="ScoutViewProfile_navigationprofile">details</p>
               </div>
               <UploadImage
+                Admin_Get_Players_Profile_details={
+                  Admin_Get_Players_Profile_details
+                }
+              />
+
+              <RatePlayer
                 Admin_Get_Players_Profile_details={
                   Admin_Get_Players_Profile_details
                 }

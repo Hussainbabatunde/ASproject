@@ -42,41 +42,43 @@ function UploadImage({ Admin_Get_Players_Profile_details }) {
     <div className="">
       <div>
         <div className="upload_img flex items-center lg:justify-between">
-          <label for="imagePlcholder" className="block">
-            <img
-              src={file || imgPlaceHolder}
-              className="w-[128px] h-[128px] rounded-[50%]"
-            />
-            <input
-              type="file"
-              id="imagePlcholder"
-              onChange={handleChange}
-              className="Scoutpage_Profile_ImagePlaceInput"
-            />
+          <div className="flex  gap-5 items-center">
+            <label for="imagePlcholder" className="block">
+              <img
+                src={file || imgPlaceHolder}
+                className="w-[128px] h-[128px] rounded-[50%] shadow-md"
+              />
+              <input
+                type="file"
+                id="imagePlcholder"
+                onChange={handleChange}
+                className="Scoutpage_Profile_ImagePlaceInput mt-5"
+              />
 
-            <button
-              onClick={handleImgSubmit}
-              type="button"
-              className="w-32 h-10 text-white bg-[#1B8550]  text-base rounded-md border-none"
-            >
-              {Admin_update_user_image_isLoading ? (
-                <CircularProgress size={15} />
-              ) : (
-                <span>save photo</span>
-              )}
-            </button>
-          </label>
+              <button
+                onClick={handleImgSubmit}
+                type="button"
+                className="w-32 h-10 text-white bg-[#1B8550]  text-base rounded-md border-none"
+              >
+                {Admin_update_user_image_isLoading ? (
+                  <CircularProgress size={15} />
+                ) : (
+                  <span>save photo</span>
+                )}
+              </button>
+            </label>
 
-          <div className="text-base ">
-            <p className="">
-              {`${userDataInfo?.firstname} ${userDataInfo?.surname}`}{" "}
-              <span className="">
-                {userDataInfo?.status
-                  ? `(${userDataInfo?.status})`
-                  : "(not Verified)"}
-              </span>
-            </p>
-            <p className="">Player Account</p>
+            <div className="text-base ">
+              <p className=" font-normal text-2xl">
+                {`${userDataInfo?.firstname} ${userDataInfo?.surname}`}{" "}
+                <span className="">
+                  {userDataInfo?.status
+                    ? `(${userDataInfo?.status})`
+                    : "(not Verified)"}
+                </span>
+              </p>
+              <p className="">Player Account</p>
+            </div>
           </div>
 
           <Link
@@ -85,19 +87,7 @@ function UploadImage({ Admin_Get_Players_Profile_details }) {
           >
             View Profile
           </Link>
-          <div>
-            {/* <button
-              type="submit"
-              className="w-32 h-10 text-white bg-[#1B8550]  text-base rounded-md border-none"
-            >
-              {imgloader ? (
-<CircularProgress size={15} />
-) : (
-<span>Upload photo</span>
-)}
-              <span>Save </span>
-            </button> */}
-          </div>
+          <div></div>
         </div>
       </div>
     </div>
