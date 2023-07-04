@@ -89,7 +89,7 @@ const initialState = {
         },
       });
       return await instance
-        .get(`advance-search?min_age=${data?.min_age}&max_age=${data?.max_age}&country=${data?.country}&position=${data?.position}&min_price=${data?.min_price}&max_price=${data?.max_price}&height=${data?.height}&foot=${data?.foot}`)
+        .get(`advance-search?min_age=${data?.min_age}&max_age=${data?.max_age}&country=${data?.country}&positions=${data?.position}&recommended=${data?.recommended}&min_price=${data?.min_price}&max_price=${data?.max_price}&height=${data?.height}&foot=${data?.foot}`)
         .then(async (response) => {
             console.log('filtered ',response.data)
           return response.data;
