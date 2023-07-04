@@ -148,6 +148,9 @@
     .heroSection_SearchIcon{
         display: none;
     }
+    .footballImg_heroSection{
+        display: none;
+    }
 }
 @media screen and (max-width: 1200px){
     .heroSection_Contentword{

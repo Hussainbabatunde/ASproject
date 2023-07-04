@@ -13,18 +13,20 @@ import {RxDotFilled} from 'react-icons/rx';
 import Footer from '../../Components/Homepage/Footer';
 import { useDispatch, useSelector } from 'react-redux';
 import { FadeLoader, ScaleLoader } from "react-spinners";
-import { GetPlayersApi, GetRecommendedApi } from '../../Slice/Player/PlayerHomePage/GetAllPlayersHomePage';
+import { GetPlayersApi, GetRecommendedApi, GetTopRatedPlayersApi } from '../../Slice/Player/PlayerHomePage/GetAllPlayersHomePage';
 
 const HomePage = () => {
   const dispatch = useDispatch();
   const [loader, setLoader] = useState(false);
   const [Recommendeddata, setRecommendeddata] = useState(null);
+  const [TopratedPlayersdata, setTopRatedPlayesdata] = useState(null);
 
   useEffect(() => {
     const getPlayerDataHome = async () => {
       setLoader(true);
       await dispatch(GetPlayersApi());
-      await dispatch(GetRecommendedApi());
+      await dispatch(GetRecommendedApi());      
+      await dispatch(GetTopRatedPlayersApi());
       setLoader(false);
     };
     getPlayerDataHome();
@@ -53,6 +55,9 @@ const HomePage = () => {
   const GottenRecommendeddata = useSelector(
     (state) => state.reducer?.GetPlayerSlice?.recommendedPlayersData?.data
   );
+  const GottenTopRatedPlayersdata = useSelector(
+    (state) => state.reducer?.GetPlayerSlice?.topRatedPlayersData?.data
+  );
   useEffect(() => {
     const initial = () => {
       const endIndex = 4;
@@ -61,6 +66,15 @@ const HomePage = () => {
     }
     initial()
   },[GottenRecommendeddata])
+
+  useEffect(() => {
+    const initial = () => {
+      const endIndex = 4;
+      const slicedArray = endIndex <= GottenTopRatedPlayersdata?.length ? GottenTopRatedPlayersdata.slice(0, endIndex) : GottenTopRatedPlayersdata;
+      setTopRatedPlayesdata(slicedArray)
+    }
+    initial()
+  },[GottenTopRatedPlayersdata])
   const PositionSort = ['GoalKeeper', 'Center backs(Defender)', 'Fullbacks (Defender)', 'Center midfielders', 'Attacking midfielders', 'Defensive midfielders', 'Wingers', 'Strikers']
   console.log('Sortdata ', Sortdata)
 
@@ -80,7 +94,7 @@ const HomePage = () => {
             </div>
             :
             <>
-            <FootballerInfo title='TOP RATED TALENTS' pathTitle='' data={data} />
+            <FootballerInfo title='TOP RATED TALENTS' pathTitle='/topRatedPlayerPage' data={TopratedPlayersdata} />
             <FootballerInfo title='RECOMMENDED' pathTitle='/recommendedPage' data={Recommendeddata} />
             </>}
             <div className='Homepage_topTalents'>

@@ -72,4 +72,7 @@
     .Scoutpage_DealContent{
         overflow-x: scroll;
     }
+    .Scoutpage_LinkPages{
+        overflow-x: scroll;
+    }
 }

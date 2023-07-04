@@ -23,6 +23,8 @@
     flex-wrap: wrap;
     /* justify-content: space-evenly; */
     margin-bottom: 60px;
+    max-height: 100vh;
+    overflow-y: scroll;
 }
 .Homepage_foorballersBriefInfo{
     border: 1px solid #DCDCDC;
@@ -129,6 +131,7 @@
     .Filterpage_MenuIcon{
         display: block;
         font-size: 45px !important;
+        width: 140px;
     }
     .ToogleFilterPage_ContentFilter{
         display: block;
