@@ -44,7 +44,7 @@ const HomeViewPlayerProfile = () => {
     const PlayerDetails = useSelector((state)=>state?.reducer?.PlayerProfileSlice?.AllProfileDetailsData?.data)
     // console.log('Player details ', PlayerDetails)
     const originalString = PlayerDetails?.bio?.position;
-    const positionPlayed = originalString?.replace(/_/g, ' ');
+    // const positionPlayed = originalString?.replace(/_/g, ' ');
     // const userId = useSelector((state)=> state?.reducer?.LoginSlice?.logindata?.message?.id)
 
     const handleHide = () => {
@@ -137,6 +137,8 @@ const HomeViewPlayerProfile = () => {
         };
       }, []);
 
+      console.log(PlayerDetails)
+
   return (
     <div>
         {logindata != null ? <ScoutHeader />: <Header />}
@@ -166,23 +168,26 @@ const HomeViewPlayerProfile = () => {
               {/* <p className='ScoutViewProfile_UserProfileScore'>Score: {progress}/100</p> */}
               {loading == true ? <Skeleton variant="rounded" width='90%' height={22} />  : <p className='ScoutViewProfile_UserProfileCurrentlyAvailable'>{PlayerDetails?.bio?.available == 0 ? `Not Available` : `Currently Available`}</p>}
               <div className='ScoutViewProfile_UserProfilePositionSection'>
-              {loading? <Skeleton variant="rounded" width={105} height={22} />:<p className='ScoutViewProfile_UserProfilePosition'>{positionPlayed}</p>}
+              {loading? <Skeleton variant="rounded" width={105} height={22} />:
+              
+              PlayerDetails?.position?.map((item, index)=>
+              <div key={index}>
+              <p className='ScoutViewProfile_UserProfilePosition'>{item?.position}</p>
+              </div>)
+              }
                 </div>
 
-                <p className='ScoutViewProfile_UserProfilePricerange'>Contract:
-                {loading == true? 
-                <Skeleton variant="rounded" width='90%' height={20} /> 
+                <div className='flex flex-row align-items-center'>
+                <p className='ScoutViewProfile_UserProfilePricerange'><p>Contract:</p> 
+                {loading == true? <Skeleton variant="rounded" width='90%' height={20} /> 
                 : 
-                // <span style={{display:'flex', alignItems:'center'}}>
-                //   <TbCurrencyNaira style={{fontSize:"18px"}} />{PlayerDetails?.price?.minimum} - {PlayerDetails?.price?.maximum}
-                //   </span>
-                PlayerDetails?.price?.service_type == 'open'?<span style={{display:'flex', alignItems:'center'}}>{ PlayerDetails?.price?.minimum}</span>
+                <span style={{display:'flex', alignItems:'center'}}>{PlayerDetails?.price?.service_type == 'open'?<span style={{display:'flex', alignItems:'center'}}>{ PlayerDetails?.price?.minimum}</span>
                 :  PlayerDetails?.price?.service_type == 'free' ? <span style={{display:'flex', alignItems:'center'}}> { PlayerDetails?.price?.minimum}</span> 
                 :  PlayerDetails?.price?.service_type == 'actual'? <span style={{display:'flex', alignItems:'center'}}>${ PlayerDetails?.price?.minimum}</span>
                 : <span style={{display:'flex', alignItems:'center'}}>${ PlayerDetails?.price?.minimum} - ${ PlayerDetails?.price?.maximum}</span>
                 
-                  }
-                  </p>
+                 }</span>}</p>
+                </div>
             </div>
           </div>
 
@@ -230,7 +235,7 @@ const HomeViewPlayerProfile = () => {
               <p className='ScoutViewProfile_PhysicalStatsGender'>Height: {loading == true ? <Skeleton variant="rounded" width='90%' height={22} />  : PlayerDetails?.physical_stat?.height}ft</p>
               <p className='ScoutViewProfile_PhysicalStatsGender'>Language: {loading == true ? <Skeleton variant="rounded" width='90%' height={22} />  : PlayerDetails?.physical_stat?.language}</p>
               <p className='ScoutViewProfile_PhysicalStatsGender'>Weight: {loading == true ? <Skeleton variant="rounded" width='90%' height={22} />  : PlayerDetails?.physical_stat?.weight}kg</p>
-              <p className='ScoutViewProfile_PhysicalStatsGender'>Religion: Christian</p>
+              {/* <p className='ScoutViewProfile_PhysicalStatsGender'>Religion: Christian</p> */}
               <p className='ScoutViewProfile_PhysicalStatsGender'>Stronger foot: {loading == true ? <Skeleton variant="rounded" width='90%' height={22} />  : PlayerDetails?.physical_stat?.strong_foot}</p>
             </div>
         </div>
@@ -275,7 +280,14 @@ const HomeViewPlayerProfile = () => {
             <p className='ScoutViewProfile_AboutTopicText'>Negotiate this Player</p>
             <p className='ScoutViewProfile_UserProfileCurrentlyAvailable'>For Business, Pitch your business offer to the player/talent manager.</p>
             <div style={{marginTop: '20px'}}>
-            <p style={{fontSize: '13px'}}>Ranging from $400</p>
+            <p style={{fontSize: '13px'}}>Ranging from ${
+              
+                PlayerDetails?.price?.service_type == 'open'?<span style={{display:'flex', alignItems:'center'}}>{ PlayerDetails?.price?.minimum}</span>
+                :  PlayerDetails?.price?.service_type == 'free' ? <span style={{display:'flex', alignItems:'center'}}> { PlayerDetails?.price?.minimum}</span> 
+                :  PlayerDetails?.price?.service_type == 'actual'? <span style={{display:'flex', alignItems:'center'}}>${ PlayerDetails?.price?.minimum}</span>
+                : <span style={{display:'flex', alignItems:'center', marginLeft: '5px'}}> ${ PlayerDetails?.price?.minimum} - ${ PlayerDetails?.price?.maximum}</span>
+                
+                  }</p>
             <p style={{fontSize: '13px', marginTop:"5px"}}>Open for negotiation</p>
             </div>
             <button className='HomepageViewProfile_requestButton' onClick={handleShowOffer}>Pitch offer</button>
@@ -285,7 +297,12 @@ const HomeViewPlayerProfile = () => {
             <p className='ScoutViewProfile_AboutTopicText'>Negotiate this Player</p>
             <p className='ScoutViewProfile_UserProfileCurrentlyAvailable'>For Business, Pitch your business offer to the player/talent manager.</p>
             <div style={{marginTop: '20px'}}>
-            <p style={{fontSize: '13px'}}>Ranging from $400</p>
+            <p style={{fontSize: '13px', display:'flex'}}>Ranging from {PlayerDetails?.price?.service_type == 'open'?<span style={{display:'flex', alignItems:'center'}}>$0</span>
+              :  PlayerDetails?.price?.service_type == 'free' ? <span style={{display:'flex', alignItems:'center'}}> $0</span> 
+              :  PlayerDetails?.price?.service_type == 'actual'? <span style={{display:'flex', alignItems:'center'}}>${ PlayerDetails?.price?.minimum}</span>
+              : <span style={{display:'flex', alignItems:'center'}}> ${ PlayerDetails?.price?.minimum} - ${ PlayerDetails?.price?.maximum}</span>
+              
+                }</p>
             <p style={{fontSize: '13px', marginTop:"5px"}}>Open for negotiation</p>
             </div>
             <button className='HomepageViewProfile_requestButton' onClick={handleShowOffer}>Pitch offer</button>

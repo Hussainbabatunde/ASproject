@@ -12,7 +12,7 @@ import { Link } from 'react-router-dom';
 import {RxDotFilled} from 'react-icons/rx';
 import Footer from '../../Components/Homepage/Footer';
 import { useDispatch, useSelector } from 'react-redux';
-import { ClockLoader } from "react-spinners";
+import { FadeLoader, ScaleLoader } from "react-spinners";
 import { GetPlayersApi, GetRecommendedApi } from '../../Slice/Player/PlayerHomePage/GetAllPlayersHomePage';
 
 const HomePage = () => {
@@ -59,7 +59,7 @@ const HomePage = () => {
     initial()
   },[GottenRecommendeddata])
   const PositionSort = ['GoalKeeper', 'Center backs(Defender)', 'Fullbacks (Defender)', 'Center midfielders', 'Attacking midfielders', 'Defensive midfielders', 'Wingers', 'Strikers']
-  console.log('Sortdata ', Recommendeddata)
+  console.log('Sortdata ', Sortdata)
 
   return (
     <div>
@@ -68,8 +68,8 @@ const HomePage = () => {
             <HeroSection />
             {loader? 
             <div className="flex justify-center align-items-center mt-7">
-              <ClockLoader
-                                  color="#7F351D"
+              <ScaleLoader
+                                  color="#58DC53"
                                   size={45}
                                   aria-label="Loading Spinner"
                                   data-testid="loader"
@@ -94,8 +94,8 @@ const HomePage = () => {
             </div>
             {loader? 
             <div className="flex justify-center align-items-center mt-7">
-              <ClockLoader
-                                  color="#7F351D"
+              <ScaleLoader
+                                  color="#58DC53"
                                   size={45}
                                   aria-label="Loading Spinner"
                                   data-testid="loader"
@@ -118,7 +118,7 @@ const HomePage = () => {
                   }
                 <p className='Homepage_PlayersName'>{each?.firstname} {each?.surname}</p>
                 <div className='Homepage_playersPosition'>
-                  <p>{each?.position.replace(/_/g, ' ')}</p>
+                  <p>{each?.position[0]?.position}</p>
                   <RxDotFilled />
                   <p>{each?.current_club}</p>
                 </div>

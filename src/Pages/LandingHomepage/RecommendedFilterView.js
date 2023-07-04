@@ -63,8 +63,27 @@ const RecommendedFilterView = () => {
 
 
     const handleCheckedPosition = (positionChecked) =>{
-         setCheckedPosition(positionChecked)
-         setPosition(positionChecked)
+        //  setCheckedPosition(positionChecked)
+        //  setPosition(positionChecked)
+        let updatedCheckedPositions = [...checkedPosition];
+        let updatedPositions = [...position];
+
+  if (updatedCheckedPositions.includes(positionChecked)) {
+    // Uncheck the position and remove it from the arrays
+    updatedCheckedPositions = updatedCheckedPositions.filter(
+      (position) => position !== positionChecked
+    );
+    updatedPositions = updatedPositions.filter(
+      (position) => position !== positionChecked
+    );
+  } else {
+    // Check the position and add it to the arrays
+    updatedCheckedPositions.push(positionChecked);
+    updatedPositions.push(positionChecked);
+  }
+
+  setCheckedPosition(updatedCheckedPositions);
+  setPosition(updatedPositions);
     }
     const handleCheckedStrongFoot = (footChecked) =>{
         setCheckStrongFoot(footChecked)
@@ -410,39 +429,39 @@ const RecommendedFilterView = () => {
                     <p className='FilterPage_LabelSearch'>Position</p>
                     <div className='FilterPage_StrongerfootSec'>
                         <div>
-                            <input  name='position'  checked={checkedPosition === 'Goalkeeper'} onChange={()=> handleCheckedPosition('Goalkeeper')} type='checkbox' />
+                            <input  name='position'  checked={checkedPosition?.includes('Goalkeeper')} onChange={()=> handleCheckedPosition('Goalkeeper')} type='checkbox' />
                             <label style={{marginLeft:"10px"}}>Goalkeeper</label>
                         </div>
                         <div>
-                            <input  name='position'  checked={checkedPosition === 'Centerback_Defender'} onChange={()=> handleCheckedPosition('Centerback_Defender')} type='checkbox' />
+                            <input  name='position'  checked={checkedPosition?.includes('Centerback Defender')} onChange={()=> handleCheckedPosition('Centerback Defender')} type='checkbox' />
                             <label style={{marginLeft:"10px"}}>Center Back(Defenders)</label>
                         </div>
                         <div>
-                            <input  name='position' checked={checkedPosition === 'Left_Winger_Defender'} onChange={()=> handleCheckedPosition('Left_Winger_Defender')} type='checkbox' />
+                            <input  name='position' checked={checkedPosition?.includes('Left Winger Defender')} onChange={()=> handleCheckedPosition('Left Winger Defender')} type='checkbox' />
                             <label style={{marginLeft:"10px"}}>Left Winger Back(Defenders)</label>
                         </div>
                         <div>
-                            <input  name='position' checked={checkedPosition === 'Right_Winger_Defender'} onChange={()=> handleCheckedPosition('Right_Winger_Defender')} type='checkbox' />
+                            <input  name='position' checked={checkedPosition?.includes('Right Winger Defender')} onChange={()=> handleCheckedPosition('Right Winger Defender')} type='checkbox' />
                             <label style={{marginLeft:"10px"}}>Right Winger Back(Defenders)</label>
                         </div>
                         <div>
-                            <input name='position' checked={checkedPosition === 'Central_Midfielders'} onChange={()=> handleCheckedPosition('Central_Midfielders')} type='checkbox' />
+                            <input name='position' checked={checkedPosition?.includes('Central Midfielders')} onChange={()=> handleCheckedPosition('Central Midfielders')} type='checkbox' />
                             <label style={{marginLeft:"10px"}}>Central midfielders</label>
                         </div>
                         <div>
-                            <input name='position' checked={checkedPosition === 'Attacking_Midfielders'} onChange={()=> handleCheckedPosition('Attacking_Midfielders')} type='checkbox' />
+                            <input name='position' checked={checkedPosition?.includes('Attacking Midfielders')} onChange={()=> handleCheckedPosition('Attacking Midfielders')} type='checkbox' />
                             <label style={{marginLeft:"10px"}}>Attacking midfielders</label>
                         </div>
                         <div>
-                            <input name='position' checked={checkedPosition === 'Defensive_Midfielders'} onChange={()=> handleCheckedPosition('Defensive_Midfielders')} type='checkbox' />
+                            <input name='position' checked={checkedPosition?.includes('Defensive Midfielders')} onChange={()=> handleCheckedPosition('Defensive Midfielders')} type='checkbox' />
                             <label style={{marginLeft:"10px"}}>Defensive midfielders</label>
                         </div>
                         <div>
-                            <input name='position' checked={checkedPosition === 'Wingers'} onChange={()=> handleCheckedPosition('Wingers')} type='checkbox' />
+                            <input name='position' checked={checkedPosition?.includes('Wingers')} onChange={()=> handleCheckedPosition('Wingers')} type='checkbox' />
                             <label style={{marginLeft:"10px"}}>Wingers</label>
                         </div>
                         <div>
-                            <input  name='position' checked={checkedPosition === 'Striker'} onChange={()=> handleCheckedPosition('Striker')} type='checkbox' />
+                            <input  name='position' checked={checkedPosition?.includes('Striker')} onChange={()=> handleCheckedPosition('Striker')} type='checkbox' />
                             <label style={{marginLeft:"10px"}}>Striker</label>
                         </div>
                         <button type='submit' className='Scoutpage_Profileform_savebutton'>
@@ -740,39 +759,39 @@ const RecommendedFilterView = () => {
                     <p className='FilterPage_LabelSearch'>Position</p>
                     <div className='FilterPage_StrongerfootSec'>
                         <div>
-                            <input  name='position'  checked={checkedPosition === 'Goalkeeper'} onChange={()=> handleCheckedPosition('goalkeeper')} type='checkbox' />
+                            <input  name='position'  checked={checkedPosition?.includes('Goalkeeper')} onChange={()=> handleCheckedPosition('Goalkeeper')} type='checkbox' />
                             <label style={{marginLeft:"10px"}}>Goalkeeper</label>
                         </div>
                         <div>
-                            <input  name='position'  checked={checkedPosition === 'Centerback_Defender'} onChange={()=> handleCheckedPosition('centerback_defender')} type='checkbox' />
+                            <input  name='position'  checked={checkedPosition?.includes('Centerback Defender')} onChange={()=> handleCheckedPosition('Centerback Defender')} type='checkbox' />
                             <label style={{marginLeft:"10px"}}>Center Back(Defenders)</label>
                         </div>
                         <div>
-                            <input  name='position' checked={checkedPosition === 'Left_Winger_Defender'} onChange={()=> handleCheckedPosition('fullback_defender')} type='checkbox' />
+                            <input  name='position' checked={checkedPosition?.includes('Left Winger Defender')} onChange={()=> handleCheckedPosition('Left Winger Defender')} type='checkbox' />
                             <label style={{marginLeft:"10px"}}>Left Winger Back(Defenders)</label>
                         </div>
                         <div>
-                            <input  name='position' checked={checkedPosition === 'Right_Winger_Defender'} onChange={()=> handleCheckedPosition('fullback_defender')} type='checkbox' />
+                            <input  name='position' checked={checkedPosition?.includes('Right Winger Defender')} onChange={()=> handleCheckedPosition('Right Winger Defender')} type='checkbox' />
                             <label style={{marginLeft:"10px"}}>Right Winger Back(Defenders)</label>
                         </div>
                         <div>
-                            <input name='position' checked={checkedPosition === 'Central_Midfielders'} onChange={()=> handleCheckedPosition('central_midfielders')} type='checkbox' />
+                            <input name='position' checked={checkedPosition?.includes('Central Midfielders')} onChange={()=> handleCheckedPosition('Central Midfielders')} type='checkbox' />
                             <label style={{marginLeft:"10px"}}>Central midfielders</label>
                         </div>
                         <div>
-                            <input name='position' checked={checkedPosition === 'Attacking_Midfielders'} onChange={()=> handleCheckedPosition('attacking_midfielders')} type='checkbox' />
+                            <input name='position' checked={checkedPosition?.includes('Attacking Midfielders')} onChange={()=> handleCheckedPosition('Attacking Midfielders')} type='checkbox' />
                             <label style={{marginLeft:"10px"}}>Attacking midfielders</label>
                         </div>
                         <div>
-                            <input name='position' checked={checkedPosition === 'Defensive_Midfielders'} onChange={()=> handleCheckedPosition('defensive_midfielders')} type='checkbox' />
+                            <input name='position' checked={checkedPosition?.includes('Defensive Midfielders')} onChange={()=> handleCheckedPosition('Defensive Midfielders')} type='checkbox' />
                             <label style={{marginLeft:"10px"}}>Defensive midfielders</label>
                         </div>
                         <div>
-                            <input name='position' checked={checkedPosition === 'Wingers'} onChange={()=> handleCheckedPosition('wingers')} type='checkbox' />
+                            <input name='position' checked={checkedPosition?.includes('Wingers')} onChange={()=> handleCheckedPosition('Wingers')} type='checkbox' />
                             <label style={{marginLeft:"10px"}}>Wingers</label>
                         </div>
                         <div>
-                            <input  name='position' checked={checkedPosition === 'Striker'} onChange={()=> handleCheckedPosition('striker')} type='checkbox' />
+                            <input  name='position' checked={checkedPosition?.includes('Striker')} onChange={()=> handleCheckedPosition('Striker')} type='checkbox' />
                             <label style={{marginLeft:"10px"}}>Striker</label>
                         </div>
                         <button type='submit' className='Scoutpage_Profileform_savebutton'>

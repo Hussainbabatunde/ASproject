@@ -3,12 +3,13 @@ import '../Scout/profileform.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { CircularProgress } from '@mui/material'
 import { PlayerProfileProfileformApi, PlayerProfileVerificationStatus, ProfileDetailsPlayer } from '../../Slice/Player/Playerprofile/PlayerProfileSlice'
+import { RiDeleteBin6Fill } from 'react-icons/ri'
 
 const PlayerProfileProfileform = ({userId}) => {
 
 
   const PlayerDetails = useSelector((state)=>state?.reducer?.PlayerProfileSlice?.AllProfileDetailsData?.data)
-// console.log(PlayerDetails)
+console.log(PlayerDetails)
 
   const [profileInfo, setProfileInfo] = useState({})
   const [fullname, setFullname] = useState('')
@@ -19,7 +20,7 @@ const PlayerProfileProfileform = ({userId}) => {
   const [location, setLocation] = useState('')
   const [home_town, setHomeTown] = useState('')
   const [age, setAge] = useState('')
-  const [position, setPosition] = useState('')
+  const [position, setPosition] = useState([''])
 
 
   const UserProfileLogin = useSelector((state)=> state?.reducer?.LoginSlice?.logindata?.data?.user)
@@ -32,7 +33,7 @@ const PlayerProfileProfileform = ({userId}) => {
     setCurrentClub(PlayerDetails?.bio?.current_club)
     setAvailable(PlayerDetails?.bio?.available)
     setAge(PlayerDetails?.bio?.age)
-    setPosition(PlayerDetails?.bio?.position)
+    setPosition(PlayerDetails?.position)
     setAbout(PlayerDetails?.bio?.about)
     setLocation(PlayerDetails?.bio?.location)
     setHomeTown(PlayerDetails?.bio?.home_town)
@@ -94,8 +95,21 @@ const PlayerProfileProfileform = ({userId}) => {
   const handleAgeClick = (e) =>{
     setAge(e.target.value)
   }
-  const handlePositionClick = (e) =>{
-    setPosition(e.target.value)
+
+  const addPos = () => {
+    const newInputs = [...position, ""]; // Add an empty input
+    setPosition(newInputs);
+  };
+
+  const removePos = (index) => {
+    const newInputs = [...position]; // Copy the current inputs array
+    newInputs.splice(index, 1); // Remove the input at the specified index
+    setPosition(newInputs);
+  };
+  const handlePositionClick = (value, index) =>{
+    const newInputs = [...position];
+    newInputs[index] = value; // Update the value of the input at the specified index
+    setPosition(newInputs);
   }
 
 
@@ -112,18 +126,23 @@ const PlayerProfileProfileform = ({userId}) => {
         <p className='Scoutpage_Profile_Profileformlabelnexttext'>Age</p>
         <input type='text' className='Scoutpage_Profile_ProfileformlabelInput' value={age} onChange={handleAgeClick} placeholder='age' />
         <p className='Scoutpage_Profile_Profileformlabelnexttext'>Position</p>
-        <select type='text' className='Scoutpage_Profile_ProfileformlabelInput' value={position} onChange={handlePositionClick} placeholder='position' >
+        {position.map((item, index) =>(
+        <div key={index} className='flex'>
+          <select type='text' className='Scoutpage_Profile_ProfileformlabelInput' value={item?.position} onChange={(e)=> handlePositionClick(e.target.value, index)} placeholder='position' >
           <option></option>
           <option value='Goalkeeper'>Goalkeeper</option>
-          <option value='Centerback_Defender'>Center Back(Defenders)</option>
-          <option value='Left_Winger_Defender'>Left Winger Back(Defenders)</option>
-          <option value='Right_Winger_Defender'>Right Winger Back(Defenders)</option>
-          <option value='Central_Midfielders'>Central midfielders</option>
-          <option value='Attacking_Midfielders'>Attacking midfielders</option>
-          <option value='Defensive_Midfielders'>Defensive midfielders</option>
+          <option value='Centerback Defender'>Center Back(Defenders)</option>
+          <option value='Left Winger Defender'>Left Winger Back(Defenders)</option>
+          <option value='Right Winger Defender'>Right Winger Back(Defenders)</option>
+          <option value='Central Midfielders'>Central midfielders</option>
+          <option value='Attacking Midfielders'>Attacking midfielders</option>
+          <option value='Defensive Midfielders'>Defensive midfielders</option>
           <option value='Wingers'>Wingers</option>
           <option value='Striker'>Striker</option>
           </select>
+            <RiDeleteBin6Fill onClick={() => removePos(index)} style={{fontSize: '25px', cursor:'pointer', marginTop:'7px'}} />
+          </div>))}
+          <button onClick={addPos} className='bg-gray-300 p-1.5 rounded mt-1 w-[20%]'>Add more</button>
         <p className='Scoutpage_Profile_Profileformlabelnexttext'>Current Club</p>
         <input type='text' className='Scoutpage_Profile_ProfileformlabelInput' value={current_club}  onChange={handleCurrentClubClick} name='current_club' placeholder='Name of Club' required/>
         <p className='Scoutpage_Profile_Profileformlabelnexttext'>Availability</p>
