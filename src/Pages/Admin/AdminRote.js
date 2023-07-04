@@ -53,7 +53,7 @@ function AdminRote() {
               <Route path="/dashboard" element={<AdminDashboard />} />
               <Route path="/players/*" element={<PlayersRoute />} />
               <Route path="/scouts/*" element={<ScoutRoute />} />
-              <Route path="/fans/*" element={<FanRoute />} />
+              {/* <Route path="/fans/*" element={<FanRoute />} /> */}
               <Route path="/talentManager/*" element={<TalentmanagerRoute />} />
               <Route path="/Ads/*" element={<AdsRoute />} />
               <Route path="/negotiations/*" element={<NegotiationRoute />} />

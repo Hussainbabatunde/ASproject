@@ -133,6 +133,7 @@ const Admin_Get_ALLPlayers_fun_Service = async (token) => {
   };
 
   const response = await axios.get(API_URL, config);
+  console.log(response.data);
   return response.data;
 };
 
@@ -140,6 +141,7 @@ export const Admin_Get_ALLPlayers_fun = createAsyncThunk(
   "AdminUpdate_profileSlice/Admin_Get_ALLPlayers_fun",
   async (_, thunkAPI) => {
     try {
+      console.log("sjkdksdkj");
       const token = thunkAPI.getState().reducer.LoginSlice.logindata.data.token;
 
       return await Admin_Get_ALLPlayers_fun_Service(token);

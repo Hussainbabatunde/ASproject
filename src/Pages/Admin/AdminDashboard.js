@@ -34,6 +34,8 @@ const AdminDashboard = () => {
 
   console.log(Transaction_list);
 
+  let data = [1, 2, 3, 4];
+
   useEffect(() => {
     dispatch(Admin_Header_Summary_fun());
     dispatch(Admin_dashboard_approved_player_fun());
@@ -104,6 +106,7 @@ const AdminDashboard = () => {
     {
       id: 2,
       name: "Position",
+      case: "admin_player_Position",
     },
     {
       id: 3,
@@ -175,8 +178,7 @@ const AdminDashboard = () => {
   ];
 
   return (
-    <div className="">
-      {/* <AdminHeader /> */}
+    <div>
       <div className="AdminDashBoard_title">
         <p className="AdminDashboard_Dashboardtext">DashBoard</p>
         <div className="AdminDashboard_Search">
@@ -188,55 +190,66 @@ const AdminDashboard = () => {
           <RiSearchLine className="AdminDashboard_SearchIcon" />
         </div>
       </div>
-      <div className="AdminPage_Dashboard">
-        <div className="AdminDashboard_CategorySection">
-          <div className="AdminDashBoard_ViewCategory">
-            <img src={people} />
-            <div className="AdminDashBoard_CategoryTitileDet">
-              <p style={{ fontSize: "14px" }}>Pending Review</p>
-              <p className="AdminDashboard_categoryNum">
-                {/* {Players_Under_Review?.data?.total_pending} */}
 
+      <div className="AdminPage_Dashboard">
+        <div className="flex flex-wrap  justify-between">
+          <div
+            className={`lg:py-1 lg:px-1 bg-[#1B5285] rounded-lg flex justify-center  items-center  xl:w-[230px]  2xl:w-[285px]`}
+          >
+            <div>
+              <img src={people} />
+            </div>
+            <div className="text-center">
+              <p className=" text-lg text-white">Review Players</p>
+              <p className=" text-lg text-white">
                 {Admin_Header_Summary?.data?.players_under_reviewed}
               </p>
             </div>
           </div>
 
-          <div className="AdminDashBoard_ViewCategory2">
-            <img src={document} />
-            <div className="AdminDashBoard_CategoryTitileDet">
-              <p style={{ fontSize: "12px" }}>Active Negotiation</p>
-              <p className="AdminDashboard_categoryNum">
-                {/* {Admin_Active_Negotiations?.data?.total_active_negotiations} */}
-
-                {Admin_Header_Summary?.data?.active_negotiation}
+          <div
+            className={`lg:py-1 lg:px-1 bg-[#1B8550] rounded-lg flex justify-center gap-2 items-center  xl:w-[230px]  2xl:w-[285px]`}
+          >
+            <div>
+              <img src={document} />
+            </div>
+            <div className="text-center">
+              <p className=" text-lg text-white">Active Negotiation</p>
+              <p className=" text-lg text-white">
+                {Admin_Header_Summary?.data?.players_under_reviewed}
               </p>
             </div>
           </div>
 
-          <div className="AdminDashBoard_ViewCategory">
-            <img src={volume} />
-            <div className="AdminDashBoard_CategoryTitileDet">
-              <p style={{ fontSize: "14px" }}>Active Ads</p>
-
-              <p className="AdminDashboard_categoryNum">
-                {/* {Admin_Active_Negotiations?.data?.total_active_negotiations} */}
-
-                {Admin_Header_Summary?.data?.active_advertisement}
+          <div
+            className={`lg:py-1 lg:px-1 bg-[#1B5285] rounded-lg flex justify-center gap-2 items-center  xl:w-[230px]  2xl:w-[285px]`}
+          >
+            <div>
+              <img src={volume} />
+            </div>
+            <div className="text-center">
+              <p className=" text-lg text-white">Active Ads</p>
+              <p className=" text-lg text-white">
+                {Admin_Header_Summary?.data?.players_under_reviewed}
               </p>
             </div>
           </div>
 
-          <div className="AdminDashBoard_ViewCategory2">
-            <img src={vector} />
-            <div className="AdminDashBoard_CategoryTitileDet">
-              <p style={{ fontSize: "13px" }}>Closed Negotiation</p>
-              <p className="AdminDashboard_categoryNum">
+          <div
+            className={`lg:py-1 lg:px-1 bg-[#1B8550] rounded-lg flex justify-center gap-2 items-center  xl:w-[230px]  2xl:w-[285px]`}
+          >
+            <div>
+              <img src={vector} />
+            </div>
+            <div className="text-center">
+              <p className=" text-lg text-white">Closed Negotiation</p>
+              <p className=" text-lg text-white">
                 {Admin_Header_Summary?.data?.closed_negotiation}
               </p>
             </div>
           </div>
         </div>
+
         <div className="AdminPage_DashboardTAbleCat">
           <div className="AdminPage_TableTitleandLink">
             <p className="AdminDashboard_Dashboardtext">Active Negotiation</p>

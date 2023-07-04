@@ -37,6 +37,7 @@ const AdminPlayerAllNegotiate = ({
     {
       id: 2,
       name: "Position",
+      case: "admin_player_Position",
     },
     {
       id: 3,
@@ -127,6 +128,8 @@ const AdminPlayerAllNegotiate = ({
         ) : (
           <TableWithPagination header={header} data={filteredUsersArray} />
         )}
+
+        {console.log(filteredUsersArray)}
       </div>
     </div>
   );

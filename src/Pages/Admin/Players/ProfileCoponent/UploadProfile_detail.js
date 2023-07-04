@@ -18,6 +18,131 @@ import axios from "axios";
 import { TbCurrencyNaira } from "react-icons/tb";
 let baseURL = process.env.REACT_APP_AFRISPORTURL;
 
+export const RatePlayer = ({ Admin_Get_Players_Profile_details }) => {
+  const dispatch = useDispatch();
+
+  console.log(Admin_Get_Players_Profile_details);
+
+  const {
+    Admin_update_user_bio,
+    Admin_update_user_bio_isError,
+    Admin_update_user_bio_isSuccess,
+    Admin_update_user_bio_isLoading,
+    Admin_update_user_bio_message,
+  } = useSelector((state) => state.reducer.AdminUpdate_profileSlice);
+
+  console.log(Admin_Get_Players_Profile_details);
+
+  const [formData, setFormData] = useState({
+    user_id: Admin_Get_Players_Profile_details?.data?.bio?.user_id,
+    rating: Admin_Get_Players_Profile_details?.data?.rating,
+  });
+
+  const Rate_Mutation = useMutation(
+    async (data) => {
+      // Your API request code here
+      // Use formData to send the image data to the API
+      let API_URL = `${baseURL}admin/player/rating`;
+      const tokengot = localStorage.getItem("token");
+
+      const config = {
+        headers: {
+          // "Content-Type": "multipart/form-data",
+          // Accept: "multipart/form-data",
+          Authorization: `Bearer ${tokengot}`,
+        },
+      };
+
+      try {
+        const response = await axios.post(API_URL, data, config);
+        console.log(response.data); // Logging the response data
+      } catch (error) {
+        console.error(error);
+        throw error;
+      }
+    },
+    {
+      onSuccess: () => {
+        // Success toast notification
+        toast.success("Form submitted successfully!", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      },
+      onError: () => {
+        // Error toast notification
+        toast.error("Error occurred while submitting the form.", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          className: "Forbidden403",
+        });
+      },
+    }
+  );
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: value,
+    }));
+
+    console.log(formData);
+  };
+  const [rate_error, setRate_error] = useState(false);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    let rate = formData?.rating;
+    if (rate < 0) {
+      setRate_error(true);
+    } else if (rate > 100) {
+      setRate_error(true);
+    } else {
+      setRate_error(false);
+      Rate_Mutation.mutate(formData);
+    }
+  };
+  return (
+    <form onSubmit={handleSubmit} className="Scoutpage_ProfileforContent">
+      <p className="Scoutpage_Profile_Profiledetailstext">Rate Player</p>
+      <input
+        type="number"
+        className="Scoutpage_Profile_ProfileformlabelInput"
+        name="rating"
+        value={formData.rating}
+        onChange={handleChange}
+        placeholder="rating"
+      />
+      {rate_error && (
+        <p className=" text-red-600">
+          The player rating must not be greater than 100 or less than 0
+        </p>
+      )}
+
+      <button type="submit" className="Scoutpage_Profileform_savebutton">
+        {Rate_Mutation?.isLoading ? (
+          <CircularProgress size={15} />
+        ) : (
+          <span>Save</span>
+        )}
+      </button>
+    </form>
+  );
+};
+
 export const Profile_detail = ({ Admin_Get_Players_Profile_details }) => {
   const dispatch = useDispatch();
 

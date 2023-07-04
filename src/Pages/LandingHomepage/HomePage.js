@@ -16,27 +16,26 @@ import { FadeLoader, ScaleLoader } from "react-spinners";
 import { GetPlayersApi, GetRecommendedApi } from '../../Slice/Player/PlayerHomePage/GetAllPlayersHomePage';
 
 const HomePage = () => {
+  const dispatch = useDispatch();
+  const [loader, setLoader] = useState(false);
+  const [Recommendeddata, setRecommendeddata] = useState(null);
 
-  const dispatch = useDispatch()
-  const [loader, setLoader] = useState(false)
-  const [Recommendeddata, setRecommendeddata] = useState(null)
-
-  useEffect(()=>{
-      const getPlayerDataHome = async () =>{
-        setLoader(true)
-        await dispatch(GetPlayersApi())
-        await dispatch(GetRecommendedApi())
-        setLoader(false)
-      }
-      getPlayerDataHome()
-  },[])
+  useEffect(() => {
+    const getPlayerDataHome = async () => {
+      setLoader(true);
+      await dispatch(GetPlayersApi());
+      await dispatch(GetRecommendedApi());
+      setLoader(false);
+    };
+    getPlayerDataHome();
+  }, []);
   const data = [
     // {playername: 'Ahmed Musa', amount: 'Free', image: Player1, position: 'Fullback', club: 'Chelsea'},
     // {playername: 'Victor Moses', amount: 'From $29', image: Player2, position: 'Striker', club: 'Manchester United'},
     // {playername: 'Ngolo Kante', amount: '$300000', image: Player3, position: 'GoalKeeper', club: 'Kano Pillars'},
     // {playername: 'Harry Kane', amount: 'Free', image: Player4, position: 'RWB', club: 'Enyimba'}
-  ]
-  
+  ];
+
   // const Sortdata = [
   //   {playername: 'Ahmed Musa', amount: 'Free', image: Player1, position: 'Fullback', club: 'Chelsea'},
   //   {playername: 'Victor Moses', amount: 'From $29', image: Player2, position: 'Striker', club: 'Manchester United'},
@@ -48,10 +47,14 @@ const HomePage = () => {
   //   {playername: 'Harry Kane', amount: 'Free', image: Player4, position: 'RWB', club: 'Enyimba'}
   // ]
 
-  const Sortdata = useSelector((state)=> state.reducer?.GetPlayerSlice?.gottenPlayerData?.data)
-  const GottenRecommendeddata = useSelector((state)=> state.reducer?.GetPlayerSlice?.recommendedPlayersData?.data)
-  useEffect(()=>{
-    const initial = () =>{
+  const Sortdata = useSelector(
+    (state) => state.reducer?.GetPlayerSlice?.gottenPlayerData?.data
+  );
+  const GottenRecommendeddata = useSelector(
+    (state) => state.reducer?.GetPlayerSlice?.recommendedPlayersData?.data
+  );
+  useEffect(() => {
+    const initial = () => {
       const endIndex = 4;
       const slicedArray = endIndex <= GottenRecommendeddata?.length ? GottenRecommendeddata.slice(0, endIndex) : GottenRecommendeddata;
       setRecommendeddata(slicedArray)
@@ -122,14 +125,14 @@ const HomePage = () => {
                   <RxDotFilled />
                   <p>{each?.current_club}</p>
                 </div>
-              </Link>))}
-              
-            </div>
-}
-        </div>
-            <Footer />
+              </Link>
+            ))} 
+          </div>
+        }
+      </div>
+      <Footer />
     </div>
-  )
-}
+  );
+};
 
-export default HomePage
+export default HomePage;

@@ -144,8 +144,8 @@ const ActiveNegotiation = ({}) => {
               <p
                 className={`${
                   step === 1
-                    ? "AdminPAge_Negotiate_TabNegotiateActive"
-                    : "AdminPAge_Negotiate_TabNegotiateInactive"
+                    ? "p-0  text-center w-120 border-b-2 border-blue-500 text-blue-500 text-lg font-semibold mr-20 cursor-pointer"
+                    : "p-0 px-10 pb-2 text-center w-120 cursor-pointer border-b-2 border-gray-300 text-gray-700 text-lg font-semibold mr-20"
                 }`}
                 // className="AdminPAge_Negotiate_TabNegotiateActive"
                 onClick={handleAllNegotiate}
@@ -156,8 +156,8 @@ const ActiveNegotiation = ({}) => {
                 onClick={handleSuspended}
                 className={`${
                   step === 2
-                    ? "AdminPAge_Negotiate_TabNegotiateActive"
-                    : "AdminPAge_Negotiate_TabNegotiateInactive"
+                    ? "p-0  text-center w-120 border-b-2 border-blue-500 text-blue-500 text-lg font-semibold mr-20 cursor-pointer"
+                    : "p-0 px-10 pb-2 text-center w-120 cursor-pointer border-b-2 border-gray-300 text-gray-700 text-lg font-semibold mr-20"
                 }`}
               >
                 Suspended
@@ -166,8 +166,8 @@ const ActiveNegotiation = ({}) => {
                 onClick={handleClosed}
                 className={`${
                   step === 3
-                    ? "AdminPAge_Negotiate_TabNegotiateActive"
-                    : "AdminPAge_Negotiate_TabNegotiateInactive"
+                    ? "p-0  text-center w-120 border-b-2 border-blue-500 text-blue-500 text-lg font-semibold mr-20 cursor-pointer"
+                    : "p-0 px-10 pb-2 text-center w-120 cursor-pointer border-b-2 border-gray-300 text-gray-700 text-lg font-semibold mr-20"
                 }`}
               >
                 Closed{" "}
@@ -178,8 +178,8 @@ const ActiveNegotiation = ({}) => {
               <p
                 className={`${
                   step === 4
-                    ? "AdminPAge_Negotiate_TabNegotiateActive"
-                    : "AdminPAge_Negotiate_TabNegotiateInactive"
+                    ? "p-0  text-center w-120 border-b-2 border-blue-500 text-blue-500 text-lg font-semibold mr-20 cursor-pointer"
+                    : "p-0 px-10 pb-2 text-center w-120 cursor-pointer border-b-2 border-gray-300 text-gray-700 text-lg font-semibold mr-20"
                 }`}
                 onClick={handleTerminated}
               >
@@ -254,7 +254,7 @@ const ActiveNegotiation = ({}) => {
                 <div className="AdminPage_SuspendedTableInfo">
                   <AiOutlineInfoCircle style={{ fontSize: "18px" }} />
                   <span className="AdminPage_TableInfoText">
-                    This is a table of Suspended Negotiates on the platform
+                    This is a table of Suspended negotiations on the platform
                   </span>
                 </div>
 
@@ -343,7 +343,7 @@ const ActiveNegotiation = ({}) => {
                 <div className="AdminPage_TerminatedTableInfo">
                   <AiOutlineInfoCircle style={{ fontSize: "18px" }} />
                   <span className="AdminPage_TableInfoText">
-                    This is a table of Terminated Negotiates on the platform
+                    This is a table of Terminated negotiations on the platform
                   </span>
                 </div>
                 <div className="AdminPage_TableTitleandLink">

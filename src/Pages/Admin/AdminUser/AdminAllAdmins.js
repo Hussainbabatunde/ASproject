@@ -135,6 +135,7 @@ const AdminAllAdmins = () => {
     email: "",
     phone: "",
     id: null,
+    password: "",
   });
 
   const Close_form = () => {

@@ -40,7 +40,7 @@ const AdminTalentManagerAllManagers = ({
     },
     {
       id: 2,
-      name: "Number of Player",
+      name: "Number Of Players",
       case: "Admin_talent_manager_players",
     },
     {
@@ -214,7 +214,7 @@ const AdminTalentManagerAllManagers = ({
         <div className="AdminPage_TableInfo">
           <AiOutlineInfoCircle style={{ fontSize: "18px" }} />
           <span className="AdminPage_TableInfoText">
-            This is a table of recent communication on the platform
+            This is a table of recent communication on the platform.
           </span>
         </div>
         <div className="AdminTable_NegotiateTable">
