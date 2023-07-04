@@ -34,7 +34,7 @@ const FilterHeroSection = () => {
         </form>
     </div>
     <div className='heroSection_ImageFilterPage'>
-    <img src={ballimg} data-aos="fade-left" data-aos-duration="1000" width='80px' height='80px' />
+    <img src={ballimg} className='footballImg_heroSection' data-aos="fade-left" data-aos-duration="1000" width='80px' height='80px' />
     </div>
     </div>
   )

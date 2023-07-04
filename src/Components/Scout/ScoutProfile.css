@@ -124,6 +124,7 @@
     .ScoutProfile_VerificationDiv{
         position: static;
         width: 650px;
+        margin-bottom: 15px;
     }
     .Scoutpage_ProfileContent{
         flex-direction: column-reverse;
