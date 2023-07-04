@@ -98,7 +98,7 @@ const HomePage = () => {
             {/* <FootballerInfo
               title="TOP RATED TALENTS"
               pathTitle=""
-              data={data}
+              data={data} 
             />
             <FootballerInfo
               title="RECOMMENDED"
