@@ -38,13 +38,15 @@ const TableWithPagination = ({
 
   return (
     <>
-      <AdminUseTable
-        header={header}
-        data={currentItems}
-        handleEdit={handleEdit}
-        handleDelete={handleDelete}
-        handleRestpassword={handleRestpassword}
-      />
+      <div className="max-w-full overflow-x-auto ">
+        <AdminUseTable
+          header={header}
+          data={currentItems}
+          handleEdit={handleEdit}
+          handleDelete={handleDelete}
+          handleRestpassword={handleRestpassword}
+        />
+      </div>
 
       <div className="flex justify-center mt-4">
         {Array.from({ length: totalPages }, (_, index) => index + 1).map(

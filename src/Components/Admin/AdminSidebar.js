@@ -128,7 +128,7 @@ function AdminSidebar() {
               <div className="mr-3 transition-colors hover:text-[#262626]">
                 {item.pathIcon}
               </div>
-              <span className="transition-colors hover:text-[#262626]">
+              <span className="  text-xs  xl:text-base  transition-colors hover:text-[#262626]">
                 {item.pathName}
               </span>
             </div>
