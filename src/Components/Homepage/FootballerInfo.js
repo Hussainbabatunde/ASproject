@@ -34,7 +34,7 @@ const FootballerInfo = ({title, pathTitle, data}) => {
                 }
                 <p className='Homepage_PlayersName'>{each?.firstname} {each?.surname}</p>
                 <div className='Homepage_playersPosition'>
-                  <p>{each?.position.replace(/_/g, ' ')}</p>
+                  <p>{each?.position[0]?.position}</p>
                   <RxDotFilled />
                   <p>{each?.current_club}</p>
                 </div>

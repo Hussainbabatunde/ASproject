@@ -4,22 +4,22 @@ import FilterHeroSection from '../../Components/Homepage/FilterHeroSection'
 import { Link } from 'react-router-dom'
 import {RxDotFilled} from 'react-icons/rx';
 import { useDispatch, useSelector } from 'react-redux';
-import { FilteredPlayersApi, GetPlayersApi, GetRecommendedApi } from '../../Slice/Player/PlayerHomePage/GetAllPlayersHomePage';
+import { FilteredPlayersApi, GetPlayersApi } from '../../Slice/Player/PlayerHomePage/GetAllPlayersHomePage';
 import Footer from '../../Components/Homepage/Footer';
 import ScoutHeader from '../../Components/Header/ScoutHeader';
 import { CircularProgress } from '@mui/material';
 import { FiMenu } from 'react-icons/fi';
 import { Portal } from './ModalFilter';
 
-const RecommendedFilterView = () => {
+const TopratedPlayersFilterView = () => {
     const [allPlayers, setAllPlayers] = useState([])
     const dispatch = useDispatch()
-    const Sortdata = useSelector((state)=> state.reducer?.GetPlayerSlice?.recommendedPlayersData?.data)
+    const Sortdata = useSelector((state)=> state.reducer?.GetPlayerSlice?.topRatedPlayersData?.data)
     const filteredPlayer = useSelector((state)=> state.reducer?.GetPlayerSlice?.filteredPlayersData?.data)
     const filteredClubPlayer = useSelector((state)=> state.reducer?.GetPlayerSlice?.filteredClubPlayerData?.data)
     // console.log('sortdata ', filteredClubPlayer)
     const [searchLoader, setSearchloader] = useState(false)
-    const [checkedPosition, setCheckedPosition] = useState('')
+    const [checkedPosition, setCheckedPosition] = useState([])
     const [checkStrongFoot, setCheckStrongFoot] = useState('')
     const [minPrice, setMinPrice] = useState('')
     const [maxPrice, setMaxPrice] = useState('')
@@ -27,7 +27,7 @@ const RecommendedFilterView = () => {
     const [maxAge, setMaxAge] = useState('')
     const [height, setHeight] = useState('')
     const [country, setCountry] = useState('')
-    const [position, setPosition] = useState('')
+    const [position, setPosition] = useState([])
     const [foot, setFoot] = useState('')
     const [openNav, setOpenNav] = useState('HomePage_ShownDetails_NavMenu')
   const [iconOpen, setIconOpen] = useState(false)
@@ -40,7 +40,7 @@ const RecommendedFilterView = () => {
 
     useEffect(()=>{
         const getPlayerDataHome = async () =>{
-          await dispatch(GetRecommendedApi())
+          await dispatch(GetPlayersApi())
           setAllPlayers(Sortdata)
         }
         getPlayerDataHome()
@@ -112,17 +112,30 @@ const RecommendedFilterView = () => {
     // }
     const handleSearchFilter = async (e) =>{
         e.preventDefault()
+        const formData = new FormData()
+        formData.append('foot', foot)
+        formData.append('position', position)
+        formData.append('min_age', minAge)
+        formData.append('max_age', maxAge)
+        formData.append('min_price', minPrice)
+        formData.append('max_price', maxPrice)
+        formData.append('height', height)
+        formData.append('country', country)
+        formData.append('recommended', 0)
+
         data.foot= foot
-        data.position= position
+        data.positions= position
         data.min_age = minAge
         data.max_age = maxAge
         data.min_price = minPrice
         data.max_price = maxPrice
         data.height = height
         data.country = country
-        // console.log('data ',data)
+        data.recommended = 0
+        console.log('data ',data)
+
         await dispatch(FilteredPlayersApi(data))
-        setSearchloader(true)
+        // setSearchloader(true)
         setSearchloader(false)
 		const { current: popUp } = modal;
 		popUp.close();
@@ -825,7 +838,7 @@ const RecommendedFilterView = () => {
                 }
                 <p className='Homepage_PlayersName'>{each?.firstname} {each?.surname}</p>
                 <div className='Homepage_playersPosition'>
-                  <p>{each?.position?.replace(/_/g, ' ') || each?.bio?.position?.replace(/_/g, ' ')}</p>
+                  <p>{each?.position[0]?.position || each?.bio?.position[0]?.position}</p>
                   <RxDotFilled />
                   <p>{each?.current_club || each?.bio?.current_club}</p>
                 </div>
@@ -840,4 +853,4 @@ const RecommendedFilterView = () => {
   )
 }
 
-export default RecommendedFilterView
+export default TopratedPlayersFilterView

@@ -27,6 +27,7 @@ import HomeViewPlayerProfile from "./Components/Player/HomeViewPlayerProfile";
 import VerifiedSignup from "./Pages/SignUp/VerifiedSignup";
 import TalentmanagerRoute from "./Pages/TalentManagers/TalentmanagerRoute";
 import RecommendedFilterView from "./Pages/LandingHomepage/RecommendedFilterView";
+import TopratedPlayersFilterView from "./Pages/LandingHomepage/TopratedPlayersFilterView";
 
 function App() {
   useEffect(() => {
@@ -45,6 +46,8 @@ function App() {
           <Route path="/setPassword" element={<ResetPassword />} />
           <Route path="/filterPage" element={<HomepageFilterView />} />
           <Route path="/recommendedPage" element={<RecommendedFilterView />} />
+          <Route path="/topRatedPlayerPage" element={<TopratedPlayersFilterView />} />
+
           <Route
             path="/viewplayerprofile/:id"
             element={<HomeViewPlayerProfile />}
