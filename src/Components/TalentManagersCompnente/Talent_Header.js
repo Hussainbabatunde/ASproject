@@ -63,7 +63,7 @@ function Talent_Header() {
         </p>
       </div>
 
-      <div class="bg-white  p-4 sm:px-3 md:px-4 lg:px-4 xl:px-4 mt-4 sm:mt-4 md:mt-4 lg:mt-4 xl:mt-4 flex flex-wrap">
+      <div class="bg-white  p-4 sm:px-3 md:px-4 lg:px-4 xl:px-4 mt-4 sm:mt-4 md:mt-4 lg:mt-4 xl:mt-4 flex flex-wrap  overflow-x-auto">
         {data.map((each, index) => (
           <NavLink
             to={each?.pathTo}

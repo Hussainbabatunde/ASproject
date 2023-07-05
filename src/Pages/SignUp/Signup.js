@@ -31,15 +31,15 @@ const Signup = () => {
     {
       accType: "Talent Manager",
       image: iconsManager,
-      accDetails: "Support and manager players",
+      accDetails: "Support and manage players",
       value: "/create-account/talent-manager",
     },
   ];
   return (
     <div className="Loginpage">
       <p className="Loginpage_Companyname">
-      <Link className="Loginpage_companyImg" to="/">
-          <img src={footballLogo} width='70px' />
+        <Link className="Loginpage_companyImg" to="/">
+          <img src={footballLogo} width="70px" />
         </Link>
       </p>
       <form className="Loginpage_formSection">
