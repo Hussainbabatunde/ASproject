@@ -185,20 +185,22 @@ function PlayerDetails() {
                   <p className=" f text-3xl font-normal">
                     {user_Data?.firstname} {user_Data?.surname}
                   </p>
-
                   <p className="f text-lg">Score: 60/100</p>
-
                   <p className="f text-base mb-3">
                     Currently{" "}
                     {user_Data?.available === "0"
                       ? "Unavailable"
                       : " Available"}{" "}
                   </p>
-
-                  <span className="bg-[#F4F4F4] font-normal text-sm py-2 px-5">
-                    {user_Data?.bio?.position.toUpperCase()}
-                  </span>
-
+                  {/* {user_Data?.bio?.position.toUpperCase()} */}
+                  {/* {console.log(user_Data?.position) */}
+                  {user_Data?.position.map((item) => {
+                    return (
+                      <span className="bg-[#F4F4F4] font-normal text-sm py-2 px-2">
+                        {item?.position.toUpperCase()},
+                      </span>
+                    );
+                  })}
                   <span className="block  rounded-lg border-2 mt-4 pl-2 py-2 ">
                     Contract:
                     {`  $${user_Data?.price?.minimum}

@@ -25,7 +25,7 @@ const AdminUseTable = ({
   const { logindata } = useSelector((state) => state.reducer.LoginSlice);
 
   return (
-    <table className="AdminUserTable">
+    <table className="AdminUserTable  ">
       <thead>
         <tr>
           {header?.map((item, index) => (
