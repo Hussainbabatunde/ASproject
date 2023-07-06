@@ -54,3 +54,11 @@
 .Loginpage_enquireacc{
     color: rgba(71, 177, 67, 1) !important;
 }
+@media screen and (max-width: 700px){
+    .SignupPage_DifferentAcc{
+        width: 100%;
+    }
+    .CreateAccpage_termsandPolicy{
+        width: 100%;
+    }
+}

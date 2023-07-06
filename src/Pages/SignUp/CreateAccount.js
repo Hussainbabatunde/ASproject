@@ -15,6 +15,9 @@ import footballLogo from "../../assets/footballLogo.png";
 import football from '../../assets/lottie/92356-football.json'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
+import { RxEyeClosed } from 'react-icons/rx'
+import { BsEyeFill } from 'react-icons/bs'
+import { ScaleLoader } from 'react-spinners'
 
 
 const style = {
@@ -33,6 +36,7 @@ const CreateAccount = () => {
 
     const dispatch = useDispatch()
     const [show, setShow] = useState(false);
+    const [checkedRadio, setCheckedRadio] = useState(false)
     const navigate = useNavigate();
     const userData = useSelector((state)=> state.reducer.LoginSlice?.registerData )
 
@@ -48,7 +52,7 @@ const CreateAccount = () => {
         email: Yup.string().email().required(),
         password: Yup.string()
           .required('Password is mandatory')
-          .min(8, 'Password must be at 3 char long'),
+          .min(8, 'Password must be atleast 8 characters long'),
         confirm_password: Yup.string()
           .required('Confirm Password is mandatory')
           .oneOf([Yup.ref('password')], 'Passwords does not match'),
@@ -59,7 +63,26 @@ const CreateAccount = () => {
     let {id} = useParams()
     // console.log('id ', id)
     const [phone, setPhone] = useState('')
-    const [phoneErr, setPhoneErr] = useState(false)
+    const [phoneErr, setPhoneErr] = useState(false)  
+    const [showPassword, setShowPassword] = useState("password");
+
+    const displayPassowrd = () => {
+      setShowPassword("text");
+    };
+  
+    const hidePassowrd = () => {
+      setShowPassword("password");
+    };
+
+    const [showPassword2, setShowPassword2] = useState("password");
+
+    const displayPassowrd2 = () => {
+      setShowPassword2("text");
+    };
+  
+    const hidePassowrd2 = () => {
+      setShowPassword2("password");
+    };
     
     
     const onSubmit = async (data) => {
@@ -68,10 +91,12 @@ const CreateAccount = () => {
         if(phone?.length < 7){
             setPhoneErr(true)
         }else{
-            console.log(data)
+          if(checkedRadio){
+            // console.log(checkedRadio)
             setShow(true)
             await dispatch(RegisterAuth(data))
             setShow(false)
+          }
         }
     };
 
@@ -117,27 +142,59 @@ const CreateAccount = () => {
             </div>
             <div className='Loginpage_formInputfield'>
                 <p className='Loginpage_formEmailaddr'>Password</p>
-                <input type='password'
+                <div className="Loginpage_formPasswordInput">
+                <input type={showPassword}
                 {...register('password', { required: true, minLength: 8 })}
                 aria-invalid={errors.password ? 'true' : 'false'}
                  placeholder='Password' 
-                 className='Loginpage_formEmailInput' 
+                 className='Loginpage_PasswordInput' 
                  />
+                 {showPassword == "password" && (
+              <RxEyeClosed
+                onClick={displayPassowrd}
+                style={{ fontSize: "16px" }}
+              />
+            )}
+            {showPassword == "text" && (
+              <BsEyeFill onClick={hidePassowrd} style={{ fontSize: "16px" }} />
+            )}
+                 </div>
                  <p className='error_authentication'>{errors?.password?.message}</p>
             </div>
             <div className='Loginpage_formInputfield'>
                 <p className='Loginpage_formEmailaddr'>Confirm Password</p>
-                <input type='password' 
+                
+                <div className="Loginpage_formPasswordInput">
+                <input type={showPassword2} 
                 {...register('confirm_password', { required: true, minLength: 8 })}
                 aria-invalid={errors.confirm_password ? 'true' : 'false'}
                 placeholder='Password' 
-                className='Loginpage_formEmailInput' />
+                className='Loginpage_PasswordInput' />
+                {showPassword2 == "password" && (
+              <RxEyeClosed
+                onClick={displayPassowrd2}
+                style={{ fontSize: "16px" }}
+              />
+            )}
+            {showPassword2 == "text" && (
+              <BsEyeFill onClick={hidePassowrd2} style={{ fontSize: "16px" }} />
+            )}
+                </div>
                 <p className='error_authentication'>{errors?.confirm_password?.message}</p>
             </div>
-            <p className='CreateAccpage_termsandPolicy'><input type='checkbox' /> <span className='CreateAccpage_TermsandPolicyText'> I agree to the AfriSport-Pro <span className='CreateAccpage_TermsofUse'>Terms of Use</span> and <span className='CreateAccpage_TermsofUse'>Privacy policy</span> </span></p>
-            <button type='submit' className='Loginpage_formLoginButton'>Submit</button>
+            <p className='CreateAccpage_termsandPolicy'><input type='checkbox' value={checkedRadio} onChange={()=> setCheckedRadio(!checkedRadio)} /> <span className='CreateAccpage_TermsandPolicyText'> I agree to the AfriSport-Pro <span className='CreateAccpage_TermsofUse'>Terms of Use</span> and <span className='CreateAccpage_TermsofUse'>Privacy policy</span> </span></p>
+            <button type='submit' className='Loginpage_formLoginButton'>
+            {show? <ScaleLoader
+                                  color="white"
+                                  size={10}
+                                  aria-label="Loading Spinner"
+                                  data-testid="loader"
+                                /> 
+                                :  
+                                <span>Submit</span> }
+            </button>
             <p className='Loginpage_formSignup'>Already have an account?  <span className='Loginpage_SingupText'><Link className='Loginpage_enquireacc' to='/login'>Log in</Link></span></p>
-            <Modal
+            {/* <Modal
         open={show}
         // onClose={handleClose}
         aria-labelledby="modal-modal-title"
@@ -147,7 +204,7 @@ const CreateAccount = () => {
             <Lottie style={{width: '200px', height:'200px'}} animationData={football} />
             </Box>
         
-      </Modal>
+      </Modal> */}
         </form>
     </div>
   )

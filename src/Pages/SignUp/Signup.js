@@ -31,7 +31,7 @@ const Signup = () => {
     {
       accType: "Talent Manager",
       image: iconsManager,
-      accDetails: "Support and manager players",
+      accDetails: "Support and manage players",
       value: "/create-account/talent-manager",
     },
   ];

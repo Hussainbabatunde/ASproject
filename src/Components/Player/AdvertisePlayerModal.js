@@ -76,13 +76,13 @@ const AdvertisePlayerModal = ({show, progress, hideAdvertiseProfile, positionPla
        
        <div style={{margin:'15px 25px', padding: '1rem'}}>
         <p className='text-xl font-bold mb-2'>Advertise Profile</p>
-        <p className='text-[14px] w-[75%]'>Make your profile more visible to scout and fans coming to the platform</p>
-        <div className='mt-[20px] flex justify-between'>
+        <p className='text-[14px] md:w-[75%]'>Make your profile more visible to scout and fans coming to the platform</p>
+        <div className='mt-[20px] md:flex justify-between'>
             <div className='flex'>
             <img src={PlayerDetails?.profile_pics} alt='image placeholder' className='AdvertisewProfile_UserProfileImage' />
             <div>
             <p className='AdvertiseProfile_UserProfiledetailsUsername'><span style={{display:'flex', alignItems:'center'}}>{PlayerDetails?.firstname} {PlayerDetails?.surname} <BsFillPatchCheckFill style={{fontSize:'22px', color:'#0F7BEF', marginLeft:'10px'}} /></span></p>
-            <p className='text-[14px] w-[75%]'>Score: {progress}/100</p>
+            <p className='text-[14px] md:w-[75%]'>Score: {progress}/100</p>
             </div>
             </div>
             <div>
@@ -91,34 +91,34 @@ const AdvertisePlayerModal = ({show, progress, hideAdvertiseProfile, positionPla
             </div>
         </div>
         <p className=' mt-[15px]'><span className='font-bold'>Amount:</span> ${AdvertValue}</p>
-        <div className='flex justify-between'>
+        <div className='md:flex md:justify-between'>
             <div>
             <p className='font-bold mt-[10px]'>Start Date</p>
-            <input type='date' name='start_date' onChange={handleOfferChange} className='w-[200px] p-1.5 rounded border border-gray-300' />
+            <input type='date' name='start_date' onChange={handleOfferChange} className='w-[100%] md:w-[200px] p-1.5 rounded border border-gray-300' />
             </div>
             <div>
             <p className='font-bold mt-[10px]'>End Date</p>
-            <input type='date' name='end_date' onChange={handleOfferChange} className='w-[200px] p-1.5 rounded border border-gray-300' />
+            <input type='date' name='end_date' onChange={handleOfferChange} className='w-[100%] md:w-[200px] p-1.5 rounded border border-gray-300' />
             </div>
         </div>
-        <div className='flex justify-between'>
+        <div className='md:flex justify-between'>
             <div>
             <p className='font-bold mt-[10px]'>Card Number</p>
-            <input type='text' name='card' onChange={handleOfferChange} className='w-[200px] p-1.5 rounded border border-gray-300' />
+            <input type='text' name='card' onChange={handleOfferChange} className='w-[100%] md:w-[200px] p-1.5 rounded border border-gray-300' />
             </div>
             <div>
             <p className='font-bold mt-[10px]'>CVV</p>
-            <input type='text' name='cvv' maxLength={3} onChange={handleOfferChange} className='w-[200px] p-1.5 rounded border border-gray-300' />
+            <input type='text' name='cvv' maxLength={3} onChange={handleOfferChange} className='w-[100%] md:w-[200px] p-1.5 rounded border border-gray-300' />
             </div>
         </div>
-        <div className='flex justify-between'>
+        <div className='md:flex justify-between'>
             <div>
             <p className='font-bold mt-[10px]'>Month</p>
-            <input type='text' maxLength={2} name='month' onChange={handleOfferChange} className='w-[200px] p-1.5 rounded border border-gray-300' />
+            <input type='text' maxLength={2} name='month' onChange={handleOfferChange} className='w-[100%] md:w-[200px] p-1.5 rounded border border-gray-300' />
             </div>
             <div>
             <p className='font-bold mt-[10px]'>Year</p>
-            <input type='text' name='year' maxLength={2} onChange={handleOfferChange} className='w-[200px] p-1.5 rounded border border-gray-300' />
+            <input type='text' name='year' maxLength={2} onChange={handleOfferChange} className='w-[100%] md:w-[200px] p-1.5 rounded border border-gray-300' />
             </div>
         </div>
 

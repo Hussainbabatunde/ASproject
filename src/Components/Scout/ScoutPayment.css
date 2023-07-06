@@ -56,6 +56,9 @@
     background-color: white;
     width: 48%;
     border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
 }
 .Scoutpage_TransGetpaid_dateandamt{
     margin-top: 20px;
@@ -96,4 +99,23 @@
 }
 .Scoutpage_Getpaid_accnumber{
     font-size: 14px;
+}
+@media screen and (max-width: 700px){
+    .Scoutpage_PaymentContent{
+        background-color: white;
+        padding: 1rem ;
+    }
+    .Scoutpage_TransGetpaid{
+        flex-direction: column;
+    }
+    .Scoutpage_transactionContent_holder{
+        width: 100%;
+        margin-bottom: 10px;
+    }
+}
+
+@media screen and (max-width: 450px){    
+    .Scoutpage_PaymentEarnings_earnfigure{
+        font-size: 20.95px;
+    }
 }

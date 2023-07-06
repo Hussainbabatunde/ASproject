@@ -260,3 +260,52 @@
     border-radius: 5px;
     cursor: pointer;
 }
+
+@media screen and (max-width: 1050px){
+    .ScoutViewProfile{
+        padding: 1em;
+    }
+    .ScoutViewProfile_ImageSection{
+        justify-content: center;
+        align-items: center;
+    }
+    .HomepageView_ProfileOffers{
+        width: 100%;
+    }
+    
+    .ScoutViewProfile_UserProfileSection{
+        flex-wrap: wrap;
+        align-items: center;
+        flex-direction: column !important;
+        width: 100%;
+    }
+    .ScoutViewProfile_AdvertiseProfile{
+        margin-top: 10px;
+    }
+    .ScoutViewProfile_AboutSection{
+        width: 100%;
+    }
+}
+
+
+@media screen and (max-width: 800px){
+    .HomepageViewPlayerProfile{
+        flex-direction: column-reverse;
+    }
+    .HomepageViewProfile_OfferRequest{
+        position: static;
+        width: 100%;
+    }
+    .HomepageViewProfile_MakeRequestSec{
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 500px){
+    
+    .ScoutViewProfile_UserProfiledetailsSection{
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+}
