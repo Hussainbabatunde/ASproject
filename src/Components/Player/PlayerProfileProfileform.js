@@ -131,7 +131,7 @@ console.log(PlayerDetails)
           <select type='text' className='Scoutpage_Profile_ProfileformlabelInput' value={item?.position} onChange={(e)=> handlePositionClick(e.target.value, index)} placeholder='position' >
           <option></option>
           <option value='Goalkeeper'>Goalkeeper</option>
-          <option value='Centerback Defender'>Center Back(Defenders)</option>
+          <option value='Center back Defender'>Center Back(Defenders)</option>
           <option value='Left Winger Defender'>Left Winger Back(Defenders)</option>
           <option value='Right Winger Defender'>Right Winger Back(Defenders)</option>
           <option value='Central Midfielders'>Central midfielders</option>

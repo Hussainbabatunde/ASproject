@@ -112,19 +112,19 @@ const HomepageFilterView = () => {
     // }
     const handleSearchFilter = async (e) =>{
         e.preventDefault()
-        const formData = new FormData()
-        formData.append('foot', foot)
-        formData.append('position', position)
-        formData.append('min_age', minAge)
-        formData.append('max_age', maxAge)
-        formData.append('min_price', minPrice)
-        formData.append('max_price', maxPrice)
-        formData.append('height', height)
-        formData.append('country', country)
-        formData.append('recommended', 0)
+        // const formData = new FormData()
+        // formData.append('foot', foot)
+        // formData.append('position', position)
+        // formData.append('min_age', minAge)
+        // formData.append('max_age', maxAge)
+        // formData.append('min_price', minPrice)
+        // formData.append('max_price', maxPrice)
+        // formData.append('height', height)
+        // formData.append('country', country)
+        // formData.append('recommended', 0)
 
         data.foot= foot
-        data.position= position
+        data.positions= position
         data.min_age = minAge
         data.max_age = maxAge
         data.min_price = minPrice
