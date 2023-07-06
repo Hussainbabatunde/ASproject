@@ -344,7 +344,7 @@ const PlayerProfile = () => {
             <div className="ScoutProfile_VerifyAccountCheckdiv">
               <input type="radio" checked={checkedProfilePic} />
               <p className="ScoutProfile_VerifyAccountCheck_Text">
-                Upload a Profile Picture of Your Actial face
+                Upload a Profile Picture of Your Actual face
               </p>
             </div>
             <div className="ScoutProfile_VerifyAccountCheckdiv">

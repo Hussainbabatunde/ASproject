@@ -55,7 +55,7 @@ const ForgotPassword = () => {
                  className='Loginpage_formEmailInput' />
                  {errors?.email && <p className='error_authentication'>Email is required</p>}
             </div>
-            <button type='submit' className='Loginpage_formLoginButton'>Resets</button>
+            <button type='submit' className='Loginpage_formLoginButton'>Reset</button>
                         
             <p className='Loginpage_formSignup'>
               <span className='Loginpage_SingupText'>

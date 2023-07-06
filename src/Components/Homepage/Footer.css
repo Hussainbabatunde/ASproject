@@ -54,5 +54,16 @@
 @media screen and (max-width: 700px){
     .Homepage_FooterSection{
         padding: 2rem 1rem;
+    }    
+    .Homepage_footerCopanyText{
+        width: 100%;
+    }
+}
+@media screen and (max-width: 450px){    
+    .Homepage_footerListCategory{
+        margin-right: 10px;
+    }
+    .Homepage_TermsandPolicy{
+        width: 100%;
     }
 }

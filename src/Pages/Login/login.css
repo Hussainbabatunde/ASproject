@@ -111,12 +111,15 @@
 }
 @media screen and (max-width: 700px){
     .Loginpage_formEmailInput{
-        width: 300px;
+        width: 100%;
+    }
+    .Loginpage_Companyname{
+        width: 90%;
     }
 }
 @media screen and (max-width: 400px){
     .Loginpage_formEmailInput{
-        width: 300px;
+        width: 100%;
     }
     .Loginpage_formSection{
         padding: 3rem 1rem;
@@ -126,5 +129,11 @@
     }
     .Loginpage_Companyname{
         font-size: 30px;
+    }
+    .Loginpage_formPasswordInput{
+        width: 100%;
+    }
+    .Loginpage_Companyname{
+        width: 90%;
     }
 }

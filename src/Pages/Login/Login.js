@@ -16,6 +16,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { loginAuth } from "../../Slice/auth/Login";
 import { useEffect } from "react";
 import footballLogo from "../../assets/footballLogo.png";
+import { ScaleLoader } from "react-spinners";
 
 const style = {
   position: "absolute",
@@ -153,7 +154,14 @@ const Login = () => {
           </Link>
         </p>
         <button className="Loginpage_formLoginButton" onClick={handleSubmit}>
-          Log in
+          {show? <ScaleLoader
+                                  color="white"
+                                  size={10}
+                                  aria-label="Loading Spinner"
+                                  data-testid="loader"
+                                /> 
+                                :  
+                                <span>Log in</span> }
         </button>
         <div className="Loginpage_formOrSection">
           <div className="Loginpage_formHrLine"></div>
@@ -178,7 +186,7 @@ const Login = () => {
             </Link>
           </span>
         </p>
-        <Modal
+        {/* <Modal
           open={show}
           // onClose={handleClose}
           aria-labelledby="modal-modal-title"
@@ -190,7 +198,7 @@ const Login = () => {
               animationData={football}
             />
           </Box>
-        </Modal>
+        </Modal> */}
       </form>
     </div>
   );

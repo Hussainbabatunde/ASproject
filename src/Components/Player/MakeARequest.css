@@ -139,3 +139,9 @@
     align-items: center;
     margin-bottom: 10px;
 }
+
+@media screen and (max-width: 500px) {
+    .AdvertisePlayer_ModalView{
+        width: 100%;
+    }
+}
