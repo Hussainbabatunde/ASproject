@@ -113,13 +113,14 @@ const RecommendedFilterView = () => {
     const handleSearchFilter = async (e) =>{
         e.preventDefault()
         data.foot= foot
-        data.position= position
+        data.positions= position
         data.min_age = minAge
         data.max_age = maxAge
         data.min_price = minPrice
         data.max_price = maxPrice
         data.height = height
         data.country = country
+        data.recommended = 1
         // console.log('data ',data)
         await dispatch(FilteredPlayersApi(data))
         setSearchloader(true)
@@ -433,7 +434,7 @@ const RecommendedFilterView = () => {
                             <label style={{marginLeft:"10px"}}>Goalkeeper</label>
                         </div>
                         <div>
-                            <input  name='position'  checked={checkedPosition?.includes('Centerback Defender')} onChange={()=> handleCheckedPosition('Centerback Defender')} type='checkbox' />
+                            <input  name='position'  checked={checkedPosition?.includes('Center back Defender')} onChange={()=> handleCheckedPosition('Centerback Defender')} type='checkbox' />
                             <label style={{marginLeft:"10px"}}>Center Back(Defenders)</label>
                         </div>
                         <div>
@@ -825,7 +826,7 @@ const RecommendedFilterView = () => {
                 }
                 <p className='Homepage_PlayersName'>{each?.firstname} {each?.surname}</p>
                 <div className='Homepage_playersPosition'>
-                  <p>{each?.position?.replace(/_/g, ' ') || each?.bio?.position?.replace(/_/g, ' ')}</p>
+                  <p>{each?.position[0]?.position || each?.bio?.position[0]?.position}</p>
                   <RxDotFilled />
                   <p>{each?.current_club || each?.bio?.current_club}</p>
                 </div>
