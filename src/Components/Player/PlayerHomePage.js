@@ -91,7 +91,7 @@ const PlayerHomePage = () => {
             </div>
             :
             <>
-            <FootballerInfo title='TOP RATED TALENTS' pathTitle='/topRatedPlayerPage' data={TopratedPlayersdata} />
+            <FootballerInfo title='TOP RATED TALENTS' pathTitle='/filterPage' data={TopratedPlayersdata} />
             <FootballerInfo title='RECOMMENDED' pathTitle='/recommendedPage' data={Recommendeddata} />
             </>
 }
