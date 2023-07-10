@@ -7,12 +7,13 @@ import Player4 from '../../assets/Player4.png'
 import DownSort from '../../assets/DownSort.png'
 import { Link } from 'react-router-dom';
 import {RxDotFilled} from 'react-icons/rx';
-import { ClockLoader } from "react-spinners";
+import { ClockLoader, ScaleLoader } from "react-spinners";
 import ScoutHeader from '../Header/ScoutHeader';
 import HeroSection from '../Homepage/HeroSection';
 import FootballerInfo from '../Homepage/FootballerInfo';
 import { useDispatch, useSelector } from 'react-redux';
 import { GetPlayersApi, GetRecommendedApi, GetTopRatedPlayersApi } from '../../Slice/Player/PlayerHomePage/GetAllPlayersHomePage';
+import { GetMarketPriceApi } from '../../Slice/Player/PlayerPayment/PaymentSlice';
 
 const PlayerHomePage = () => {
 
@@ -28,6 +29,7 @@ const PlayerHomePage = () => {
         await dispatch(GetPlayersApi())
         await dispatch(GetRecommendedApi())
         await dispatch(GetTopRatedPlayersApi());
+        await dispatch(GetMarketPriceApi())
         setLoader(false)
       }
       getPlayerDataHome()
@@ -92,9 +94,9 @@ const PlayerHomePage = () => {
             <HeroSection />
             {loader? 
             <div className="flex justify-center align-items-center mt-7">
-              <ClockLoader
-                                  color="#7F351D"
-                                  size={45}
+              <ScaleLoader
+                                  color="#58DC53"
+                                  size={25}
                                   aria-label="Loading Spinner"
                                   data-testid="loader"
                                 />
@@ -118,9 +120,9 @@ const PlayerHomePage = () => {
             </div>
             {loader? 
             <div className="flex justify-center align-items-center mt-7">
-              <ClockLoader
-                                  color="#7F351D"
-                                  size={45}
+              <ScaleLoader
+                                  color="#58DC53"
+                                  size={25}
                                   aria-label="Loading Spinner"
                                   data-testid="loader"
                                 />
