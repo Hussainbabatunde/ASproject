@@ -43,6 +43,7 @@ const AdminPlayersSuspended = ({
     {
       id: 1,
       name: "Player Name",
+      case: "suspended_player_name",
     },
     {
       id: 2,
@@ -120,7 +121,7 @@ const AdminPlayersSuspended = ({
 
   const [searchInput, setSearchInput] = useState("");
 
-  const filteredArray = Admin_Get_All_Suspended_Player?.data.filter(
+  const filteredArray = Admin_Get_All_Suspended_Player.filter(
     (user) =>
       user.firstname.toLowerCase().includes(searchInput.toLowerCase()) ||
       user.surname.toLowerCase().includes(searchInput.toLowerCase())
@@ -195,7 +196,7 @@ const AdminPlayersSuspended = ({
           ) : (
             <TableWithPagination
               header={header}
-              data={[]}
+              data={filteredArray}
               handleEdit={handleEdit}
             />
           )}

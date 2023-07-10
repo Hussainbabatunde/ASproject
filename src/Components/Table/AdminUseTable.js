@@ -462,6 +462,7 @@ const AdminUseTable = ({
                     );
 
                   case "Admin_All_player_View_Edit_Suspend":
+                    console.log(each);
                     return (
                       <td
                         className="border-2 px-1 border-[#DDDDDD] w-[300px] text-center "
@@ -828,6 +829,7 @@ const AdminUseTable = ({
                       <td className="useTable_tableDetails">{each?.name}</td>
                     );
                   case "Player name":
+                    console.log(each);
                     return (
                       <td className="useTable_tableDetails">
                         {each?.playerName}
@@ -850,7 +852,11 @@ const AdminUseTable = ({
                   case "Position":
                     return (
                       <td className="useTable_tableDetails">
-                        {each?.position}
+                        {each?.position?.map((item, index) => (
+                          <p key={index}>
+                            <p className="">{item?.position} </p>
+                          </p>
+                        ))}
                       </td>
                     );
                   case "Active Negotiation":

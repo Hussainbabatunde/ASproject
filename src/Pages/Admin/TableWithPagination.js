@@ -21,8 +21,6 @@ const TableWithPagination = ({
     { id: 10, name: "James Anderson", email: "jamesanderson@example.com" },
   ];
 
-  console.log(data);
-
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
 
@@ -36,12 +34,15 @@ const TableWithPagination = ({
     setCurrentPage(pageNumber);
   };
 
+  console.log(currentItems);
+
   return (
     <>
       <div className="max-w-full overflow-x-auto ">
         <AdminUseTable
           header={header}
           data={currentItems}
+          // data={[]}
           handleEdit={handleEdit}
           handleDelete={handleDelete}
           handleRestpassword={handleRestpassword}
