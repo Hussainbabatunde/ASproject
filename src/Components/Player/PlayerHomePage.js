@@ -20,6 +20,7 @@ const PlayerHomePage = () => {
   const [Recommendeddata, setRecommendeddata] = useState(null)
   const [loader, setLoader] = useState(false)
   const [TopratedPlayersdata, setTopRatedPlayesdata] = useState(null);
+  const [AllPlayersdata, setAllPlayersdata] = useState(null);
 
   useEffect(()=>{
       const getPlayerDataHome = async () =>{
@@ -72,7 +73,16 @@ const PlayerHomePage = () => {
         }
         initial()
       },[GottenTopRatedPlayersdata])
-      console.log(Recommendeddata)
+
+      useEffect(() => {
+        const initial = () => {
+          const endIndex = 8;
+          const slicedArray = endIndex <= Sortdata?.length ? Sortdata.slice(0, endIndex) : Sortdata;
+          setAllPlayersdata(slicedArray)
+        }
+        initial()
+      },[Sortdata])
+      // console.log(Recommendeddata)
       const PositionSort = ['GoalKeeper', 'Center backs(Defender)', 'Fullbacks (Defender)', 'Center midfielders', 'Attacking midfielders', 'Defensive midfielders', 'Wingers', 'Strikers']
 
   return (
@@ -117,7 +127,7 @@ const PlayerHomePage = () => {
             </div>
             :
             <div className='Homepage_Sortfootballers'>
-             {Sortdata?.map((each, index)=>( 
+             {AllPlayersdata?.map((each, index)=>( 
              <Link to={`/viewplayerprofile/${each?.user_id}`}
               data-aos-easing='ease-in-out' 
              data-aos-duration="1000" 

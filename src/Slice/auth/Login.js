@@ -81,7 +81,7 @@ export const loginAuth = createAsyncThunk(
         if (response.data.data.token !== undefined) {
           localStorage.setItem("token", response.data.data.token);
         }
-        // console.log("login data ", response.data);
+        console.log("login data ", response.data);
         return response.data;
       })
 
@@ -209,6 +209,18 @@ export const LoginSlice = createSlice({
           });
         } else if (action.payload?.message == "Invalid username or password") {
           toast.error("Invalid username or password", {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
+        }
+        else if (action.payload?.data == "Account not yet activated") {
+          toast.error("Account not yet activated", {
             position: "top-right",
             autoClose: 5000,
             hideProgressBar: false,

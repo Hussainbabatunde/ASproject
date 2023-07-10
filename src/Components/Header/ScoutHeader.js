@@ -56,7 +56,9 @@ const ScoutHeader = () => {
       <div className="Homepage_Menudisplay">
         <div className="Homepage_ShownMenuBar">
           <div className="Homepage_headerNavbar">
+        <Link to="/afrisport/player/homepage">
             <img src={logo} alt="Afrisport logo" />
+            </Link>
             {iconOpen ? (
               <RxCross2 className="Homepage_MeniIcon" onClick={handleClose} />
             ) : (
@@ -64,12 +66,13 @@ const ScoutHeader = () => {
             )}
           </div>
           <div className={openNav}>
-            <Link to="/login" className="Header_login">
-              Login
-            </Link>
-            <Link to="/signup" className="Header_CreateAcc">
-              Create Account
-            </Link>
+          <div className="Admin_HeaderNotification_div">
+            <MdNotifications className="Admin_headerNotification" />
+            <div className="Admin_NotificationSign"></div>
+          </div>
+            <p style={{ cursor: "pointer" }} onClick={handleUserProfile}>
+            <BsFillPersonFill className="Admin_headerNotification" />
+          </p>
           </div>
         </div>
       </div>

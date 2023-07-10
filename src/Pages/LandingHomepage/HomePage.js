@@ -20,6 +20,7 @@ const HomePage = () => {
   const [loader, setLoader] = useState(false);
   const [Recommendeddata, setRecommendeddata] = useState(null);
   const [TopratedPlayersdata, setTopRatedPlayesdata] = useState(null);
+  const [AllPlayersdata, setAllPlayersdata] = useState(null);
 
   useEffect(() => {
     const getPlayerDataHome = async () => {
@@ -31,23 +32,7 @@ const HomePage = () => {
     };
     getPlayerDataHome();
   }, []);
-  const data = [
-    // {playername: 'Ahmed Musa', amount: 'Free', image: Player1, position: 'Fullback', club: 'Chelsea'},
-    // {playername: 'Victor Moses', amount: 'From $29', image: Player2, position: 'Striker', club: 'Manchester United'},
-    // {playername: 'Ngolo Kante', amount: '$300000', image: Player3, position: 'GoalKeeper', club: 'Kano Pillars'},
-    // {playername: 'Harry Kane', amount: 'Free', image: Player4, position: 'RWB', club: 'Enyimba'}
-  ];
 
-  // const Sortdata = [
-  //   {playername: 'Ahmed Musa', amount: 'Free', image: Player1, position: 'Fullback', club: 'Chelsea'},
-  //   {playername: 'Victor Moses', amount: 'From $29', image: Player2, position: 'Striker', club: 'Manchester United'},
-  //   {playername: 'Ngolo Kante', amount: '$300000', image: Player3, position: 'GoalKeeper', club: 'Kano Pillars'},
-  //   {playername: 'Harry Kane', amount: 'Free', image: Player4, position: 'RWB', club: 'Enyimba'},
-  //   {playername: 'Ahmed Musa', amount: 'Free', image: Player1, position: 'Fullback', club: 'Chelsea'},
-  //   {playername: 'Victor Moses', amount: 'From $29', image: Player2, position: 'Striker', club: 'Manchester United'},
-  //   {playername: 'Ngolo Kante', amount: '$300000', image: Player3, position: 'GoalKeeper', club: 'Kano Pillars'},
-  //   {playername: 'Harry Kane', amount: 'Free', image: Player4, position: 'RWB', club: 'Enyimba'}
-  // ]
 
   const Sortdata = useSelector(
     (state) => state.reducer?.GetPlayerSlice?.gottenPlayerData?.data
@@ -75,8 +60,17 @@ const HomePage = () => {
     }
     initial()
   },[GottenTopRatedPlayersdata])
+
+  useEffect(() => {
+    const initial = () => {
+      const endIndex = 8;
+      const slicedArray = endIndex <= Sortdata?.length ? Sortdata.slice(0, endIndex) : Sortdata;
+      setAllPlayersdata(slicedArray)
+    }
+    initial()
+  },[Sortdata])
   const PositionSort = ['GoalKeeper', 'Center backs(Defender)', 'Fullbacks (Defender)', 'Center midfielders', 'Attacking midfielders', 'Defensive midfielders', 'Wingers', 'Strikers']
-  console.log('Sortdata ', Sortdata)
+  // console.log('Sortdata ', Sortdata)
 
   return (
     <div>
@@ -120,7 +114,7 @@ const HomePage = () => {
             </div>
             :
             <div className='Homepage_Sortfootballers'>
-            {Sortdata?.map((each, index)=>( 
+            {AllPlayersdata?.map((each, index)=>( 
              <Link to={`/viewplayerprofile/${each?.user_id}`}
               data-aos-easing='ease-in-out' 
              data-aos-duration="1000" 

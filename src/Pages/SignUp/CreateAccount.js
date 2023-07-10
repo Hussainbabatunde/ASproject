@@ -182,7 +182,7 @@ const CreateAccount = () => {
                 </div>
                 <p className='error_authentication'>{errors?.confirm_password?.message}</p>
             </div>
-            <p className='CreateAccpage_termsandPolicy'><input type='checkbox' value={checkedRadio} onChange={()=> setCheckedRadio(!checkedRadio)} /> <span className='CreateAccpage_TermsandPolicyText'> I agree to the AfriSport-Pro <span className='CreateAccpage_TermsofUse'>Terms of Use</span> and <span className='CreateAccpage_TermsofUse'>Privacy policy</span> </span></p>
+            <p className='CreateAccpage_termsandPolicy'><input type='checkbox' required value={checkedRadio} onChange={()=> setCheckedRadio(!checkedRadio)} /> <span className='CreateAccpage_TermsandPolicyText'> I agree to the AfriSport-Pro <span className='CreateAccpage_TermsofUse'>Terms of Use</span> and <span className='CreateAccpage_TermsofUse'>Privacy policy</span> </span></p>
             <button type='submit' className='Loginpage_formLoginButton'>
             {show? <ScaleLoader
                                   color="white"
