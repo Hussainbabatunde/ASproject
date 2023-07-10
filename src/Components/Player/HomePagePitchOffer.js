@@ -59,6 +59,7 @@ const HomePagePitchOffer = ({
 
   const marketfee = Number(gottenMarketfee);
   const TotalFee = marketfee + Number(payValue);
+  console.log(marketfee)
 
   const handleChangePayValue = (e) => {
     setPayValue(e.target.value);
