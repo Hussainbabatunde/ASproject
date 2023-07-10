@@ -195,7 +195,7 @@ const AdminPlayersSuspended = ({
           ) : (
             <TableWithPagination
               header={header}
-              data={filteredArray}
+              data={[]}
               handleEdit={handleEdit}
             />
           )}
