@@ -150,7 +150,7 @@ const initialState = {
         },
       });
       return await instance
-        .get(`search-by-club-player?player=${data}&club=${data}`)
+        .get(`search-by-club-player`,{params: data})
         .then(async (response) => {
             console.log('filtered club ',response.data)
           return response.data;
