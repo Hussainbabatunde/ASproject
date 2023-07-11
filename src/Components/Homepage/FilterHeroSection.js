@@ -7,17 +7,20 @@ import { FilteredClubPlayerApi } from '../../Slice/Player/PlayerHomePage/GetAllP
 import { CircularProgress } from '@mui/material'
 
 const FilterHeroSection = () => {
-  const [data, setData] = useState('')
+  const [keyword, setKeyword] = useState('')
   const [loadSearch, setLoadSearch] = useState(false)
   const dispatch = useDispatch()
 
   const handleSearchPlayer = (e) =>{
-    setData(e.target.value)
+    setKeyword(e.target.value)
   }
 
   const handleSubmitSearch = async (e) =>{
     e.preventDefault()
+    let data = {}
+    data.keyword = keyword  
     setLoadSearch(true)
+    console.log(keyword)
     await dispatch(FilteredClubPlayerApi(data))
     setLoadSearch(false)
   }
@@ -27,7 +30,7 @@ const FilterHeroSection = () => {
     <div className='heroSection_ContentSearchFilter' data-aos-easing='ease-in-out' data-aos-duration="1000" data-aos="fade-right">
         <form onSubmit={handleSubmitSearch} className='heroSection_FilterSearchitem'>
             <CiSearch className='heroSection_SearchIcon' />
-            <input type='text' onChange={handleSearchPlayer} value={data} className='heroSection_SearchInput' placeholder='search for club or players' />
+            <input type='text' onChange={handleSearchPlayer} value={keyword} className='heroSection_SearchInput' placeholder='search for  players' />
             <button type='submit' className='heroSection_SearchButton'>
             {loadSearch ? <CircularProgress size={15} /> : <span>Search</span>}
             </button>
