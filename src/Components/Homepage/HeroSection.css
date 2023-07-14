@@ -71,6 +71,9 @@
     border: none;
     border-radius: 5px;
 }
+.heroSection_SearchButton:hover{
+    background-color: #4c4e4f;
+}
 .heroSection_ImageFootballer{
     animation: mover 2s ease-in-out infinite alternate-reverse both;
     /* height: 90%; */

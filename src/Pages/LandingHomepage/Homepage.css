@@ -57,6 +57,9 @@
     font-weight: 400;
     margin-top: 10px;
 }
+.Homepage_foorballersBriefInfo:hover{
+    background-color: #c4c0c066;
+}
 .Homepage_playersPosition{
     display: flex;
     align-items: center;
@@ -79,6 +82,9 @@
     padding: 5px;
     border-radius: 20px;
     font-weight: 400;
+}
+.Homepage_SortPosition:hover{
+    background-color: #c3c8c8;
 }
 .Homepage_SortCategory{
      /* display: flex; */
