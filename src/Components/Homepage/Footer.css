@@ -1,23 +1,25 @@
 .Homepage_FooterSection{
-    background-color: black;
-    color: white;
+    background-color: #071A10;
+    color: #B3FF92;
     padding: 2rem 5rem;
 }
 .Homepage_footerCategory_SocialInfo{
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
 }
 .Hompage_footerList{
-    margin-top: 10px;
+    /* margin-top: 10px;
     list-style: none;
     font-size: 19px;
-    font-weight: 400;
+    font-weight: 400; */
 }
 .Homepage_footerListCategory{
     margin-right: 30px;
 }
 .Homepage_FooterCategory{
     display: flex;
+    justify-content: space-evenly;
+    width: 100%;
 }
 .Homepage_FooterCompanyName{
     font-size: 21px;
@@ -36,7 +38,7 @@
 }
 .Homepage_footerCopyrightTerms{
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     margin-top: 50px;
 }
 .Homepage_TermsandPolicy{

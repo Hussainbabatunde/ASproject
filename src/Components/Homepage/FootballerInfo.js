@@ -7,6 +7,11 @@ import Lottie from 'lottie-react';
 import {GrLocation} from 'react-icons/gr'
 import {PiBarbellDuotone} from 'react-icons/pi'
 import {PiPersonArmsSpreadBold} from 'react-icons/pi'
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation, Pagination, Scrollbar, A11y } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
 import playerFootballer from '../../assets/footballPlayer1.svg'
 
 const FootballerInfo = ({title, pathTitle, data}) => {
@@ -46,7 +51,17 @@ const FootballerInfo = ({title, pathTitle, data}) => {
               
             </div>} */}
             <div className='flex'>
-            <div className='PlayerCardsInfo my-2 mr-2'>
+            <Swiper
+            modules={[Navigation, Pagination, A11y]}
+            navigation            
+      pagination={{ clickable: true }}
+      spaceBetween={5}
+      slidesPerView={3}
+      onSlideChange={() => console.log('slide change')}
+      onSwiper={(swiper) => console.log(swiper)}
+    >
+      <SwiperSlide>
+            <div className='PlayerCardsInfo w-[395px] my-2 mr-2'>
               <img src={playerFootballer} className='ImgPlayerCard_infoDetails' />
               <div className='playerCard_infoDetails px-2 py-4 w-full'>
                 <div className='flex justify-between w-full'>
@@ -59,7 +74,9 @@ const FootballerInfo = ({title, pathTitle, data}) => {
                     <p className=' flex items-center py-1'><PiPersonArmsSpreadBold className='text-md' /><span className='ml-2 text-sm text-[#081F32]'> Weight: 30kg</span></p>           
               </div>
             </div>
-            <div className='PlayerCardsInfo my-2 mr-2'>
+            </SwiperSlide>
+            <SwiperSlide>
+            <div className='PlayerCardsInfo w-[395px] my-2 mr-2'>
               <img src={playerFootballer} className='ImgPlayerCard_infoDetails' />
               <div className='playerCard_infoDetails px-2 py-4 w-full'>
                 <div className='flex justify-between w-full'>
@@ -72,7 +89,9 @@ const FootballerInfo = ({title, pathTitle, data}) => {
                     <p className=' flex items-center py-1'><PiPersonArmsSpreadBold className='text-md' /><span className='ml-2 text-sm text-[#081F32]'> Weight: 30kg</span></p>           
               </div>
             </div>
-            <div className='PlayerCardsInfo my-2 mr-2'>
+            </SwiperSlide>
+            <SwiperSlide>
+            <div className='PlayerCardsInfo w-[395px] my-2 mr-2'>
               <img src={playerFootballer} className='ImgPlayerCard_infoDetails' />
               <div className='playerCard_infoDetails px-2 py-4 w-full'>
                 <div className='flex justify-between w-full'>
@@ -85,6 +104,23 @@ const FootballerInfo = ({title, pathTitle, data}) => {
                     <p className=' flex items-center py-1'><PiPersonArmsSpreadBold className='text-md' /><span className='ml-2 text-sm text-[#081F32]'> Weight: 30kg</span></p>           
               </div>
             </div>
+            </SwiperSlide>
+            <SwiperSlide>
+            <div className='PlayerCardsInfo w-[395px] my-2 mr-2'>
+              <img src={playerFootballer} className='ImgPlayerCard_infoDetails' />
+              <div className='playerCard_infoDetails px-2 py-4 w-full'>
+                <div className='flex justify-between w-full'>
+                  <p className='text-sm text-[#6E798C]'>{title== 'TOP RATED TALENTS'? 'TOP RATED' : title }</p>
+                  <p className='text-sm text-[#6E798C]'>Language: English</p>
+                  </div> 
+                  <p className='text-2xl font-bold text-[#081F32] py-3'> Hussain Babatunde</p>    
+                  <p className=' flex items-center'><GrLocation className='text-md' /><span className='ml-2 text-sm text-[#081F32]'> Location: Nigeria</span></p> 
+                  <p className=' flex items-center py-1'><PiBarbellDuotone className='text-md' /><span className='ml-2 text-sm text-[#081F32]'> Strong foot: Right</span></p>
+                    <p className=' flex items-center py-1'><PiPersonArmsSpreadBold className='text-md' /><span className='ml-2 text-sm text-[#081F32]'> Weight: 30kg</span></p>           
+              </div>
+            </div>
+            </SwiperSlide>
+            </Swiper>
             </div>
             </div>
   )

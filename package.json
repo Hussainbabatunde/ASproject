@@ -36,6 +36,7 @@
     "react-spinners": "^0.13.8",
     "react-toastify": "^9.1.2",
     "redux-persist": "^6.0.0",
+    "swiper": "^10.0.4",
     "web-vitals": "^2.1.4",
     "yup": "^1.1.1"
   },

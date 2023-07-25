@@ -103,7 +103,7 @@
 .PlayerCardsInfo{
     border-radius: 10px !important;
     display: flex;
-    width: 410px;
+    /* width: 390px; */
     background-color: white;
 }
 .world_classhomeplayers{
@@ -120,6 +120,7 @@
 .ImgPlayerCard_infoDetails{
     border-top-left-radius: 10px ;
     border-bottom-left-radius: 10px ;
+    width: 150px;
 }
 .verifiedBgDiv_Homepage{
     background-color: #26BC70;
