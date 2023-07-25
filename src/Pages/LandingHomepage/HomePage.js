@@ -6,6 +6,7 @@ import Player1 from "../../assets/Player1.png";
 import Player2 from "../../assets/Player2.png";
 import Player3 from "../../assets/Player3.png";
 import Player4 from "../../assets/Player4.png";
+import AfriBallLogo from "../../assets/AfriRoundLogo.svg";
 import DownSort from "../../assets/DownSort.png";
 import FootballerInfo from "../../Components/Homepage/FootballerInfo";
 import { Link } from "react-router-dom";
@@ -94,8 +95,22 @@ const HomePage = () => {
   return (
     <div>
       <Header />
-      <div className="Homepage_contents">
+      {/* <div className="Homepage_contents"> */}
+      <div>
         <HeroSection />
+        <div className="verifiedBgDiv_Homepage flex justify-between items-center">
+          <p className="text-3xl text-white w-[450px]"><span className="font-bold">We Strive</span> To Create The Best MarketPlace For Football Talents</p>
+          <div className="flex justify-start w-[40%]">
+            <img src={AfriBallLogo} width='150px' height='150px' />
+            <div className="text-white" style={{marginLeft:'20px'}}>
+              <p style={{fontSize:'40px', lineHeight:'normal'}}>100%</p>
+              <p className='text-white' style={{fontSize:'22px', lineHeight:'normal'}}>VERIFIED</p>
+              <p className="text-white">All Players Skillsets and</p>
+              <p className="text-white">Performances are Verted to</p>
+              <p className="text-white">Reach International Standards</p>
+            </div>
+          </div>
+        </div>
         {loader ? (
           <div className="flex justify-center align-items-center mt-7">
             <ScaleLoader

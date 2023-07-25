@@ -1,11 +1,12 @@
 .heroSection_background{
-    background-image: linear-gradient(to right, rgba(88, 220, 83, 1) 50%,  rgba(253, 222, 73, 1) 100%);
+    /* background-image: linear-gradient(to right, rgba(88, 220, 83, 1) 50%,  rgba(253, 222, 73, 1) 100%); */
     border-radius: 5px;
     display: flex;
+    padding: 1rem 0 0 3rem;
     /* min-height: 400px; */
 }
 .heroSection_Filterbackground{
-    background-image: linear-gradient(to right, rgba(88, 220, 83, 1) 50%,  rgba(253, 222, 73, 1) 100%);
+    /* background-image: linear-gradient(to right, rgba(88, 220, 83, 1) 50%,  rgba(253, 222, 73, 1) 100%); */
     border-radius: 5px;
     display: flex;
     padding: 1rem;
@@ -124,6 +125,12 @@
 }
 .FilterPage_PositionSearchedFor{
     color: #4094F7;
+}
+.HeroSec_TextSection{
+    width: 50%;
+}
+.ViewPlayersButton{
+    color: white !important;
 }
 @-webkit-keyframes mover {
     0% { transform: translateY(0); }
