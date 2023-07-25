@@ -6,6 +6,9 @@ import Player1 from "../../assets/Player1.png";
 import Player2 from "../../assets/Player2.png";
 import Player3 from "../../assets/Player3.png";
 import Player4 from "../../assets/Player4.png";
+import {TbPointFilled} from 'react-icons/tb'
+import easywhiteafrilogo from "../../assets/easywhiteafrilogo.svg";
+import PlayerEasyContract from '../../assets/playerFootballerEasyContract.svg';
 import AfriBallLogo from "../../assets/AfriRoundLogo.svg";
 import DownSort from "../../assets/DownSort.png";
 import FootballerInfo from "../../Components/Homepage/FootballerInfo";
@@ -134,8 +137,31 @@ const HomePage = () => {
             />
           </>
         )}
+        <div className="Homepage_EasyContractSec px-7 py-5 flex justify-evenly">
+          <img src={PlayerEasyContract} className="Homepage_EasyContractImg" />
+          <div>
+            <img src={easywhiteafrilogo} />
+            <p className="text-white font-bold text-2xl pt-5">Easily Contract</p>
+            <p className="text-white text-2xl">The Best African</p>
+            <p className="text-white text-2xl">Football Talents</p>
+            <div className="flex mt-7 text-white">
+              <TbPointFilled className="text-white text-2xl" />
+              <p className='ml-3 text-white'>Create an account</p>
+            </div>
+            <div className="flex mt-2 text-white">
+              <TbPointFilled className="text-white text-2xl" />
+              <p className='ml-3 text-white'>Send Your Proposal to Player</p>
+            </div>
+            <div className="flex mt-2 text-white">
+              <TbPointFilled className="text-white text-2xl" />
+              <p className='ml-3 text-white'>Negotiate and Close the Deal</p>
+            </div>
+            <button className="mt-9 bg-white w-[250px] py-3 rounded">Sign up</button>
+          </div>
+        </div>
+        <div className='HomePage_talentsSection px-20 py-3'>
         <div className="Homepage_topTalents">
-          <p className="Homepage_topTalentsTopic">EXPLORE TALENT</p>
+          <p className="border-l-2 border-[#FF8D00] py-1 px-2  text-[#071A10] font-bold">EXPLORE TALENT</p>
 
           <Link to="/filterPage" className="Homepage_topTalentsTopic">
             VIEW ALL
@@ -146,7 +172,7 @@ const HomePage = () => {
             {PositionSort.map((each, index) => (
               <Link
                 to="/filterPage"
-                className="Homepage_SortPosition"
+                className="Homepage_SortPosition bg-white"
                 key={index}
               >
                 {each}
@@ -208,6 +234,13 @@ const HomePage = () => {
             ))}
           </div>
         )}
+        
+        </div>
+        <div className="world_classhomeplayers py-5 flex flex-col justify-center items-center">
+          <p className="text-white text-4xl font-bold">World Class Talent</p>
+          <p className="text-white text-4xl font-bold">only on Afri Sport</p>
+            <button className="mt-3 font-bold bg-[#071A10] w-[250px] text-white py-3 rounded">Sign up</button>
+        </div>
       </div>
       <Footer />
     </div>

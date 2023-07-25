@@ -106,6 +106,12 @@
     width: 410px;
     background-color: white;
 }
+.world_classhomeplayers{
+    background: url('../../assets/worldclasshomebg.png');
+}
+.Homepage_EasyContractSec{
+    background: url('../../assets/dark-background.png');
+}
 .playerCard_infoDetails{
     background-color: white;
     border-top-right-radius: 10px ;
