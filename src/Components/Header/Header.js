@@ -28,12 +28,17 @@ const Header = () => {
           alt="Afrisport logo"
           onClick={() => navigate("/")}
         />
+        <div className="flex">
+          <p className="mx-4">Players</p>
+          <p className="mx-4">About-us</p>
+          <p className="mx-4">Pricing</p>
+        </div>
         <div>
           <Link to="/login" className="Header_login">
             Login
           </Link>
           <Link to="/signup" className="Header_CreateAcc">
-            Create Account
+            Sign Up
           </Link>
         </div>
       </div>
