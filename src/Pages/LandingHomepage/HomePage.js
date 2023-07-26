@@ -121,11 +121,11 @@ const maxLength = 16; // Set the maximum length for the shortened name
       <div>
         <HeroSection />
         <div className="verifiedBgDiv_Homepage flex flex-col lg:flex-row justify-center lg:justify-between items-center">
-          <p className="text-3xl text-white w-[100%] md:w-[450px]"><span className="font-bold">We Strive</span> To Create The Best MarketPlace For Football Talents</p>
+          <p className="text-2xl md:text-3xl text-white w-[100%] md:w-[450px]"><span className="font-bold">We Strive</span> To Create The Best MarketPlace For Football Talents</p>
           <div className="flex md:mt-4 lg:mt-0 justify-center lg:justify-start w-full lg:w-[40%]">
             <img src={AfriBallLogo} width='150px' height='150px' />
             <div className="text-white" style={{marginLeft:'20px'}}>
-              <p style={{fontSize:'40px', lineHeight:'normal'}}>100%</p>
+              <p className="text-2xl md:text-4xl" style={{ lineHeight:'normal'}}>100%</p>
               <p className='text-white' style={{fontSize:'22px', lineHeight:'normal'}}>VERIFIED</p>
               <p className="text-white">All Players Skillsets and</p>
               <p className="text-white">Performances are Verted to</p>
@@ -299,9 +299,9 @@ const maxLength = 16; // Set the maximum length for the shortened name
         
         </div>
         <div className="world_classhomeplayers py-5 flex flex-col justify-center items-center">
-          <p className="text-white text-4xl font-bold">World Class Talent</p>
-          <p className="text-white text-4xl font-bold">only on Afri Sport</p>
-            <button className="mt-3 font-bold bg-[#071A10] w-[250px] text-white py-3 rounded">Sign up</button>
+          <p className="text-white text-2xl md:text-4xl font-bold">World Class Talent</p>
+          <p className="text-white text-2xl md:text-4xl font-bold">only on Afri Sport</p>
+            <button className="mt-3 font-bold bg-[#071A10] w-[150px] md:w-[250px] text-white py-3 rounded">Sign up</button>
         </div>
       </div>
       <Footer />
