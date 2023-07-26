@@ -97,21 +97,22 @@ const HomePage = () => {
     "Wingers",
     "Strikers",
   ];
-  // console.log('Sortdata ', Sortdata)
+  console.log('AllPlayersdata ', AllPlayersdata);
 
   
-function shortenName(name, maxLength) {
-  if (name.length <= maxLength) {
-    return name;
+function shortenName(name, secname, maxLength) {
+  let x = name + " " + secname;
+  if (x.length <= maxLength) {
+    return x;
   } else {
-    return name.substring(0, maxLength) + ".....";
+    return x.substring(0, maxLength) + ".....";
   }
 }
 
-const fullName = "Hussain Babatunde";
-const maxLength = 13; // Set the maximum length for the shortened name
+// const fullName = AllPlayersdata?.firstname + " " + AllPlayersdata?.surname;
+const maxLength = 16; // Set the maximum length for the shortened name
 
-const shortenedName = shortenName(fullName, maxLength);
+// const shortenedName = shortenName(AllPlayersdata?.firstname, AllPlayersdata?.surname, maxLength);
 
   return (
     <div>
@@ -252,14 +253,29 @@ const shortenedName = shortenName(fullName, maxLength);
           //   ))}
           // </div>
           <div className='flex flex-wrap justify-center lg:justify-start'>
-            <div className='PlayerCardsInfo w-[390px] my-2 mr-2'>
+            {AllPlayersdata?.map((each, index) => (
+            <div key={index} className='PlayerCardsInfo w-[390px] my-2 mr-2'>
+              <img src={each?.image_url} className='ImgPlayerCard_infoDetails' />
+              <div className='playerCard_infoDetails px-2 py-4 w-full'>
+                <div className='flex justify-between w-full'>
+                  <p className='text-sm text-[#6E798C]'>PLAYERS</p>
+                  <p className='text-sm text-[#6E798C]'>Language: English</p>
+                  </div> 
+                  <p className='text-2xl font-bold text-[#081F32] py-3'> {shortenName(each?.firstname, each?.surname, maxLength)}</p>    
+                  <p className=' flex items-center'><GrLocation className='text-md' /><span className='ml-2 text-sm text-[#081F32]'> Location: {each?.location}</span></p> 
+                  <p className=' flex items-center py-1'><PiBarbellDuotone className='text-md' /><span className='ml-2 text-sm text-[#081F32]'> Strong foot: Right</span></p>
+                    <p className=' flex items-center py-1'><PiPersonArmsSpreadBold className='text-md' /><span className='ml-2 text-sm text-[#081F32]'> Weight: 30kg</span></p>           
+              </div>
+            </div>
+            ))}
+            {/* <div className='PlayerCardsInfo w-[390px] my-2 mr-2'>
               <img src={playerFootballer} className='ImgPlayerCard_infoDetails' />
               <div className='playerCard_infoDetails px-2 py-4 w-full'>
                 <div className='flex justify-between w-full'>
                   <p className='text-sm text-[#6E798C]'>PLAYERS</p>
                   <p className='text-sm text-[#6E798C]'>Language: English</p>
                   </div> 
-                  <p className='text-2xl font-bold text-[#081F32] py-3'> {shortenedName}</p>    
+                  <p className='text-2xl font-bold text-[#081F32] py-3'> Hussain Babatunde</p>    
                   <p className=' flex items-center'><GrLocation className='text-md' /><span className='ml-2 text-sm text-[#081F32]'> Location: Nigeria</span></p> 
                   <p className=' flex items-center py-1'><PiBarbellDuotone className='text-md' /><span className='ml-2 text-sm text-[#081F32]'> Strong foot: Right</span></p>
                     <p className=' flex items-center py-1'><PiPersonArmsSpreadBold className='text-md' /><span className='ml-2 text-sm text-[#081F32]'> Weight: 30kg</span></p>           
@@ -277,20 +293,7 @@ const shortenedName = shortenName(fullName, maxLength);
                   <p className=' flex items-center py-1'><PiBarbellDuotone className='text-md' /><span className='ml-2 text-sm text-[#081F32]'> Strong foot: Right</span></p>
                     <p className=' flex items-center py-1'><PiPersonArmsSpreadBold className='text-md' /><span className='ml-2 text-sm text-[#081F32]'> Weight: 30kg</span></p>           
               </div>
-            </div>
-            <div className='PlayerCardsInfo w-[390px] my-2 mr-2'>
-              <img src={playerFootballer} className='ImgPlayerCard_infoDetails' />
-              <div className='playerCard_infoDetails px-2 py-4 w-full'>
-                <div className='flex justify-between w-full'>
-                  <p className='text-sm text-[#6E798C]'>PLAYERS</p>
-                  <p className='text-sm text-[#6E798C]'>Language: English</p>
-                  </div> 
-                  <p className='text-2xl font-bold text-[#081F32] py-3'> Hussain Babatunde</p>    
-                  <p className=' flex items-center'><GrLocation className='text-md' /><span className='ml-2 text-sm text-[#081F32]'> Location: Nigeria</span></p> 
-                  <p className=' flex items-center py-1'><PiBarbellDuotone className='text-md' /><span className='ml-2 text-sm text-[#081F32]'> Strong foot: Right</span></p>
-                    <p className=' flex items-center py-1'><PiPersonArmsSpreadBold className='text-md' /><span className='ml-2 text-sm text-[#081F32]'> Weight: 30kg</span></p>           
-              </div>
-            </div>
+            </div> */}
             </div>
         )}
         
