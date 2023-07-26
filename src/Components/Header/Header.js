@@ -34,15 +34,7 @@ const Header = () => {
           <p className="mx-4">Pricing</p>
         </div>
         <div>
-        <Link to="/login" className="Header_login">
-            Players
-          </Link>
-          <Link to="/login" className="Header_login">
-            About Us
-          </Link>
-          <Link to="/login" className="Header_login">
-            Pricing
-          </Link>
+        
           <Link to="/login" className="Header_login">
             Login
           </Link>
@@ -62,6 +54,15 @@ const Header = () => {
             )}
           </div>
           <div className={openNav}>
+          <Link to="/login" className="Header_login">
+            Players
+          </Link>
+          <Link to="/login" className="Header_login">
+            About Us
+          </Link>
+          <Link to="/login" className="Header_login">
+            Pricing
+          </Link>
             <Link to="/login" className="Header_login">
               Login
             </Link>
