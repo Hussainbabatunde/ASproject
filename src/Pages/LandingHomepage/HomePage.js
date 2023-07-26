@@ -119,9 +119,9 @@ const shortenedName = shortenName(fullName, maxLength);
       {/* <div className="Homepage_contents"> */}
       <div>
         <HeroSection />
-        <div className="verifiedBgDiv_Homepage flex justify-between items-center">
-          <p className="text-3xl text-white w-[450px]"><span className="font-bold">We Strive</span> To Create The Best MarketPlace For Football Talents</p>
-          <div className="flex justify-start w-[40%]">
+        <div className="verifiedBgDiv_Homepage flex flex-col lg:flex-row justify-center lg:justify-between items-center">
+          <p className="text-3xl text-white w-[100%] md:w-[450px]"><span className="font-bold">We Strive</span> To Create The Best MarketPlace For Football Talents</p>
+          <div className="flex md:mt-4 lg:mt-0 justify-center lg:justify-start w-full lg:w-[40%]">
             <img src={AfriBallLogo} width='150px' height='150px' />
             <div className="text-white" style={{marginLeft:'20px'}}>
               <p style={{fontSize:'40px', lineHeight:'normal'}}>100%</p>
@@ -155,9 +155,9 @@ const shortenedName = shortenName(fullName, maxLength);
             />
           </>
         )}
-        <div className="Homepage_EasyContractSec px-7 py-5 flex justify-evenly">
+        <div className="Homepage_EasyContractSec px-7 py-5 flex flex-col md:flex-row justify-evenly">
           <img src={PlayerEasyContract} className="Homepage_EasyContractImg" />
-          <div>
+          <div className="mt-2 md:mt-0">
             <img src={easywhiteafrilogo} />
             <p className="text-white font-bold text-2xl pt-5">Easily Contract</p>
             <p className="text-white text-2xl">The Best African</p>
@@ -177,7 +177,7 @@ const shortenedName = shortenName(fullName, maxLength);
             <button className="mt-9 bg-white w-[250px] py-3 rounded">Sign up</button>
           </div>
         </div>
-        <div className='HomePage_talentsSection px-20 py-3'>
+        <div className='HomePage_talentsSection px-3 md:px-20 py-3'>
         <div className="Homepage_topTalents">
           <p className="border-l-2 border-[#FF8D00] py-1 px-2  text-[#071A10] font-bold">EXPLORE TALENT</p>
 
@@ -251,7 +251,7 @@ const shortenedName = shortenName(fullName, maxLength);
           //     </Link>
           //   ))}
           // </div>
-          <div className='flex flex-wrap'>
+          <div className='flex flex-wrap justify-center lg:justify-start'>
             <div className='PlayerCardsInfo w-[390px] my-2 mr-2'>
               <img src={playerFootballer} className='ImgPlayerCard_infoDetails' />
               <div className='playerCard_infoDetails px-2 py-4 w-full'>

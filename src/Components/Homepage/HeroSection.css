@@ -140,6 +140,20 @@
     0% { transform: translateY(0); }
     100% { transform: translateY(-10px); }
 }
+
+.swiper-container {
+    /* width: 480px; */
+    width: 100%;
+  }
+  .swiper-slide{
+    width: 390px !important;
+  }
+  
+  /* @media screen and (min-width: 800px) {
+    .swiper-container {
+      width: 800px;
+    }
+  } */
 @media screen and (max-width: 900px){
     .heroSection_ImageFootballer{
         display: none;

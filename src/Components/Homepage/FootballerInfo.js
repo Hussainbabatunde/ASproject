@@ -16,7 +16,7 @@ import playerFootballer from '../../assets/footballPlayer1.svg'
 
 const FootballerInfo = ({title, pathTitle, data}) => {
   return (
-    <div className='HomePage_talentsSection px-20 py-3'>
+    <div className='HomePage_talentsSection px-3 md:px-20 py-3'>
             <div className='Homepage_topTalents'>
             <p className='border-l-2 border-[#FF8D00] py-1 px-2  text-[#071A10] font-bold'>{title}</p>
             <Link to={pathTitle} className='Homepage_topTalentsTopic'>VIEW ALL</Link>
@@ -53,14 +53,32 @@ const FootballerInfo = ({title, pathTitle, data}) => {
             <div className='flex'>
             <Swiper
             modules={[Navigation, Pagination, A11y]}
-            navigation            
+            navigation       
       pagination={{ clickable: true }}
-      spaceBetween={5}
-      slidesPerView={3}
+      spaceBetween={100}
+      slidesPerView={'auto'}
       onSlideChange={() => console.log('slide change')}
       onSwiper={(swiper) => console.log(swiper)}
     >
-      <SwiperSlide>
+      {/* <div> */}
+      {data?.map((each, index)=>(
+      <SwiperSlide key={index}>
+            <div className='PlayerCardsInfo w-[395px] my-2 mr-2'>
+              <img src={each?.image_url} className='ImgPlayerCard_infoDetails' />
+              <div className='playerCard_infoDetails px-2 py-4 w-full'>
+                <div className='flex justify-between w-full'>
+                  <p className='text-sm text-[#6E798C]'>{title== 'TOP RATED TALENTS'? 'TOP RATED' : title }</p>
+                  <p className='text-sm text-[#6E798C]'>Language: English</p>
+                  </div> 
+                  <p className='text-2xl font-bold text-[#081F32] py-3'> Hussain Babatunde</p>    
+                  <p className=' flex items-center'><GrLocation className='text-md' /><span className='ml-2 text-sm text-[#081F32]'> Location: Nigeria</span></p> 
+                  <p className=' flex items-center py-1'><PiBarbellDuotone className='text-md' /><span className='ml-2 text-sm text-[#081F32]'> Strong foot: Right</span></p>
+                    <p className=' flex items-center py-1'><PiPersonArmsSpreadBold className='text-md' /><span className='ml-2 text-sm text-[#081F32]'> Weight: 30kg</span></p>           
+              </div>
+            </div>
+            </SwiperSlide>
+      ))}
+            {/* <SwiperSlide>
             <div className='PlayerCardsInfo w-[395px] my-2 mr-2'>
               <img src={playerFootballer} className='ImgPlayerCard_infoDetails' />
               <div className='playerCard_infoDetails px-2 py-4 w-full'>
@@ -104,22 +122,8 @@ const FootballerInfo = ({title, pathTitle, data}) => {
                     <p className=' flex items-center py-1'><PiPersonArmsSpreadBold className='text-md' /><span className='ml-2 text-sm text-[#081F32]'> Weight: 30kg</span></p>           
               </div>
             </div>
-            </SwiperSlide>
-            <SwiperSlide>
-            <div className='PlayerCardsInfo w-[395px] my-2 mr-2'>
-              <img src={playerFootballer} className='ImgPlayerCard_infoDetails' />
-              <div className='playerCard_infoDetails px-2 py-4 w-full'>
-                <div className='flex justify-between w-full'>
-                  <p className='text-sm text-[#6E798C]'>{title== 'TOP RATED TALENTS'? 'TOP RATED' : title }</p>
-                  <p className='text-sm text-[#6E798C]'>Language: English</p>
-                  </div> 
-                  <p className='text-2xl font-bold text-[#081F32] py-3'> Hussain Babatunde</p>    
-                  <p className=' flex items-center'><GrLocation className='text-md' /><span className='ml-2 text-sm text-[#081F32]'> Location: Nigeria</span></p> 
-                  <p className=' flex items-center py-1'><PiBarbellDuotone className='text-md' /><span className='ml-2 text-sm text-[#081F32]'> Strong foot: Right</span></p>
-                    <p className=' flex items-center py-1'><PiPersonArmsSpreadBold className='text-md' /><span className='ml-2 text-sm text-[#081F32]'> Weight: 30kg</span></p>           
-              </div>
-            </div>
-            </SwiperSlide>
+            </SwiperSlide> */}
+            {/* </div> */}
             </Swiper>
             </div>
             </div>

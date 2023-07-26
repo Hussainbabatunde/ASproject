@@ -183,6 +183,9 @@
     .Homepage_foorballersBriefInfo{
         width: 90%;
     }
+    .verifiedBgDiv_Homepage{
+        padding: 1rem;
+    }
     .Homepage_topTalentsTopic{
         font-size: 18px;
     }
