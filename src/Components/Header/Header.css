@@ -36,7 +36,9 @@
     display: none;
 }
 .Homepage_headerNavbar{
-    border-bottom: 1px solid #CCCCCC;
+    box-shadow: 0px 24px 64px 0px rgba(0, 0, 0, 0.04);
+    position: sticky;
+    top: 0;
     padding: 2px 6rem;
     display: flex;
     justify-content: space-between;
@@ -109,7 +111,7 @@
         font-size: 25px;
     }
     .Header_login{
-        border: 1px solid black;
+        /* border: 1px solid black; */
         padding: 10px;
         font-size: 15px;
         display: flex;
