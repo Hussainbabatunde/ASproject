@@ -129,7 +129,14 @@
     /* background-position: 100% 0 ; */
     /* background-repeat: no-repeat; */
 }
-
+.playerCard_infoDetails:hover{
+    color: white !important;
+    background-color: #22AA65;
+}
+.PlayerCardsInfo:hover p{
+    color: white !important;
+    background-color: #22AA65;
+}
 @media screen and (max-width: 1200px){
     .Homepage_SortCategory{
         white-space: nowrap;

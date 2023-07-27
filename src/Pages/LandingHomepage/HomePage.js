@@ -254,19 +254,20 @@ const maxLength = 16; // Set the maximum length for the shortened name
           // </div>
           <div className='flex flex-wrap justify-center lg:justify-start'>
             {AllPlayersdata?.map((each, index) => (
-            <div key={index} className='PlayerCardsInfo w-[390px] my-2 mr-2'>
+            <Link
+                  to={`/viewplayerprofile/${each?.user_id}`} key={index} className='PlayerCardsInfo w-[390px] my-2 mr-2'>
               <img src={each?.image_url} className='ImgPlayerCard_infoDetails' />
               <div className='playerCard_infoDetails px-2 py-4 w-full'>
                 <div className='flex justify-between w-full'>
                   <p className='text-sm text-[#6E798C]'>PLAYERS</p>
-                  <p className='text-sm text-[#6E798C]'>Language: English</p>
+                  <p className='text-sm text-[#6E798C]'>Language: {each?.language}</p>
                   </div> 
                   <p className='text-2xl font-bold text-[#081F32] py-3'> {shortenName(each?.firstname, each?.surname, maxLength)}</p>    
-                  <p className=' flex items-center'><GrLocation className='text-md' /><span className='ml-2 text-sm text-[#081F32]'> Location: {each?.location}</span></p> 
-                  <p className=' flex items-center py-1'><PiBarbellDuotone className='text-md' /><span className='ml-2 text-sm text-[#081F32]'> Strong foot: Right</span></p>
-                    <p className=' flex items-center py-1'><PiPersonArmsSpreadBold className='text-md' /><span className='ml-2 text-sm text-[#081F32]'> Weight: 30kg</span></p>           
+                  <p className=' flex items-center'><GrLocation className='text-md' /><span className='ml-2 text-sm'> Location: {each?.location}</span></p> 
+                  <p className=' flex items-center py-1'><PiBarbellDuotone className='text-md' /><span className='ml-2'> Strong foot: {each?.strong_foot}</span></p>
+                    <p className=' flex items-center py-1'><PiPersonArmsSpreadBold className='text-md' /><span className='ml-2 text-sm'> Weight: {each?.weight}kg</span></p>           
               </div>
-            </div>
+            </Link>
             ))}
             {/* <div className='PlayerCardsInfo w-[390px] my-2 mr-2'>
               <img src={playerFootballer} className='ImgPlayerCard_infoDetails' />
