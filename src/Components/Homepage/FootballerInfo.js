@@ -15,6 +15,16 @@ import 'swiper/css/pagination';
 import playerFootballer from '../../assets/footballPlayer1.svg'
 
 const FootballerInfo = ({title, pathTitle, data}) => {
+
+  const maxLength = 18;
+  function shortenName(name, secname, maxLength) {
+    let x = name + " " + secname;
+    if (x.length <= maxLength) {
+      return x;
+    } else {
+      return x.substring(0, maxLength) + ".....";
+    }
+  }
   return (
     <div className='HomePage_talentsSection px-3 md:px-20 py-3'>
             <div className='Homepage_topTalents'>
@@ -63,19 +73,19 @@ const FootballerInfo = ({title, pathTitle, data}) => {
       {/* <div> */}
       {data?.map((each, index)=>(
       <SwiperSlide key={index}>
-            <div className='PlayerCardsInfo w-[395px] my-2 mr-2'>
+            <Link to={`/viewplayerprofile/${each?.user_id || each?.id}`} className='PlayerCardsInfo w-[395px] my-2 mr-2'>
               <img src={each?.image_url} className='ImgPlayerCard_infoDetails' />
-              <div className='playerCard_infoDetails px-2 py-4 w-full'>
+              <div className='playerCard_infoDetails px-2 py-4 w-full hover:text-white'>
                 <div className='flex justify-between w-full'>
-                  <p className='text-sm text-[#6E798C]'>{title== 'TOP RATED TALENTS'? 'TOP RATED' : title }</p>
-                  <p className='text-sm text-[#6E798C]'>Language: English</p>
+                  <p className='text-sm text-[#6E798C] '>{title== 'TOP RATED TALENTS'? 'TOP RATED' : title }</p>
+                  <p className='text-sm text-[#6E798C]'>Language: {each?.language}</p>
                   </div> 
-                  <p className='text-2xl font-bold text-[#081F32] py-3'> Hussain Babatunde</p>    
-                  <p className=' flex items-center'><GrLocation className='text-md' /><span className='ml-2 text-sm text-[#081F32]'> Location: Nigeria</span></p> 
-                  <p className=' flex items-center py-1'><PiBarbellDuotone className='text-md' /><span className='ml-2 text-sm text-[#081F32]'> Strong foot: Right</span></p>
-                    <p className=' flex items-center py-1'><PiPersonArmsSpreadBold className='text-md' /><span className='ml-2 text-sm text-[#081F32]'> Weight: 30kg</span></p>           
+                  <p className='text-2xl font-bold py-3'>{shortenName(each?.firstname, each?.surname, maxLength)}</p>    
+                  <p className=' flex items-center'><GrLocation className='text-md' /><span className='ml-2 text-sm'> Location: Nigeria</span></p> 
+                  <p className=' flex items-center py-1'><PiBarbellDuotone className='text-md' /><span className='ml-2 text-sm'> Strong foot: {each?.strong_foot}</span></p>
+                    <p className=' flex items-center py-1'><PiPersonArmsSpreadBold className='text-md' /><span className='ml-2 text-sm'> Weight: {each?.weight}kg</span></p>           
               </div>
-            </div>
+            </Link>
             </SwiperSlide>
       ))}
             {/* <SwiperSlide>
