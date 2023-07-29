@@ -1,7 +1,7 @@
 .Homepage_contents{
-    padding: 1rem 3rem;
-    max-width: 1350px;
-    margin: 0 auto;
+    padding: 1rem 0;
+    /* max-width: 1350px;
+    margin: 0 auto; */
 }
 .Homepage_topTalentsTopic:hover{
     text-decoration: underline !important;

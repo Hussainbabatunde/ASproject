@@ -7,7 +7,7 @@ import footerAfriLogo from '../../assets/footerAfriLogo.svg'
 
 const Footer = () => {
   return (
-    <div className='Homepage_FooterSection'>
+    <div className='Homepage_FooterSection max-w-[1400px] mx-auto'>
         <div className='Homepage_footerCategory_SocialInfo'>
             <div className='Homepage_FooterCategory'>
                 {/* <ul className='Homepage_footerListCategory'>

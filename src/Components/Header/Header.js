@@ -29,7 +29,7 @@ const Header = () => {
           onClick={() => navigate("/")}
         />
         <div className="flex">
-          <p className="mx-4">Players</p>
+          <Link to='/filterPage' className="mx-4">Players</Link>
           <p className="mx-4">About-us</p>
           <p className="mx-4">Pricing</p>
         </div>
@@ -54,7 +54,7 @@ const Header = () => {
             )}
           </div>
           <div className={openNav}>
-          <Link to="/login" className="Header_login">
+          <Link to="/filterPage" className="Header_login">
             Players
           </Link>
           <Link to="/login" className="Header_login">
