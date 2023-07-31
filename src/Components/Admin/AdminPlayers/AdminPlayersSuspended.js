@@ -121,7 +121,7 @@ const AdminPlayersSuspended = ({
 
   const [searchInput, setSearchInput] = useState("");
 
-  const filteredArray = Admin_Get_All_Suspended_Player.filter(
+  const filteredArray = Admin_Get_All_Suspended_Player?.filter(
     (user) =>
       user.firstname.toLowerCase().includes(searchInput.toLowerCase()) ||
       user.surname.toLowerCase().includes(searchInput.toLowerCase())

@@ -115,7 +115,7 @@ const maxLength = 16; // Set the maximum length for the shortened name
 // const shortenedName = shortenName(AllPlayersdata?.firstname, AllPlayersdata?.surname, maxLength);
 
   return (
-    <div>
+    <div className="max-w-[1400px] mx-auto">
       <Header />
       {/* <div className="Homepage_contents"> */}
       <div>
@@ -175,7 +175,7 @@ const maxLength = 16; // Set the maximum length for the shortened name
               <TbPointFilled className="text-white text-2xl" />
               <p className='ml-3 text-white'>Negotiate and Close the Deal</p>
             </div>
-            <button className="mt-9 bg-white w-[250px] py-3 rounded">Sign up</button>
+            <Link to='/signup' className="mt-9 bg-white w-[250px] py-3 rounded">Sign up</Link>
           </div>
         </div>
         <div className='HomePage_talentsSection px-3 md:px-20 py-3'>
@@ -302,7 +302,7 @@ const maxLength = 16; // Set the maximum length for the shortened name
         <div className="world_classhomeplayers py-5 flex flex-col justify-center items-center">
           <p className="text-white text-2xl md:text-4xl font-bold">World Class Talent</p>
           <p className="text-white text-2xl md:text-4xl font-bold">only on Afri Sport</p>
-            <button className="mt-3 font-bold bg-[#071A10] w-[150px] md:w-[250px] text-white py-3 rounded">Sign up</button>
+            <Link to='/signup' className="mt-3 font-bold bg-[#071A10] w-[150px] md:w-[250px] text-white py-3 rounded">Sign up</Link>
         </div>
       </div>
       <Footer />

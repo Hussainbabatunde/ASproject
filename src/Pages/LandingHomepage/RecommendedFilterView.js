@@ -10,6 +10,9 @@ import ScoutHeader from '../../Components/Header/ScoutHeader';
 import { CircularProgress } from '@mui/material';
 import { FiMenu } from 'react-icons/fi';
 import { Portal } from './ModalFilter';
+import {GrLocation} from 'react-icons/gr'
+import {PiBarbellDuotone} from 'react-icons/pi'
+import {PiPersonArmsSpreadBold} from 'react-icons/pi'
 
 const RecommendedFilterView = () => {
     const [allPlayers, setAllPlayers] = useState([])
@@ -60,6 +63,19 @@ const RecommendedFilterView = () => {
         setAllPlayers(filteredClubPlayer)
         // console.log(filteredClubPlayer)
     }, [filteredClubPlayer])
+
+    function shortenName(name, secname, maxLength) {
+        let x = name + " " + secname;
+        if (x.length <= maxLength) {
+          return x;
+        } else {
+          return x.substring(0, maxLength) + ".....";
+        }
+      }
+      
+      // const fullName = AllPlayersdata?.firstname + " " + AllPlayersdata?.surname;
+      const maxLength = 16; // Set the maximum length for the shortened name
+      
 
 
     const handleCheckedPosition = (positionChecked) =>{
@@ -141,7 +157,7 @@ const RecommendedFilterView = () => {
   return (
     <div>
         {logindata != null ? <ScoutHeader />: <Header />}
-        <div className='Homepage_contents'>
+        <div className='py-[1rem] px-[2rem] bg-[#EFF0F3]'>
             <FilterHeroSection />
             <div className='FilterPage_ContentSection'>
                 <div className='FilterPage_ContentFilter'>
@@ -806,31 +822,26 @@ const RecommendedFilterView = () => {
             <div style={{marginLeft: '10px'}}>
             <div className='Homepage_Sortfootballers'>
              {allPlayers?.map((each, index)=>( 
-             <Link to={`/viewplayerprofile/${each?.user_id || each?.id}`}
-              data-aos-easing='ease-in-out' 
-             data-aos-duration="1000" 
-             data-aos="flip-down"
-             className='Homepage_foorballersBriefInfo' key={index}>
-                {each?.images ? each?.images?.map((item, i)=>(
-                <>
-                {item?.cover_page == 1 && <img src={item?.image_url} key={i} className='Homepage_PlayersImage' />}
-                </>
-                ))
-                :
-                <img src={each?.image_url} className='Homepage_PlayersImage' />}
-                {
-                each?.service_type == 'open' || each?.price?.service_type == 'open'?<p className='Homepage_PlayerStatus'>{each?.minimum || each?.price?.minimum}</p>
-                : each?.service_type == 'free' || each?.price?.service_type == 'free' ? <p className='Homepage_PlayerStatus'>{each?.minimum || each?.price?.minimum}</p> 
-                : each?.service_type == 'actual' || each?.price?.service_type == 'actual'? <p className='Homepage_PlayerStatus'>${each?.minimum || each?.price?.minimum}</p>
-                : <p className='Homepage_PlayerStatus'>${each?.minimum || each?.price?.minimum} - ${each?.maximum || each?.price?.maximum}</p>
-                }
-                <p className='Homepage_PlayersName'>{each?.firstname} {each?.surname}</p>
-                <div className='Homepage_playersPosition'>
-                  <p>{each?.position[0]?.position || each?.bio?.position[0]?.position}</p>
-                  <RxDotFilled />
-                  <p>{each?.current_club || each?.bio?.current_club}</p>
-                </div>
-              </Link>))}
+             <Link
+             to={`/viewplayerprofile/${each?.user_id || each?.id}`}
+               data-aos-easing="ease-in-out"
+               data-aos-duration="1000"
+               data-aos="flip-down"
+             className="PlayerCardsInfo w-[390px] my-2 mr-2"
+             key={index}
+           >
+             <img src={each?.image_url} className='ImgPlayerCard_infoDetails' />
+           <div className='playerCard_infoDetails px-2 py-4 w-full'>
+             <div className='flex justify-between w-full'>
+               <p className='text-sm text-[#6E798C]'>PLAYERS</p>
+               <p className='text-sm text-[#6E798C]'>Language: {each?.language}</p>
+               </div> 
+               <p className='text-2xl font-bold text-[#081F32] py-3'> {shortenName(each?.firstname, each?.surname, maxLength)}</p>    
+               <p className=' flex items-center'><GrLocation className='text-md' /><span className='ml-2 text-sm'> Location: {each?.location}</span></p> 
+               <p className=' flex items-center py-1'><PiBarbellDuotone className='text-md' /><span className='ml-2'> Strong foot: {each?.strong_foot}</span></p>
+                 <p className=' flex items-center py-1'><PiPersonArmsSpreadBold className='text-md' /><span className='ml-2 text-sm'> Weight: {each?.weight}kg</span></p>           
+           </div>
+           </Link>))}
               
             </div>
             </div>
