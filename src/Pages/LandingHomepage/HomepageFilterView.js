@@ -176,7 +176,7 @@ const HomepageFilterView = () => {
   return (
     <div>
       {logindata != null ? <ScoutHeader /> : <Header />}
-      <div className="py-[1rem] px-[2rem] bg-[#EFF0F3]">
+      <div className="py-[1rem] px-[8rem] bg-[#EFF0F3]">
         <FilterHeroSection />
         <div className="FilterPage_ContentSection">
           <div className="FilterPage_ContentFilter">
@@ -184,10 +184,10 @@ const HomepageFilterView = () => {
               onSubmit={handleSearchFilter}
               className="FilterPage_ResultFilter"
             >
-              <p className="FilterPage_TopicSearchResult">
+              {/* <p className="FilterPage_TopicSearchResult">
                 Found 376 results for{" "}
                 <span className="FilterPage_PositionSearchedFor">Strikers</span>
-              </p>
+              </p> */}
               <p className="FilterPage_LabelSearch">Price, $</p>
               <div style={{ display: "flex" }}>
                 <input
@@ -575,7 +575,7 @@ const HomepageFilterView = () => {
                     onChange={() => handleCheckedStrongFoot("left")}
                     type="checkbox"
                   />
-                  <label style={{ marginLeft: "10px" }}>Left</label>
+                  <label style={{ marginLeft: "10px", fontSize:"12px" }}>Left</label>
                 </div>
                 <div>
                   <input
@@ -584,7 +584,7 @@ const HomepageFilterView = () => {
                     onChange={() => handleCheckedStrongFoot("right")}
                     type="checkbox"
                   />
-                  <label style={{ marginLeft: "10px" }}>Right</label>
+                  <label style={{ marginLeft: "10px", fontSize:"12px" }}>Right</label>
                 </div>
               </div>
 
@@ -597,7 +597,7 @@ const HomepageFilterView = () => {
                     onChange={() => handleCheckedPosition("Goalkeeper")}
                     type="checkbox"
                   />
-                  <label style={{ marginLeft: "10px" }}>Goalkeeper</label>
+                  <label style={{ marginLeft: "10px", fontSize:"12px" }}>Goalkeeper</label>
                 </div>
                 <div>
                   <input
@@ -608,7 +608,7 @@ const HomepageFilterView = () => {
                     }
                     type="checkbox"
                   />
-                  <label style={{ marginLeft: "10px" }}>
+                  <label style={{ marginLeft: "10px", fontSize:"12px" }}>
                     Center Back(Defenders)
                   </label>
                 </div>
@@ -621,7 +621,7 @@ const HomepageFilterView = () => {
                     }
                     type="checkbox"
                   />
-                  <label style={{ marginLeft: "10px" }}>
+                  <label style={{ marginLeft: "10px", fontSize:"12px" }}>
                     Left Winger Back(Defenders)
                   </label>
                 </div>
@@ -634,7 +634,7 @@ const HomepageFilterView = () => {
                     }
                     type="checkbox"
                   />
-                  <label style={{ marginLeft: "10px" }}>
+                  <label style={{ marginLeft: "10px", fontSize:"12px" }}>
                     Right Winger Back(Defenders)
                   </label>
                 </div>
@@ -647,7 +647,7 @@ const HomepageFilterView = () => {
                     }
                     type="checkbox"
                   />
-                  <label style={{ marginLeft: "10px" }}>
+                  <label style={{ marginLeft: "10px", fontSize:"12px" }}>
                     Central midfielders
                   </label>
                 </div>
@@ -660,7 +660,7 @@ const HomepageFilterView = () => {
                     }
                     type="checkbox"
                   />
-                  <label style={{ marginLeft: "10px" }}>
+                  <label style={{ marginLeft: "10px", fontSize:"12px" }}>
                     Attacking midfielders
                   </label>
                 </div>
@@ -673,7 +673,7 @@ const HomepageFilterView = () => {
                     }
                     type="checkbox"
                   />
-                  <label style={{ marginLeft: "10px" }}>
+                  <label style={{ marginLeft: "10px", fontSize:"12px" }}>
                     Defensive midfielders
                   </label>
                 </div>
@@ -684,7 +684,7 @@ const HomepageFilterView = () => {
                     onChange={() => handleCheckedPosition("Wingers")}
                     type="checkbox"
                   />
-                  <label style={{ marginLeft: "10px" }}>Wingers</label>
+                  <label style={{ marginLeft: "10px", fontSize:"12px" }}>Wingers</label>
                 </div>
                 <div>
                   <input
@@ -693,11 +693,11 @@ const HomepageFilterView = () => {
                     onChange={() => handleCheckedPosition("Striker")}
                     type="checkbox"
                   />
-                  <label style={{ marginLeft: "10px" }}>Striker</label>
+                  <label style={{ marginLeft: "10px", fontSize:"12px" }}>Striker</label>
                 </div>
                 <button
                   type="submit"
-                  className="Scoutpage_Profileform_savebutton"
+                  className="FilterPage_Profileform_savebutton"
                 >
                   {searchLoader ? (
                     <CircularProgress size={15} />

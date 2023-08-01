@@ -24,8 +24,9 @@
     flex-wrap: wrap;
     /* justify-content: space-evenly; */
     margin-bottom: 60px;
-    max-height: 100vh;
+    max-height: 110vh;
     overflow-y: scroll;
+    justify-content: center;
 }
 .Homepage_foorballersBriefInfo{
     border: 1px solid #DCDCDC;
@@ -91,6 +92,28 @@
      /* display: flex; */
     /* flex-direction: row; */
     /* justify-content: space-evenly;  */    
+}
+.Homepricingpage_section{
+    background-image: url('../../assets/pricingpageBG.png');
+    background-repeat: no-repeat;
+    background-position: right ;
+}
+.pricingPage_priceCategory{
+    border-radius: 8px;
+    /* padding: 20px; */
+background: #FFF;
+box-shadow: 0px 3px 5px 0px rgba(23, 23, 32, 0.08);
+
+}
+.SignupHomepage_pricing{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 10px 0;
+    margin-top: 50px;
+    border-radius: 10px;
+    background-color: #22AA65;
+    color: white !important;
 }
 .Filterpage_MenuIcon{
     display: none;

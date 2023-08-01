@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import logo from "../../assets/logo.png";
+import logo from "../../assets/afriLogopng.png";
 import "./Header.css";
 import { Link, useNavigate } from "react-router-dom";
 import { FiMenu } from "react-icons/fi";
@@ -24,14 +24,14 @@ const Header = () => {
       <div className="Homepage_header">
         <img
           src={logo}
-          className=" cursor-pointer"
+          className=" cursor-pointer w-[122px] h-[62px]"
           alt="Afrisport logo"
           onClick={() => navigate("/")}
         />
         <div className="flex">
           <Link to='/filterPage' className="mx-4">Players</Link>
-          <p className="mx-4">About-us</p>
-          <p className="mx-4">Pricing</p>
+          <p className="mx-4">Terms & Conditions</p>
+          <Link to='/pricingpage' className="mx-4">Pricing</Link>
         </div>
         <div>
         
@@ -58,9 +58,9 @@ const Header = () => {
             Players
           </Link>
           <Link to="/login" className="Header_login">
-            About Us
+          Terms & Conditions
           </Link>
-          <Link to="/login" className="Header_login">
+          <Link to="/pricingpage" className="Header_login">
             Pricing
           </Link>
             <Link to="/login" className="Header_login">

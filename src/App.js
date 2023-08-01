@@ -28,6 +28,7 @@ import VerifiedSignup from "./Pages/SignUp/VerifiedSignup";
 import TalentmanagerRoute from "./Pages/TalentManagers/TalentmanagerRoute";
 import RecommendedFilterView from "./Pages/LandingHomepage/RecommendedFilterView";
 import TopratedPlayersFilterView from "./Pages/LandingHomepage/TopratedPlayersFilterView";
+import HomePricingScreen from "./Pages/LandingHomepage/HomePricingScreen";
 
 function App() {
   useEffect(() => {
@@ -41,6 +42,7 @@ function App() {
           <Route path="/verify" element={<VerifiedSignup />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/pricingpage" element={<HomePricingScreen />} />
           <Route path="/create-account/:id" element={<CreateAccount />} />
           <Route path="/forgotPassword" element={<ForgotPassword />} />
           <Route path="/setPassword" element={<ResetPassword />} />
