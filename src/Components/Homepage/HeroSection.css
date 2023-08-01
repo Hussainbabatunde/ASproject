@@ -87,7 +87,10 @@
     /* position: sticky; */
     top: 10px;
     width: 250px;
-    border-right: 1px solid #E0E0E0;
+    /* border-right: 1px solid #E0E0E0; */
+    background-color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
 }
 .FilterPage_TopicSearchResult{
     font-size: 20px;
@@ -99,14 +102,14 @@
     margin-bottom: 5px;
 }
 .FilterPage_MinPriceValue{
-    width: 90px;
+    width: 110px;
     margin-right: 10px;
     padding: 3px 10px;
     border: 1px solid #9AA6AC;
     border-radius: 5px;
 }
 .FilterPage_MaxPriceValue{
-    width: 90px;
+    width: 110px;
     padding: 3px 10px;
     border: 1px solid #9AA6AC;
     border-radius: 5px;
@@ -115,7 +118,7 @@
     padding: 3px 10px;
     border: 1px solid #9AA6AC;
     border-radius: 5px;
-    width: 83%;
+    width: 100%;
 
 }
 .FilterPage_StrongerfootSec{
@@ -125,6 +128,15 @@
 }
 .FilterPage_PositionSearchedFor{
     color: #4094F7;
+}
+.FilterPage_Profileform_savebutton {
+    width: 100%;
+    color: white;
+    background-color: #1B8550;
+    padding: 10px;
+    margin: 20px 0;
+    border-radius: 20px;
+    border: none;
 }
 .HeroSec_TextSection{
     /* width: 50%; */
@@ -147,6 +159,9 @@
   }
   .swiper-slide{
     width: 390px !important;
+  }
+  .swiper-button-next{
+    font-size: 20px !important;
   }
   
   /* @media screen and (min-width: 800px) {

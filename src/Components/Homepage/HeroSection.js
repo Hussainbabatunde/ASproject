@@ -3,6 +3,7 @@ import "./HeroSection.css";
 import { CiSearch } from "react-icons/ci";
 import footballer from "../../assets/footballerHero.png";
 import playerball from "../../assets/player-ball.svg";
+import playerball2 from "../../assets/playerball2.png";
 import { FilteredClubPlayerApi } from "../../Slice/Player/PlayerHomePage/GetAllPlayersHomePage";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate, useNavigation } from "react-router-dom";
@@ -79,7 +80,7 @@ const HeroSection = () => {
           <p className="border-l-2 border-[#FF8D00] py-1 px-2  text-[#071A10] ml-10 "> <span className="font-bold">1000++</span> Talent Audits</p>
         </div>
       </div>
-      <img src={playerball} className="lg:w-[60%]" />
+      <img src={playerball2} className="lg:w-[60%]" />
     </div>
   );
 };
