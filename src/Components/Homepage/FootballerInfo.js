@@ -62,8 +62,7 @@ const FootballerInfo = ({title, pathTitle, data}) => {
             </div>} */}
             <div className='flex'>
             <Swiper
-            modules={[Navigation, Pagination, A11y]}
-            navigation       
+            modules={[ Pagination, A11y]}
       pagination={{ clickable: true }}
       spaceBetween={20}
       slidesPerView={'auto'}
