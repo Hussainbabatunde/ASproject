@@ -64,7 +64,7 @@ const FootballerInfo = ({title, pathTitle, data}) => {
             <Swiper
             modules={[ Pagination, A11y]}
       pagination={{ clickable: true }}
-      spaceBetween={20}
+      spaceBetween={13}
       slidesPerView={'auto'}
       onSlideChange={() => console.log('slide change')}
       onSwiper={(swiper) => console.log(swiper)}
