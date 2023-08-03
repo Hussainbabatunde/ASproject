@@ -82,7 +82,7 @@ const HomepageFilterView = () => {
   }
   
   // const fullName = AllPlayersdata?.firstname + " " + AllPlayersdata?.surname;
-  const maxLength = 16; // Set the maximum length for the shortened name
+  const maxLength = 14; // Set the maximum length for the shortened name
   
 
   const handleCheckedPosition = (positionChecked) => {
@@ -176,7 +176,7 @@ const HomepageFilterView = () => {
   return (
     <div>
       {logindata != null ? <ScoutHeader /> : <Header />}
-      <div className="py-[1rem] px-[8rem] bg-[#EFF0F3]">
+      <div className="py-[1rem] sm:px-[1rem] md:px-[3rem] lg:px-[8rem] bg-[#EFF0F3]">
         <FilterHeroSection />
         <div className="FilterPage_ContentSection">
           <div className="FilterPage_ContentFilter">
@@ -1323,14 +1323,14 @@ const HomepageFilterView = () => {
                   data-aos-easing="ease-in-out"
                   data-aos-duration="1000"
                   data-aos="flip-down"
-                className="PlayerCardsInfo w-[390px] my-2 mr-2"
+                className="PlayerCardsInfo w-[370px] lg:w-[390px] my-2 mr-0 md:mr-2"
                 key={index}
               >
                 <img src={each?.image_url} className='ImgPlayerCard_infoDetails' />
               <div className='playerCard_infoDetails px-2 py-4 w-full'>
                 <div className='flex justify-between w-full'>
                   <p className='text-sm text-[#6E798C]'>PLAYERS</p>
-                  <p className='text-sm text-[#6E798C]'>Language: {each?.language}</p>
+                  <p className='text-sm text-[#6E798C]'>Lang: {each?.language}</p>
                   </div> 
                   <p className='text-2xl font-bold text-[#081F32] py-3'> {shortenName(each?.firstname, each?.surname, maxLength)}</p>    
                   <p className=' flex items-center'><GrLocation className='text-md' /><span className='ml-2 text-sm'> Location: {each?.location}</span></p> 
