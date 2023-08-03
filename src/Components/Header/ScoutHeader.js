@@ -43,6 +43,11 @@ const ScoutHeader = () => {
         <Link to="/afrisport/player/homepage">
           <img src={logo} alt="Afrisport logo" />
         </Link>
+        <div className="flex">
+          <Link to='/filterPage' className="mx-4">Players</Link>
+          {/* <p className="mx-4">Terms & Conditions</p> */}
+          <Link to='/pricingpage' className="mx-4">Pricing</Link>
+        </div>
         <div className="Admin_wholeNavigationBar">
           <div className="Admin_HeaderNotification_div">
             <MdNotifications className="Admin_headerNotification" />
@@ -66,11 +71,17 @@ const ScoutHeader = () => {
             )}
           </div>
           <div className={openNav}>
+          <Link to="/filterPage" className="Header_login">
+            Players
+          </Link>
+          <Link to="/pricingpage" className="Header_login">
+            Pricing
+          </Link>
           <div className="Admin_HeaderNotification_div">
             <MdNotifications className="Admin_headerNotification" />
             <div className="Admin_NotificationSign"></div>
           </div>
-            <p style={{ cursor: "pointer" }} onClick={handleUserProfile}>
+            <p style={{ cursor: "pointer", marginTop:'10px' }} onClick={handleUserProfile}>
             <BsFillPersonFill className="Admin_headerNotification" />
           </p>
           </div>

@@ -43,7 +43,7 @@ const ScoutRoute = () => {
     { id: 4, pathTo: "/afrisport/scout/payment", pathName: "Payment" },
   ];
   return (
-    <div className="max-w-[1400px] mx-auto">
+    <div className="max-w-[1400px] shadow-lg mx-auto">
       <ScoutHeader />
       {/* <div  className='Scoutpage_contents'>
         <div className='Scoutpage_AccountLogout_div'>

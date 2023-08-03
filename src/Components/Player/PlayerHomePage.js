@@ -94,7 +94,7 @@ const PlayerHomePage = () => {
 
       useEffect(() => {
         const initial = () => {
-          const endIndex = 8;
+          const endIndex = 9;
           const slicedArray = endIndex <= Sortdata?.length ? Sortdata.slice(0, endIndex) : Sortdata;
           setAllPlayersdata(slicedArray)
         }
