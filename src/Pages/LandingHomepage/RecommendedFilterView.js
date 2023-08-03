@@ -157,7 +157,7 @@ const RecommendedFilterView = () => {
   return (
     <div>
         {logindata != null ? <ScoutHeader />: <Header />}
-        <div className='py-[1rem] px-[2rem] bg-[#EFF0F3]'>
+        <div className='py-[1rem]  sm:px-[1rem] md:px-[3rem] lg:px-[8rem] bg-[#EFF0F3]'>
             <FilterHeroSection />
             <div className='FilterPage_ContentSection'>
                 <div className='FilterPage_ContentFilter'>
@@ -827,7 +827,7 @@ const RecommendedFilterView = () => {
                data-aos-easing="ease-in-out"
                data-aos-duration="1000"
                data-aos="flip-down"
-             className="PlayerCardsInfo w-[390px] my-2 mr-2"
+             className="PlayerCardsInfo w-[370px] lg:w-[390px] my-2 mr-0 md:mr-2"
              key={index}
            >
              <img src={each?.image_url} className='ImgPlayerCard_infoDetails' />

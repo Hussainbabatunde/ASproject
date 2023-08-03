@@ -123,6 +123,7 @@
     }
     .Loginpage_formSection{
         padding: 3rem 1rem;
+        width: 90%;
     }
     .Loginpage_formTopic{
         font-size: 25px;

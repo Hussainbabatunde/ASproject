@@ -24,7 +24,7 @@ const Header = () => {
       <div className="Homepage_header">
         <img
           src={logo}
-          className=" cursor-pointer w-[122px] h-[62px]"
+          className=" cursor-pointer sm:w-[61px] sm:h-[20px] lg:w-[122px] lg:h-[62px]"
           alt="Afrisport logo"
           onClick={() => navigate("/")}
         />
@@ -46,7 +46,7 @@ const Header = () => {
       <div className="Homepage_Menudisplay">
         <div className="Homepage_ShownMenuBar">
           <div className="Homepage_headerNavbar">
-            <img src={logo} alt="Afrisport logo" />
+            <img src={logo} alt="Afrisport logo" className="w-[81px] h-[50px]" />
             {iconOpen ? (
               <RxCross2 className="Homepage_MeniIcon" onClick={handleClose} />
             ) : (

@@ -8,6 +8,10 @@ import DownSort from '../../assets/DownSort.png'
 import { Link } from 'react-router-dom';
 import {RxDotFilled} from 'react-icons/rx';
 import { ClockLoader, ScaleLoader } from "react-spinners";
+import {TbPointFilled} from 'react-icons/tb'
+import AfriBallLogo from "../../assets/AfriRoundLogo.svg";
+import easywhiteafrilogo from "../../assets/easywhiteafrilogo.svg";
+import PlayerEasyContract from '../../assets/playerFootballerEasyContract.svg';
 import ScoutHeader from '../Header/ScoutHeader';
 import HeroSection from '../Homepage/HeroSection';
 import FootballerInfo from '../Homepage/FootballerInfo';
@@ -106,8 +110,21 @@ const PlayerHomePage = () => {
   return (
     <div>
         {/* <ScoutHeader /> */}
-        <div className='Homepage_contents'>
+        <div className='pt-[1rem]'>
             <HeroSection />
+            <div className="verifiedBgDiv_Homepage flex flex-col lg:flex-row justify-center lg:justify-between items-center">
+          <p className="text-2xl md:text-3xl text-white w-[100%] md:w-[450px]"><span className="font-bold">We Strive</span> To Create The Best MarketPlace For Football Talents</p>
+          <div className="flex md:mt-4 lg:mt-0 justify-center lg:justify-start w-full lg:w-[40%]">
+            <img src={AfriBallLogo} width='150px' height='150px' />
+            <div className="text-white" style={{marginLeft:'20px'}}>
+              <p className="text-2xl md:text-4xl" style={{ lineHeight:'normal'}}>100%</p>
+              <p className='text-white' style={{fontSize:'22px', lineHeight:'normal'}}>VERIFIED</p>
+              <p className="text-white">All Players Skillsets and</p>
+              <p className="text-white">Performances are Verted to</p>
+              <p className="text-white">Reach International Standards</p>
+            </div>
+          </div>
+        </div>
             {loader? 
             <div className="flex justify-center align-items-center mt-7">
               <ScaleLoader
@@ -123,6 +140,28 @@ const PlayerHomePage = () => {
             <FootballerInfo title='RECOMMENDED' pathTitle='/recommendedPage' data={Recommendeddata} />
             </>
 }
+<div className="Homepage_EasyContractSec px-7 py-5 flex flex-col md:flex-row justify-evenly">
+          <img src={PlayerEasyContract} className="Homepage_EasyContractImg" />
+          <div className="mt-2 md:mt-0">
+            <img src={easywhiteafrilogo} />
+            <p className="text-white font-bold text-2xl pt-5">Easily Contract</p>
+            <p className="text-white text-2xl">The Best African</p>
+            <p className="text-white text-2xl">Football Talents</p>
+            <div className="flex mt-7 text-white">
+              <TbPointFilled className="text-white text-2xl" />
+              <p className='ml-3 text-white'>Create an account</p>
+            </div>
+            <div className="flex mt-2 text-white">
+              <TbPointFilled className="text-white text-2xl" />
+              <p className='ml-3 text-white'>Send Your Proposal to Player</p>
+            </div>
+            <div className="flex mt-2 text-white">
+              <TbPointFilled className="text-white text-2xl" />
+              <p className='ml-3 text-white'>Negotiate and Close the Deal</p>
+            </div>
+            {/* <Link to='/signup' className="mt-9 bg-white flex justify-center items-center w-[250px] py-3 rounded">Sign up</Link> */}
+          </div>
+        </div>
 <div className='HomePage_talentsSection px-3 md:px-20 py-3'>
         <div className="Homepage_topTalents">
           <p className="border-l-2 border-[#FF8D00] py-1 px-2  text-[#071A10] font-bold">EXPLORE TALENT</p>
@@ -243,6 +282,11 @@ const PlayerHomePage = () => {
             </div>
         )}
         
+        </div>
+        <div className="world_classhomeplayers py-5 flex flex-col justify-center items-center">
+          <p className="text-white text-2xl md:text-4xl font-bold">World Class Talent</p>
+          <p className="text-white text-2xl md:text-4xl font-bold">only on Afri Sport</p>
+            {/* <Link to='/signup' className="mt-3 font-bold bg-[#071A10] w-[150px] md:w-[250px] text-white py-3 rounded flex justify-center" > <p className="text-white">Sign up</p></Link> */}
         </div>
         </div>
     </div>

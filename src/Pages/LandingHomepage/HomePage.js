@@ -115,7 +115,7 @@ const maxLength = 16; // Set the maximum length for the shortened name
 // const shortenedName = shortenName(AllPlayersdata?.firstname, AllPlayersdata?.surname, maxLength);
 
   return (
-    <div className="max-w-[1400px] shadow-lg mx-auto">
+    <div className="max-w-[1360px] shadow-lg mx-auto">
       <Header />
       {/* <div className="Homepage_contents"> */}
       <div>
@@ -252,15 +252,15 @@ const maxLength = 16; // Set the maximum length for the shortened name
           //     </Link>
           //   ))}
           // </div>
-          <div className='flex flex-wrap justify-center lg:justify-start'>
+          <div className='flex flex-wrap justify-center gap-3 lg:justify-start'>
             {AllPlayersdata?.map((each, index) => (
             <Link
-                  to={`/viewplayerprofile/${each?.user_id}`} key={index} className='PlayerCardsInfo w-[390px] my-2 mr-2'>
+                  to={`/viewplayerprofile/${each?.user_id}`} key={index} className='PlayerCardsInfo w-[390px] my-2'>
               <img src={each?.image_url} className='ImgPlayerCard_infoDetails' />
               <div className='playerCard_infoDetails px-2 py-4 w-full'>
                 <div className='flex justify-between w-full'>
                   <p className='text-sm text-[#6E798C]'>PLAYERS</p>
-                  <p className='text-sm text-[#6E798C]'>Language: {each?.language}</p>
+                  <p className='text-sm text-[#6E798C]'>Lang: {each?.language}</p>
                   </div> 
                   <p className='text-2xl font-bold text-[#081F32] py-3'> {shortenName(each?.firstname, each?.surname, maxLength)}</p>    
                   <p className=' flex items-center'><GrLocation className='text-md' /><span className='ml-2 text-sm'> Location: {each?.location}</span></p> 
