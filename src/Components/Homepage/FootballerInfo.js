@@ -72,7 +72,7 @@ const FootballerInfo = ({title, pathTitle, data}) => {
       {/* <div> */}
       {data?.map((each, index)=>(
       <SwiperSlide key={index}>
-            <Link to={`/viewplayerprofile/${each?.user_id || each?.id}`} className='PlayerCardsInfo w-[390px] my-2 mr-2'>
+            <Link to={`/viewplayerprofile/${each?.user_id || each?.id}`} className='PlayerCardsInfo w-[355px] md:w-[390px] my-2 mr-2'>
               <img src={each?.image_url} className='ImgPlayerCard_infoDetails' />
               <div className='playerCard_infoDetails px-2 py-4 w-full hover:text-white'>
                 <div className='flex justify-between w-full'>
