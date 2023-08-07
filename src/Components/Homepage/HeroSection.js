@@ -76,7 +76,7 @@ const HeroSection = () => {
         <p className='text-[#071A10] text-lg w-[100%] md:w-[400px] mt-3 md:mt-5'>We vet qualified and the most talented African players from all over the continent.</p>
         <Link to='/filterPage' className="ViewPlayersButton bg-[#071A10] flex w-[150px] justify-center items-center mt-[20px] md:mt-[60px] py-3 rounded">View Players <MdPeopleAlt className='text-white ml-1 text-xl' /> </Link>
         <div className='flex mt-[30px] md:mt-[60px] mb-10'>
-          <p className="border-l-2 border-[#FF8D00] py-1 px-2  text-[#071A10]"> <span className="font-bold">1000++</span> Scout Visits</p>
+          <p className="border-l-2 border-[#FF8D00] py-1 px-2  text-[#071A10]"> <span className="font-bold">1000+</span> Scout Visits</p>
           <p className="border-l-2 border-[#FF8D00] py-1 px-2  text-[#071A10] ml-10 "> <span className="font-bold">100%</span> Talent Audits</p>
         </div>
       </div>
