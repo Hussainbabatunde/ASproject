@@ -150,7 +150,7 @@ const maxLength = 16; // Set the maximum length for the shortened name
               data={TopratedPlayersdata}
             />
             <FootballerInfo
-              title="RECOMMENDED"
+              title="RECOMMEND"
               pathTitle="/recommendedPage"
               data={Recommendeddata}
             />
