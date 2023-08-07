@@ -41,7 +41,7 @@ const ScoutHeader = () => {
     <>
       <div className="Homepage_header">
         <Link to="/afrisport/player/homepage">
-          <img src={logo} alt="Afrisport logo" />
+          <img src={logo} alt="Afrisport logo" className="cursor-pointer sm:w-[61px] sm:h-[20px] lg:w-[122px] lg:h-[62px]" />
         </Link>
         <div className="flex">
           <Link to='/filterPage' className="mx-4">Players</Link>
