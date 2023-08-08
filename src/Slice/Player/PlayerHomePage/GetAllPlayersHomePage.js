@@ -137,8 +137,8 @@ const initialState = {
 
   export const FilteredClubPlayerApi = createAsyncThunk(
     "filteredClubPlayerApi/userFilteredClubPlayerApi",
-    async (data, { rejectWithValue }) => {
-        
+    async (details, { rejectWithValue }) => {
+        console.log(details)
     
       const instance = axios.create({
         baseURL: process.env.REACT_APP_AFRISPORTURL ,
@@ -150,7 +150,7 @@ const initialState = {
         },
       });
       return await instance
-        .get(`search-by-club-player`,{params: data})
+        .get("search-by-club-player",{params: details})
         .then(async (response) => {
             console.log('filtered club ',response.data)
           return response.data;

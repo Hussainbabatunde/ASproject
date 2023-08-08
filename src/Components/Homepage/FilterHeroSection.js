@@ -14,12 +14,13 @@ const FilterHeroSection = () => {
   const handleSearchPlayer = (e) => {
     setData(e.target.value);
   };
+  const details = {}
 
   const handleSubmitSearch = async (e) => {
     e.preventDefault();
-    console.log(data);
+    details.keyword = data
     setLoadSearch(true);
-    await dispatch(FilteredClubPlayerApi(data));
+    await dispatch(FilteredClubPlayerApi(details));
     setLoadSearch(false);
   };
 
