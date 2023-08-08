@@ -62,7 +62,7 @@ const ScoutHeader = () => {
         <div className="Homepage_ShownMenuBar">
           <div className="Homepage_headerNavbar">
         <Link to="/afrisport/player/homepage">
-            <img src={logo} alt="Afrisport logo" />
+            <img src={logo} alt="Afrisport logo"  className="w-[81px] h-[50px]" />
             </Link>
             {iconOpen ? (
               <RxCross2 className="Homepage_MeniIcon" onClick={handleClose} />

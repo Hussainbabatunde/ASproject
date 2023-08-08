@@ -1326,16 +1326,16 @@ const HomepageFilterView = () => {
                 className="PlayerCardsInfo w-[370px] lg:w-[390px] my-2 mr-0 md:mr-2"
                 key={index}
               >
-                <img src={each?.image_url} className='ImgPlayerCard_infoDetails' />
+                <img src={each?.image_url || each?.images[0]?.image_url} className='ImgPlayerCard_infoDetails' />
               <div className='playerCard_infoDetails px-2 py-4 w-full'>
                 <div className='flex justify-between w-full'>
                   <p className='text-sm text-[#6E798C]'>PLAYERS</p>
-                  <p className='text-sm text-[#6E798C]'>Lang: {each?.language}</p>
+                  <p className='text-sm text-[#6E798C]'>Lang: {each?.language || each?.physical_stat?.language}</p>
                   </div> 
                   <p className='text-2xl font-bold text-[#081F32] py-3'> {shortenName(each?.firstname, each?.surname, maxLength)}</p>    
-                  <p className=' flex items-center'><GrLocation className='text-md' /><span className='ml-2 text-sm'> Location: {each?.location}</span></p> 
-                  <p className=' flex items-center py-1'><PiBarbellDuotone className='text-md' /><span className='ml-2'> Strong foot: {each?.strong_foot}</span></p>
-                    <p className=' flex items-center py-1'><PiPersonArmsSpreadBold className='text-md' /><span className='ml-2 text-sm'> Weight: {each?.weight}kg</span></p>           
+                  <p className=' flex items-center'><GrLocation className='text-md' /><span className='ml-2 text-sm'> Location: {each?.location || each?.bio?.location}</span></p> 
+                  <p className=' flex items-center py-1'><PiBarbellDuotone className='text-md' /><span className='ml-2'> Strong foot: {each?.strong_foot || each?.physical_stat?.strong_foot}</span></p>
+                    <p className=' flex items-center py-1'><PiPersonArmsSpreadBold className='text-md' /><span className='ml-2 text-sm'> Weight: {each?.weight || each?.physical_stat?.weight}kg</span></p>           
               </div>
               </Link>
               ))}
