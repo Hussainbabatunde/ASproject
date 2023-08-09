@@ -1320,9 +1320,6 @@ const HomepageFilterView = () => {
                 // </Link>
                 <Link
                 to={`/viewplayerprofile/${each?.user_id || each?.id}`}
-                  data-aos-easing="ease-in-out"
-                  data-aos-duration="1000"
-                  data-aos="flip-down"
                 className="PlayerCardsInfo w-[370px] lg:w-[390px] my-2 mr-0 md:mr-2"
                 key={index}
               >
