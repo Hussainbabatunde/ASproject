@@ -196,8 +196,8 @@ box-shadow: 0px 3px 5px 0px rgba(23, 23, 32, 0.08);
     }
     .Filterpage_MenuIcon{
         display: block;
-        font-size: 45px !important;
-        width: 140px;
+        font-size: 25px !important;
+        /* width: 140px; */
     }
     .ToogleFilterPage_ContentFilter{
         display: block;

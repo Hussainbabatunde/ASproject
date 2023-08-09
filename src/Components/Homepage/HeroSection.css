@@ -190,6 +190,9 @@
     .footballImg_heroSection{
         display: none;
     }
+.FilterPage_ContentSection{
+    flex-direction: column;
+}
 }
 @media screen and (max-width: 1200px){
     .heroSection_Contentword{
