@@ -28,7 +28,7 @@ const HeroSection = () => {
   };
 
   return (
-    <div className="flex pt-[1rem] pl-[3rem] flex-col lg:flex-row min-h-[90vh] items-center">
+    <div className="flex pt-[1rem] pl-[1rem] md:pl-[3rem] flex-col lg:flex-row min-h-[90vh] items-center">
       {/* <div
         className="heroSection_Contentword"
         data-aos-easing="ease-in-out"
