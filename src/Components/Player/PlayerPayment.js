@@ -58,7 +58,7 @@ const PlayerPayment = () => {
     const AllPaymentTrans = useSelector((state)=> state?.reducer?.GetPaymentSlice?.gottenAllPaymentData)
     const OfferPaymentTrans = useSelector((state)=> state?.reducer?.GetPaymentSlice?.getOfferPaymentData)
     const AdvertPaymentTrans = useSelector((state)=> state?.reducer?.GetPaymentSlice?.getAdvertPaymentData)
-    // console.log('all advert payment ', AdvertPaymentTrans)
+    console.log('all advert payment ', AdvertPaymentTrans)
 
     useEffect(()=>{
         const calcPayment = () =>{
@@ -152,7 +152,7 @@ const PlayerPayment = () => {
                 ))}</div>
             
             </div>
-            <Link  className='Scoutpage_transaction_Linkotherpages'>View All Transactions</Link>
+            <Link to='/afrisport/player/viewtransactions' state={{OfferPaymentTrans}} className='Scoutpage_transaction_Linkotherpages'>View All Transactions</Link>
             </div>
             <div className='Scoutpage_transactionContent_holder'>
             <div className='Scoutpage_transactionContent'>
@@ -167,7 +167,7 @@ const PlayerPayment = () => {
                 ))}</div>
             
             </div>
-            <Link  className='Scoutpage_transaction_Linkotherpages'>View All Transactions</Link>
+            <Link  to='/afrisport/player/viewtransactions' state={{AdvertPaymentTrans}} className='Scoutpage_transaction_Linkotherpages'>View All Transactions</Link>
             </div>
         </div>
         <div className='Scoutpage_TransGetpaid'>
