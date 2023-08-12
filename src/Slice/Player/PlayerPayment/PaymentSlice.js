@@ -66,7 +66,7 @@ const initialState = {
       return await instance
         .get('player/payment/offer-transactions')
         .then(async (response) => {
-            // console.log('all offer payments ',response.data)
+            console.log('all offer payments ',response.data)
           return response.data;
         })
   
