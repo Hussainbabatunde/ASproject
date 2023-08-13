@@ -50,7 +50,7 @@ const AdminUseTable = ({
               {header?.map((item) => {
                 switch (item?.case) {
                   case "admin_player_Position":
-                    console.log(each?.position);
+                    console.log(each);
                     return (
                       <td className="useTable_tableDetails">
                         {each?.position?.map((item, index) => (
@@ -380,12 +380,14 @@ const AdminUseTable = ({
                         >
                           Suspend
                         </Link>
+
                         <span
+                          className="Admin_playersviewprofile cursor-pointer"
                           onClick={() => handleEdit(each)}
-                          className="useTable_ViewEditSuspendDetails"
                         >
                           Message
                         </span>
+
                         <Link
                           to={`/admin/scouts/${each?.user?.id}`}
                           className="Admin_playersEditprofile"
@@ -673,6 +675,29 @@ const AdminUseTable = ({
                       </td>
                     );
 
+                  case "dash_Player_name":
+                    console.log(each);
+                    return (
+                      // <td className="useTable_tableDetails">
+                      //   {`${each?.firstname} ${each?.surname}`}
+                      // </td>
+
+                      <td className="useTable_tableDetails ">
+                        <div className="flex gap-2 items-center">
+                          <div>
+                            <img
+                              src={each?.profile_pics}
+                              alt=""
+                              className="border-1 border-black shadow-md w-[35px] h-[35px] rounded-[50%] block"
+                            />
+                          </div>
+                          <span className="f text-xs font-normal">
+                            {each?.firstname} {each?.surname}
+                          </span>
+                        </div>
+                      </td>
+                    );
+
                   case "scout_Initial_Offer":
                     return (
                       <td className="useTable_tableDetails">
@@ -708,18 +733,18 @@ const AdminUseTable = ({
 
                   case "scout_All_Negotiaties":
                     return (
-                      <td className="useTable_tableDetails">
+                      <td className="useTable_tableDetails text-center ">
                         <Link
                           to="/admin/negotiations/negotiation-detail"
                           state={each}
                         >
-                          <p className="AdminUse_TableComp">
+                          <p className="AdminUse_TableComp  text-center">
                             <img
                               src={ChatCircle}
-                              style={{ marginRight: "10px" }}
                               width="25px"
                               height="25px"
                               alt="Recipient image"
+                              className="m-auto block"
                             />
                             {each?.number}
                           </p>
@@ -737,10 +762,10 @@ const AdminUseTable = ({
                           <p className="AdminUse_TableComp">
                             <img
                               src={ChatCircle}
-                              style={{ marginRight: "10px" }}
                               width="25px"
                               height="25px"
                               alt="Recipient image"
+                              className="m-auto block"
                             />
                             {each?.number}
                           </p>

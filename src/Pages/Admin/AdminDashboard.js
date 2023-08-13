@@ -1,7 +1,14 @@
 import React, { useEffect } from "react";
 import "./AdminDashBoard.css";
 import { RiSearchLine } from "react-icons/ri";
-import people from "../../assets/UsersThree.png";
+import { BsPeopleFill } from "react-icons/bs";
+import { GrNotes } from "react-icons/gr";
+import { PiNotePencilFill, PiHandshakeBold } from "react-icons/pi";
+import { BiSolidVolumeLow } from "react-icons/bi";
+
+// import people from "../../assets/UsersThree.png";
+
+import dash_people from "../../assets/dash1.png";
 import document from "../../assets/document.png";
 import volume from "../../assets/volume.png";
 import vector from "../../assets/Vector.png";
@@ -102,6 +109,7 @@ const AdminDashboard = () => {
     {
       id: 1,
       name: "Player Name",
+      case: "dash_Player_name",
     },
     {
       id: 2,
@@ -192,57 +200,55 @@ const AdminDashboard = () => {
       </div>
 
       <div className="AdminPage_Dashboard">
-        <div className="flex flex-wrap  justify-between">
-          <div
-            className={`lg:py-1 lg:px-1 bg-[#1B5285] rounded-lg flex justify-center  items-center  xl:w-[230px]  2xl:w-[285px]`}
-          >
+        <div class="grid grid-cols-2  lg:grid-cols-4 gap-4 ">
+          <div className="bg-[#1B5285] rounded-lg flex items-center justify-center gap-5 lg:py-2">
             <div>
-              <img src={people} />
+              <BsPeopleFill className="text-4xl  text-gray-500" />
             </div>
-            <div className="text-center">
-              <p className=" text-lg text-white">Review Players</p>
+            <div className=" text-center">
+              <p className=" text-[12px] font-light text-white">
+                Review Players
+              </p>
               <p className=" text-lg text-white">
                 {Admin_Header_Summary?.data?.players_under_reviewed}
               </p>
             </div>
           </div>
 
-          <div
-            className={`lg:py-1 lg:px-1 bg-[#1B8550] rounded-lg flex justify-center gap-2 items-center  xl:w-[230px]  2xl:w-[285px]`}
-          >
+          <div className="bg-[#1B8550] rounded-lg flex items-center justify-center gap-5 lg:py-2">
             <div>
-              <img src={document} />
+              <PiNotePencilFill className="text-4xl  text-gray-500" />
             </div>
-            <div className="text-center">
-              <p className=" text-lg text-white">Active Negotiation</p>
+            <div className=" text-center">
+              <p className=" text-[12px] font-light text-white">
+                Active Negotiation
+              </p>
               <p className=" text-lg text-white">
                 {Admin_Header_Summary?.data?.players_under_reviewed}
               </p>
             </div>
           </div>
 
-          <div
-            className={`lg:py-1 lg:px-1 bg-[#1B5285] rounded-lg flex justify-center gap-2 items-center  xl:w-[230px]  2xl:w-[285px]`}
-          >
+          <div className="bg-[#1B5285] rounded-lg flex items-center justify-center gap-5 lg:py-2">
             <div>
-              <img src={volume} />
+              <BiSolidVolumeLow className="text-4xl  text-gray-500" />
             </div>
-            <div className="text-center">
-              <p className=" text-lg text-white">Active Ads</p>
+            <div className=" text-center">
+              <p className=" text-[12px] font-light text-white">Active Ads</p>
               <p className=" text-lg text-white">
                 {Admin_Header_Summary?.data?.players_under_reviewed}
               </p>
             </div>
           </div>
 
-          <div
-            className={`lg:py-1 lg:px-1 bg-[#1B8550] rounded-lg flex justify-center gap-2 items-center  xl:w-[230px]  2xl:w-[285px]`}
-          >
+          <div className="bg-[#1B8550] rounded-lg flex items-center justify-center gap-5 lg:py-2">
             <div>
-              <img src={vector} />
+              <PiHandshakeBold className="text-4xl  text-gray-500" />
             </div>
-            <div className="text-center">
-              <p className=" text-lg text-white">Closed Negotiation</p>
+            <div className=" text-center">
+              <p className=" text-[12px] font-light text-white">
+                Closed Negotiation
+              </p>
               <p className=" text-lg text-white">
                 {Admin_Header_Summary?.data?.closed_negotiation}
               </p>
