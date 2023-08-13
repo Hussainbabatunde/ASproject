@@ -5,6 +5,7 @@ import { MdDelete } from "react-icons/md";
 import Lottie from "lottie-react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { format } from 'date-fns'
 import {
   GetPlayerOfferDetailsApi,
   PlayerAcceptOfferDetailsApi,
@@ -26,7 +27,7 @@ import {
 
 const UseTable = ({
   header,
-  data,
+  data = [  ],
   handleShowEdit,
   handleDelete,
   handleEdit,
@@ -265,6 +266,7 @@ const UseTable = ({
                       </td>
                     );
 
+                    
                   case "talent_player_status":
                     return (
                       <td className="useTable_tableDetails">{each?.status}</td>
@@ -375,6 +377,43 @@ const UseTable = ({
                         </div>
                       </td>
                     );
+
+                    case "Sent by":
+                    return (
+                      <td className="useTable_tableDetails">
+                        {each?.payment_type == "advert" ? each?.description : '' }
+                      </td>
+                    );
+
+                    case "Date sent":
+                    return (
+                      <td className="useTable_tableDetails">
+                        {format(new Date(each?.created_at), 'dd MMMM yyyy')}
+                      </td>
+                    );
+
+                    case "Description":
+                    return (
+                      <td className="useTable_tableDetails">
+                        {each?.payment_type == "advert" ? each?.payment_type : each?.description }
+                      </td>
+                    );
+
+                    case "Payment type":
+                    return (
+                      <td className="useTable_tableDetails">
+                        {each?.payment_type }
+                      </td>
+                    );
+
+                    case "Amount sent":
+                    return (
+                      <td className="useTable_tableDetails">
+                        ${each?.amount}
+                      </td>
+                    );
+
+
                   case "Manager":
                     return (
                       <td className="useTable_tableDetails">

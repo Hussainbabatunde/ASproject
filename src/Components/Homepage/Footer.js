@@ -4,6 +4,7 @@ import {AiOutlineTwitter, AiOutlineInstagram} from 'react-icons/ai'
 import {FaFacebook, FaLinkedinIn} from 'react-icons/fa'
 import {BiCopyright} from 'react-icons/bi'
 import footerAfriLogo from '../../assets/footerAfriLogo.svg'
+import { Link } from 'react-router-dom'
 
 const Footer = () => {
   return (
@@ -20,9 +21,9 @@ const Footer = () => {
                 <img src={footerAfriLogo} />
                 <ul className='Homepage_footerListCategory'>
                     <li className='Hompage_footerList text-xl font-bold mb-3'>Company</li>
-                    <li className='Hompage_footerList text-lg'>Players</li>
-                    <li className='Hompage_footerList text-lg'>Pricing</li>
-                    <li className='Hompage_footerList text-lg'>About Us</li>
+                    <Link to='/filterPage' style={{color: 'white'}}><li className='Hompage_footerList text-lg'>Players</li></Link>
+                    <Link to='/pricingpage'><li className='Hompage_footerList text-lg'>Pricing</li></Link>
+                    {/* <li className='Hompage_footerList text-lg'>About Us</li> */}
                 </ul>
                 <ul className='Homepage_footerListCategory'>
                     <li className='Hompage_footerList text-xl font-bold mb-3'>Policy</li>
