@@ -140,12 +140,13 @@ const ActiveNegotiation = ({}) => {
       <div className="AdminPage_Dashboard">
         <div className="AdminPage_DashboardTAbleCat">
           <div className="AdminPage_NegotiateTab">
-            <div className="AdminPage_NegotiateTabTitle">
+            {/* <div className="AdminPage_NegotiateTabTitle"> */}
+            <div className="flex flex-wrap justify-between">
               <p
-                className={`${
+                className={`px-2 ${
                   step === 1
-                    ? "p-0  text-center w-120 border-b-2 border-blue-500 text-blue-500 text-lg font-semibold mr-20 cursor-pointer"
-                    : "p-0 px-10 pb-2 text-center w-120 cursor-pointer border-b-2 border-gray-300 text-gray-700 text-lg font-semibold mr-20"
+                    ? "text-center  border-b-2 border-blue-500 text-blue-500 lg:text-lg font-semibold  cursor-pointer"
+                    : "  text-center  cursor-pointer border-b-2 border-gray-300 text-gray-700 lg:text-lg font-semibold "
                 }`}
                 // className="AdminPAge_Negotiate_TabNegotiateActive"
                 onClick={handleAllNegotiate}
@@ -154,20 +155,20 @@ const ActiveNegotiation = ({}) => {
               </p>
               <p
                 onClick={handleSuspended}
-                className={`${
+                className={`px-2 ${
                   step === 2
-                    ? "p-0  text-center w-120 border-b-2 border-blue-500 text-blue-500 text-lg font-semibold mr-20 cursor-pointer"
-                    : "p-0 px-10 pb-2 text-center w-120 cursor-pointer border-b-2 border-gray-300 text-gray-700 text-lg font-semibold mr-20"
+                    ? "  text-center  border-b-2 border-blue-500 text-blue-500 text-lg font-semibold  cursor-pointer"
+                    : "  text-center  cursor-pointer border-b-2 border-gray-300 text-gray-700 lg:text-lg font-semibold "
                 }`}
               >
                 Suspended
               </p>
               <p
                 onClick={handleClosed}
-                className={`${
+                className={`px-2 ${
                   step === 3
-                    ? "p-0  text-center w-120 border-b-2 border-blue-500 text-blue-500 text-lg font-semibold mr-20 cursor-pointer"
-                    : "p-0 px-10 pb-2 text-center w-120 cursor-pointer border-b-2 border-gray-300 text-gray-700 text-lg font-semibold mr-20"
+                    ? "  text-center  border-b-2 border-blue-500 text-blue-500 text-lg font-semibold  cursor-pointer"
+                    : "  text-center  cursor-pointer border-b-2 border-gray-300 text-gray-700 lg:text-lg font-semibold "
                 }`}
               >
                 Closed{" "}
@@ -176,10 +177,10 @@ const ActiveNegotiation = ({}) => {
                 </span>
               </p>
               <p
-                className={`${
+                className={`px-2 ${
                   step === 4
-                    ? "p-0  text-center w-120 border-b-2 border-blue-500 text-blue-500 text-lg font-semibold mr-20 cursor-pointer"
-                    : "p-0 px-10 pb-2 text-center w-120 cursor-pointer border-b-2 border-gray-300 text-gray-700 text-lg font-semibold mr-20"
+                    ? "  text-center  border-b-2 border-blue-500 text-blue-500 text-lg font-semibold  cursor-pointer"
+                    : "  text-center  cursor-pointer border-b-2 border-gray-300 text-gray-700 lg:text-lg font-semibold "
                 }`}
                 onClick={handleTerminated}
               >

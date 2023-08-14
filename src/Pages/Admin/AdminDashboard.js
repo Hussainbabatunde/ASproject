@@ -288,10 +288,12 @@ const AdminDashboard = () => {
               />
             </div>
           ) : (
-            <AdminUseTable
-              header={header}
-              data={last5Object_Admin_dashboard_active_negotiations}
-            />
+            <div className="max-w-full overflow-x-auto ">
+              <AdminUseTable
+                header={header}
+                data={last5Object_Admin_dashboard_active_negotiations}
+              />
+            </div>
           )}
         </div>
 
@@ -325,10 +327,12 @@ const AdminDashboard = () => {
               />
             </div>
           ) : (
-            <AdminUseTable
-              header={Playerheader}
-              data={last5Object_Admin_dashboard_approved_player}
-            />
+            <div className="max-w-full overflow-x-auto ">
+              <AdminUseTable
+                header={Playerheader}
+                data={last5Object_Admin_dashboard_approved_player}
+              />
+            </div>
           )}
         </div>
 
@@ -360,10 +364,12 @@ const AdminDashboard = () => {
               />
             </div>
           ) : (
-            <AdminUseTable
-              header={Transactionheader}
-              data={last5Object_Transaction_list}
-            />
+            <div className="max-w-full overflow-x-auto ">
+              <AdminUseTable
+                header={Transactionheader}
+                data={last5Object_Transaction_list}
+              />
+            </div>
           )}
         </div>
       </div>
