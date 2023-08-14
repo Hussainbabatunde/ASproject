@@ -54,9 +54,9 @@ const AdminUseTable = ({
                     return (
                       <td className="useTable_tableDetails">
                         {each?.position?.map((item, index) => (
-                          <p key={index}>
-                            <p className="">{item?.position} </p>
-                          </p>
+                          <li className="" key={index}>
+                            {item?.position}
+                          </li>
                         ))}
                       </td>
                     );

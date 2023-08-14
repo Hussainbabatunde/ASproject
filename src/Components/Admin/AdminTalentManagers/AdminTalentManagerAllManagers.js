@@ -181,7 +181,7 @@ const AdminTalentManagerAllManagers = ({
       )}
 
       <div className="AdminPage_NegotiateTab">
-        <div className="AdminPage_NegotiateTabTitle">
+        <div className="AdminPage_NegotiateTabTitle mb-2">
           <p
             className="AdminPAge_Negotiate_TalentManagerNegotiateActive"
             onClick={handleAllNegotiate}

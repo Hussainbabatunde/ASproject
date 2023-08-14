@@ -155,7 +155,7 @@ const AdminTalentManagerSuspended = ({
         />
       )}
       <div className="AdminPage_NegotiateTab">
-        <div className="AdminPage_NegotiateTabTitle">
+        <div className="AdminPage_NegotiateTabTitle mb-2">
           <p
             className="AdminPAge_Negotiate_TalentManagerNegotiateInactive"
             onClick={handleAllNegotiate}
