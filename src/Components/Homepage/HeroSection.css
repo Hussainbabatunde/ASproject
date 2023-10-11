@@ -96,6 +96,9 @@
     font-size: 20px;
     margin-bottom: 10px;
 }
+.locationIconHomepage:hover{
+    color:white
+}
 .FilterPage_LabelSearch{
     font-weight: 600;
     margin-top: 10px;

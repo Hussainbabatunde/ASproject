@@ -352,6 +352,7 @@ const initialState = {
     // for (const [name, value] of details.entries()) {
     //     console.log(`${name}: ${value}`);
     //   }
+    
       const tokengot = localStorage.getItem("token");
       const infoneeded = `Bearer ${tokengot}`;
       const instance = axios.create({
