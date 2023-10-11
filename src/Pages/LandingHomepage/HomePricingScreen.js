@@ -1,14 +1,19 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import './Homepage.css'
 import Header from '../../Components/Header/Header'
 import Footer from '../../Components/Homepage/Footer'
 import { Link } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import ScoutHeader from '../../Components/Header/ScoutHeader'
 
 const HomePricingScreen = () => {
+  const userData = useSelector((state) => state.reducer.LoginSlice?.logindata);
+  
+
   return (
     <div>
         <div className="max-w-[1400px] mx-auto shadow-lg">
-      <Header />
+      {userData?  <ScoutHeader />:<Header />}
       {/* <div className="Homepage_contents"> */}
       <div className='Homepricingpage_section flex flex-col lg:flex-row min-h-[90vh] px-[2rem] md:px-[8rem] items-center justify-between'>
         <div className='mt-5'>

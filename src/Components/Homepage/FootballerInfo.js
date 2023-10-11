@@ -4,7 +4,7 @@ import {RxDotFilled} from 'react-icons/rx';
 import { Link } from 'react-router-dom';
 import trophy from "../../assets/lottie/107653-trophy.json";
 import Lottie from 'lottie-react';
-import {GrLocation} from 'react-icons/gr'
+import {TiLocationOutline} from 'react-icons/ti'
 import {PiBarbellDuotone} from 'react-icons/pi'
 import {PiPersonArmsSpreadBold} from 'react-icons/pi'
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -80,7 +80,7 @@ const FootballerInfo = ({title, pathTitle, data}) => {
                   <p className='text-sm text-[#6E798C]'>Lang: {each?.language}</p>
                   </div> 
                   <p className='text-2xl font-bold py-3'>{shortenName(each?.firstname, each?.surname, maxLength)}</p>    
-                  <p className=' flex items-center'><GrLocation className='text-md' /><span className='ml-2 text-sm'> Location: Nigeria</span></p> 
+                  <p className='locationIconHomepage flex items-center'><TiLocationOutline className='text-md'  /><span className='ml-2 text-sm'> Location: Nigeria</span></p> 
                   <p className=' flex items-center py-1'><PiBarbellDuotone className='text-md' /><span className='ml-2 text-sm'> Strong foot: {each?.strong_foot}</span></p>
                     <p className=' flex items-center py-1'><PiPersonArmsSpreadBold className='text-md' /><span className='ml-2 text-sm'> Weight: {each?.weight}kg</span></p>           
               </div>
