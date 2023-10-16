@@ -74,10 +74,10 @@ const FootballerInfo = ({title, pathTitle, data}) => {
       <SwiperSlide key={index}>
             <Link to={`/viewplayerprofile/${each?.user_id || each?.id}`} className='PlayerCardsInfo w-[355px] md:w-[390px] my-2 mr-2'>
               <img src={each?.image_url} className='ImgPlayerCard_infoDetails' />
-              <div className='playerCard_infoDetails px-2 py-4 w-full hover:text-white'>
-                <div className='flex justify-between w-full'>
-                  <p className='text-sm text-[#6E798C] '>{title== 'TOP RATED TALENTS'? 'TOP RATED' : title }</p>
-                  <p className='text-sm text-[#6E798C]'>Lang: {each?.language}</p>
+              <div className='playerCard_infoDetails px-2 py-4 w-full '>
+                <div className='flex justify-between w-full '>
+                  <p className='cardTextColor text-sm  '>{title== 'TOP RATED TALENTS'? 'TOP RATED' : title }</p>
+                  <p className='cardTextColor text-sm '>Lang: {each?.language}</p>
                   </div> 
                   <p className='text-2xl font-bold py-3'>{shortenName(each?.firstname, each?.surname, maxLength)}</p>    
                   <p className='locationIconHomepage flex items-center'><TiLocationOutline className='text-md'  /><span className='ml-2 text-sm'> Location: Nigeria</span></p> 
