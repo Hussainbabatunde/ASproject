@@ -5,7 +5,7 @@ import { MdDelete } from "react-icons/md";
 import Lottie from "lottie-react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { format } from 'date-fns'
+import { format } from "date-fns";
 import {
   GetPlayerOfferDetailsApi,
   PlayerAcceptOfferDetailsApi,
@@ -27,11 +27,13 @@ import {
 
 const UseTable = ({
   header,
-  data = [  ],
+  data,
   handleShowEdit,
   handleDelete,
   handleEdit,
 }) => {
+  console.log({ Talent_manager_details_Get_all_player: data });
+
   const [acceptIndex, setAcceptIndex] = useState(null);
   const [deleteIndex, setDeleteIndex] = useState(null);
   const [deleteRequestIndex, setDeleteRequestIndex] = useState(null);
@@ -125,6 +127,7 @@ const UseTable = ({
       </thead>
       <tbody>
         {data?.map((each, index) => {
+          console.log({ each });
           return (
             <tr key={index}>
               {header?.map((item) => {
@@ -251,10 +254,17 @@ const UseTable = ({
                         </div>
                       </td>
                     );
+
                   case "talent_player_Position":
                     return (
                       <td className="useTable_tableDetails">
-                        {each?.requests?.player?.position || each?.position}
+                        {each?.requests?.player?.position || (
+                          <>
+                            {each?.position?.map((item) => {
+                              return <span>{item?.position} </span>;
+                            })}
+                          </>
+                        )}
                       </td>
                     );
 
@@ -266,7 +276,6 @@ const UseTable = ({
                       </td>
                     );
 
-                    
                   case "talent_player_status":
                     return (
                       <td className="useTable_tableDetails">{each?.status}</td>
@@ -378,41 +387,42 @@ const UseTable = ({
                       </td>
                     );
 
-                    case "Sent by":
+                  case "Sent by":
                     return (
                       <td className="useTable_tableDetails">
-                        {each?.payment_type == "advert" ? each?.description : '' }
+                        {each?.payment_type == "advert"
+                          ? each?.description
+                          : ""}
                       </td>
                     );
 
-                    case "Date sent":
+                  case "Date sent":
                     return (
                       <td className="useTable_tableDetails">
-                        {format(new Date(each?.created_at), 'dd MMMM yyyy')}
+                        {format(new Date(each?.created_at), "dd MMMM yyyy")}
                       </td>
                     );
 
-                    case "Description":
+                  case "Description":
                     return (
                       <td className="useTable_tableDetails">
-                        {each?.payment_type == "advert" ? each?.payment_type : each?.description }
+                        {each?.payment_type == "advert"
+                          ? each?.payment_type
+                          : each?.description}
                       </td>
                     );
 
-                    case "Payment type":
+                  case "Payment type":
                     return (
                       <td className="useTable_tableDetails">
-                        {each?.payment_type }
+                        {each?.payment_type}
                       </td>
                     );
 
-                    case "Amount sent":
+                  case "Amount sent":
                     return (
-                      <td className="useTable_tableDetails">
-                        ${each?.amount}
-                      </td>
+                      <td className="useTable_tableDetails">${each?.amount}</td>
                     );
-
 
                   case "Manager":
                     return (
@@ -463,16 +473,18 @@ const UseTable = ({
                   case "Request Type":
                     return (
                       <td className="useTable_tableDetails">
-                        {each?.request?.requests?.type
-                        || each?.request?.deal?.fanRequest}
+                        {each?.request?.requests?.type ||
+                          each?.request?.deal?.fanRequest}
                       </td>
                     );
                   case "Payment":
                     return (
                       <td className="useTable_tableDetails">
-                        {each?.offer?.deal?.payment_status == 'paid' || 
-                        each?.request?.deal?.payment_status == 'paid' ||
-                        each?.payment_status == 'paid'? 'Paid' : 'Not Paid'}
+                        {each?.offer?.deal?.payment_status == "paid" ||
+                        each?.request?.deal?.payment_status == "paid" ||
+                        each?.payment_status == "paid"
+                          ? "Paid"
+                          : "Not Paid"}
                       </td>
                     );
                   case "Status":

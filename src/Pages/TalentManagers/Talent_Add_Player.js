@@ -101,53 +101,55 @@ function Talent_Add_Player() {
       <ToastContainer />
 
       <div className="Scoutpage_maxWidthContainer">
-      <div className="Scoutpage_contents ">
-        <Talent_Header />
-        <div className="Scoutpage_DealContent">
+        <div className="Scoutpage_contents ">
+          <Talent_Header />
           <div className="Scoutpage_DealContent">
-            <div>
-              <p>Player List</p>
+            <div className="Scoutpage_DealContent">
+              <div>
+                <p>Player List</p>
 
-              <input type="text" />
+                <input type="text" />
+              </div>
+              {Talent_manager_details_Get_all_player?.All_Player_api?.data
+                ?.length === 0 ? (
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    width: "100%",
+                  }}
+                >
+                  <Lottie
+                    style={{ width: "200px", height: "200px" }}
+                    animationData={empty}
+                  />
+                </div>
+              ) : (
+                <UseTable
+                  handleEdit={handleEdit}
+                  header={header}
+                  data={
+                    Talent_manager_details_Get_all_player?.All_Player_api?.data
+                  }
+                />
+              )}
             </div>
-            {Talent_manager_details_Get_all_player?.All_Player_api?.data
-              ?.length === 0 ? (
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  width: "100%",
-                }}
-              >
+            <Modal
+              open={show}
+              // onClose={handleClose}
+              aria-labelledby="modal-modal-title"
+              aria-describedby="modal-modal-description"
+            >
+              <Box sx={style}>
                 <Lottie
                   style={{ width: "200px", height: "200px" }}
-                  animationData={empty}
+                  animationData={football}
                 />
-              </div>
-            ) : (
-              <UseTable
-                handleEdit={handleEdit}
-                header={header}
-                data={Talent_manager_details_Get_all_player?.All_Player_api}
-              />
-            )}
+              </Box>
+            </Modal>
           </div>
-          <Modal
-            open={show}
-            // onClose={handleClose}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
-          >
-            <Box sx={style}>
-              <Lottie
-                style={{ width: "200px", height: "200px" }}
-                animationData={football}
-              />
-            </Box>
-          </Modal>
         </div>
-      </div>
       </div>
     </>
   );
