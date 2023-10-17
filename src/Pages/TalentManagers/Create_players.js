@@ -10,7 +10,7 @@ const Create_players = ({ scout_email, isOpen, onClose }) => {
     email: "",
     fullname: "",
     phone: "",
-    password: ""
+    password: "",
   });
 
   const [loading, setLoading] = useState(false);
@@ -23,17 +23,17 @@ const Create_players = ({ scout_email, isOpen, onClose }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    console.log(message_data);
-
     const handleSuspend_Unsuspend = async (data, id) => {
       let API_URL = `${baseURL}talent-manager/player/create`;
 
       const tokengot = localStorage.getItem("token");
+      setLoading(true);
 
       try {
         // Set the loading state to true before sending the request
         console.log("Sending POST request...");
-        setLoading(true);
+
+        console.log({ API_URL, tokengot });
 
         const config = {
           headers: {
@@ -41,14 +41,14 @@ const Create_players = ({ scout_email, isOpen, onClose }) => {
           },
         };
 
-        console.log(message_data);
-
         const response = await axios.post(API_URL, message_data, config);
 
-        // Reset the loading state to false after receiving the response
+        console.log({ name: response?.data });
+
+        // // Reset the loading state to false after receiving the response
         setLoading(false);
-        console.log("POST request successful");
-        console.log("Response:", response.data);
+        // console.log("POST request successful");
+        // console.log("Response:", response.data);
 
         toast.success(`${response.data.message} `, {
           position: "top-right",
