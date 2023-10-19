@@ -21,7 +21,7 @@ const HomePricingScreen = () => {
             <p className='text-3xl md:text-5xl font-bold text-[#071A10] mt-2'>Great Talents At</p>
             <p className='text-3xl md:text-5xl font-bold text-[#071A10]'>Affordable Price</p>
             <p className='w-[100%] md:w-[450px] mt-6'>Scouts should be able to make payment for Talent Acquisition Cost - When a scout pays for a player, Talent Manager and Platform should share the profit in a percentage share of 80% - 20% (Talent Manager 80%, Platform 20%)</p>
-            <Link to='/signup' className='SignupHomepage_pricing'>Signup</Link>
+            {userData == null && <Link to='/signup' className='SignupHomepage_pricing'>Signup</Link>}
         </div>
         <div>
           <div className='pricingPage_priceCategory p-[10px] md:p-[20px] w-[100%] md:w-[450px] mt-3'>
