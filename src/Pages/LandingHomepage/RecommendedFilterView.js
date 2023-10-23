@@ -13,6 +13,7 @@ import { Portal } from './ModalFilter';
 import {GrLocation} from 'react-icons/gr'
 import {PiBarbellDuotone} from 'react-icons/pi'
 import {PiPersonArmsSpreadBold} from 'react-icons/pi'
+import { TiLocationOutline } from 'react-icons/ti';
 
 const RecommendedFilterView = () => {
     const [allPlayers, setAllPlayers] = useState([])
@@ -833,11 +834,11 @@ const RecommendedFilterView = () => {
              <img src={each?.image_url} className='ImgPlayerCard_infoDetails' />
            <div className='playerCard_infoDetails px-2 py-4 w-full'>
              <div className='flex justify-between w-full'>
-               <p className='text-sm text-[#6E798C]'>PLAYERS</p>
-               <p className='text-sm text-[#6E798C]'>Language: {each?.language}</p>
+               <p className='cardTextColor text-sm '>PLAYERS</p>
+               <p className='cardTextColor text-sm '>Language: {each?.language}</p>
                </div> 
-               <p className='text-2xl font-bold text-[#081F32] py-3'> {shortenName(each?.firstname, each?.surname, maxLength)}</p>    
-               <p className=' flex items-center'><GrLocation className='text-md' /><span className='ml-2 text-sm'> Location: {each?.location}</span></p> 
+               <p className='text-2xl font-bold py-3'> {shortenName(each?.firstname, each?.surname, maxLength)}</p>    
+               <p className='locationIconHomepage flex items-center'><TiLocationOutline className='text-md' /><span className='ml-2 text-sm'> Location: {each?.location}</span></p> 
                <p className=' flex items-center py-1'><PiBarbellDuotone className='text-md' /><span className='ml-2'> Strong foot: {each?.strong_foot}</span></p>
                  <p className=' flex items-center py-1'><PiPersonArmsSpreadBold className='text-md' /><span className='ml-2 text-sm'> Weight: {each?.weight}kg</span></p>           
            </div>
