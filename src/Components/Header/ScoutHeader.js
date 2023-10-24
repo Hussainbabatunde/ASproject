@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import logo from "../../assets/logo.png";
 import "./Header.css";
 import { Link, useNavigate } from "react-router-dom";
@@ -7,13 +7,38 @@ import { RxCross2 } from "react-icons/rx";
 import { MdNotifications } from "react-icons/md";
 import { BsFillPersonFill } from "react-icons/bs";
 import { useSelector } from "react-redux";
+import Echo from "laravel-echo"
+import axios from 'axios';
+import Pusher from 'pusher-js'
+
+
+const options = {
+  broadcaster:'pusher',
+  key: 'mykey',
+  wsHost: window.location.hostname,
+  wssHost: window.location.hostname, 
+  wsPort: 6001, 
+  disablestats: true,
+  cluster: 'euz', 
+  forceTLs: false,
+};
+const echo = new Echo (options);
+
 
 const ScoutHeader = () => {
   const [openNav, setOpenNav] = useState("HomePage_ShownDetails_NavMenu");
   const [iconOpen, setIconOpen] = useState(false);
   const navigate = useNavigate();
+  const userId = useSelector((state)=> state?.reducer?.LoginSlice?.logindata?.data?.user?.id)
 
   const userData = useSelector((state) => state.reducer.LoginSlice?.logindata);
+
+
+      useEffect (() =>{
+        echo.channel(`offer.${userId}`).listen('CommentNotificationEvent', function (data, err){
+          console. log(data)
+        })
+        }, [])
 
   const handleOpen = () => {
     setIconOpen(true);
@@ -49,10 +74,10 @@ const ScoutHeader = () => {
           <Link to='/pricingpage' className="mx-4">Pricing</Link>
         </div>
         <div className="Admin_wholeNavigationBar">
-          <div className="Admin_HeaderNotification_div">
+          <Link to='/afrisport/notifications' className="Admin_HeaderNotification_div">
             <MdNotifications className="Admin_headerNotification" />
             <div className="Admin_NotificationSign"></div>
-          </div>
+          </Link>
           <p style={{ cursor: "pointer" }} onClick={handleUserProfile}>
             <BsFillPersonFill className="Admin_headerNotification" />
           </p>
