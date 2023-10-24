@@ -30,6 +30,7 @@ import RecommendedFilterView from "./Pages/LandingHomepage/RecommendedFilterView
 import TopratedPlayersFilterView from "./Pages/LandingHomepage/TopratedPlayersFilterView";
 import HomePricingScreen from "./Pages/LandingHomepage/HomePricingScreen";
 
+
 function App() {
   useEffect(() => {
     AOS.init();
