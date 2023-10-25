@@ -36,7 +36,7 @@ const ScoutHeader = () => {
 
       useEffect (() =>{
         echo.channel(`offer.${userId}`).listen('CommentNotificationEvent', function (data, err){
-          console. log(data)
+          console. log('notification data ',data)
         })
         }, [])
 
