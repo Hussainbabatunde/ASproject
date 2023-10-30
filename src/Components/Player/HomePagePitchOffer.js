@@ -148,6 +148,13 @@ const HomePagePitchOffer = ({
               onChange={handleOfferChange}
               className="OfferModal_TitleInput"
             />
+            <p style={{ fontSize: "13px" }}>Duration</p>
+            <input
+              type="text"
+              name="duration"
+              onChange={handleOfferChange}
+              className="OfferModal_TitleInput"
+            />
             <p style={{ fontSize: "13px", margin: "7px 0 0" }}>
               Expiration date (optional)
             </p>
