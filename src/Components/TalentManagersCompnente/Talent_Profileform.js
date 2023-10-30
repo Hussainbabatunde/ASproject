@@ -30,7 +30,6 @@ const Talent_Profileform = ({ userId }) => {
   );
 
   let PlayerDetails = Talent_manager_details?.data;
-  console.log(PlayerDetails);
 
   const [profileInfo, setProfileInfo] = useState({
     user_id: id,
@@ -147,7 +146,7 @@ const Talent_Profileform = ({ userId }) => {
             onChange={handleChange}
             className="Scoutpage_Profile_ProfileformlabelInput"
           >
-            <option></option>
+            <option>{profileInfo?.location}</option>
             <option value="Afghanistan">Afghanistan</option>
             <option value="Aland Islands">Aland Islands</option>
             <option value="Albania">Albania</option>

@@ -59,9 +59,13 @@ const Talent_manager_Profile = () => {
 
   useEffect(() => {
     setFile(PlayerDetails?.profile_pics);
+
+    dispatch(Talent_manager_details_fun());
   }, [PlayerDetails]);
 
-  console.log({ kaka: userDataInfo });
+  useEffect(() => {
+    dispatch(Talent_manager_details_fun());
+  }, [dispatch]);
 
   return (
     <div className="Scoutpage_maxWidthContainer">
