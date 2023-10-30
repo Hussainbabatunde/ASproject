@@ -35,6 +35,8 @@ function Profile_review() {
     return () => {};
   }, [Admin_update_user_image_isSuccess]);
 
+  console.log({ Admin_Get_Players_Profile_details });
+
   return (
     <>
       <ToastContainer />

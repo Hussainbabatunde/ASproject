@@ -39,7 +39,7 @@ const Ads = ({
   const dispatch = useDispatch();
   const { Admin_Ads } = useSelector((state) => state.reducer.Admin_AdsSlice);
 
-  console.log(Admin_Ads);
+  console.log({ Admin_Ads });
 
   const header = [
     {

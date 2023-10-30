@@ -14,6 +14,7 @@ import { RiDeleteBin6Fill } from "react-icons/ri";
 import { toast } from "react-toastify";
 
 import { TbCurrencyNaira } from "react-icons/tb";
+import ReactPlayer from "react-player";
 
 export const Profile_detail = ({ Admin_Get_Players_Profile_details }) => {
   const dispatch = useDispatch();
@@ -333,8 +334,10 @@ export const Admin_upload_id = ({ Admin_Get_Players_Profile_details }) => {
 export const Admin_upload_Players_image = ({
   Admin_Get_Players_Profile_details,
 }) => {
+  console.log({ Admin_Get_Players_Profile_details });
   const dispatch = useDispatch();
   const userDataInfo = Admin_Get_Players_Profile_details?.data;
+  const userDataimage = Admin_Get_Players_Profile_details?.data?.images;
   const [images, setImages] = useState([]);
   const [previewUrls, setPreviewUrls] = useState([]);
   const [uploading, setUploading] = useState(false);
@@ -423,6 +426,8 @@ export const Admin_upload_Players_image = ({
     setUploading(false);
   };
 
+  console.log({ userDataimage });
+
   return (
     <>
       <form onSubmit={handleSubmit} className="Scoutpage_ProfileforContent">
@@ -431,25 +436,16 @@ export const Admin_upload_Players_image = ({
           Please provide different images of yourself, a standard photo and you
           on the field.
         </p>
-
-        <div className="flex w-[100%] mb-5  gap-2">
-          {previewUrls.map((url, index) => (
-            <>
-              {/* <div className="Scoutpage_Profileform_ImgIploaded"> */}
-              <div className="w-[10rem] h-[10rem] flex flex-col  items-center">
-                {/* <div className="Scoutpage_Profileform_UploadIDImg"> */}
-                <div className="w-full h-full">
-                  <img src={url} className="w-full h-full" />
-                  {/* <p style={{ marginLeft: "20px" }}> 100 x 100</p> */}
-                </div>
-                <div onClick={() => handleImageDelete(index)}>
-                  <RiDeleteBin6Fill
-                    // onClick={() => handleDeleteImage(index)}
-                    style={{ fontSize: "25px", cursor: "pointer" }}
-                  />
-                </div>
-              </div>
-            </>
+        <div className=" bg-white justify-between rounded pl-5 flex flex-wrap mb-5 py-5 gap-2  w-[700px] mt-4">
+          {userDataimage.map((each, index) => (
+            <div class="shadow-lg border-2 border-blue-500 rounded-lg  w-[30%]">
+              <img
+                src={each?.image_url}
+                key={index}
+                className="h-[200px] w-full"
+                alt=""
+              />
+            </div>
           ))}
         </div>
       </form>
@@ -461,6 +457,8 @@ export const Admin_PlayerProfileVideo = ({
   Admin_Get_Players_Profile_details,
 }) => {
   const [videoLinks, setVideoLinks] = useState([]);
+
+  console.log({ Admin_Get_Players_Profile_details });
 
   const handleVideoLinkChange = (event) => {
     const link = event.target.value;
@@ -478,23 +476,30 @@ export const Admin_PlayerProfileVideo = ({
     console.log(data); // You can replace this with your actual submission logic
   };
   return (
-    <form className="Scoutpage_ProfileforContent" onSubmit={handleSubmit}>
-      <p className="Scoutpage_Profile_Profiledetailstext">Video</p>
-      <p className="Scoutpage_Profile_filldetailstext">
-        Share a video or more of yourself in action. Must be from{" "}
-        <b>Google Drive</b>.
-      </p>
-      <input
-        type="text"
-        className="Scoutpage_Profile_ProfileformlabelInput"
-        placeholder="Link to Video"
-        onChange={handleVideoLinkChange}
-        disabled
-      />
-      <button type="submit" className="Scoutpage_Profileform_savebutton">
-        Save
-      </button>
-    </form>
+    <div className="Scoutpage_ProfileforContent">
+      <div className="ScoutViewProfile_VideoSection">
+        {Admin_Get_Players_Profile_details?.data?.videos?.map((each, index) => (
+          <div key={index} className="ScoutViewProfile_VideoDiv">
+            <ReactPlayer
+              width="300px"
+              height="300px"
+              controls
+              url={each?.video_url}
+            />
+            <button
+              //   onClick={() => handleDeleteVideo(each?.id)}
+              className="ViewProfile_DeleteVideo"
+            >
+              {/* {deleteVideoIndex == each?.id ? (
+      <CircularProgress size={15} />
+    ) : (
+      <span>Delete</span>
+    )} */}
+            </button>
+          </div>
+        ))}
+      </div>
+    </div>
   );
 };
 

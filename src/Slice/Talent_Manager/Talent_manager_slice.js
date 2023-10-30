@@ -313,7 +313,7 @@ export const Talent_manager_details_Get_all_player_fun = createAsyncThunk(
       const token = thunkAPI.getState().reducer.LoginSlice.logindata.data.token;
       const data =
         thunkAPI.getState().reducer.LoginSlice.logindata.data?.user?.id;
-
+      console.log("thththh");
       return await Talent_manager_details_Get_all_player_fun_Service(
         data,
         token
@@ -351,7 +351,7 @@ export const Talent_manager_details_fun = createAsyncThunk(
       const token = thunkAPI.getState().reducer.LoginSlice.logindata.data.token;
       const data =
         thunkAPI.getState().reducer.LoginSlice.logindata.data?.user?.id;
-
+      console.log("thththh");
       return await Talent_manager_details_fun_Service(data, token);
     } catch (error) {
       const message =

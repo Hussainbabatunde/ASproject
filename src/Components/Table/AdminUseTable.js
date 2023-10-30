@@ -50,7 +50,6 @@ const AdminUseTable = ({
               {header?.map((item) => {
                 switch (item?.case) {
                   case "admin_player_Position":
-                    console.log(each);
                     return (
                       <td className="useTable_tableDetails">
                         {each?.position?.map((item, index) => (
@@ -77,7 +76,6 @@ const AdminUseTable = ({
                       <td className="useTable_tableDetails">{formattedDate}</td>
                     );
                   case "Admin_Transaction_details":
-                    console.log(each);
                     return (
                       <td className="useTable_tableDetails">
                         <Link
@@ -282,7 +280,6 @@ const AdminUseTable = ({
                     );
 
                   case "Admin_fan_Acitive_Negotiate":
-                    console.log(each);
                     return (
                       <td className="useTable_tableDetails">
                         <p className="AdminUse_TableComp">
@@ -464,7 +461,6 @@ const AdminUseTable = ({
                     );
 
                   case "Admin_All_player_View_Edit_Suspend":
-                    console.log(each);
                     return (
                       <td
                         className="border-2 px-1 border-[#DDDDDD] w-[300px] text-center "
@@ -492,7 +488,6 @@ const AdminUseTable = ({
                     );
 
                   case "Admin_All_player_ViewDetail":
-                    console.log(each);
                     return (
                       <td
                         className="useTable_ViewEditSuspendDetails"
@@ -676,7 +671,6 @@ const AdminUseTable = ({
                     );
 
                   case "dash_Player_name":
-                    console.log(each);
                     return (
                       // <td className="useTable_tableDetails">
                       //   {`${each?.firstname} ${each?.surname}`}
@@ -854,7 +848,6 @@ const AdminUseTable = ({
                       <td className="useTable_tableDetails">{each?.name}</td>
                     );
                   case "Player name":
-                    console.log(each);
                     return (
                       <td className="useTable_tableDetails">
                         {each?.playerName}
@@ -905,7 +898,7 @@ const AdminUseTable = ({
                   case "Nationality":
                     return (
                       <td className="useTable_tableDetails">
-                        {each?.Nationality}
+                        {each?.Nationality || each?.location}
                       </td>
                     );
                   case "Date":

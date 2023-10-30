@@ -8,7 +8,7 @@ import {
 import CircularProgress from "@mui/material/CircularProgress";
 import imgPlaceHolder from "../../assets/imageplaceholder.png";
 
-import { AiFillCamera } from 'react-icons/ai'
+import { AiFillCamera } from "react-icons/ai";
 import { ToastContainer } from "react-toastify";
 import Talent_Header from "../../Components/TalentManagersCompnente/Talent_Header";
 import Talent_Profileform from "../../Components/TalentManagersCompnente/Talent_Profileform";
@@ -24,7 +24,6 @@ const Talent_manager_Profile = () => {
   );
 
   let PlayerDetails = Talent_manager_details?.data;
-
 
   let userDataInfo = Talent_manager_details?.data;
 
@@ -46,9 +45,6 @@ const Talent_manager_Profile = () => {
     (state) => state?.reducer?.LoginSlice?.logindata?.data?.user?.id
   );
 
-
-
-
   const handleImgSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData();
@@ -63,65 +59,74 @@ const Talent_manager_Profile = () => {
 
   useEffect(() => {
     setFile(PlayerDetails?.profile_pics);
+
+    dispatch(Talent_manager_details_fun());
   }, [PlayerDetails]);
+
+  useEffect(() => {
+    dispatch(Talent_manager_details_fun());
+  }, [dispatch]);
 
   return (
     <div className="Scoutpage_maxWidthContainer">
-    <div className="Scoutpage_contents">
-      <ToastContainer />
+      <div className="Scoutpage_contents">
+        <ToastContainer />
 
-      <Talent_Header />
+        <Talent_Header />
 
-      <div className="Scoutpage_ProfileContent">
-        <div className="Scoutpage_ProfileContent_editformside">
-          <div className="Scoutpage_Profile_ImgVerificationSec">
-            <div className="Scoutpage_Profile_ImgNameSec">
-              <form
-                onSubmit={handleImgSubmit}
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                }}
-              >
-                <label className="ProfileName_InputImage" for='imagePlcholder'>
-              <img src={file} className="Scoutpage_Profile_placeholder" />
-          <input 
-          type='file'
-           id='imagePlcholder' 
-          onChange={handleChange} 
-          className='Scoutpage_Profile_ImagePlaceInput' 
-          />
-          <div className="ImageHolder_PrifilepicImg">
-            <AiFillCamera className="Profile_EditCameraImg" />
-          </div>
-          </label>
-
-                <button
-                  type="submit"
-                  className="Scoutpage_Profileform_savebutton"
+        <div className="Scoutpage_ProfileContent">
+          <div className="Scoutpage_ProfileContent_editformside">
+            <div className="Scoutpage_Profile_ImgVerificationSec">
+              <div className="Scoutpage_Profile_ImgNameSec">
+                <form
+                  onSubmit={handleImgSubmit}
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                  }}
                 >
-                  {imgloader ? (
-                    <CircularProgress size={15} />
-                  ) : (
-                    <span>Upload photo</span>
-                  )}
-                </button>
-              </form>
-              <div className="Scoutpage_Profile_nameVerify">
-                <p className="Scoutpage_profile_Username">{`${userDataInfo?.firstname} ${userDataInfo?.surname}`}</p>
-                <p className="Scoutpage_profile_Usertype">Talent Account</p>
+                  <label
+                    className="ProfileName_InputImage"
+                    for="imagePlcholder"
+                  >
+                    <img src={file} className="Scoutpage_Profile_placeholder" />
+                    <input
+                      type="file"
+                      id="imagePlcholder"
+                      onChange={handleChange}
+                      className="Scoutpage_Profile_ImagePlaceInput"
+                    />
+                    <div className="ImageHolder_PrifilepicImg">
+                      <AiFillCamera className="Profile_EditCameraImg" />
+                    </div>
+                  </label>
+
+                  <button
+                    type="submit"
+                    className="Scoutpage_Profileform_savebutton"
+                  >
+                    {imgloader ? (
+                      <CircularProgress size={15} />
+                    ) : (
+                      <span>Upload photo</span>
+                    )}
+                  </button>
+                </form>
+                <div className="Scoutpage_Profile_nameVerify">
+                  <p className="Scoutpage_profile_Username">{`${userDataInfo?.firstname} ${userDataInfo?.surname}`}</p>
+                  <p className="Scoutpage_profile_Usertype">Talent Account</p>
+                </div>
               </div>
+              {/* <Link to='/afrisport/player/viewprofile' className='Scoutpage_Profile_Viewprofilebutton'>View Profile</Link> */}
             </div>
-            {/* <Link to='/afrisport/player/viewprofile' className='Scoutpage_Profile_Viewprofilebutton'>View Profile</Link> */}
+
+            <Talent_Profileform userId={userId} />
+
+            <TalentProfileUploadId userId={userId} />
           </div>
-
-          <Talent_Profileform userId={userId} />
-
-          <TalentProfileUploadId userId={userId} />
         </div>
       </div>
-    </div>
     </div>
   );
 };
