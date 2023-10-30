@@ -58,7 +58,7 @@ const PlayerPayment = () => {
     const AllPaymentTrans = useSelector((state)=> state?.reducer?.GetPaymentSlice?.gottenAllPaymentData)
     const OfferPaymentTrans = useSelector((state)=> state?.reducer?.GetPaymentSlice?.getOfferPaymentData)
     const AdvertPaymentTrans = useSelector((state)=> state?.reducer?.GetPaymentSlice?.getAdvertPaymentData)
-    console.log('all advert payment ', AdvertPaymentTrans)
+    console.log('all advert payment ', OfferPaymentTrans)
 
     useEffect(()=>{
         const calcPayment = () =>{
