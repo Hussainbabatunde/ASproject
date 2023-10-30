@@ -31,8 +31,6 @@ function Talent_manager_palyer() {
     (state) => state?.reducer?.Talent_manager_slice
   );
 
-  console.log(Talent_manager_details_Get_all_player);
-
   const header = [
     {
       id: 1,
@@ -166,74 +164,74 @@ function Talent_manager_palyer() {
         />
       )}
       <div className="Scoutpage_maxWidthContainer">
-      <div className="Scoutpage_contents ">
-        <Talent_Header />
-        <ToastContainer />
+        <div className="Scoutpage_contents ">
+          <Talent_Header />
+          <ToastContainer />
 
-        <div className="Scoutpage_DealContent">
           <div className="Scoutpage_DealContent">
-            <div>
-              <div className="my-2">
-                <button
-                  className="bg-[#0F7BEF] font-bold text-base text-white rounded px-2 py-1 mr-3 cursor-pointer"
-                  to="/afrisport/talent-manager/add-players"
-                  onClick={() =>
-                    navigate("/afrisport/talent-manager/add-players")
-                  }
-                >
-                  Add Player
-                </button>
-                <button
+            <div className="Scoutpage_DealContent">
+              <div>
+                <div className="my-2">
+                  <button
+                    className="bg-[#0F7BEF] font-bold text-base text-white rounded px-2 py-1 mr-3 cursor-pointer"
+                    to="/afrisport/talent-manager/add-players"
+                    onClick={() =>
+                      navigate("/afrisport/talent-manager/add-players")
+                    }
+                  >
+                    Add Player
+                  </button>
+                  {/* <button
                   onClick={() => {
                     setIsModalOpen(true);
                   }}
                   className="bg-[#0F7BEF] font-bold text-base text-white rounded px-2 py-1 mr-3 cursor-pointer"
                 >
                   Create Player
-                </button>
+                </button> */}
+                </div>
               </div>
+              {Talent_manager_details_Get_all_player?.exact_manager_players__api
+                ?.length === 0 ? (
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    width: "100%",
+                  }}
+                >
+                  <Lottie
+                    style={{ width: "200px", height: "200px" }}
+                    animationData={empty}
+                  />
+                </div>
+              ) : (
+                <UseTable
+                  header={header}
+                  handleDelete={handleDelete}
+                  handleEdit={handleEdit}
+                  data={
+                    Talent_manager_details_Get_all_player?.exact_manager_players__api
+                  }
+                />
+              )}
             </div>
-            {Talent_manager_details_Get_all_player?.exact_manager_players__api
-              ?.length === 0 ? (
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  width: "100%",
-                }}
-              >
+            <Modal
+              open={show}
+              // onClose={handleClose}
+              aria-labelledby="modal-modal-title"
+              aria-describedby="modal-modal-description"
+            >
+              <Box sx={style}>
                 <Lottie
                   style={{ width: "200px", height: "200px" }}
-                  animationData={empty}
+                  animationData={football}
                 />
-              </div>
-            ) : (
-              <UseTable
-                header={header}
-                handleDelete={handleDelete}
-                handleEdit={handleEdit}
-                data={
-                  Talent_manager_details_Get_all_player?.exact_manager_players__api
-                }
-              />
-            )}
+              </Box>
+            </Modal>
           </div>
-          <Modal
-            open={show}
-            // onClose={handleClose}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
-          >
-            <Box sx={style}>
-              <Lottie
-                style={{ width: "200px", height: "200px" }}
-                animationData={football}
-              />
-            </Box>
-          </Modal>
         </div>
-      </div>
       </div>
     </>
   );
