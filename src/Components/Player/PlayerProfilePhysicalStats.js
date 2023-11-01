@@ -85,7 +85,7 @@ const PlayerProfilePhysicalStats = ({ userId }) => {
           placeholder="Male/Female"
           required
         />
-        <p className="Scoutpage_Profile_Profileformlabelnexttext">Height</p>
+        {/* <p className="Scoutpage_Profile_Profileformlabelnexttext">Height</p>
         <input
           type="text"
           className="Scoutpage_Profile_ProfileformlabelInput"
@@ -94,8 +94,23 @@ const PlayerProfilePhysicalStats = ({ userId }) => {
           onChange={handleHeightPhysical}
           placeholder="Feets"
           required
-        />
-        <p className="Scoutpage_Profile_Profileformlabelnexttext">Weight</p>
+        /> */}
+        <p className="Scoutpage_Profile_Profileformlabelnexttext">Height</p>
+        <select
+          required
+          name="height"
+          value={heightPhysical}
+          onChange={handleHeightPhysical}
+          className="Scoutpage_Profile_ProfileformlabelInput"
+        >
+          <option disabled></option>
+          <option value="Left">5'1" - 5'5"</option>
+          <option value="Right">5'5" - 5'8"</option>
+          <option value="Right">5'8" - 6'2"</option>
+          <option value="Right">6'2" - 6'6"</option>
+          <option value="Right">6'6" - 6'10"</option>
+        </select>
+        {/* <p className="Scoutpage_Profile_Profileformlabelnexttext">Weight</p>
         <input
           type="text"
           className="Scoutpage_Profile_ProfileformlabelInput"
@@ -104,7 +119,23 @@ const PlayerProfilePhysicalStats = ({ userId }) => {
           onChange={handleWeightPhysical}
           placeholder="Kg"
           required
-        />
+        /> */}
+        <p className="Scoutpage_Profile_Profileformlabelnexttext">Weight</p>
+        <select
+          required
+          name="weight"
+          value={weightPhysical}
+          onChange={handleWeightPhysical}
+          className="Scoutpage_Profile_ProfileformlabelInput"
+        >
+          <option disabled></option>
+          <option value="Left">40 - 49 kg</option>
+          <option value="Right">50 - 59 kg</option>
+          <option value="Right">60 - 69 kg</option>
+          <option value="Right">70 - 79 kg</option>
+          <option value="Right">80 - 89 kg</option>
+          <option value="Right">90 - 99 kg</option>
+        </select>
         <p className="Scoutpage_Profile_Profileformlabelnexttext">Language</p>
         <input
           type="text"

@@ -32,7 +32,7 @@ const initialState = {
       return await instance
         .get('player/managers-request')
         .then(async (response) => {
-            // console.log('managers request ',response.data)
+            console.log('managers request ',response.data)
           return response.data;
         })
   
