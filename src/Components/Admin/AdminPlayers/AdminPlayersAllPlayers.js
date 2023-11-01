@@ -53,13 +53,13 @@ const AdminPlayerAllNegotiate = ({
 
   const [searchInput, setSearchInput] = useState("");
 
-  console.log(Admin_Get_All_Player);
   const filteredUsersArray = Admin_Get_All_Player?.filter(
     (user) =>
       user?.firstname.toLowerCase().includes(searchInput.toLowerCase()) ||
       user?.surname.toLowerCase().includes(searchInput.toLowerCase())
   );
 
+  const reversedUsersArray = [...filteredUsersArray].reverse();
   const handleInputChange = (event) => {
     setSearchInput(event.target.value);
   };
@@ -126,10 +126,8 @@ const AdminPlayerAllNegotiate = ({
             />
           </div>
         ) : (
-          <TableWithPagination header={header} data={filteredUsersArray} />
+          <TableWithPagination header={header} data={reversedUsersArray} />
         )}
-
-        {console.log(filteredUsersArray)}
       </div>
     </div>
   );

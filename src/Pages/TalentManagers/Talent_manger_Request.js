@@ -26,6 +26,8 @@ const Talent_manger_Request = () => {
     (state) => state?.reducer?.Talent_manager_slice
   );
 
+  console.log({ Talent_manager_requested_players });
+
   const dispatch = useDispatch();
 
   const data = [
@@ -44,12 +46,12 @@ const Talent_manger_Request = () => {
     {
       id: 2,
       name: "Position",
-      case: "talent_player_Position",
+      case: "talent_player_Position_Request",
     },
     {
       id: 3,
       name: "Club",
-      case: "talent_player_Club",
+      case: "talent_player_Club_Request",
     },
   ];
   const style = {
@@ -72,46 +74,46 @@ const Talent_manger_Request = () => {
 
   return (
     <>
-    <div className="Scoutpage_maxWidthContainer">
-      <div className="Scoutpage_contents ">
-        <Talent_Header />
+      <div className="Scoutpage_maxWidthContainer">
+        <div className="Scoutpage_contents ">
+          <Talent_Header />
 
-        <div className="Scoutpage_DealContent">
-          {Talent_manager_requested_players?.data?.length === 0 ? (
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                width: "100%",
-              }}
-            >
+          <div className="Scoutpage_DealContent">
+            {Talent_manager_requested_players?.data?.length === 0 ? (
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  width: "100%",
+                }}
+              >
+                <Lottie
+                  style={{ width: "200px", height: "200px" }}
+                  animationData={empty}
+                />
+              </div>
+            ) : (
+              <UseTable
+                header={header}
+                data={Talent_manager_requested_players?.data}
+              />
+            )}
+          </div>
+          <Modal
+            open={show}
+            // onClose={handleClose}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+          >
+            <Box sx={style}>
               <Lottie
                 style={{ width: "200px", height: "200px" }}
-                animationData={empty}
+                animationData={football}
               />
-            </div>
-          ) : (
-            <UseTable
-              header={header}
-              data={Talent_manager_requested_players?.data}
-            />
-          )}
+            </Box>
+          </Modal>
         </div>
-        <Modal
-          open={show}
-          // onClose={handleClose}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-        >
-          <Box sx={style}>
-            <Lottie
-              style={{ width: "200px", height: "200px" }}
-              animationData={football}
-            />
-          </Box>
-        </Modal>
-      </div>
       </div>
     </>
   );

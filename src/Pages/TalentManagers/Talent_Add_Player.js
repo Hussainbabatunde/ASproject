@@ -22,6 +22,8 @@ function Talent_Add_Player() {
     (state) => state?.reducer?.Talent_manager_slice
   );
 
+  console.log({ Talent_manager_details_Get_all_player });
+
   const [show, setShow] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -93,7 +95,7 @@ function Talent_Add_Player() {
   ];
 
   const handleEdit = (data) => {
-    console.log(data);
+    console.log({ data });
     dispatch(Talent_manager_Add_player_fun(data));
   };
   return (
