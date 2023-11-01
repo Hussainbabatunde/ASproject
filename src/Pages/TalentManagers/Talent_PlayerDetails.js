@@ -41,7 +41,7 @@ const Talent_PlayerDetails = () => {
   const { each } = player_data.state;
 
   useEffect(() => {
-    dispatch(Talent_manager_Get_Single_player_fun(each?.user_id));
+    dispatch(Talent_manager_Get_Single_player_fun(each?.id));
     return () => {
       dispatch(reset_Single_manager_player());
     };
@@ -49,84 +49,14 @@ const Talent_PlayerDetails = () => {
 
   let PlayerDetails = Talent_manager_Get_Single_player?.data;
 
-  console.log(PlayerDetails);
-
   const [loading, setLoading] = useState(false);
 
-  //   const VerifiedStatus = useSelector(
-  //     (state) => state.reducer?.PlayerProfileSlice?.VerificationStatusData?.data
-  //   );
-  //   let progress =
-  //     VerifiedStatus?.bio +
-  //     VerifiedStatus?.price +
-  //     VerifiedStatus?.physical_stat +
-  //     VerifiedStatus?.images +
-  //     VerifiedStatus?.videos;
-
-  //   //   const PlayerDetails = useSelector(
-  //   //     (state) => state?.reducer?.PlayerProfileSlice?.AllProfileDetailsData?.data
-  //   //   );
-
-  //   const userId = useSelector(
-  //     (state) => state?.reducer?.LoginSlice?.logindata?.data?.user?.id
-  //   );
-  //   const [coverimg, setCoverImg] = useState({});
   const [deleteimgIndex, setDeleteImgIndex] = useState({});
   //   const [deleteVideoIndex, setDeleteVideoIndex] = useState({});
   const [loadingIndex, setLoadingIndex] = useState(null);
   const [imgModal, setImgModal] = useState(null);
   const [showImgModal, setShowImgModal] = useState(false);
   const [show, setShow] = useState(false);
-
-  //   // console.log('PlayerDetails ', PlayerDetails)
-  //   const originalString = PlayerDetails?.bio?.position;
-  //   const positionPlayed = originalString.replace(/_/g, " ");
-  //   //set cover img
-  //   const handleSetCoverImg = async (id) => {
-  //     // coverimg.user_id = userId;
-  //     // coverimg.id = id;
-  //     setLoadingIndex(id);
-  //     // await dispatch(PlayerSetCoverImg(coverimg));
-  //     setLoadingIndex(null);
-  //     // console.log('cover img ', coverimg)
-  //   };
-
-  //   const hideAdvertiseProfile = () => setShow(false);
-
-  //   const handleDeleteImg = async (id) => {
-  //     setDeleteImgIndex(id);
-  //     await dispatch(PlayerDeleteImgApi({ id, userId }));
-  //     await dispatch(ProfileDetailsPlayer(userId));
-  //     setDeleteImgIndex(null);
-  //   };
-
-  //   const handleDeleteVideo = async (id) => {
-  //     setDeleteVideoIndex(id);
-  //     await dispatch(PlayerDeleteVideoApi({ id, userId }));
-  //     await dispatch(ProfileDetailsPlayer(userId));
-  //     setDeleteVideoIndex(null);
-  //   };
-
-  //   const handleImageClicked = (img) => {
-  //     console.log(img);
-  //     setImgModal(img);
-  //     setShowImgModal(true);
-  //   };
-  //   const handleCloseImageClicked = () => {
-  //     setShowImgModal(false);
-  //   };
-
-  //   useEffect(() => {
-  //     const getInfo = async () => {
-  //       setLoading(true);
-  //       await dispatch(ProfileDetailsPlayer(userId));
-  //       await dispatch(PlayerProfileVerificationStatus(userId));
-  //       setLoading(false);
-  //     };
-  //     getInfo();
-  //   }, []);
-
-  //   return <h1>dsdkj</h1>;
 
   return (
     <div className="ScoutViewProfile">

@@ -49,7 +49,7 @@ const Talent_Edit_player = () => {
   const { each } = player_data.state;
 
   useEffect(() => {
-    dispatch(Talent_manager_Get_Single_player_fun(each?.user_id));
+    dispatch(Talent_manager_Get_Single_player_fun(each?.id));
     return () => {
       dispatch(reset_Single_manager_player());
     };
@@ -57,12 +57,11 @@ const Talent_Edit_player = () => {
 
   let Player_Details = Talent_manager_Get_Single_player?.data;
 
-  console.log({ Player_Details });
-
   const [imgloader, setImgLoader] = useState(false);
 
   const [file, setFile] = useState(Player_Details?.profile_pics);
 
+  console.log({ hahah: Player_Details?.profile_pics });
   console.log({ file });
   const [picFile, setPicFile] = useState(null);
   const [checkedVideoLink, setCheckedVideoLink] = useState(false);
@@ -168,8 +167,6 @@ const Talent_Edit_player = () => {
 
     setVideoLoader(true);
 
-    console.log(videoData);
-
     Profilevidoemutation.mutate(videoData);
 
     // await dispatch(PlayerProfileVideoLink(videoData));
@@ -255,17 +252,11 @@ const Talent_Edit_player = () => {
                   }}
                 >
                   <label for="imagePlcholder">
-                    {file === null ? (
-                      <img
-                        src={imgPlaceHolder}
-                        className="Scoutpage_Profile_placeholder"
-                      />
-                    ) : (
-                      <img
-                        src={file}
-                        className="Scoutpage_Profile_placeholder"
-                      />
-                    )}
+                    <img
+                      src={Player_Details?.profile_pics}
+                      alt=""
+                      className="Scoutpage_Profile_placeholder"
+                    />
 
                     <input
                       type="file"

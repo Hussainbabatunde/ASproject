@@ -27,8 +27,6 @@ const AdminRoles = () => {
     (state) => state?.reducer?.RoleSlice
   );
 
-  console.log(GetRole);
-
   const [searchQuery, setSearchQuery] = useState("");
 
   const header = [
