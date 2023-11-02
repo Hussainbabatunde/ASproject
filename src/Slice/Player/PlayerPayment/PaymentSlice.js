@@ -34,7 +34,7 @@ const initialState = {
       return await instance
         .get('player/payment/transactions')
         .then(async (response) => {
-            // console.log('all payments Players ',response.data)
+            console.log('all payments Players ',response.data)
           return response.data;
         })
   
@@ -99,7 +99,7 @@ const initialState = {
       return await instance
         .get('player/payment/advert-transactions')
         .then(async (response) => {
-            // console.log('all advert payments ',response.data)
+            console.log('all advert payments ',response.data)
           return response.data;
         })
   

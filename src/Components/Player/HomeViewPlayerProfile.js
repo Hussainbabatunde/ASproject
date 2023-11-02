@@ -22,6 +22,7 @@ import { ToastContainer } from 'react-toastify'
 import VideoRequestModal from './VideoRequestModal'
 import Header from '../Header/Header'
 import ModalImgViewProfile from './ModalImgViewProfile'
+import { GetMarketPriceApi } from '../../Slice/Player/PlayerPayment/PaymentSlice'
 
 const HomeViewPlayerProfile = () => {
   const { id } = useParams();
@@ -119,6 +120,7 @@ const HomeViewPlayerProfile = () => {
         const getInfo = async() =>{
           setLoading(true)
           await dispatch(ProfileDetailsPlayer(id))
+          await dispatch(GetMarketPriceApi())
           // await dispatch(PlayerProfileVerificationStatus())
           setLoading(false)
         }
