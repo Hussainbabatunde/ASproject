@@ -58,6 +58,7 @@ const HomePagePitchOffer = ({
   // console.log('got market ',gottenMarketfee)
 
   const marketfee = Number(gottenMarketfee);
+  console.log(marketfee)
   const TotalFee = marketfee + Number(payValue);
   console.log(marketfee)
 

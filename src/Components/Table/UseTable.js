@@ -392,14 +392,14 @@ const UseTable = ({
                       <td className="useTable_tableDetails">
                         {each?.payment_type == "advert"
                           ? each?.description
-                          : ""}
+                          : <span>{each?.transaction?.sender?.firstname} - {each?.transaction?.sender?.surname}</span>}
                       </td>
                     );
 
                   case "Date sent":
                     return (
                       <td className="useTable_tableDetails">
-                        {format(new Date(each?.created_at), "dd MMMM yyyy")}
+                        {format(new Date(each?.transaction?.payment_detail?.created_at || each?.created_at), "dd MMMM yyyy")}
                       </td>
                     );
 
@@ -408,20 +408,20 @@ const UseTable = ({
                       <td className="useTable_tableDetails">
                         {each?.payment_type == "advert"
                           ? each?.payment_type
-                          : each?.description}
+                          : each?.transaction?.payment_detail?.description}
                       </td>
                     );
 
                   case "Payment type":
                     return (
                       <td className="useTable_tableDetails">
-                        {each?.payment_type}
+                        {each?.payment_type || each?.transaction?.payment_detail?.payment_type}
                       </td>
                     );
 
                   case "Amount sent":
                     return (
-                      <td className="useTable_tableDetails">${each?.amount}</td>
+                      <td className="useTable_tableDetails">${each?.amount || each?.transaction?.payment_detail?.amount}</td>
                     );
 
                   case "Manager":

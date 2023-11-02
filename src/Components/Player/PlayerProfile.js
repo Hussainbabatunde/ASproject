@@ -332,7 +332,7 @@ const PlayerProfile = () => {
             </p>
             <div style={Parentdiv}>
               <div style={Childdiv}>
-                <span style={progresstext}>{`${progress}%`}</span>
+                {/* <span style={progresstext}>{`${progress}%`}</span> */}
               </div>
             </div>
             <div className="ScoutProfile_VerifyAccountCheckdiv">

@@ -74,6 +74,7 @@ const numberOfWeeks = differenceInWeeks(endDate, startDate);
   }
   const handleDownload = async() =>{
     setDownloadPage(true)
+    console.log(id, userId)
     await dispatch(GetScoutOfferDownloadApi(id, userId))
     setDownloadPage(false)
   }
