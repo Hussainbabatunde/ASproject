@@ -49,7 +49,7 @@ const Talent_Edit_player = () => {
   const { each } = player_data.state;
 
   useEffect(() => {
-    dispatch(Talent_manager_Get_Single_player_fun(each?.user_id));
+    dispatch(Talent_manager_Get_Single_player_fun(each?.id));
     return () => {
       dispatch(reset_Single_manager_player());
     };
@@ -60,6 +60,9 @@ const Talent_Edit_player = () => {
   const [imgloader, setImgLoader] = useState(false);
 
   const [file, setFile] = useState(Player_Details?.profile_pics);
+
+  console.log({ hahah: Player_Details?.profile_pics });
+  console.log({ file });
   const [picFile, setPicFile] = useState(null);
   const [checkedVideoLink, setCheckedVideoLink] = useState(false);
   const [checkedProfilePic, setCheckedProfilePic] = useState(false);
@@ -67,14 +70,6 @@ const Talent_Edit_player = () => {
   const [checkedUploadPics, setCheckedUploadPics] = useState(false);
   const [checkedMeansofID, setCheckedMeansofID] = useState(false);
 
-  const handleLogout = async () => {
-    await dispatch(LogoutAuth());
-    // await dispatch(resetPlayerProfileSlice())
-    UserLogout();
-    localStorage.clear();
-    sessionStorage.clear();
-    window.location.reload();
-  };
   const data = [
     { id: 1, pathTo: "/afrisport/player/profile", pathName: "Profile" },
     { id: 2, pathTo: "/afrisport/player/deal", pathName: "Deals" },
@@ -172,8 +167,6 @@ const Talent_Edit_player = () => {
 
     setVideoLoader(true);
 
-    console.log(videoData);
-
     Profilevidoemutation.mutate(videoData);
 
     // await dispatch(PlayerProfileVideoLink(videoData));
@@ -246,86 +239,79 @@ const Talent_Edit_player = () => {
       <Talent_Header />
 
       <div className="Scoutpage_maxWidthContainer">
-      <div className="Scoutpage_ProfileContent">
-        <div className="Scoutpage_ProfileContent_editformside">
-          <div className="Scoutpage_Profile_ImgVerificationSec">
-            <div className="Scoutpage_Profile_ImgNameSec">
-              <form
-                onSubmit={handleImgSubmit}
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                }}
-              >
-                <label for="imagePlcholder">
-                  {file === null ? (
+        <div className="Scoutpage_ProfileContent">
+          <div className="Scoutpage_ProfileContent_editformside">
+            <div className="Scoutpage_Profile_ImgVerificationSec">
+              <div className="Scoutpage_Profile_ImgNameSec">
+                <form
+                  onSubmit={handleImgSubmit}
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                  }}
+                >
+                  <label for="imagePlcholder">
                     <img
-                      src={imgPlaceHolder}
+                      src={Player_Details?.profile_pics}
+                      alt=""
                       className="Scoutpage_Profile_placeholder"
                     />
-                  ) : (
-                    <img src={file} className="Scoutpage_Profile_placeholder" />
-                  )}
 
-                  <input
-                    type="file"
-                    id="imagePlcholder"
-                    onChange={handleChange}
-                    className="Scoutpage_Profile_ImagePlaceInput"
-                  />
-                </label>
+                    <input
+                      type="file"
+                      id="imagePlcholder"
+                      onChange={handleChange}
+                      className="Scoutpage_Profile_ImagePlaceInput"
+                    />
+                  </label>
 
-                <button
-                  type="submit"
-                  className="Scoutpage_Profileform_savebutton"
-                >
-                  {ProfileImagemutation?.isLoading ? (
-                    <CircularProgress size={15} />
-                  ) : (
-                    <span>Upload photo</span>
-                  )}
-                </button>
-              </form>
-              <div className="Scoutpage_Profile_nameVerify">
-                <p className="Scoutpage_profile_Username">
-                  {`${Player_Details?.firstname} ${Player_Details?.surname}`}
-                  <span className="Scoutpage_Profile_Verificationstatus">
-                    {Player_Details?.reviewed === "approved"
-                      ? " ( Verified)"
-                      : " (not Verified)"}
-                  </span>
-                </p>
-                <p className="Scoutpage_profile_Usertype">Player Account</p>
+                  <button
+                    type="submit"
+                    className="Scoutpage_Profileform_savebutton"
+                  >
+                    {ProfileImagemutation?.isLoading ? (
+                      <CircularProgress size={15} />
+                    ) : (
+                      <span>Upload photo</span>
+                    )}
+                  </button>
+                </form>
+                <div className="Scoutpage_Profile_nameVerify">
+                  <p className="Scoutpage_profile_Username">
+                    {`${Player_Details?.firstname} ${Player_Details?.surname}`}
+                    <span className="Scoutpage_Profile_Verificationstatus">
+                      {Player_Details?.reviewed === "approved"
+                        ? " ( Verified)"
+                        : " (not Verified)"}
+                    </span>
+                  </p>
+                  <p className="Scoutpage_profile_Usertype">Player Account</p>
+                </div>
               </div>
+              <Link
+                to="/afrisport/player/viewprofile"
+                className="Scoutpage_Profile_Viewprofilebutton"
+              >
+                View Profile
+              </Link>
             </div>
-            <Link
-              to="/afrisport/player/viewprofile"
-              className="Scoutpage_Profile_Viewprofilebutton"
-            >
-              View Profile
-            </Link>
-          </div>
-
-          <TalentPlayerProfileProfileform user_data={Player_Details} />
-          <TalentPlayerProfilePhysicalStats user_data={Player_Details} />
-
-          <TalentPlayerProfileBusinessService user_data={Player_Details} />
-
-          {/* <TalentPlayerProfileFanService user_data={Player_Details} /> */}
-
-          <TalentPlayerProfileUploadId user_data={Player_Details} />
-          <TalentPlayerProfileVideo
-            user_data={Player_Details}
-            videoLoader={videoLoader}
-            handleSubmitVideos={handleSubmitVideos}
-            addInput={addInput}
-            handleInputChange={handleInputChange}
-            inputs={inputs}
-            removeInput={removeInput}
-          />
-
-          {/* 
+            {console.log({ Player_Details })}
+            <TalentPlayerProfileProfileform user_data={Player_Details} />
+            <TalentPlayerProfilePhysicalStats user_data={Player_Details} />
+            <TalentPlayerProfileBusinessService user_data={Player_Details} />
+            {/* <TalentPlayerProfileFanService user_data={Player_Details} /> */}
+            <TalentPlayerProfileUploadId user_data={Player_Details} />
+            <TalentPlayerProfileVideo
+              user_data={Player_Details}
+              videoLoader={videoLoader}
+              handleSubmitVideos={handleSubmitVideos}
+              addInput={addInput}
+              handleInputChange={handleInputChange}
+              inputs={inputs}
+              removeInput={removeInput}
+            />
+            {/* 
           <PlayerProfileFanService userId={userId} />
           <PlayerProfileUploadId userId={userId} />
           <PlayerProfileYourImages userId={userId} />
@@ -338,8 +324,8 @@ const Talent_Edit_player = () => {
             inputs={inputs}
             removeInput={removeInput}
           /> */}
+          </div>
         </div>
-      </div>
       </div>
     </div>
   );

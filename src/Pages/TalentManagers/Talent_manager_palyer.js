@@ -108,7 +108,7 @@ function Talent_manager_palyer() {
 
       let data = {
         manager_id: logindata?.data?.user?.id,
-        player_id: formData?.user_id,
+        player_id: formData?.id,
       };
 
       // console.log(data);

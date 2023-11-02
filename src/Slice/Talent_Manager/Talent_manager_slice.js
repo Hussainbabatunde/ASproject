@@ -136,7 +136,7 @@ const Talent_manager_requested_players_fun_Service = async (token) => {
   };
 
   const response = await axios.get(API_URL, config);
-
+  console.log({ data: response.data });
   return response.data;
 };
 
@@ -240,8 +240,10 @@ const Talent_manager_Add_player_fun_Service = async (data, id, token) => {
 
   let userData = {
     manager_id: id,
-    player_id: data?.user_id,
+    player_id: data?.id,
   };
+
+  console.log({ userData });
 
   const config = {
     headers: {
@@ -251,7 +253,7 @@ const Talent_manager_Add_player_fun_Service = async (data, id, token) => {
 
   const response = await axios.post(API_URL, userData, config);
 
-  // console.log(response.data);
+  console.log(response.data);
   return response.data;
 };
 

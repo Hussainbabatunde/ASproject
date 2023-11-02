@@ -141,7 +141,6 @@ const AdminAllAdmins = () => {
   };
 
   const handleDelete = (data) => {
-    console.log(data);
     let id = data?.user?.id;
 
     dispatch(Delete__Admin_fun(id));
@@ -163,10 +162,6 @@ const AdminAllAdmins = () => {
   const [permission_item, setPermission_item] = useState(null);
 
   const HandlePermision = (item) => {
-    console.log(item);
-
-    console.log("as");
-
     setModal_permission(true);
     setPermission_item(item);
   };

@@ -32,8 +32,6 @@ const UseTable = ({
   handleDelete,
   handleEdit,
 }) => {
-  console.log({ Talent_manager_details_Get_all_player: data });
-
   const [acceptIndex, setAcceptIndex] = useState(null);
   const [deleteIndex, setDeleteIndex] = useState(null);
   const [deleteRequestIndex, setDeleteRequestIndex] = useState(null);
@@ -87,7 +85,6 @@ const UseTable = ({
     setDeleteRequestIndex(id);
     sentData.request_id = id;
     sentData.player_id = userId;
-    // console.log('sent data ', sentData)
     await dispatch(PlayerDeleteRequestDetailsApi(sentData));
     await dispatch(PlayerFanDealsApi());
     setDeleteRequestIndex(null);
@@ -97,7 +94,6 @@ const UseTable = ({
     setDeleteManagerRequestIndex(index);
     sentData.manager_id = id;
     sentData.player_id = userId;
-    // console.log('sent data ', sentData)
     await dispatch(PlayerDeleteManagerDetailsApi(sentData));
     await dispatch(PlayerManagerDealsApi());
     setDeleteManagerRequestIndex(null);
@@ -127,7 +123,6 @@ const UseTable = ({
       </thead>
       <tbody>
         {data?.map((each, index) => {
-          console.log({ each });
           return (
             <tr key={index}>
               {header?.map((item) => {
@@ -268,11 +263,29 @@ const UseTable = ({
                       </td>
                     );
 
+                  case "talent_player_Position_Request":
+                    return (
+                      <td className="useTable_tableDetails">
+                        <>
+                          {each?.requests?.request?.position?.map((item) => {
+                            return <span>{item?.position} </span>;
+                          })}
+                        </>
+                      </td>
+                    );
+
                   case "talent_player_Club":
                     return (
                       <td className="useTable_tableDetails">
                         {each?.requests?.player?.current_club ||
                           each?.current_club}
+                      </td>
+                    );
+
+                  case "talent_player_Club_Request":
+                    return (
+                      <td className="useTable_tableDetails">
+                        {each?.requests?.request?.current_club}
                       </td>
                     );
 
