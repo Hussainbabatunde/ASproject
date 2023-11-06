@@ -58,20 +58,20 @@ const PlayerPayment = () => {
     const AllPaymentTrans = useSelector((state)=> state?.reducer?.GetPaymentSlice?.gottenAllPaymentData)
     const OfferPaymentTrans = useSelector((state)=> state?.reducer?.GetPaymentSlice?.getOfferPaymentData)
     const AdvertPaymentTrans = useSelector((state)=> state?.reducer?.GetPaymentSlice?.getAdvertPaymentData)
-    console.log('all advert payment ', OfferPaymentTrans)
+    console.log('all advert payment ', AllPaymentTrans)
 
     useEffect(()=>{
         const calcPayment = () =>{
             let amountSum = 0
             if (AllPaymentTrans && AllPaymentTrans.length > 0) {
             for (let i=0; i<AllPaymentTrans?.length; i++){
-                amountSum += Number(AllPaymentTrans[i]?.amount)
-                // console.log(AllPaymentTrans[i].amount)
+                amountSum += Number(AllPaymentTrans[i]?.transaction?.payment_detail?.amount)
+                // console.log(AllPaymentTrans[i]?.transaction?.payment_detail.created_at)
             }
-            console.log(format(new Date(AllPaymentTrans[0].created_at), 'MMMM yyyy'))
-            console.log(format(new Date(AllPaymentTrans[AllPaymentTrans.length-1].created_at), 'MMMM yyyy'))
-            const firstMonth = format(new Date(AllPaymentTrans[0].created_at), 'MMMM yyyy');
-            const lastMonth = format(new Date(AllPaymentTrans[AllPaymentTrans.length-1].created_at), 'MMMM yyyy');
+            // console.log(format(new Date(AllPaymentTrans[0]?.created_at), 'MMMM yyyy'))
+            console.log(AllPaymentTrans[AllPaymentTrans?.length-1].transaction?.payment_detail?.created_at)
+            const firstMonth = format(new Date(AllPaymentTrans[0]?.transaction?.payment_detail?.created_at), 'MMMM yyyy');
+            const lastMonth = format(new Date(AllPaymentTrans[AllPaymentTrans?.length-1].transaction?.payment_detail?.created_at), 'MMMM yyyy')
             setTotalFirstMonth(firstMonth)
             setTotalLastMonth(lastMonth)
         }
@@ -146,8 +146,8 @@ const PlayerPayment = () => {
                 <div className='Scoutpage_TransGetpaid_dateandamt'>
                 {OfferPaymentTrans?.map((each,index)=>(
                 <div key={index} className='Scoutpage_Getpaid_dateSec'>
-                    <p className='Scoutpage_Getpaid_monthandyear'>{format(new Date(each?.created_at), 'MMMM yyyy')}</p>
-                <p className='Scoutpage_Getpaid_monthandyear'>${each?.amount}</p>
+                    <p className='Scoutpage_Getpaid_monthandyear'>{format(new Date(each?.transaction?.payment_detail?.created_at), 'MMMM yyyy')}</p>
+                <p className='Scoutpage_Getpaid_monthandyear'>${each?.transaction?.payment_detail?.amount}</p>
                 </div>
                 ))}</div>
             
@@ -175,13 +175,13 @@ const PlayerPayment = () => {
             <div className='Scoutpage_transactionContent'>
                 <p className='Scoutpage_PaymentEarnings_earntext'>Transaction</p>
                 
-                <div className='Scoutpage_TransGetpaid_dateandamt'>
+                {/* <div className='Scoutpage_TransGetpaid_dateandamt'>
                 {dataInfo?.map((each,index)=>(
                 <div key={index} className='Scoutpage_Getpaid_dateSec'>
                     <p className='Scoutpage_Getpaid_monthandyear'>{each?.date}</p>
                 <p className='Scoutpage_Getpaid_monthandyear'>N{each?.amt}</p>
                 </div>
-                ))}</div>
+                ))}</div> */}
             
             </div>
             <Link  className='Scoutpage_transaction_Linkotherpages'>View All Transactions</Link>

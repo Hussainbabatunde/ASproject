@@ -176,6 +176,8 @@ const ScoutProfile = () => {
           </div>
           {/* <Link to='/afrisport/player/viewprofile' className='Scoutpage_Profile_Viewprofilebutton'>View Profile</Link> */}
         </div>
+
+        <p className='text-red-600'>Important Notice: Profile has to be completed before pitching offer to make the offer visible.</p>
         <ScoutProfileProfileform userId={userId} />
         <ScoutProfileUploadId userId={userId}/>
       </div>

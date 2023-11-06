@@ -121,6 +121,7 @@ const Talent_manager_Profile = () => {
               {/* <Link to='/afrisport/player/viewprofile' className='Scoutpage_Profile_Viewprofilebutton'>View Profile</Link> */}
             </div>
 
+            <p className='text-red-600'>Important Notice: Profile has to be completed before adding or creating a player.</p>
             <Talent_Profileform userId={userId} />
 
             <TalentProfileUploadId userId={userId} />
