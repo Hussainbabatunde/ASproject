@@ -53,11 +53,18 @@ const AdminPlayerAllNegotiate = ({
 
   const [searchInput, setSearchInput] = useState("");
 
-  const filteredUsersArray = Admin_Get_All_Player?.filter(
-    (user) =>
-      user?.firstname.toLowerCase().includes(searchInput.toLowerCase()) ||
-      user?.surname.toLowerCase().includes(searchInput.toLowerCase())
-  );
+  // const filteredUsersArray = Admin_Get_All_Player?.filter(
+  //   (user) =>
+  //     user?.firstname.toLowerCase().includes(searchInput.toLowerCase()) ||
+  //     user?.surname.toLowerCase().includes(searchInput.toLowerCase())
+  // );
+
+  const filteredUsersArray =
+    Admin_Get_All_Player?.filter(
+      (user) =>
+        user?.firstname.toLowerCase().includes(searchInput.toLowerCase()) ||
+        user?.surname.toLowerCase().includes(searchInput.toLowerCase())
+    ) || [];
 
   const reversedUsersArray = [...filteredUsersArray].reverse();
   const handleInputChange = (event) => {

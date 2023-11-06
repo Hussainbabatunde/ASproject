@@ -18,9 +18,10 @@ import {
   PlayerSetCoverImg,
   ProfileDetailsPlayer,
 } from "../../Slice/Player/Playerprofile/PlayerProfileSlice";
+import { ToastContainer, toast } from "react-toastify";
+
 import { CircularProgress, Skeleton } from "@mui/material";
 import ReactPlayer from "react-player";
-import { ToastContainer } from "react-toastify";
 // import ModalImgViewProfile from "./ModalImgViewProfile";
 import { AiFillDelete, AiFillStar } from "react-icons/ai";
 import ModalImgViewProfile from "../../Components/Player/ModalImgViewProfile";
@@ -29,6 +30,8 @@ import {
   Talent_manager_Get_Single_player_fun,
   reset_Single_manager_player,
 } from "../../Slice/Talent_Manager/Talent_manager_slice";
+import { useMutation } from "react-query";
+import axios from "axios";
 
 const Talent_PlayerDetails = () => {
   const dispatch = useDispatch();
@@ -40,12 +43,7 @@ const Talent_PlayerDetails = () => {
   );
   const { each } = player_data.state;
 
-  useEffect(() => {
-    dispatch(Talent_manager_Get_Single_player_fun(each?.id));
-    return () => {
-      dispatch(reset_Single_manager_player());
-    };
-  }, []);
+  console.log({ each });
 
   let PlayerDetails = Talent_manager_Get_Single_player?.data;
 
@@ -57,6 +55,66 @@ const Talent_PlayerDetails = () => {
   const [imgModal, setImgModal] = useState(null);
   const [showImgModal, setShowImgModal] = useState(false);
   const [show, setShow] = useState(false);
+
+  let baseURL = process.env.REACT_APP_AFRISPORTURL;
+
+  const DeleteImageMutation = useMutation(
+    (formData) => {
+      // Your API request code here
+      // Use formData to send the image data to the API
+
+      console.log({ formData });
+      let API_URL = `${baseURL}talent-manager/player/remove-image/${formData}/${each?.id}`;
+      const tokengot = localStorage.getItem("token");
+      console.log({ API_URL });
+
+      const config = {
+        headers: {
+          Authorization: `Bearer ${tokengot}`,
+        },
+      };
+      return axios.delete(API_URL, config);
+    },
+    {
+      onSuccess: () => {
+        toast.success("Form submitted successfully!", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      },
+      onError: () => {
+        toast.error("Error occurred while submitting the form.", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          className: "Forbidden403",
+        });
+      },
+    }
+  );
+  const handleDeleteImg = async (id) => {
+    console.log({ id });
+
+    DeleteImageMutation.mutate(id);
+  };
+
+  useEffect(() => {
+    dispatch(Talent_manager_Get_Single_player_fun(each?.id));
+    return () => {
+      dispatch(reset_Single_manager_player());
+    };
+  }, [dispatch, DeleteImageMutation?.isSuccess, each?.id]);
 
   return (
     <div className="ScoutViewProfile">
@@ -305,7 +363,7 @@ const Talent_PlayerDetails = () => {
               </button>
               <button
                 className="ScoutViewProfile_Image_DeleteImg"
-                // onClick={() => handleDeleteImg(each?.id)}
+                onClick={() => handleDeleteImg(each?.id)}
               >
                 {deleteimgIndex == each?.id ? (
                   <CircularProgress size={15} />
