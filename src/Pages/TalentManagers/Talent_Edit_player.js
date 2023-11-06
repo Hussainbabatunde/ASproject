@@ -1,21 +1,12 @@
 import React, { useEffect, useState } from "react";
 // import "../Scout/ScoutProfile.css";
-import imgPlaceHolder from "../../assets/imageplaceholder.png";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import CircularProgress from "@mui/material/CircularProgress";
-import { LogoutAuth } from "../../Slice/auth/Login";
 import { RxExit } from "react-icons/rx";
-import { NavLink, Route, Routes } from "react-router-dom";
 
 import { useMutation } from "react-query";
 
-import {
-  PlayerProfilePicture,
-  PlayerProfileVerificationStatus,
-  PlayerProfileVideoLink,
-  ProfileDetailsPlayer,
-} from "../../Slice/Player/Playerprofile/PlayerProfileSlice";
 import { ToastContainer, toast } from "react-toastify";
 import { UserLogout } from "../../Components/Player/UserLogOut";
 // import { reset as resetPlayerProfileSlice } from "../../Slice/Player/Playerprofile/PlayerProfileSlice";
@@ -75,10 +66,6 @@ const Talent_Edit_player = () => {
     { id: 3, pathTo: "/afrisport/player/views", pathName: "Views" },
     { id: 4, pathTo: "/afrisport/player/payment", pathName: "Payment" },
   ];
-  // function handleChange(e) {
-  //   setPicFile(e.target.files[0]);
-  //   setFile(URL.createObjectURL(e.target.files[0]));
-  // }
 
   function handleChange(e) {
     setPicFile(e.target.files[0]);

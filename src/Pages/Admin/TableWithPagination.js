@@ -34,8 +34,6 @@ const TableWithPagination = ({
     setCurrentPage(pageNumber);
   };
 
-  console.log(currentItems);
-
   return (
     <>
       <div className="max-w-full overflow-x-auto ">

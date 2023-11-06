@@ -26,7 +26,8 @@ import Talent_manager_slice from "./Talent_Manager/Talent_manager_slice";
 import PlayerManagerSlice from "./Player/PlayerManager/PlayerManagerSlice";
 import Admin_AdsSlice from "./Admin/Admin_AdsSlice";
 import TransactionSlice from "./Admin/TransactionSlice";
-import GetPaymentSlice from './Player/PlayerPayment/PaymentSlice'
+import GetPaymentSlice from "./Player/PlayerPayment/PaymentSlice";
+import SettingsSlice from "./Admin/SettingsSlice";
 
 const reducers = combineReducers({
   LoginSlice: LoginSlice,
@@ -54,7 +55,8 @@ const reducers = combineReducers({
   Talent_manager_slice: Talent_manager_slice,
   Admin_AdsSlice: Admin_AdsSlice,
   TransactionSlice: TransactionSlice,
-  GetPaymentSlice: GetPaymentSlice
+  GetPaymentSlice: GetPaymentSlice,
+  SettingsSlice: SettingsSlice,
 });
 
 const persistConfig = {

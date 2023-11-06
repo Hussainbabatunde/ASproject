@@ -126,6 +126,16 @@ const AdminUseTable = ({
                       </td>
                     );
 
+                  case "Settings_Name":
+                    return (
+                      <td className="useTable_tableDetails">{each?.name}</td>
+                    );
+
+                  case "Settings_Data":
+                    return (
+                      <td className="useTable_tableDetails">{each?.data}</td>
+                    );
+
                   case "Admin_email":
                     return (
                       <td className="useTable_tableDetails">
@@ -580,6 +590,23 @@ const AdminUseTable = ({
                             </button>
                           </>
                         )}
+
+                        {/* <Link className="Admin_playersviewprofile">Edit</Link> */}
+                      </td>
+                    );
+
+                  case "Settings_Edit":
+                    return (
+                      <td
+                        className="useTable_ViewEditSuspendDetails"
+                        style={{ flex: 1, width: "350px" }}
+                      >
+                        <button
+                          onClick={() => handleEdit(each)}
+                          className="Admin_playersviewprofile"
+                        >
+                          <span>Edit</span>
+                        </button>
 
                         {/* <Link className="Admin_playersviewprofile">Edit</Link> */}
                       </td>

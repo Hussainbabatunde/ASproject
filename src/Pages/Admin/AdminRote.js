@@ -29,6 +29,7 @@ import NegotiationRoute from "./Negotiation/NegotiationRoute";
 import FanRoute from "./Fans/FanRoute";
 import AdminUserRoute from "./AdminUser/AdminUserRoute";
 import FinanceRoute from "./Finance/FinanceRoute";
+import Settings from "./Settings/Settings";
 
 function AdminRote() {
   let data = [1, 2, 3, 4, 5, 6];
@@ -58,6 +59,7 @@ function AdminRote() {
               <Route path="/Ads/*" element={<AdsRoute />} />
               <Route path="/negotiations/*" element={<NegotiationRoute />} />
               <Route path="/finance/*" element={<FinanceRoute />} />
+              <Route path="/settings" element={<Settings />} />
             </Routes>
             <div className="mt-10">1</div>
 

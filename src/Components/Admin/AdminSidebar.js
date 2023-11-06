@@ -15,6 +15,7 @@ import { ImExit } from "react-icons/im";
 import { AiFillBank } from "react-icons/ai";
 import { useDispatch } from "react-redux";
 import { LogoutAuth } from "../../Slice/auth/Login";
+import { FiSettings } from "react-icons/fi";
 
 function AdminSidebar() {
   const data = [
@@ -81,6 +82,14 @@ function AdminSidebar() {
       pathIcon: <AiFillBank />,
       children: [],
     },
+
+    {
+      id: 9,
+      pathTo: "/admin/settings",
+      pathName: "Settings",
+      pathIcon: <FiSettings />,
+      children: [],
+    },
   ];
 
   const [reveal, setReveal] = useState(null);
@@ -109,7 +118,6 @@ function AdminSidebar() {
   };
 
   return (
-    // <div className="flex flex-col fixed flex-shrink-0 w-64 bg-gray-800 text-white  ">
     <div className="    py-3">
       {data.map((item, index) => (
         <div key={index} className="text-white">
