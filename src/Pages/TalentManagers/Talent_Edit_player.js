@@ -1,21 +1,12 @@
 import React, { useEffect, useState } from "react";
 // import "../Scout/ScoutProfile.css";
-import imgPlaceHolder from "../../assets/imageplaceholder.png";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import CircularProgress from "@mui/material/CircularProgress";
-import { LogoutAuth } from "../../Slice/auth/Login";
 import { RxExit } from "react-icons/rx";
-import { NavLink, Route, Routes } from "react-router-dom";
 
 import { useMutation } from "react-query";
 
-import {
-  PlayerProfilePicture,
-  PlayerProfileVerificationStatus,
-  PlayerProfileVideoLink,
-  ProfileDetailsPlayer,
-} from "../../Slice/Player/Playerprofile/PlayerProfileSlice";
 import { ToastContainer, toast } from "react-toastify";
 import { UserLogout } from "../../Components/Player/UserLogOut";
 // import { reset as resetPlayerProfileSlice } from "../../Slice/Player/Playerprofile/PlayerProfileSlice";
@@ -61,9 +52,8 @@ const Talent_Edit_player = () => {
 
   const [file, setFile] = useState(Player_Details?.profile_pics);
 
-  console.log({ hahah: Player_Details?.profile_pics });
-  console.log({ file });
   const [picFile, setPicFile] = useState(null);
+  const [imageSrc, setImageSrc] = useState(Player_Details?.profile_pics);
   const [checkedVideoLink, setCheckedVideoLink] = useState(false);
   const [checkedProfilePic, setCheckedProfilePic] = useState(false);
   const [checkedPhysicalStats, setCheckedPhysicalStats] = useState(false);
@@ -76,9 +66,10 @@ const Talent_Edit_player = () => {
     { id: 3, pathTo: "/afrisport/player/views", pathName: "Views" },
     { id: 4, pathTo: "/afrisport/player/payment", pathName: "Payment" },
   ];
+
   function handleChange(e) {
     setPicFile(e.target.files[0]);
-    setFile(URL.createObjectURL(e.target.files[0]));
+    setImageSrc(URL.createObjectURL(e.target.files[0])); // Update the image source
   }
 
   const PlayerDetails = useSelector(
@@ -119,13 +110,14 @@ const Talent_Edit_player = () => {
       // Your API request code here
       // Use formData to send the image data to the API
 
-      let API_URL = `${baseURL}talent-manager/player/profile-picture`;
+      console.log({ formData });
+      let API_URL = `${baseURL}talent-manager/player/video_text_url`;
       const tokengot = localStorage.getItem("token");
 
       const config = {
         headers: {
-          "Content-Type": "multipart/form-data",
-          Accept: "multipart/form-data",
+          // "Content-Type": "multipart/form-data",
+          // Accept: "multipart/form-data",
           Authorization: `Bearer ${tokengot}`,
         },
       };
@@ -160,13 +152,16 @@ const Talent_Edit_player = () => {
     }
   );
 
+  console.log({ ee: Player_Details?.id });
+
   const handleSubmitVideos = async (e) => {
     videoData.user_id = Player_Details?.id;
+
     videoData.videos_url = inputs;
     e.preventDefault();
 
     setVideoLoader(true);
-
+    console.log({ videoData });
     Profilevidoemutation.mutate(videoData);
 
     // await dispatch(PlayerProfileVideoLink(videoData));
@@ -184,6 +179,8 @@ const Talent_Edit_player = () => {
 
       let API_URL = `${baseURL}talent-manager/player/profile-picture`;
       const tokengot = localStorage.getItem("token");
+
+      console.log({ formData });
 
       const config = {
         headers: {
@@ -253,7 +250,7 @@ const Talent_Edit_player = () => {
                 >
                   <label for="imagePlcholder">
                     <img
-                      src={Player_Details?.profile_pics}
+                      src={imageSrc}
                       alt=""
                       className="Scoutpage_Profile_placeholder"
                     />
@@ -265,7 +262,6 @@ const Talent_Edit_player = () => {
                       className="Scoutpage_Profile_ImagePlaceInput"
                     />
                   </label>
-
                   <button
                     type="submit"
                     className="Scoutpage_Profileform_savebutton"
@@ -296,7 +292,7 @@ const Talent_Edit_player = () => {
                 View Profile
               </Link>
             </div>
-            {console.log({ Player_Details })}
+
             <TalentPlayerProfileProfileform user_data={Player_Details} />
             <TalentPlayerProfilePhysicalStats user_data={Player_Details} />
             <TalentPlayerProfileBusinessService user_data={Player_Details} />
@@ -311,19 +307,6 @@ const Talent_Edit_player = () => {
               inputs={inputs}
               removeInput={removeInput}
             />
-            {/* 
-          <PlayerProfileFanService userId={userId} />
-          <PlayerProfileUploadId userId={userId} />
-          <PlayerProfileYourImages userId={userId} />
-          <PlayerProfileVideo
-            userId={userId}
-            videoLoader={videoLoader}
-            handleSubmitVideos={handleSubmitVideos}
-            addInput={addInput}
-            handleInputChange={handleInputChange}
-            inputs={inputs}
-            removeInput={removeInput}
-          /> */}
           </div>
         </div>
       </div>

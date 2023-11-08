@@ -23,6 +23,7 @@ const TalentPlayerProfileProfileform = ({ user_data }) => {
   const UserProfileLogin = useSelector(
     (state) => state?.reducer?.LoginSlice?.logindata?.data?.user
   );
+
   useEffect(() => {
     setFullname(`${user_data?.firstname} ${user_data?.surname}`);
     setPhone(user_data?.phone);
@@ -48,6 +49,8 @@ const TalentPlayerProfileProfileform = ({ user_data }) => {
 
       let API_URL = `${baseURL}talent-manager/player/bio`;
       const tokengot = localStorage.getItem("token");
+
+      console.log({ formData });
 
       const config = {
         headers: {
@@ -100,9 +103,6 @@ const TalentPlayerProfileProfileform = ({ user_data }) => {
     profileInfo.age = age;
     profileInfo.position = position;
     profileInfo.user_type = "player";
-    console.log("profile info submitted ", profileInfo);
-    // await dispatch(PlayerProfileProfileformApi(profileInfo));
-    // await dispatch(ProfileDetailsPlayer());
 
     ProfileBiomutation.mutate(profileInfo);
   };
@@ -249,7 +249,6 @@ const TalentPlayerProfileProfileform = ({ user_data }) => {
         placeholder="---"
         required
       />
-
       <button type="submit" className="Scoutpage_Profileform_savebutton">
         {ProfileBiomutation?.isLoading ? (
           <CircularProgress size={15} />
