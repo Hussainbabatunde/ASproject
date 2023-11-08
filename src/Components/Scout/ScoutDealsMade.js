@@ -14,6 +14,11 @@ import moment from 'moment'
 import { ToastContainer } from 'react-toastify'
 import ScoutPayNow from './ScoutPayNow'
 import { differenceInWeeks } from 'date-fns'
+import { loadStripe } from '@stripe/stripe-js';
+// import PaystackPop from '@paystack/inline-js'
+import { PaystackButton, usePaystackPayment } from 'react-paystack'
+
+
 
 const ScoutDealsMade = () => {
   const {id} = useParams()
@@ -39,6 +44,15 @@ const endDate = new Date(gottenDetails?.data?.offers?.to_end);
 
 const numberOfWeeks = differenceInWeeks(endDate, startDate);
 // console.log( 'no of weeks ',numberOfWeeks)
+
+let stripePromise;
+const getStripe = () => {
+  if (!stripePromise) {
+    console.log('api key ',process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY)
+    stripePromise = loadStripe('pk_test_51NS0CiD4vXmmEnk3KJBwbFAr4J987xEZsVc7ODZ1u2xRR8ztywYioLV2svk23G3NDDKvuxuc5X7WiwQfCw2TTifm00yw6CELs6');
+  }
+  return stripePromise;
+};
 
   
   useEffect(()=>{
@@ -99,7 +113,44 @@ const numberOfWeeks = differenceInWeeks(endDate, startDate);
   }
     
 
-  console.log('gottenDetails ', gottenDetails)
+  // console.log('gottenDetails ', gottenDetails)
+  const gottenMarketfee= useSelector((state)=> state?.reducer?.GetPaymentSlice?.getMarketPriceData?.data)
+  const recipientfee= Number(gottenDetails?.data?.offers?.value)
+  const marketFee= Number(gottenMarketfee)
+  const amount = recipientfee + marketFee 
+  // const publicKey = "pk_test_e22c091552997080bc70b61637096324bb1405ba" 
+  const email = useSelector((state) => state.reducer.LoginSlice?.logindata?.data?.user?.email);
+
+  const componentProps = {
+    email,
+    amount,
+    // metadata: {
+    //   name,
+    //   phone,
+    // },
+    publicKey: "pk_test_31c9cc0911bc099da6bbea574d98f45f06ef2fa8" ,
+    text: "Pay Now"
+  }
+
+  const onSuccess = ({reference}) => {
+    alert(reference)
+    console.log(reference)
+  }
+
+  const onClose= () =>{
+    console.log('closed')
+  }
+
+  async function handleCheckout(e) {
+    e.preventDefault()
+    // const paystack = new PaystackPop()
+    // paystack.newTransaction({
+    //   key : 'pk_live_61cbf727786a5c521a98990828f66b7e6dac6c97',
+    //   amount
+    // })
+  }
+
+  const initializepayment = usePaystackPayment(componentProps)
 
 
   return (
@@ -128,7 +179,8 @@ const numberOfWeeks = differenceInWeeks(endDate, startDate);
                     </button>
                   {userType!= 'player' && <div style={{display:'flex', justifyContent:'center', alignItems:'center'}}>
                   <button className='PlayerViewdetails_Updatebutton' onClick={handleShowUpdate}>Update</button>
-                  {gottenDetails?.data?.offers?.recipient_earnings != '0.00'  && <button className='PlayerViewdetails_Paynowbutton' onClick={()=> setShowPay(true)}> Pay Now</button>}
+                  {gottenDetails?.data?.offers?.recipient_earnings != '0.00'  && <button className='PlayerViewdetails_Paynowbutton' onClick={()=> initializepayment(onSuccess, onClose)}> Pay Now</button>}
+                  {/* <PaystackButton {...componentProps} /> */}
                   </div>}
                 </div>
               </div>
@@ -150,6 +202,14 @@ const numberOfWeeks = differenceInWeeks(endDate, startDate);
               <div className='PlayerViewdetails_LabelAndAnswer'>
                 <label className='PlayerViewdetails_LabelText'>Amount:</label>
                 {loading? <Skeleton variant="rounded" width={105} height={22} />:<p className='PlayerViewdetails_labelresponse'> ${gottenDetails?.data?.offers?.value}</p>}
+              </div>
+              <div className='PlayerViewdetails_LabelAndAnswer'>
+                <label className='PlayerViewdetails_LabelText'>Marketplace Fee:</label>
+                {loading? <Skeleton variant="rounded" width={105} height={22} />:<p className='PlayerViewdetails_labelresponse'> ${marketFee}</p>}
+              </div>
+              <div className='PlayerViewdetails_LabelAndAnswer'>
+                <label className='PlayerViewdetails_LabelText'>Total amount:</label>
+                {loading? <Skeleton variant="rounded" width={105} height={22} />:<p className='PlayerViewdetails_labelresponse'> ${amount}</p>}
               </div>
               <div className='PlayerViewdetails_LabelAndAnswer'>
                 <label className='PlayerViewdetails_LabelText'>Negotiate Name:</label>

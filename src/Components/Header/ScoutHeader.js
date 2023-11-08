@@ -10,19 +10,24 @@ import { useSelector } from "react-redux";
 import Echo from "laravel-echo"
 import axios from 'axios';
 import Pusher from 'pusher-js'
+import { useQuery } from "react-query";
 
 
-const options = {
-  broadcaster:'pusher',
-  key: 'mykey',
-  wsHost: window.location.hostname,
-  wssHost: window.location.hostname, 
-  wsPort: 6001, 
-  disablestats: true,
-  cluster: 'euz', 
-  forceTLs: false,
-};
-const echo = new Echo (options);
+
+const client = axios.create({baseURL: 'https://ko.bcodestech.com/api/'})
+
+const getNotification = () => 
+{
+  let token = localStorage.getItem('token')
+    // return axios.get(`http://localhost:8000/api/get-offer-notification/${heroId}`) 
+    const options = { url: 'offer-notification', method: 'GET'   }
+    client.defaults.headers.common.Authorization = `Bearer ${token}`
+    const onSuccess = (response) => response
+    const onError = (error) => {
+        return error
+    }
+    return client(options).then(onSuccess).catch(onError)
+}
 
 
 const ScoutHeader = () => {
@@ -34,11 +39,20 @@ const ScoutHeader = () => {
   const userData = useSelector((state) => state.reducer.LoginSlice?.logindata);
 
 
-      useEffect (() =>{
-        echo.channel(`offer.${userId}`).listen('CommentNotificationEvent', function (data, err){
-          console. log('notification data ',data)
-        })
-        }, [])
+      // useEffect (() =>{
+      //   echo.channel(`offer.${userId}`).listen('CommentNotificationEvent', function (data, err){
+      //     console. log('notification data ',data)
+      //   })
+      //   }, [])
+
+      const { isLoading, data, isError, error, refetch, onSuccess, onError  } = useQuery('recent-offer', getNotification, { 
+        cacheTime: 0, 
+        refetchOnMount: true, 
+        refreshOnWindowFocus: true,  
+        refreshInterval: 300,
+        refreshIntervalInBackground: true,
+        enable: true,
+      })
 
   const handleOpen = () => {
     setIconOpen(true);
