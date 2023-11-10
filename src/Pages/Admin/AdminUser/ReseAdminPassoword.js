@@ -132,28 +132,28 @@ function ReseAdminPassoword({ setFormData, formData, setModal, modal }) {
                     <div className="p-4">
                       <div className="mb-4">
                         <label htmlFor="" className="block mb-2">
-                          password
+                          Password
                         </label>
                         <input
                           className="w-full p-2 border border-gray-300 rounded"
                           type="text"
                           name="password"
                           value={userAdmin.password}
-                          placeholder="password"
+                          placeholder="Password"
                           onChange={handleInputChange}
                         />
                       </div>
 
                       <div className="mb-4">
                         <label htmlFor="" className="block mb-2">
-                          password
+                          Confirm Password
                         </label>
                         <input
                           className="w-full p-2 border border-gray-300 rounded"
                           type="text"
                           name="confirm_password"
                           value={userAdmin.confirm_password}
-                          placeholder="confirm_password"
+                          placeholder="Confirm Password"
                           onChange={handleInputChange}
                         />
                       </div>
