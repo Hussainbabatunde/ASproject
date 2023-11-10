@@ -101,14 +101,14 @@ const Settings = () => {
   const orderedSettings = [
     {
       id: 1,
-      name: Settings.percentage.message,
-      data: Settings.percentage.data,
+      name: Settings?.percentage?.message,
+      data: Settings?.percentage?.data,
     },
 
-    { id: 2, name: Settings.market.message, data: Settings.market.data },
-    { id: 3, name: "Sorting", data: Settings.sorting.data },
+    { id: 2, name: Settings?.market?.message, data: Settings?.market?.data },
+    { id: 3, name: "Sorting", data: Settings?.sorting.data },
 
-    { id: 4, name: Settings.advert.message, data: Settings.advert.data },
+    { id: 4, name: Settings?.advert?.message, data: Settings?.advert.data },
   ];
 
   useEffect(() => {
@@ -283,19 +283,10 @@ const Settings = () => {
             </>
             {/* )} */}
 
-            {logindata?.data?.user_type === "super-admin" && (
-              <button
-                className="Adminpage_CreateAdmins "
-                onClick={() => setModal(true)}
-              >
-                Create Admin
-              </button>
-            )}
-
             <div className="AdminPage_TableTitleandLink">
-              <p className="AdminPage_NegotiateTitleText">Admins</p>
+              <p className="AdminPage_NegotiateTitleText">Admins Settings</p>
 
-              <div className="AdminDashboard_Search">
+              {/* <div className="AdminDashboard_Search">
                 <input
                   type="text"
                   value={searchInput}
@@ -304,7 +295,7 @@ const Settings = () => {
                   placeholder="Search name"
                 />
                 <RiSearchLine className="AdminDashboard_SearchIcon" />
-              </div>
+              </div> */}
             </div>
 
             <div className="AdminTable_NegotiateTable">
