@@ -35,6 +35,11 @@ const TalentManagerDeal = () => {
     (state) => state?.reducer?.Talent_manager_slice
   );
 
+  const userType = useSelector(
+    (state) => state?.reducer?.LoginSlice?.logindata
+  );
+  console.log({ userType });
+
   console.log(Talent_manager_Deals);
 
   const dispatch = useDispatch();
@@ -261,67 +266,69 @@ const TalentManagerDeal = () => {
     setSearchInput(event.target.value);
   };
 
+  console.log({ filteredUsersArray });
+
   return (
     <>
       <ToastContainer />
 
       <div className="Scoutpage_maxWidthContainer">
-          <div className="Scoutpage_contents ">
-        <Talent_Header />
+        <div className="Scoutpage_contents ">
+          <Talent_Header />
 
-        {console.log(Talent_manager_Deals)}
+          {console.log(Talent_manager_Deals)}
 
-        <div className="AdminDashboard_Search">
-          <input
-            type="text"
-            value={searchInput}
-            onChange={handleInputChange}
-            className="AdminDashboard_SearchInput"
-            placeholder="Search name"
-          />
+          <div className="AdminDashboard_Search">
+            <input
+              type="text"
+              value={searchInput}
+              onChange={handleInputChange}
+              className="AdminDashboard_SearchInput"
+              placeholder="Search name"
+            />
 
-          <RiSearchLine className="AdminDashboard_SearchIcon" />
-        </div>
+            <RiSearchLine className="AdminDashboard_SearchIcon" />
+          </div>
 
-        <div className="Scoutpage_DealContent">
-          {Talent_manager_Deals?.data?.length === 0 ? (
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                width: "100%",
-              }}
-            >
+          <div className="Scoutpage_DealContent">
+            {Talent_manager_Deals?.data?.length === 0 ? (
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  width: "100%",
+                }}
+              >
+                <Lottie
+                  style={{ width: "200px", height: "200px" }}
+                  animationData={empty}
+                />
+              </div>
+            ) : (
+              <UseTable
+                header={header}
+                data={filteredUsersArray}
+                handleEdit={handleEdit}
+                handleDelete={handleDelete}
+              />
+            )}
+          </div>
+
+          <Modal
+            open={show}
+            // onClose={handleClose}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+          >
+            <Box sx={style}>
               <Lottie
                 style={{ width: "200px", height: "200px" }}
-                animationData={empty}
+                animationData={football}
               />
-            </div>
-          ) : (
-            <UseTable
-              header={header}
-              data={filteredUsersArray}
-              handleEdit={handleEdit}
-              handleDelete={handleDelete}
-            />
-          )}
+            </Box>
+          </Modal>
         </div>
-
-        <Modal
-          open={show}
-          // onClose={handleClose}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-        >
-          <Box sx={style}>
-            <Lottie
-              style={{ width: "200px", height: "200px" }}
-              animationData={football}
-            />
-          </Box>
-        </Modal>
-      </div>
       </div>
     </>
   );
