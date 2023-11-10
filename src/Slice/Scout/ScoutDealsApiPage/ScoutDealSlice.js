@@ -226,7 +226,7 @@ const initialState = {
             Accept: 'application/json',
             Authorization: infoneeded,
           },
-          responseType: 'blob', // Set the response type to 'blob' for downloading files
+          responseType: 'arraybuffer', // Set the response type to 'blob' for downloading files
         });
   
         const response = await instance.get(`scout/offer/download/${id}/${userId}`);
