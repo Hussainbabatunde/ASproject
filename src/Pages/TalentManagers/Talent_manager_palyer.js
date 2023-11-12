@@ -59,7 +59,9 @@ function Talent_manager_palyer() {
     {
       id: 5,
       name: "",
-      case: "Admin_fan_Suspend_message_view",
+      // case: "Admin_fan_Suspend_message_view",
+
+      case: "talent_player_View_delete",
     },
   ];
 

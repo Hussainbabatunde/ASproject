@@ -86,7 +86,15 @@ const Talent_manager_Profile = () => {
                       onChange={handleChange}
                       className="Scoutpage_Profile_ImagePlaceInput"
                     />
-                    <div className="ImageHolder_PrifilepicImg">
+                    {/* ImageHolder_PrifilepicImg */}
+                    {console.log({ ss: PlayerDetails?.profile_pics })}
+                    <div
+                      // className={`${
+                      //   PlayerDetails?.profile_pics ? "debug" : ""
+                      // }`}
+
+                      className={`ab absolute top-0 w-[132px] bg-black h-[132px] bg-opacity-20 rounded-[50%]`}
+                    >
                       <AiFillCamera className="Profile_EditCameraImg" />
                     </div>
                   </label>

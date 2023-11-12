@@ -84,7 +84,8 @@ const AdminPlayerAllNegotiate = ({
           className="AdminPAge_Negotiate_TabNegotiateInactive"
           onClick={handleClosed}
         >
-          Review <span className="AdminPage_NegotiateTab_TabNumber">4</span>
+          Review
+          <span className="AdminPage_NegotiateTab_TabNumber"></span>
         </p>
         <p
           className="AdminPAge_Negotiate_TabNegotiateInactive"

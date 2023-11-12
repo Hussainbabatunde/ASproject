@@ -344,6 +344,41 @@ const UseTable = ({
                       </td>
                     );
 
+                  case "talent_player_View_delete":
+                    return (
+                      <td
+                        className="useTable_ViewEditSuspendDetails"
+                        style={{ flex: 1 }}
+                      >
+                        <Link
+                          state={{
+                            each,
+                          }}
+                          to={`/afrisport/talent-manager/player`}
+                          className="Admin_playersEditprofile cursor-pointer"
+                        >
+                          View
+                        </Link>
+
+                        {/* <Link
+                            to="/afrisport/talent-manager/edit-player"
+                            state={{
+                              each,
+                            }}
+                            className="Admin_playersviewprofile cursor-pointer"
+                          >
+                            Edit
+                          </Link> */}
+
+                        <span
+                          onClick={() => handleDelete(each)}
+                          className="border border-solid border-[#7F351D] px-5 py-2 bg-white text-[#7F351D] font-bold rounded-md mr-4"
+                        >
+                          Remove
+                        </span>
+                      </td>
+                    );
+
                   case "talent_player_Negotiate":
                     return <td className="useTable_tableDetails">NONE</td>;
                 }
@@ -403,16 +438,27 @@ const UseTable = ({
                   case "Sent by":
                     return (
                       <td className="useTable_tableDetails">
-                        {each?.payment_type == "advert"
-                          ? each?.description
-                          : <span>{each?.transaction?.sender?.firstname} - {each?.transaction?.sender?.surname}</span>}
+                        {each?.payment_type == "advert" ? (
+                          each?.description
+                        ) : (
+                          <span>
+                            {each?.transaction?.sender?.firstname} -{" "}
+                            {each?.transaction?.sender?.surname}
+                          </span>
+                        )}
                       </td>
                     );
 
                   case "Date sent":
                     return (
                       <td className="useTable_tableDetails">
-                        {format(new Date(each?.transaction?.payment_detail?.created_at || each?.created_at), "dd MMMM yyyy")}
+                        {format(
+                          new Date(
+                            each?.transaction?.payment_detail?.created_at ||
+                              each?.created_at
+                          ),
+                          "dd MMMM yyyy"
+                        )}
                       </td>
                     );
 
@@ -428,13 +474,18 @@ const UseTable = ({
                   case "Payment type":
                     return (
                       <td className="useTable_tableDetails">
-                        {each?.payment_type || each?.transaction?.payment_detail?.payment_type}
+                        {each?.payment_type ||
+                          each?.transaction?.payment_detail?.payment_type}
                       </td>
                     );
 
                   case "Amount sent":
                     return (
-                      <td className="useTable_tableDetails">${each?.amount || each?.transaction?.payment_detail?.amount}</td>
+                      <td className="useTable_tableDetails">
+                        $
+                        {each?.amount ||
+                          each?.transaction?.payment_detail?.amount}
+                      </td>
                     );
 
                   case "Manager":
