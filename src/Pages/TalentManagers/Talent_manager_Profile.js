@@ -1,10 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { LogoutAuth } from "../../Slice/auth/Login";
-import {
-  ProfileDetailsfan,
-  fanProfilePicture,
-} from "../../Slice/Fan/ProfileFanSlice/ProfileFanSlice";
+
 import CircularProgress from "@mui/material/CircularProgress";
 import imgPlaceHolder from "../../assets/imageplaceholder.png";
 
@@ -12,10 +8,7 @@ import { AiFillCamera } from "react-icons/ai";
 import { ToastContainer } from "react-toastify";
 import Talent_Header from "../../Components/TalentManagersCompnente/Talent_Header";
 import Talent_Profileform from "../../Components/TalentManagersCompnente/Talent_Profileform";
-import {
-  Talent_manager_details_Image_uplaod_fun,
-  Talent_manager_details_fun,
-} from "../../Slice/Talent_Manager/Talent_manager_slice";
+import { Talent_manager_details_Image_uplaod_fun } from "../../Slice/Talent_Manager/Talent_manager_slice";
 import TalentProfileUploadId from "../../Components/TalentManagersCompnente/TalentProfileUploadId";
 
 const Talent_manager_Profile = () => {
@@ -38,7 +31,7 @@ const Talent_manager_Profile = () => {
 
   function handleChange(e) {
     setPicFile(e.target.files[0]);
-    setFile(URL.createObjectURL(e.target.files[0]));
+    setFile(URL?.createObjectURL(e.target.files[0]));
   }
 
   const userId = useSelector(
@@ -60,8 +53,8 @@ const Talent_manager_Profile = () => {
   useEffect(() => {
     setFile(PlayerDetails?.profile_pics);
 
-    dispatch(Talent_manager_details_fun());
-  }, [PlayerDetails, dispatch]);
+    // dispatch(Talent_manager_details_fun());
+  }, [PlayerDetails]);
 
   return (
     <div className="Scoutpage_maxWidthContainer">

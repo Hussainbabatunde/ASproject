@@ -1,25 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  Admin_Get_Players_Profile_detailsfun,
-  reset_Profile_post_request,
-} from "../../../Slice/Admin/AdminUpdate_profileSlice";
+
 import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import { GrFormNext } from "react-icons/gr";
 import { BsShareFill } from "react-icons/bs";
 import { Skeleton } from "@mui/material";
-import { TbCurrencyNaira } from "react-icons/tb";
 
-import { BsFillPatchCheckFill, BsHouseDoor, BsDot } from "react-icons/bs";
-import { MdOutlineDashboard } from "react-icons/md";
-import { SlLocationPin } from "react-icons/sl";
-import { RiDashboardLine } from "react-icons/ri";
-import { Admin_Get_ScoutsDetails_fun } from "../../../Slice/Admin/Admin_Scouts_Slice";
 import { FiMail, FiPhoneCall } from "react-icons/fi";
-import AdminNegotiateStep from "../../../Components/Admin/AdminNegotiate/AdminNegotiateStep";
-import ScoutsNegotiateStep from "../../../Components/Admin/AdminScouts/ScoutsNegotiateStep";
 import TalentManagerNegotiateStep from "./TalentManagerNegotiateStep";
 import {
   Admin_talent_get_negotiations_fun,
@@ -30,19 +19,13 @@ let baseURL = process.env.REACT_APP_AFRISPORTURL;
 
 function TalentManagerDetail() {
   const { id } = useParams();
-  const navigate = useNavigate();
-  console.log(id);
 
-  const { Admin_Get_ScoutsDetails } = useSelector(
-    (state) => state.reducer.Admin_Scouts_Slice
+  const { Admin_talent_manager_single } = useSelector(
+    (state) => state.reducer.AdminTalentMangerSlice
   );
-
-  const { Admin_talent_manager_single, Admin_talent_manager_negotiation } =
-    useSelector((state) => state.reducer.AdminTalentMangerSlice);
 
   let user_Data = Admin_talent_manager_single?.data;
   let PlayerDetails = user_Data;
-  console.log(id);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(Admin_talent_manager_single_fun(id));
@@ -131,7 +114,7 @@ function TalentManagerDetail() {
     (state) => state?.reducer?.LoginSlice?.logindata?.message?.id
   );
 
-  const [isPlaying, setIsPlaying] = useState(false);
+  const [setIsPlaying] = useState(false);
 
   const handlePlay = () => {
     setIsPlaying(true);

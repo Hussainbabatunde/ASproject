@@ -40,7 +40,7 @@ function Talent_Header() {
     dispatch(reset_CreateTalent());
 
     return () => {};
-  }, [Talent_manager_details_create_isSuccess]);
+  }, [Talent_manager_details_create_isSuccess, dispatch]);
 
   const data = [
     { id: 1, pathTo: "/afrisport/talent-manager/profile", pathName: "Profile" },

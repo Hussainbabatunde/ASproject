@@ -2,21 +2,11 @@ import React, { useEffect, useState } from "react";
 import "../Scout/profileform.css";
 import { useDispatch, useSelector } from "react-redux";
 import { CircularProgress } from "@mui/material";
-import {
-  ProfileDetailsScout,
-  ScoutProfileProfileformApi,
-  ScoutProfileVerificationStatus,
-} from "../../Slice/Scout/ProfileScoutSlice/ProfileScoutSlice";
-import {
-  ProfileDetailsfan,
-  fanProfileProfileformApi,
-  fanProfileVerificationStatus,
-} from "../../Slice/Fan/ProfileFanSlice/ProfileFanSlice";
-import {
-  Talent_manager_details_Bio_uplaod_fun,
-  Talent_manager_details_fun,
-} from "../../Slice/Talent_Manager/Talent_manager_slice";
-import { ToastContainer } from "react-toastify";
+import axios from "axios";
+
+import { ToastContainer, toast } from "react-toastify";
+import { useMutation } from "react-query";
+let baseURL = process.env.REACT_APP_AFRISPORTURL;
 
 const Talent_Profileform = ({ userId }) => {
   const dispatch = useDispatch();
@@ -24,6 +14,10 @@ const Talent_Profileform = ({ userId }) => {
   const { id } = useSelector(
     (state) => state?.reducer?.LoginSlice?.logindata?.data?.user
   );
+
+  const qqq = useSelector((state) => state?.reducer?.LoginSlice?.logindata);
+
+  console.log({ qqq });
 
   const { Talent_manager_details } = useSelector(
     (state) => state?.reducer?.Talent_manager_slice
@@ -67,16 +61,78 @@ const Talent_Profileform = ({ userId }) => {
 
   const [loadProfileform, setLoadProfileform] = useState(false);
 
+  const Talent_manager_details_Bio_uplaod_fun_mutation = useMutation(
+    async (data) => {
+      // Your API request code here
+      // Use formData to send the image data to the API
+
+      let API_URL = `${baseURL}talent-manager/bio`;
+      const tokengot = localStorage.getItem("token");
+
+      console.log({ API_URL, data });
+
+      const config = {
+        headers: {
+          // "Content-Type": "multipart/form-data",
+          // Accept: "multipart/form-data",
+          Authorization: `Bearer ${tokengot}`,
+        },
+      };
+
+      try {
+        const response = await axios.post(API_URL, data, config);
+        console.log(response.data); // Logging the response data
+
+        return response;
+      } catch (error) {
+        console.error(error);
+        throw error;
+      }
+    },
+    {
+      onSuccess: () => {
+        // dispatch(Talent_manager_Interaction_fun({ player, request, sender }));
+
+        // Success toast notification
+        toast.success("Form submitted successfully!", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      },
+      onError: () => {
+        // Error toast notification
+        toast.error("Error occurred while submitting the form.", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          className: "Forbidden403",
+        });
+      },
+    }
+  );
+
   const handleSubmitProfileform = async (event) => {
     event.preventDefault();
     setLoadProfileform(true);
 
-    dispatch(Talent_manager_details_Bio_uplaod_fun(profileInfo));
+    console.log({ profileInfo });
 
+    // dispatch(Talent_manager_details_Bio_uplaod_fun(profileInfo));
+    Talent_manager_details_Bio_uplaod_fun_mutation.mutate(profileInfo);
     setLoadProfileform(false);
-    dispatch(Talent_manager_details_fun());
+    // dispatch(Talent_manager_details_fun());
   };
-
   return (
     <>
       {PlayerDetails && (
@@ -463,7 +519,7 @@ const Talent_Profileform = ({ userId }) => {
             value={profileInfo?.home_town}
             name="home_town"
             onChange={handleChange}
-            placeholder="---"
+            placeholder=" enter your home town"
             required
           />
 
@@ -472,9 +528,9 @@ const Talent_Profileform = ({ userId }) => {
             type="text"
             className="Scoutpage_Profile_ProfileformlabelInput"
             value={profileInfo?.company}
-            name="home_town"
+            name="company"
             onChange={handleChange}
-            placeholder="---"
+            placeholder="enter your company name"
             required
           />
 
