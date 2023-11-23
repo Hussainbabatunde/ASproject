@@ -7,7 +7,7 @@ import imgRecipient from '../../assets/imgRecipient.png'
 import { useDispatch, useSelector } from 'react-redux'
 import { GetPlayerOfferDetailsApi, GetPlayerOfferDownloadApi } from '../../Slice/Player/PlayerDeal/PlayerDealSlice'
 import { PulseLoader } from 'react-spinners'
-import { GetScoutOfferDetailsApi, GetScoutOfferDownloadApi, ScoutDealCommentsApi, ScoutMakeCommentApi } from '../../Slice/Scout/ScoutDealsApiPage/ScoutDealSlice'
+import { GetScoutOfferDetailsApi, GetScoutOfferDownloadApi, ScoutDealCommentsApi, ScoutMakeCommentApi, ScoutMakePaymentApi } from '../../Slice/Scout/ScoutDealsApiPage/ScoutDealSlice'
 import { CircularProgress, Skeleton } from '@mui/material'
 import UpdateOfferDetail from './UpdateOfferDetail'
 import moment from 'moment'
@@ -35,7 +35,7 @@ const ScoutDealsMade = () => {
   const expireData = gottenDetails?.data?.offers?.expiration.slice(0,11);
   const senderId = useSelector((state)=> state.reducer?.ScoutDealsSlice?.getOfferDetailsData?.data?.offers?.to)
   const CommentsGotten = useSelector((state)=> state.reducer?.ScoutDealsSlice?.scoutcommentsOfferData)
-  // console.log('comments ', CommentsGotten)
+  // console.log('comments ', gottenDetails)
   // console.log('id ', id)
   // console.log('user id', userId)
 
@@ -133,7 +133,7 @@ const getStripe = () => {
   }
 
   const onSuccess = ({reference}) => {
-    alert(reference)
+    // alert(reference)
     console.log(reference)
   }
 
@@ -149,6 +149,10 @@ const getStripe = () => {
     //   amount
     // })
   }
+
+  const [data, setData] = useState({})
+    const AdvertValue = recipientfee + marketFee  
+
 
   const initializepayment = usePaystackPayment(componentProps)
 
@@ -179,7 +183,12 @@ const getStripe = () => {
                     </button>
                   {userType!= 'player' && <div style={{display:'flex', justifyContent:'center', alignItems:'center'}}>
                   <button className='PlayerViewdetails_Updatebutton' onClick={handleShowUpdate}>Update</button>
-                  {gottenDetails?.data?.offers?.recipient_earnings != '0.00'  && <button className='PlayerViewdetails_Paynowbutton' onClick={()=> initializepayment(onSuccess, onClose)}> Pay Now</button>}
+                  {gottenDetails?.data?.offers?.recipient_earnings != '0.00' && gottenDetails?.data?.offers?.status == 'accepted'  && <button className='PlayerViewdetails_Paynowbutton' onClick={async()=> {
+                    // initializepayment(onSuccess, onClose)
+      data.offer_id = gottenDetails?.data?.offers?.id;
+      data.value = Number(AdvertValue)
+                        await dispatch(ScoutMakePaymentApi(data))
+                  }}> Pay Now</button>}
                   {/* <PaystackButton {...componentProps} /> */}
                   </div>}
                 </div>
@@ -193,7 +202,7 @@ const getStripe = () => {
               </div>
               <div className='PlayerViewdetails_LabelAndAnswer'>
                 <label className='PlayerViewdetails_LabelText'>Duration:</label>
-                {loading? <Skeleton variant="rounded" width={105} height={22} />:<p className='PlayerViewdetails_labelresponse'> {numberOfWeeks} weeks</p>}
+                {loading? <Skeleton variant="rounded" width={105} height={22} />:<p className='PlayerViewdetails_labelresponse'> {gottenDetails?.data?.offers?.duration} weeks</p>}
               </div>
               <div className='PlayerViewdetails_LabelAndAnswer'>
                 <label className='PlayerViewdetails_LabelText'>Expiring:</label>
