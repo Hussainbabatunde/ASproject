@@ -33,9 +33,9 @@ const Notification = () =>{
       enable: true,
     })
 
-    // console.log("***********************8")
-    //   console.log('notification 2 ',data)
-    //   console.log("***********************8")
+    console.log("***********************8")
+      console.log('notification 2 ',data)
+      console.log("***********************8")
     
     return(
         <div className='my-5 min-h-[50vh] bg-green'>

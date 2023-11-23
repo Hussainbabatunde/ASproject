@@ -136,7 +136,8 @@ const initialState = {
         .post('scout/payment/pay', data)
         .then(async (response) => {
             // console.log('scout paid ',response.data)
-          return response.data;
+          // return response.data;
+          window.location.href = response.data
         })
   
         .catch((err) => {
@@ -222,22 +223,32 @@ const initialState = {
           timeout: 20000,
   
           headers: {
-            'Content-Type': 'application/json',
-            Accept: 'application/json',
+            'Content-Type': 'application/pdf',
+            Accept: 'application/pdf',
             Authorization: infoneeded,
           },
-          responseType: 'arraybuffer', // Set the response type to 'blob' for downloading files
+          responseType: 'arraybuffer', // Set the response type to 'arraybuffer'
         });
   
         const response = await instance.get(`scout/offer/download/${id}/${userId}`);
   
-        // Create a temporary URL for the downloaded file
-        const url = window.URL.createObjectURL(new Blob([response.data]));
+        // Create a Blob from the ArrayBuffer
+        const blob = new Blob([response.data], { type: 'application/pdf' });
+  
+        // Create a temporary URL for the Blob
+        const url = window.URL.createObjectURL(blob);
   
         // Create a link element to simulate a click on it
         const link = document.createElement('a');
         link.href = url;
-        link.setAttribute('download', 'file.pdf'); // Set the desired filename
+  
+        // Extract filename from Content-Disposition header, if available
+        const contentDisposition = response.headers['content-disposition'];
+        const filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
+        const matches = filenameRegex.exec(contentDisposition);
+        const suggestedFileName = matches && matches[1] ? matches[1] : 'file.pdf';
+  
+        link.setAttribute('download', suggestedFileName);
   
         document.body.appendChild(link);
         link.click();
