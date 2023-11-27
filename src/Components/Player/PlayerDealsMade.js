@@ -10,6 +10,8 @@ import { PulseLoader } from 'react-spinners'
 import { CircularProgress, Skeleton } from '@mui/material'
 import moment from 'moment';
 import { differenceInWeeks } from 'date-fns'
+import { Page, Text, View, Document, StyleSheet, PDFDownloadLink, Image } from '@react-pdf/renderer';
+// import ReactPDF from '@react-pdf/renderer';
 
 const PlayerDealsMade = () => {
   const {id} = useParams()
@@ -26,7 +28,7 @@ const PlayerDealsMade = () => {
 
   const gottenDetails = useSelector((state)=> state.reducer?.GetAllPlayerDealSlice?.getOfferDetailsData)
   const senderId = useSelector((state)=> state.reducer?.GetAllPlayerDealSlice?.getOfferDetailsData?.data?.offers?.from)
-  console.log('gotten deatils ', gottenDetails)
+  // console.log('gotten deatils ', gottenDetails)
   const expireData = gottenDetails?.data?.offers?.expiration.slice(0,11);
   const senderInfo = useSelector((state)=> state.reducer?.GetAllPlayerDealSlice?.detailsDealData?.data)
   const CommentsGotten = useSelector((state)=> state.reducer?.GetAllPlayerDealSlice?.commentsOfferData)
@@ -89,6 +91,107 @@ const PlayerDealsMade = () => {
     // console.log('comment ', comment)
   }
 
+  const styles = StyleSheet.create({
+    page: {
+      // flexDirection: 'row',
+    },
+    section: {
+      margin: 10,
+      padding: 10,
+      flexGrow: 1
+    },
+    imageCenter:{
+      flexDirection: 'row',
+      justifyContent: "center",
+      alignItems: "center",
+  },
+  transactDetail:{
+      fontWeight: "bold",
+      fontSize: 20,
+      textAlign: "center",
+  },
+  recipientDiv:{
+      padding: 20,
+  },
+  recipienttopic:{
+      fontSize: 15,
+      fontWeight: "bold",
+  },
+  titleandResponse:{
+    flexDirection: 'row',
+    marginVertical: 10,
+    alignItems:'center',
+  },
+  Recipientname:{
+      fontWeight: "bold",
+      color: "#808080",
+      marginRight: 10,
+      fontSize: 15,
+  },
+  imgRecipient:{
+      marginLeft: 30,
+      width: 23,
+      height: 23,
+      marginRight: 10,
+  },
+  LogoImage:{
+    width: 90,
+  },
+  nameRecp:{    
+    fontSize: 15,
+  }
+  });
+
+  // Create Document Component
+const MyDocument = () => (
+  <Document>
+    <Page size="A4" style={styles.page}>
+    <View style={styles.imageCenter}>
+    <Image src={require('../../assets/afriLogopng.png')} style={styles.LogoImage} />
+  </View>
+  <Text  style={styles.transactDetail}>Transaction Detail</Text>
+  <View style={styles.recipientDiv}>
+    <Text style={styles.recipienttopic} >Recipient details</Text>
+    <View style={styles.titleandResponse}>
+        <Text style={styles.Recipientname}>Sender Name: </Text>
+        {/* <Image style={styles.imgRecipient} src={senderInfo?.profile_pics}/> */}
+        <Text style={styles.nameRecp}>{senderInfo?.firstname} {senderInfo?.surname}</Text>
+    </View>
+    <View style={styles.titleandResponse}>
+        <Text style={styles.Recipientname}>Recipient Name: </Text>
+        {/* <Image style={styles.imgRecipient} src={gottenDetails?.data?.offers?.player?.profile_pics} /> */}
+        <Text style={styles.nameRecp}>{gottenDetails?.data?.offers?.player?.firstname} {gottenDetails?.data?.offers?.player?.surname}</Text>
+    </View>
+    <View style={styles.titleandResponse} >
+        <Text  style={styles.Recipientname}>Negotiation Name: </Text>
+        <Text style={styles.nameRecp}>{gottenDetails?.data?.offers?.name}</Text>
+    </View>
+    <View style={styles.titleandResponse}>
+        <Text style={styles.Recipientname} >Negotiation Detail: </Text>
+        <Text style={styles.nameRecp}>{gottenDetails?.data?.offers?.detail}</Text>
+    </View>
+    <View style={styles.titleandResponse}>
+        <Text style={styles.Recipientname}>Negotiation Status: </Text>
+        <Text style={styles.nameRecp}>{gottenDetails?.data?.offers?.status}</Text>
+    </View>
+    <View style={styles.titleandResponse}>
+        <Text style={styles.Recipientname} >Duration: </Text>
+        <Text style={styles.nameRecp}>{gottenDetails?.data?.offers?.duration}</Text>
+    </View>
+    <View style={styles.titleandResponse}>
+        <Text style={styles.Recipientname} >Amount: </Text>
+        <Text style={styles.nameRecp}>${gottenDetails?.data?.offers?.recipient_earnings}</Text>
+    </View>
+    <View style={styles.titleandResponse}>
+        <Text style={styles.Recipientname} >Expiring: </Text>
+        <Text style={styles.nameRecp}>{expireData}</Text>
+    </View>
+  </View>
+    </Page>
+  </Document>
+);
+
+
   return (
     <div className='PlayersViewDeals_Container'>
         <div className='PlayersDealsMade_Page'>
@@ -102,7 +205,7 @@ const PlayerDealsMade = () => {
               <div className='PlayerViewdetails_TopicSec'>                
                 <p className='PlayerViewdetails_DetailsText'>Details (Not Paid)</p>
                 <div className='PlayerViewdetails_DownloadButtons'>
-                  <button className='PlayerViewdetails_DownloadPdf' onClick={handleDownload} style={{display:'flex', alignItems:"center"}}>
+                  {/* <button className='PlayerViewdetails_DownloadPdf' onClick={handleDownload} style={{display:'flex', alignItems:"center"}}>
                     <FaDownload style={{color:'#3D413D', marginRight: '7px'}} /> 
                     {downloadPage ? 
                           <PulseLoader
@@ -111,7 +214,14 @@ const PlayerDealsMade = () => {
                               aria-label="Loading Spinner"
                               data-testid="loader"
                             /> :<span>Download</span>}
-                    </button>
+                    </button> */}
+                    <div style={{display:'flex', alignItems:"center"}}>
+                    <FaDownload style={{color:'#3D413D', marginRight: '7px'}} /> <PDFDownloadLink document={<MyDocument />} fileName="example.pdf">
+      {({ blob, url, loading, error }) =>
+        loading ? 'Loading document...' : 'Download'
+      }
+    </PDFDownloadLink>
+    </div>
                   {userType!= 'player' && <div style={{display:'flex', justifyContent:'center', alignItems:'center'}}>
                   <button className='PlayerViewdetails_Updatebutton'>Update</button>
                   <button className='PlayerViewdetails_Paynowbutton'>Pay Now</button>
@@ -127,7 +237,7 @@ const PlayerDealsMade = () => {
               </div>
               <div className='PlayerViewdetails_LabelAndAnswer'>
                 <label className='PlayerViewdetails_LabelText'>Duration:</label>
-                {loading? <Skeleton variant="rounded" width={105} height={22} />:<p className='PlayerViewdetails_labelresponse'> {numberOfWeeks} weeks</p>}
+                {loading? <Skeleton variant="rounded" width={105} height={22} />:<p className='PlayerViewdetails_labelresponse'> {gottenDetails?.data?.offers?.duration}</p>}
               </div>
               <div className='PlayerViewdetails_LabelAndAnswer'>
                 <label className='PlayerViewdetails_LabelText'>Expiring:</label>
