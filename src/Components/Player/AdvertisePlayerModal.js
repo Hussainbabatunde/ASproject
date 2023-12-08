@@ -9,6 +9,8 @@ import {TbCurrencyNaira} from 'react-icons/tb'
 import {BsFillPatchCheckFill, BsHouseDoor, BsDot} from 'react-icons/bs'
 import { PlayerProfileAdvertiseApi } from '../../Slice/Player/Playerprofile/PlayerProfileSlice';
 import { CircularProgress } from '@mui/material';
+import { AiOutlineInfoCircle } from 'react-icons/ai';
+import { IoMdArrowBack } from 'react-icons/io';
 
 
 
@@ -61,6 +63,14 @@ const AdvertisePlayerModal = ({show, progress, hideAdvertiseProfile, positionPla
       setLoadingOffer(false)
       // console.log('data ', data)
     }
+
+    const handleVideoRequestType = () =>{
+      
+    }
+
+    const handleRequestType = () =>{
+
+    }
     
 
   return (
@@ -70,7 +80,7 @@ const AdvertisePlayerModal = ({show, progress, hideAdvertiseProfile, positionPla
     aria-labelledby="modal-modal-title"
     aria-describedby="modal-modal-description"
   >
-    <div className='HomePage_ViewProfileModal'>
+    {/* <div className='HomePage_ViewProfileModal'>
       <ToastContainer />
       <form onSubmit={handleSubmitOffer} className='AdvertisePlayer_ModalView'>
        
@@ -130,6 +140,60 @@ const AdvertisePlayerModal = ({show, progress, hideAdvertiseProfile, positionPla
         </div>
        </div>
        </form>
+    </div> */}
+
+    
+
+<div className='HomePage_ViewProfileModal'>
+      <div className='MakeaRequest_ModalView'>
+       <div className='MakeaRequest_Modal'>
+        <IoMdArrowBack style={{fontSize:'25px'}} onClick={hideAdvertiseProfile} />
+        <p  className='MakeaRequest_HowitWorksText text-center'>How it Works</p>
+        <AiOutlineInfoCircle style={{fontSize:'20px', marginLeft:'10px'}} />
+       </div>
+       <div className='MakeaRequest_HowitWorksContent'>
+        <p>What type of Advert do u want?</p>
+        {/* <div onClick={handleVideoRequestType} className='MakeaRequest_HowitWorksContentInnerDiv'>
+          <div style={{display:'flex', alignItems:'center'}}>
+          <div style={{border:'2px solid rgba(204, 204, 204, 1)', borderRadius:'50%', padding:'15px'}}></div>
+          <p style={{marginLeft:'15px'}}>Weekly</p>
+          </div>
+          <p>${PlayerDetails?.fanprice?.video_price}</p>
+        </div>
+        <div onClick={handleRequestType} className='MakeaRequest_HowitWorksContentInnerDiv'>
+          <div style={{display:'flex', alignItems:'center'}}>
+          <div style={{border:'2px solid rgba(204, 204, 204, 1)', borderRadius:'50%', padding:'15px'}}></div>
+          <p style={{marginLeft:'15px'}}>Monthly</p>
+          </div>
+          <p>${PlayerDetails?.fanprice?.image_price}</p>
+        </div> */}
+       </div>
+       <div className='px-4 py-2'>
+        <p >Subscription Type</p>
+        <select className='border px-2 py-1 rounded  border-[#cccccc] w-[100%]'>
+          <option>Weekly</option>
+          <option>Monthly</option>
+        </select>
+        <p className='mt-2'>Price:</p>
+        <p className='border px-2 py-1 rounded  border-[#cccccc] w-[100%]'> 30 naira</p>
+        <p className='mt-2'>Duration:</p>
+        <select className='border px-2 py-1 rounded  border-[#cccccc] w-[100%]'>
+          <option>1 month</option>
+          <option>2 month</option>
+          <option>3 month</option>
+          <option>4 month</option>
+          <option>5 month</option>
+          <option>6 month</option>
+          <option>7 month</option>
+          <option>8 month</option>
+          <option>9 month</option>
+          <option>10 month</option>
+          <option>11 month</option>
+          <option>12 month</option>
+        </select>
+        </div>
+
+       </div>
     </div>
     
   </Modal>
