@@ -101,6 +101,20 @@ function Settings_model({ setFormData, formData, setModal }) {
         );
 
         return response.data;
+      } else if (formData?.name === "Monthly Advert-Fee") {
+        console.log({ data, formData });
+
+        API_URL = `${baseURL}admin/change-monthly-advert-fee`;
+
+        const response = await axios.post(
+          API_URL,
+          {
+            monthly_advert_fee: data,
+          },
+          config
+        );
+
+        return response.data;
       }
     },
     {
