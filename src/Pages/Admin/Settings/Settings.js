@@ -75,7 +75,8 @@ const Settings = () => {
     { id: 1, name: "Percentage" },
     { id: 2, name: "Market Fee" },
     { id: 3, name: "Sorting" },
-    { id: 4, name: "Advert-Fee" },
+    { id: 4, name: "Weekly Advert-Fee" },
+    { id: 5, name: "Monthly  Advert-Fee" },
   ];
   const dataTable = [
     {
@@ -98,6 +99,10 @@ const Settings = () => {
     },
   ];
 
+  console.log({
+    Settings,
+  });
+
   const orderedSettings = [
     {
       id: 1,
@@ -109,6 +114,7 @@ const Settings = () => {
     { id: 3, name: "Sorting", data: Settings?.sorting.data },
 
     { id: 4, name: Settings?.advert?.message, data: Settings?.advert.data },
+    { id: 5, name: "Monthly Advert-Fee", data: Settings?.advert_monthly },
   ];
 
   useEffect(() => {

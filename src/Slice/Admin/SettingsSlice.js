@@ -19,7 +19,11 @@ const Settings_fun_Service = async (token) => {
   let API_URL_market_fee = `${baseURL}admin/market-fee`;
   let API_URL_sorting = `${baseURL}admin/sorting`;
   let API_URL_advert_fee = `${baseURL}admin/advert-fee`;
-
+  let API_URL_montly_advert_fee = `${baseURL}admin/monthly-advert-fee
+  `;
+  console.log({
+    API_URL_montly_advert_fee,
+  });
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -30,14 +34,19 @@ const Settings_fun_Service = async (token) => {
   const market_response = await axios.get(API_URL_market_fee, config);
   const sorting_response = await axios.get(API_URL_sorting, config);
   const advert_response = await axios.get(API_URL_advert_fee, config);
+  const advert_monthly_response = await axios.get(
+    API_URL_montly_advert_fee,
+    config
+  );
 
+  console.log({ sss: advert_monthly_response?.data });
   let percentage = percentage_response.data,
     market = market_response.data,
     sorting = sorting_response.data,
-    advert = advert_response.data;
+    advert = advert_response.data,
+    advert_monthly = advert_monthly_response.data;
 
-  console.log({ percentage, market, sorting, advert });
-  return { percentage, market, sorting, advert };
+  return { percentage, market, sorting, advert, advert_monthly };
 };
 
 export const Settings_fun = createAsyncThunk(
