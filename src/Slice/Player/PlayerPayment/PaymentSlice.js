@@ -11,7 +11,9 @@ const initialState = {
     gottenAllPaymentData: null,
     getOfferPaymentData: null,
     getAdvertPaymentData: null,
-    getMarketPriceData: null
+    getMarketPriceData: null,
+    getAdvertFeesdata: null,
+    getAdvertPaidData: null
   };
 
 
@@ -35,6 +37,69 @@ const initialState = {
         .get('player/payment/transactions')
         .then(async (response) => {
             console.log('all payments Players ',response.data)
+          return response.data;
+        })
+  
+        .catch((err) => {
+          let errdata = err.response.data;
+          console.log('error ', errdata)
+          return rejectWithValue(errdata);
+          // console.log(err)
+        });
+    }
+  );
+
+  export const AdvertSentApi = createAsyncThunk(
+    "advertSentApi/userAdvertSentApi",
+    async (data, { rejectWithValue }) => {
+      const tokengot = localStorage.getItem("token");
+      const infoneeded = `Bearer ${tokengot}`;
+      const instance = axios.create({
+        baseURL: process.env.REACT_APP_AFRISPORTURL,
+        timeout: 20000,
+  
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: infoneeded,
+        },
+      });
+      return await instance
+        .post("player/advertise", data)
+        .then(async (response) => {
+          console.log('advert works ',response.data)
+          return response.data;
+        })
+  
+        .catch((err) => {
+          let errdata = err.response.data;
+          console.log("error ", errdata);
+          return rejectWithValue(errdata);
+          // console.log(err)
+        });
+    }
+  );
+
+  export const GetAdvertFeesApi = createAsyncThunk(
+    "getAdvertfeesApi/userGetAdvertfeesApi",
+    async (_, { rejectWithValue }) => {
+        
+        const tokengot = localStorage.getItem("token");
+        const infoneeded = `Bearer ${tokengot}`;
+      const instance = axios.create({
+        baseURL: process.env.REACT_APP_AFRISPORTURL ,
+        timeout: 20000,
+  
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: infoneeded
+        },
+      });
+      return await instance
+        .get('advert-fees')
+        .then(async (response) => {
+            // console.log('fees ',response.data)
           return response.data;
         })
   
@@ -167,6 +232,36 @@ const initialState = {
         state.gottenAllPaymentData = action.payload;        
       })
       .addCase(GetAllPaymentApi.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+      })
+      .addCase(AdvertSentApi.pending, (state) => {
+        state.isLoading = true;
+        state.null = true;
+      })
+      .addCase(AdvertSentApi.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.user = true;
+        state.getAdvertPaidData = action.payload;        
+      })
+      .addCase(AdvertSentApi.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+      })
+      .addCase(GetAdvertFeesApi.pending, (state) => {
+        state.isLoading = true;
+        state.null = true;
+      })
+      .addCase(GetAdvertFeesApi.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.user = true;
+        state.getAdvertFeesdata = action.payload;        
+      })
+      .addCase(GetAdvertFeesApi.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;

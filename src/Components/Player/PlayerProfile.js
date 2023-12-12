@@ -154,6 +154,7 @@ const PlayerProfile = () => {
     const checkingVerification = async () => {
       await dispatch(ProfileDetailsPlayer(userId));
       await dispatch(PlayerProfileVerificationStatus(userId));
+      await dispatch(resetPaymentSlice())
     };
     checkingVerification();
   }, []);

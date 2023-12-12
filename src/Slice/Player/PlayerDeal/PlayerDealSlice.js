@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 
 const initialState = {
     user: null,
@@ -271,6 +271,64 @@ export const PlayerDeleteOfferDetailsApi = createAsyncThunk(
       .post("player/offer/decline", data)
       .then(async (response) => {
         console.log("decline deals ", response.data);
+        return response.data;
+      })
+
+      .catch((err) => {
+        let errdata = err.response.data;
+        console.log("error ", errdata);
+        return rejectWithValue(errdata);
+        // console.log(err)
+      });
+  }
+);
+
+export const ScoutDeleteOfferDetailsApi = createAsyncThunk(
+  "scoutDeleteOfferDeatilsApi/userScoutDeleteOfferDeatilsApi",
+  async (id, { rejectWithValue }) => {
+    // console.log(data)
+    const tokengot = localStorage.getItem("token");
+    const infoneeded = `Bearer ${tokengot}`;
+    const instance = axios.create({
+      baseURL: process.env.REACT_APP_AFRISPORTURL,
+      timeout: 20000,
+
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: infoneeded,
+      },
+    });
+    return await instance
+      .post(`scout/remove-offer/${id}`)
+      .then(async (response) => {
+        // console.log("scout decline deals ", response.data);
+        if(response?.message == 'Offer alredy accetped, cant be deleted' ){
+        toast.error(`${response?.message}`, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          className: "Forbidden403",
+        });
+      }
+
+      else if (response?.message == 'Offer deleted.'){
+        toast.success(`${response?.message} `, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      }
         return response.data;
       })
 
