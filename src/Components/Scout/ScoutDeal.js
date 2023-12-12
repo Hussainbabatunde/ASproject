@@ -35,6 +35,7 @@ import {reset as resetFanProfileSlice} from "../../Slice/Fan/ProfileFanSlice/Pro
 import {reset as resetScoutProfileSlice} from "../../Slice/Scout/ProfileScoutSlice/ProfileScoutSlice"
 
 import {reset as resetScoutDealSlice} from "../../Slice/Scout/ScoutDealsApiPage/ScoutDealSlice"
+import { ToastContainer } from 'react-toastify';
 
 
 const ScoutDeal = () => {
@@ -95,6 +96,10 @@ const ScoutDeal = () => {
       {
           id:7,
           name:'Scout Deals'
+      },
+      {
+          id:8,
+          name:'Scout Actions'
       }
   ]
   const style = {
@@ -151,6 +156,7 @@ const ScoutDeal = () => {
   return (
     <div className="Scoutpage_maxWidthContainer">
     <div  className='Scoutpage_contents'>
+      <ToastContainer />
     <div className='Scoutpage_AccountLogout_div'>
         <p className='Scoutpage_AccountWord'>Account</p>
         <p className='Scoutpage_AccountWord' style={{cursor:'pointer'}} onClick={handleLogout}>Logout <RxExit /></p>

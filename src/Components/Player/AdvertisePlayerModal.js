@@ -9,6 +9,10 @@ import {TbCurrencyNaira} from 'react-icons/tb'
 import {BsFillPatchCheckFill, BsHouseDoor, BsDot} from 'react-icons/bs'
 import { PlayerProfileAdvertiseApi } from '../../Slice/Player/Playerprofile/PlayerProfileSlice';
 import { CircularProgress } from '@mui/material';
+import { AiOutlineInfoCircle } from 'react-icons/ai';
+import { IoMdArrowBack } from 'react-icons/io';
+import {reset as resetPaymentSlice} from "../../Slice/Player/PlayerPayment/PaymentSlice"
+import { AdvertSentApi } from '../../Slice/Player/PlayerPayment/PaymentSlice';
 
 
 
@@ -25,7 +29,41 @@ const AdvertisePlayerModal = ({show, progress, hideAdvertiseProfile, positionPla
     const [loadingOffer, setLoadingOffer] = useState(false)
     const dispatch = useDispatch()
     const AdvertValue = 100
+    const [advertPrice, setAdvertPrice] = useState('')
+    const [duration , setDuration ] = useState(null)
+    const [durationPeriod, setDurationPeriod] = useState(null)
 
+    
+  const AdvertPrices = useSelector((state)=>state?.reducer?.GetPaymentSlice?.getAdvertFeesdata)
+  const AdvertPaid = useSelector((state)=>state?.reducer?.GetPaymentSlice?.getAdvertPaidData)
+
+  useEffect(()=>{
+    const reload = async () =>{
+      if(AdvertPaid?.url){
+    window.location.href = AdvertPaid?.url
+      }
+    
+    }
+    reload()
+  }, [AdvertPaid])
+// console.log('advert prices ', AdvertPrices)
+
+useEffect(()=>{
+  if(duration == 'weekly'){
+  setAdvertPrice(AdvertPrices?.advert_fee)
+  }
+  else if(duration == 'monthly'){
+    setAdvertPrice(AdvertPrices?.monthly_advert)
+  }
+},[duration])
+
+useEffect(()=>{
+  const initial = async () =>{
+  setDuration('weekly')
+  await dispatch(resetPaymentSlice())
+  }
+  initial()
+},[])
 
     const handleChangePayValue =(e) =>{
       setPayValue(e.target.value)
@@ -61,6 +99,20 @@ const AdvertisePlayerModal = ({show, progress, hideAdvertiseProfile, positionPla
       setLoadingOffer(false)
       // console.log('data ', data)
     }
+
+    const handleDurationAdvert = (value) =>{
+      setDuration(value)
+    }
+
+    const handleSubmitAdvert = async(e) =>{
+      e.preventDefault()
+      let sentData = {
+        nos: Number(durationPeriod),
+        duration: duration
+      }
+      console.log(sentData)
+      await dispatch(AdvertSentApi(sentData))
+    }
     
 
   return (
@@ -70,7 +122,7 @@ const AdvertisePlayerModal = ({show, progress, hideAdvertiseProfile, positionPla
     aria-labelledby="modal-modal-title"
     aria-describedby="modal-modal-description"
   >
-    <div className='HomePage_ViewProfileModal'>
+    {/* <div className='HomePage_ViewProfileModal'>
       <ToastContainer />
       <form onSubmit={handleSubmitOffer} className='AdvertisePlayer_ModalView'>
        
@@ -130,6 +182,72 @@ const AdvertisePlayerModal = ({show, progress, hideAdvertiseProfile, positionPla
         </div>
        </div>
        </form>
+    </div> */}
+
+    
+
+<div className='HomePage_ViewProfileModal'>
+      <div className='MakeaRequest_ModalView'>
+       <div className='MakeaRequest_Modal'>
+        <IoMdArrowBack style={{fontSize:'25px'}} onClick={hideAdvertiseProfile} />
+        <p  className='MakeaRequest_HowitWorksText text-center'>How it Works</p>
+        <AiOutlineInfoCircle style={{fontSize:'20px', marginLeft:'10px'}} />
+       </div>
+       <div className='MakeaRequest_HowitWorksContent'>
+        <p>What type of Advert do u want?</p>
+        {/* <div onClick={handleVideoRequestType} className='MakeaRequest_HowitWorksContentInnerDiv'>
+          <div style={{display:'flex', alignItems:'center'}}>
+          <div style={{border:'2px solid rgba(204, 204, 204, 1)', borderRadius:'50%', padding:'15px'}}></div>
+          <p style={{marginLeft:'15px'}}>Weekly</p>
+          </div>
+          <p>${PlayerDetails?.fanprice?.video_price}</p>
+        </div>
+        <div onClick={handleRequestType} className='MakeaRequest_HowitWorksContentInnerDiv'>
+          <div style={{display:'flex', alignItems:'center'}}>
+          <div style={{border:'2px solid rgba(204, 204, 204, 1)', borderRadius:'50%', padding:'15px'}}></div>
+          <p style={{marginLeft:'15px'}}>Monthly</p>
+          </div>
+          <p>${PlayerDetails?.fanprice?.image_price}</p>
+        </div> */}
+       </div>
+       <div className='px-4 py-2'>
+        <p >Subscription Type</p>
+        <select onChange={(e)=> handleDurationAdvert(e.target.value)} className='border px-2 py-1 rounded  border-[#cccccc] w-[100%]'>
+          <option value='weekly' >Weekly</option>
+          <option value='monthly' >Monthly</option>
+        </select>
+        <p className='mt-2'>Price:</p>
+        <p className='border px-2 py-1 rounded  border-[#cccccc] w-[100%]'> {advertPrice} naira</p>
+        <p className='mt-2'>Duration:</p>
+        {duration == 'monthly' && <select onChange={(e)=> setDurationPeriod(e.target.value)} className='border px-2 py-1 rounded  border-[#cccccc] w-[100%]'>
+          <option value='1'>1 month</option>
+          <option value='2'>2 month</option>
+          <option value='3'>3 month</option>
+          <option value='4 '>4 month</option>
+          <option value='5'>5 month</option>
+          <option value='6'>6 month</option>
+          <option value='7'>7 month</option>
+          <option value='8'>8 month</option>
+          <option value='9'>9 month</option>
+          <option value='10'>10 month</option>
+          <option value='11'>11 month</option>
+          <option value='12'>12 month</option>
+        </select>}
+
+        {duration == 'weekly' && <select onChange={(e)=> setDurationPeriod(e.target.value)} className='border px-2 py-1 rounded  border-[#cccccc] w-[100%]'>
+          <option value='1'>1 week</option>
+          <option value='2'>2 week</option>
+          <option value='3'>3 week</option>
+          <option value='4'>4 week</option>
+        </select>}
+
+      <div className='flex justify-end mt-3'>
+        <button onClick={hideAdvertiseProfile} className='text-white bg-red-500 py-1 px-3 rounded mr-2'>Cancel</button>
+        <button onClick={handleSubmitAdvert} className='text-white bg-green-800 py-1 px-3 rounded mr-2'>Submit</button>
+        </div>
+        </div>
+
+       </div>
     </div>
     
   </Modal>

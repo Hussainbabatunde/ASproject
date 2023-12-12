@@ -18,7 +18,9 @@ import { ToastContainer } from 'react-toastify'
 import ModalImgViewProfile from './ModalImgViewProfile'
 import {AiFillDelete, AiFillStar} from 'react-icons/ai'
 import AdvertisePlayerModal from './AdvertisePlayerModal'
+import { GetAdvertFeesApi } from '../../Slice/Player/PlayerPayment/PaymentSlice'
 
+import {reset as resetPaymentSlice} from "../../Slice/Player/PlayerPayment/PaymentSlice"
 
 const PlayerViewProfile = () => {
 
@@ -38,7 +40,7 @@ const PlayerViewProfile = () => {
   const [showImgModal, setShowImgModal] = useState(false)
   const [show, setShow] = useState(false)
 
-  console.log('PlayerDetails ', PlayerDetails)
+  // console.log('PlayerDetails ', PlayerDetails)
   const originalString = PlayerDetails?.position[0];
   const positionPlayed = originalString?.position;
   //set cover img
@@ -81,6 +83,7 @@ const PlayerViewProfile = () => {
       setLoading(true)
       await dispatch(ProfileDetailsPlayer(userId))
       await dispatch(PlayerProfileVerificationStatus(userId))
+      await dispatch(GetAdvertFeesApi())
       setLoading(false)
     }
     getInfo()
