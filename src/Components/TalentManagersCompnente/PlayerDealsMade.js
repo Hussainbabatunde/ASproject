@@ -144,6 +144,7 @@ const MyComponent = ({ player }) => {
 
 const PlayerDealsMade = () => {
   const { state } = useLocation();
+  console.log({ state });
   let player = state?.data?.player;
   let request = state?.data?.request;
   let sender = state?.data?.sender;

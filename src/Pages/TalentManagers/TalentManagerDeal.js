@@ -38,9 +38,6 @@ const TalentManagerDeal = () => {
   const userType = useSelector(
     (state) => state?.reducer?.LoginSlice?.logindata
   );
-  console.log({ userType });
-
-  console.log(Talent_manager_Deals);
 
   const dispatch = useDispatch();
 
@@ -251,8 +248,9 @@ const TalentManagerDeal = () => {
   };
 
   const [searchInput, setSearchInput] = useState("");
+  console.log({ ww: Talent_manager_Deals });
 
-  const filteredUsersArray = Talent_manager_Deals?.data?.filter(
+  const filteredUsersArray = Talent_manager_Deals?.filter(
     (user) =>
       user?.requests?.sender?.firstname
         .toLowerCase()
@@ -275,9 +273,6 @@ const TalentManagerDeal = () => {
       <div className="Scoutpage_maxWidthContainer">
         <div className="Scoutpage_contents ">
           <Talent_Header />
-
-          {console.log(Talent_manager_Deals)}
-
           <div className="AdminDashboard_Search">
             <input
               type="text"
@@ -286,10 +281,8 @@ const TalentManagerDeal = () => {
               className="AdminDashboard_SearchInput"
               placeholder="Search name"
             />
-
             <RiSearchLine className="AdminDashboard_SearchIcon" />
           </div>
-
           <div className="Scoutpage_DealContent">
             {Talent_manager_Deals?.data?.length === 0 ? (
               <div
@@ -308,13 +301,12 @@ const TalentManagerDeal = () => {
             ) : (
               <UseTable
                 header={header}
-                data={filteredUsersArray}
+                data={Talent_manager_Deals}
                 handleEdit={handleEdit}
                 handleDelete={handleDelete}
               />
             )}
           </div>
-
           <Modal
             open={show}
             // onClose={handleClose}

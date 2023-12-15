@@ -163,7 +163,8 @@ export const Talent_manager_requested_players_fun = createAsyncThunk(
 );
 
 const Talent_manager_Deals_fun_Service = async (token) => {
-  let API_URL = `${baseURL}talent-manager/player/offers`;
+  // let API_URL = `${baseURL}talent-manager/player/offers`;
+  let API_URL = `${baseURL}talent-manager/offer`;
 
   const config = {
     headers: {
