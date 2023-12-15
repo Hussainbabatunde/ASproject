@@ -114,14 +114,16 @@ const TalentManagerDeal = () => {
 
       let API_URL = `${baseURL}talent-manager/offer/accept`;
       const tokengot = localStorage.getItem("token");
-      console.log(data);
-      let request = data?.requests?.request?.id;
-      let sender = data?.requests?.sender?.id;
+      // let request = data?.requests?.request?.id;
+      // let sender = data?.requests?.sender?.id;
 
+      console.log({ yy: data });
       let data_item = {
-        offer_id: request,
-        user_id: sender,
+        offer_id: data?.offer?.deal?.offerId,
+        user_id: data?.offer?.deal?.id,
       };
+      console.log({ zz: data_item });
+
       const config = {
         headers: {
           // "Content-Type": "multipart/form-data",
@@ -133,7 +135,6 @@ const TalentManagerDeal = () => {
       try {
         const response = await axios.post(API_URL, data_item, config);
         console.log(response.data); // Logging the response data
-
         return response;
       } catch (error) {
         console.error(error);
@@ -185,12 +186,12 @@ const TalentManagerDeal = () => {
       let API_URL = `${baseURL}talent-manager/offer/decline`;
       const tokengot = localStorage.getItem("token");
       console.log(data);
-      let request = data?.requests?.request?.id;
-      let sender = data?.requests?.sender?.id;
+      // let request = data?.requests?.request?.id;
+      // let sender = data?.requests?.sender?.id;
 
       let data_item = {
-        offer_id: request,
-        user_id: sender,
+        offer_id: data?.offer?.deal?.offerId,
+        user_id: data?.offer?.deal?.id,
       };
       const config = {
         headers: {
