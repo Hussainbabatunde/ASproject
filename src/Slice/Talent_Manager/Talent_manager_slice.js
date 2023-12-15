@@ -93,10 +93,10 @@ export const Talent_manager_Interaction_fun = createAsyncThunk(
 );
 
 const Talent_manager_deal_details_fun_Service = async (data, token) => {
-  let id = data?.id;
-  let from_person = data?.from;
+  // let id = data?.id;
+  // let from_person = data?.from;
 
-  let API_URL = `${baseURL}talent-manager/offer/detail/${id}/${from_person}`;
+  let API_URL = `${baseURL}talent-manager/offer/detail/${data?.offer_id}/${data?.player_id}`;
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -104,6 +104,8 @@ const Talent_manager_deal_details_fun_Service = async (data, token) => {
   };
 
   const response = await axios.get(API_URL, config);
+
+  console.log({ dd: response.data });
   return response.data;
 };
 

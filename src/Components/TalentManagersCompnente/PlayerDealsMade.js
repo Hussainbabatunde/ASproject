@@ -149,7 +149,10 @@ const PlayerDealsMade = () => {
   let request = state?.data?.request;
   let sender = state?.data?.sender;
 
-  console.log(request);
+  let offer_id = state?.data?.deal?.offerId;
+  let player_id = state?.data?.player?.id;
+
+  console.log({ offer_id, player_id });
 
   const {
     Talent_manager_deal_details,
@@ -160,17 +163,12 @@ const PlayerDealsMade = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(Talent_manager_deal_details_fun(request));
+    dispatch(Talent_manager_deal_details_fun({ offer_id, player_id }));
+    dispatch(Talent_manager_Interaction_fun({ player, request, sender }));
 
     return () => {
       dispatch(reset_Talent_manager_Deals());
     };
-  }, []);
-
-  useEffect(() => {
-    dispatch(Talent_manager_Interaction_fun({ player, request, sender }));
-
-    return () => {};
   }, []);
 
   let info = Talent_manager_deal_details?.data?.offers;
