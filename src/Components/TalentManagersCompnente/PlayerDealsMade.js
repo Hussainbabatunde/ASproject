@@ -143,6 +143,10 @@ const MyComponent = ({ player }) => {
 };
 
 const PlayerDealsMade = () => {
+  const { user } = useSelector(
+    (state) => state?.reducer?.LoginSlice?.logindata?.data
+  );
+  console.log({ user });
   const { state } = useLocation();
   console.log({ state });
   let player = state?.data?.player;
@@ -151,8 +155,8 @@ const PlayerDealsMade = () => {
 
   let offer_id = state?.data?.deal?.offerId;
   let player_id = state?.data?.player?.id;
-
-  console.log({ offer_id, player_id });
+  let sender_id = state?.data?.deal?.from;
+  let manager_id = user?.id;
 
   const {
     Talent_manager_deal_details,
@@ -160,11 +164,21 @@ const PlayerDealsMade = () => {
     Talent_manager_Interaction,
     Talent_manager_Interaction_isLoading,
   } = useSelector((state) => state?.reducer?.Talent_manager_slice);
+
   const dispatch = useDispatch();
+
+  console.log({ offer_id, player_id, sender_id, manager_id, state });
 
   useEffect(() => {
     dispatch(Talent_manager_deal_details_fun({ offer_id, player_id }));
-    dispatch(Talent_manager_Interaction_fun({ player, request, sender }));
+    dispatch(
+      Talent_manager_Interaction_fun({
+        offer_id,
+        player_id,
+        sender_id,
+        manager_id,
+      })
+    );
 
     return () => {
       dispatch(reset_Talent_manager_Deals());
