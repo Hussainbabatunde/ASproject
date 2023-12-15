@@ -11,6 +11,7 @@ import {
   PlayerAcceptOfferDetailsApi,
   PlayerDealsApi,
   PlayerDeleteOfferDetailsApi,
+  ScoutDeleteOfferDetailsApi,
 } from "../../Slice/Player/PlayerDeal/PlayerDealSlice";
 import { CircularProgress } from "@mui/material";
 import { PulseLoader } from "react-spinners";
@@ -24,6 +25,7 @@ import {
   PlayerDeleteManagerDetailsApi,
   PlayerManagerDealsApi,
 } from "../../Slice/Player/PlayerManager/PlayerManagerSlice";
+import { ScoutDealsApi } from "../../Slice/Scout/ScoutDealsApiPage/ScoutDealSlice";
 
 const UseTable = ({
   header,
@@ -78,6 +80,13 @@ const UseTable = ({
     sentData.user_id = userId;
     await dispatch(PlayerDeleteOfferDetailsApi(sentData));
     await dispatch(PlayerDealsApi());
+    setDeleteIndex(null);
+  };
+
+  const handleScoutDeleteOffer = async (id) => {
+    setDeleteIndex(id);
+    await dispatch(ScoutDeleteOfferDetailsApi(id));
+    await dispatch(ScoutDealsApi());
     setDeleteIndex(null);
   };
 
@@ -649,6 +658,37 @@ const UseTable = ({
                             </button>
                           </>
                         )}
+                      </td>
+                    );
+                    case "Scout Actions":
+                    return (
+                      <td
+                        className="useTable_ViewEditSuspendDetails"
+                        style={{ flex: 1, width: "150px" }}
+                      >
+                        {/* <Link className="Admin_playersviewprofile">Edit</Link> */}
+                        
+                          <>
+                            
+                            <button
+                              className="Admin_playersSuspendprofile"
+                              onClick={() =>
+                                handleScoutDeleteOffer(each?.offer?.deal?.offerId)
+                              }
+                            >
+                              {deleteIndex == each?.offer?.deal?.offerId ? (
+                                <PulseLoader
+                                  color="#7F351D"
+                                  size={13}
+                                  aria-label="Loading Spinner"
+                                  data-testid="loader"
+                                />
+                              ) : (
+                                <span>Delete</span>
+                              )}
+                            </button>
+                          </>
+                        
                       </td>
                     );
                   case "FanAcceptDeclineOffer":
