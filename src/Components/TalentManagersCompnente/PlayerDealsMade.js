@@ -368,9 +368,9 @@ const PlayerDealsMade = () => {
     e.preventDefault();
     const sentData = {};
 
-    sentData.offer_id = request?.id;
-    sentData.others = sender?.id;
-    sentData.player = player?.id;
+    sentData.offer_id = offer_id;
+    sentData.others = sender_id;
+    sentData.player = player_id;
     sentData.comment = comment;
 
     Comment_Mutation.mutate(sentData);
@@ -602,7 +602,7 @@ const PlayerDealsMade = () => {
                   {commentload ? (
                     <CircularProgress size={15} />
                   ) : (
-                    <span>Comment</span>
+                    <span>Comment </span>
                   )}
                 </button>
               </form>
