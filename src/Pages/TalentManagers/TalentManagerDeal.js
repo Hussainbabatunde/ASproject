@@ -39,6 +39,7 @@ const TalentManagerDeal = () => {
     (state) => state?.reducer?.LoginSlice?.logindata
   );
 
+  console.log({ Talent_manager_Deals });
   const dispatch = useDispatch();
 
   const header = [

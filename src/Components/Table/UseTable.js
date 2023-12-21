@@ -1,19 +1,15 @@
 import React, { useState } from "react";
 import "./UseTable.css";
-import { FiEdit } from "react-icons/fi";
-import { MdDelete } from "react-icons/md";
-import Lottie from "lottie-react";
+
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { format } from "date-fns";
 import {
-  GetPlayerOfferDetailsApi,
   PlayerAcceptOfferDetailsApi,
   PlayerDealsApi,
   PlayerDeleteOfferDetailsApi,
   ScoutDeleteOfferDetailsApi,
 } from "../../Slice/Player/PlayerDeal/PlayerDealSlice";
-import { CircularProgress } from "@mui/material";
 import { PulseLoader } from "react-spinners";
 import {
   PlayerAcceptRequestDetailsApi,
@@ -157,7 +153,8 @@ const UseTable = ({
                   case "talent_DealDetails":
                     return (
                       <td className="useTable_tableDetails">
-                        {each?.requests?.request?.detail}
+                        {/* {each?.requests?.request?.detail} */}
+                        {each?.offer?.deal?.detail}
                       </td>
                     );
 
@@ -660,35 +657,33 @@ const UseTable = ({
                         )}
                       </td>
                     );
-                    case "Scout Actions":
+                  case "Scout Actions":
                     return (
                       <td
                         className="useTable_ViewEditSuspendDetails"
                         style={{ flex: 1, width: "150px" }}
                       >
                         {/* <Link className="Admin_playersviewprofile">Edit</Link> */}
-                        
-                          <>
-                            
-                            <button
-                              className="Admin_playersSuspendprofile"
-                              onClick={() =>
-                                handleScoutDeleteOffer(each?.offer?.deal?.offerId)
-                              }
-                            >
-                              {deleteIndex == each?.offer?.deal?.offerId ? (
-                                <PulseLoader
-                                  color="#7F351D"
-                                  size={13}
-                                  aria-label="Loading Spinner"
-                                  data-testid="loader"
-                                />
-                              ) : (
-                                <span>Delete</span>
-                              )}
-                            </button>
-                          </>
-                        
+
+                        <>
+                          <button
+                            className="Admin_playersSuspendprofile"
+                            onClick={() =>
+                              handleScoutDeleteOffer(each?.offer?.deal?.offerId)
+                            }
+                          >
+                            {deleteIndex == each?.offer?.deal?.offerId ? (
+                              <PulseLoader
+                                color="#7F351D"
+                                size={13}
+                                aria-label="Loading Spinner"
+                                data-testid="loader"
+                              />
+                            ) : (
+                              <span>Delete</span>
+                            )}
+                          </button>
+                        </>
                       </td>
                     );
                   case "FanAcceptDeclineOffer":

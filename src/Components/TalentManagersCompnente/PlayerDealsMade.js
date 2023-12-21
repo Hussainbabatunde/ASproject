@@ -29,6 +29,7 @@ const MyComponent = ({ player }) => {
   } = useSelector((state) => state?.reducer?.Talent_manager_slice);
 
   let managerId = Talent_manager_details?.data?.id;
+  console.log({ Talent_manager_Interaction });
 
   const [filteredData, setFilteredData] = useState([]);
 
@@ -146,9 +147,7 @@ const PlayerDealsMade = () => {
   const { user } = useSelector(
     (state) => state?.reducer?.LoginSlice?.logindata?.data
   );
-  console.log({ user });
   const { state } = useLocation();
-  console.log({ state });
   let player = state?.data?.player;
   let request = state?.data?.request;
   let sender = state?.data?.sender;
@@ -166,8 +165,6 @@ const PlayerDealsMade = () => {
   } = useSelector((state) => state?.reducer?.Talent_manager_slice);
 
   const dispatch = useDispatch();
-
-  console.log({ offer_id, player_id, sender_id, manager_id, state });
 
   useEffect(() => {
     dispatch(Talent_manager_deal_details_fun({ offer_id, player_id }));
@@ -209,23 +206,18 @@ const PlayerDealsMade = () => {
     return `${totalMonths} months, ${totalDays} days`;
   };
 
-  console.log(Talent_manager_Interaction);
-  console.log(Talent_manager_Interaction);
-
   const duration = calculateDuration(info?.to_start, info?.to_end);
 
   const userId = useSelector(
     (state) => state?.reducer?.LoginSlice?.logindata?.data?.user?.id
   );
   const userType = useSelector(
-    (state) => state?.reducer?.LoginSlice?.logindata?.data?.user_type
+    (state) => state?.reducer?.LoginSlice?.logindata?.data
   );
   const [downloadPage, setDownloadPage] = useState(false);
   const [comment, setComment] = useState("");
   const [commentload, setCommentLoad] = useState(false);
   const [senderload, setSenderLoad] = useState(false);
-  // console.log('id ', id)
-  // console.log('user id', userId)
 
   const handleComment = (e) => {
     setComment(e.target.value);
@@ -236,15 +228,12 @@ const PlayerDealsMade = () => {
       // Your API request code here
       // Use formData to send the image data to the API
 
-      console.log(request);
       let id = request?.id;
       let from_person = request?.from;
 
       let API_URL = `${baseURL}talent-manager/offer/download/${id}/${from_person}`;
 
       const tokengot = localStorage.getItem("token");
-
-      console.log(API_URL);
 
       const config = {
         headers: {
@@ -257,16 +246,17 @@ const PlayerDealsMade = () => {
 
       try {
         const response = await axios.get(API_URL, config);
+        // console.log(response.data);
 
         // Create a download link
-        const downloadLink = document.createElement("a");
-        const objectUrl = URL.createObjectURL(response.data);
+        // const downloadLink = document.createElement("a");
+        // const objectUrl = URL.createObjectURL(response.data);
 
-        downloadLink.href = objectUrl;
-        downloadLink.download = "file.pdf";
-        downloadLink.click();
+        // downloadLink.href = objectUrl;
+        // downloadLink.download = "file.pdf";
+        // downloadLink.click();
 
-        URL.revokeObjectURL(objectUrl);
+        // URL.revokeObjectURL(objectUrl);
 
         return response.data;
       } catch (error) {
@@ -323,7 +313,6 @@ const PlayerDealsMade = () => {
 
       try {
         const response = await axios.post(API_URL, data, config);
-        console.log(response.data); // Logging the response data
 
         return response;
       } catch (error) {
@@ -372,6 +361,9 @@ const PlayerDealsMade = () => {
     sentData.others = sender_id;
     sentData.player = player_id;
     sentData.comment = comment;
+    const tokengot = localStorage.getItem("token");
+
+    console.log({ sentData, tokengot, userType });
 
     Comment_Mutation.mutate(sentData);
   };
@@ -456,6 +448,7 @@ const PlayerDealsMade = () => {
             <div className="PlayerViewdetails_LabelAndAnswer">
               <label className="PlayerViewdetails_LabelText">Sent By:</label>
               <p className="PlayerViewdetails_labelresponse">
+                {console.log({ sender })}
                 {senderload ? (
                   <Skeleton variant="circular" width={35} height={32} />
                 ) : (
