@@ -430,16 +430,6 @@ function PlayerDetails() {
                     controls
                     url={each?.video_url}
                   />
-                  <button
-                    //   onClick={() => handleDeleteVideo(each?.id)}
-                    className="ViewProfile_DeleteVideo"
-                  >
-                    {/* {deleteVideoIndex == each?.id ? (
-                <CircularProgress size={15} />
-              ) : (
-                <span>Delete</span>
-              )} */}
-                  </button>
                 </div>
               ))}
             </div>

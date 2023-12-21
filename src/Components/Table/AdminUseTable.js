@@ -186,7 +186,7 @@ const AdminUseTable = ({
                             className="Admin_playersSuspendprofile cursor-pointer"
                             onClick={() => handleDelete(each)}
                           >
-                            Termiante
+                            Terminate
                           </span>
                         )}
                       </td>

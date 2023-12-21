@@ -51,14 +51,14 @@ const tokengot = localStorage.getItem("token");
 let baseURL = process.env.REACT_APP_AFRISPORTURL;
 
 const Talent_manager_Interaction_fun_Service = async (data, token, id) => {
-  let request = data?.request?.id;
-  let player = data?.player?.id;
-  let sender = data?.sender?.id;
+  // let request = data?.request?.id;
+  // let player = data?.player?.id;
+  // let sender = data?.sender?.id;
 
-  let talent_manager = id;
-  console.log(talent_manager);
+  // let talent_manager = id;
+  // console.log(talent_manager);
 
-  let API_URL = `${baseURL}talent-manager/offer/interaction/${request}/${player}/${sender}`;
+  let API_URL = `${baseURL}talent-manager/offer/interaction/${data?.offer_id}/${data?.player_id}/${data?.sender_id}/${data?.manager_id}`;
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -66,7 +66,7 @@ const Talent_manager_Interaction_fun_Service = async (data, token, id) => {
   };
 
   const response = await axios.get(API_URL, config);
-
+  console.log({ xx: response.data });
   return response.data;
 };
 
@@ -93,10 +93,10 @@ export const Talent_manager_Interaction_fun = createAsyncThunk(
 );
 
 const Talent_manager_deal_details_fun_Service = async (data, token) => {
-  let id = data?.id;
-  let from_person = data?.from;
+  // let id = data?.id;
+  // let from_person = data?.from;
 
-  let API_URL = `${baseURL}talent-manager/offer/detail/${id}/${from_person}`;
+  let API_URL = `${baseURL}talent-manager/offer/detail/${data?.offer_id}/${data?.player_id}`;
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -104,6 +104,8 @@ const Talent_manager_deal_details_fun_Service = async (data, token) => {
   };
 
   const response = await axios.get(API_URL, config);
+
+  console.log({ dd: response.data });
   return response.data;
 };
 
@@ -163,7 +165,8 @@ export const Talent_manager_requested_players_fun = createAsyncThunk(
 );
 
 const Talent_manager_Deals_fun_Service = async (token) => {
-  let API_URL = `${baseURL}talent-manager/player/offers`;
+  // let API_URL = `${baseURL}talent-manager/player/offers`;
+  let API_URL = `${baseURL}talent-manager/offer`;
 
   const config = {
     headers: {

@@ -1,19 +1,15 @@
 import React, { useState } from "react";
 import "./UseTable.css";
-import { FiEdit } from "react-icons/fi";
-import { MdDelete } from "react-icons/md";
-import Lottie from "lottie-react";
+
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { format } from "date-fns";
 import {
-  GetPlayerOfferDetailsApi,
   PlayerAcceptOfferDetailsApi,
   PlayerDealsApi,
   PlayerDeleteOfferDetailsApi,
   ScoutDeleteOfferDetailsApi,
 } from "../../Slice/Player/PlayerDeal/PlayerDealSlice";
-import { CircularProgress } from "@mui/material";
 import { PulseLoader } from "react-spinners";
 import {
   PlayerAcceptRequestDetailsApi,
@@ -139,25 +135,26 @@ const UseTable = ({
                   case "talent_DealStatus":
                     return (
                       <td className="useTable_tableDetails">
-                        {each?.requests?.request?.status}
+                        {each?.offer?.deal?.offerStatus}
                       </td>
                     );
                   case "talent_DealPayment":
                     return (
                       <td className="useTable_tableDetails">
-                        {each?.requests?.request?.payment_status}
+                        {each?.offer?.deal?.payment_status}
                       </td>
                     );
                   case "talent_DealAmount":
                     return (
                       <td className="useTable_tableDetails">
-                        ${each?.requests?.request?.value}
+                        $ {each?.offer?.deal?.value}
                       </td>
                     );
                   case "talent_DealDetails":
                     return (
                       <td className="useTable_tableDetails">
-                        {each?.requests?.request?.detail}
+                        {/* {each?.requests?.request?.detail} */}
+                        {each?.offer?.deal?.detail}
                       </td>
                     );
 
@@ -168,13 +165,16 @@ const UseTable = ({
                           <img
                             src={
                               each?.requests?.sender?.profile_pics ||
-                              each?.requests?.player?.profile_pics
+                              each?.requests?.player?.profile_pics ||
+                              each?.offer?.deal?.profile_pics
                             }
                             className="useTable_ImageRecipient"
                             alt="Recipient image"
                           />
                           {each?.requests?.sender?.firstname ||
                             each?.requests?.player?.firstname}
+                          {each?.offer?.deal?.firstname}
+                          {each?.offer?.deal?.surname}
                           {each?.requests?.sender?.surname ||
                             each?.requests?.player?.surname}
                         </div>
@@ -186,12 +186,15 @@ const UseTable = ({
                       <td className="useTable_tableDetails">
                         <div style={{ display: "flex", alignItems: "center" }}>
                           <img
-                            src={each?.requests?.player?.profile_pics}
+                            // src={each?.requests?.player?.profile_pics}
+                            src={each?.offer?.player?.profile_pics}
                             className="useTable_ImageRecipient"
                             alt="Recipient image"
                           />
-                          {each?.requests?.player?.firstname}
-                          {each?.requests?.player?.surname}
+                          {/* {each?.requests?.player?.firstname}
+                          // {each?.requests?.player?.surname} */}
+                          {each?.offer?.player?.firstname}
+                          {each?.offer?.player?.surname}
                         </div>
                       </td>
                     );
@@ -200,6 +203,7 @@ const UseTable = ({
                     return (
                       <td className="useTable_tableDetails">
                         {each?.requests?.request?.name}
+                        {each?.offer?.deal?.DealName}
                       </td>
                     );
                   case "Talent_AcceptDeclineOffer":
@@ -207,6 +211,23 @@ const UseTable = ({
                       <td className="useTable_ViewEditSuspendDetails">
                         <div className="flex">
                           {each?.requests?.request?.status === "pending" && (
+                            <>
+                              <button
+                                className="AcceptedPlayerUseTable"
+                                onClick={() => handleEdit(each)}
+                              >
+                                Accepted
+                              </button>
+                              <button
+                                className="RejectedPlayerUseTable"
+                                onClick={() => handleDelete(each)}
+                              >
+                                Rejected
+                              </button>
+                            </>
+                          )}
+
+                          {each?.offer?.deal?.offerStatus === "pending" && (
                             <>
                               <button
                                 className="AcceptedPlayerUseTable"
@@ -233,7 +254,8 @@ const UseTable = ({
                           to={`/afrisport/talent-manager/deal_detail`}
                           style={{ color: "white" }}
                           className="useTable_tableDetailsLink"
-                          state={{ data: each?.requests }}
+                          // state={{ data: each?.requests }}
+                          state={{ data: each?.offer }}
                         >
                           Details
                         </Link>
@@ -635,35 +657,33 @@ const UseTable = ({
                         )}
                       </td>
                     );
-                    case "Scout Actions":
+                  case "Scout Actions":
                     return (
                       <td
                         className="useTable_ViewEditSuspendDetails"
                         style={{ flex: 1, width: "150px" }}
                       >
                         {/* <Link className="Admin_playersviewprofile">Edit</Link> */}
-                        
-                          <>
-                            
-                            <button
-                              className="Admin_playersSuspendprofile"
-                              onClick={() =>
-                                handleScoutDeleteOffer(each?.offer?.deal?.offerId)
-                              }
-                            >
-                              {deleteIndex == each?.offer?.deal?.offerId ? (
-                                <PulseLoader
-                                  color="#7F351D"
-                                  size={13}
-                                  aria-label="Loading Spinner"
-                                  data-testid="loader"
-                                />
-                              ) : (
-                                <span>Delete</span>
-                              )}
-                            </button>
-                          </>
-                        
+
+                        <>
+                          <button
+                            className="Admin_playersSuspendprofile"
+                            onClick={() =>
+                              handleScoutDeleteOffer(each?.offer?.deal?.offerId)
+                            }
+                          >
+                            {deleteIndex == each?.offer?.deal?.offerId ? (
+                              <PulseLoader
+                                color="#7F351D"
+                                size={13}
+                                aria-label="Loading Spinner"
+                                data-testid="loader"
+                              />
+                            ) : (
+                              <span>Delete</span>
+                            )}
+                          </button>
+                        </>
                       </td>
                     );
                   case "FanAcceptDeclineOffer":

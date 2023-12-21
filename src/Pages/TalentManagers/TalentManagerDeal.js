@@ -38,10 +38,8 @@ const TalentManagerDeal = () => {
   const userType = useSelector(
     (state) => state?.reducer?.LoginSlice?.logindata
   );
-  console.log({ userType });
 
-  console.log(Talent_manager_Deals);
-
+  console.log({ Talent_manager_Deals });
   const dispatch = useDispatch();
 
   const header = [
@@ -117,14 +115,16 @@ const TalentManagerDeal = () => {
 
       let API_URL = `${baseURL}talent-manager/offer/accept`;
       const tokengot = localStorage.getItem("token");
-      console.log(data);
-      let request = data?.requests?.request?.id;
-      let sender = data?.requests?.sender?.id;
+      // let request = data?.requests?.request?.id;
+      // let sender = data?.requests?.sender?.id;
 
+      console.log({ yy: data });
       let data_item = {
-        offer_id: request,
-        user_id: sender,
+        offer_id: data?.offer?.deal?.offerId,
+        user_id: data?.offer?.deal?.id,
       };
+      console.log({ zz: data_item });
+
       const config = {
         headers: {
           // "Content-Type": "multipart/form-data",
@@ -136,7 +136,6 @@ const TalentManagerDeal = () => {
       try {
         const response = await axios.post(API_URL, data_item, config);
         console.log(response.data); // Logging the response data
-
         return response;
       } catch (error) {
         console.error(error);
@@ -188,12 +187,12 @@ const TalentManagerDeal = () => {
       let API_URL = `${baseURL}talent-manager/offer/decline`;
       const tokengot = localStorage.getItem("token");
       console.log(data);
-      let request = data?.requests?.request?.id;
-      let sender = data?.requests?.sender?.id;
+      // let request = data?.requests?.request?.id;
+      // let sender = data?.requests?.sender?.id;
 
       let data_item = {
-        offer_id: request,
-        user_id: sender,
+        offer_id: data?.offer?.deal?.offerId,
+        user_id: data?.offer?.deal?.id,
       };
       const config = {
         headers: {
@@ -251,8 +250,9 @@ const TalentManagerDeal = () => {
   };
 
   const [searchInput, setSearchInput] = useState("");
+  console.log({ ww: Talent_manager_Deals });
 
-  const filteredUsersArray = Talent_manager_Deals?.data?.filter(
+  const filteredUsersArray = Talent_manager_Deals?.filter(
     (user) =>
       user?.requests?.sender?.firstname
         .toLowerCase()
@@ -275,9 +275,6 @@ const TalentManagerDeal = () => {
       <div className="Scoutpage_maxWidthContainer">
         <div className="Scoutpage_contents ">
           <Talent_Header />
-
-          {console.log(Talent_manager_Deals)}
-
           <div className="AdminDashboard_Search">
             <input
               type="text"
@@ -286,10 +283,8 @@ const TalentManagerDeal = () => {
               className="AdminDashboard_SearchInput"
               placeholder="Search name"
             />
-
             <RiSearchLine className="AdminDashboard_SearchIcon" />
           </div>
-
           <div className="Scoutpage_DealContent">
             {Talent_manager_Deals?.data?.length === 0 ? (
               <div
@@ -308,13 +303,12 @@ const TalentManagerDeal = () => {
             ) : (
               <UseTable
                 header={header}
-                data={filteredUsersArray}
+                data={Talent_manager_Deals}
                 handleEdit={handleEdit}
                 handleDelete={handleDelete}
               />
             )}
           </div>
-
           <Modal
             open={show}
             // onClose={handleClose}
