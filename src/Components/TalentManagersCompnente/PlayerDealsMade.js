@@ -29,7 +29,6 @@ const MyComponent = ({ player }) => {
   } = useSelector((state) => state?.reducer?.Talent_manager_slice);
 
   let managerId = Talent_manager_details?.data?.id;
-  console.log({ Talent_manager_Interaction });
 
   const [filteredData, setFilteredData] = useState([]);
 
@@ -246,21 +245,19 @@ const PlayerDealsMade = () => {
 
       try {
         const response = await axios.get(API_URL, config);
-        // console.log(response.data);
 
         // Create a download link
-        // const downloadLink = document.createElement("a");
-        // const objectUrl = URL.createObjectURL(response.data);
+        const downloadLink = document.createElement("a");
+        const objectUrl = URL.createObjectURL(response.data);
 
-        // downloadLink.href = objectUrl;
-        // downloadLink.download = "file.pdf";
-        // downloadLink.click();
+        downloadLink.href = objectUrl;
+        downloadLink.download = "file.pdf";
+        downloadLink.click();
 
-        // URL.revokeObjectURL(objectUrl);
+        URL.revokeObjectURL(objectUrl);
 
         return response.data;
       } catch (error) {
-        console.error(error);
         throw new Error(error.message);
       }
     },
@@ -316,14 +313,20 @@ const PlayerDealsMade = () => {
 
         return response;
       } catch (error) {
-        console.error(error);
         throw error;
       }
     },
     {
       onSuccess: () => {
-        dispatch(Talent_manager_Interaction_fun({ player, request, sender }));
-
+        // dispatch(Talent_manager_Interaction_fun({ player, request, sender }));
+        dispatch(
+          Talent_manager_Interaction_fun({
+            offer_id,
+            player_id,
+            sender_id,
+            manager_id,
+          })
+        );
         // Success toast notification
         toast.success("Form submitted successfully!", {
           position: "top-right",
@@ -361,9 +364,6 @@ const PlayerDealsMade = () => {
     sentData.others = sender_id;
     sentData.player = player_id;
     sentData.comment = comment;
-    const tokengot = localStorage.getItem("token");
-
-    console.log({ sentData, tokengot, userType });
 
     Comment_Mutation.mutate(sentData);
   };
@@ -397,7 +397,6 @@ const PlayerDealsMade = () => {
 
       return response.data;
     } catch (error) {
-      console.error(error);
       throw new Error(error.message);
     }
   };
@@ -448,7 +447,6 @@ const PlayerDealsMade = () => {
             <div className="PlayerViewdetails_LabelAndAnswer">
               <label className="PlayerViewdetails_LabelText">Sent By:</label>
               <p className="PlayerViewdetails_labelresponse">
-                {console.log({ sender })}
                 {senderload ? (
                   <Skeleton variant="circular" width={35} height={32} />
                 ) : (
