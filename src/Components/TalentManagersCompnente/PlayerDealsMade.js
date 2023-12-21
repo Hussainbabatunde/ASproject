@@ -566,6 +566,8 @@ const PlayerDealsMade = () => {
       document.body.removeChild(link);
     } catch (error) {
       console.error("Error downloading file:", error);
+
+      throw new Error("Error downloading file:", error);
     }
   };
   return (
@@ -603,8 +605,8 @@ const PlayerDealsMade = () => {
               <div className="PlayerViewdetails_DownloadButtons">
                 <button
                   className="PlayerViewdetails_DownloadPdf"
-                  onClick={() => Download_Mutation.mutate()}
-                  // onClick={() => handleDownload()}
+                  // onClick={() => Download_Mutation.mutate()}
+                  onClick={() => handleDownload()}
                   // onClick={Download_pdf}
                   style={{ display: "flex", alignItems: "center" }}
                 >
