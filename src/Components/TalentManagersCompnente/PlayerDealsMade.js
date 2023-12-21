@@ -11,6 +11,16 @@ import axios from "axios";
 import { useMutation } from "react-query";
 import { ToastContainer, toast } from "react-toastify";
 import {
+  Page,
+  Text,
+  View,
+  Document,
+  StyleSheet,
+  PDFDownloadLink,
+  Image,
+} from "@react-pdf/renderer";
+
+import {
   Talent_manager_Interaction_fun,
   Talent_manager_deal_details_fun,
   reset_Talent_manager_Deals,
@@ -155,6 +165,15 @@ const PlayerDealsMade = () => {
   let player_id = state?.data?.player?.id;
   let sender_id = state?.data?.deal?.from;
   let manager_id = user?.id;
+  const gottenDetails = useSelector(
+    (state) => state.reducer?.GetAllPlayerDealSlice?.getOfferDetailsData
+  );
+
+  const senderInfo = useSelector(
+    (state) => state.reducer?.GetAllPlayerDealSlice?.detailsDealData?.data
+  );
+
+  const expireData = gottenDetails?.data?.offers?.expiration.slice(0, 11);
 
   const {
     Talent_manager_deal_details,
@@ -401,6 +420,154 @@ const PlayerDealsMade = () => {
     }
   };
 
+  const styles = StyleSheet.create({
+    page: {
+      // flexDirection: 'row',
+    },
+    section: {
+      margin: 10,
+      padding: 10,
+      flexGrow: 1,
+    },
+    imageCenter: {
+      flexDirection: "row",
+      justifyContent: "center",
+      alignItems: "center",
+    },
+    transactDetail: {
+      fontWeight: "bold",
+      fontSize: 20,
+      textAlign: "center",
+    },
+    recipientDiv: {
+      padding: 20,
+    },
+    recipienttopic: {
+      fontSize: 15,
+      fontWeight: "bold",
+    },
+    titleandResponse: {
+      flexDirection: "row",
+      marginVertical: 10,
+      alignItems: "center",
+    },
+    Recipientname: {
+      fontWeight: "bold",
+      color: "#808080",
+      marginRight: 10,
+      fontSize: 15,
+    },
+    imgRecipient: {
+      marginLeft: 30,
+      width: 23,
+      height: 23,
+      marginRight: 10,
+    },
+    LogoImage: {
+      width: 90,
+    },
+    nameRecp: {
+      fontSize: 15,
+    },
+  });
+  const MyDocument = () => (
+    <Document>
+      <Page size="A4" style={styles.page}>
+        <View style={styles.imageCenter}>
+          <Image
+            src={require("../../assets/afriLogopng.png")}
+            style={styles.LogoImage}
+          />
+        </View>
+        <Text style={styles.transactDetail}>Transaction Detail</Text>
+        <View style={styles.recipientDiv}>
+          <Text style={styles.recipienttopic}>Recipient details</Text>
+          <View style={styles.titleandResponse}>
+            <Text style={styles.Recipientname}>Sender Name: </Text>
+            {/* <Image style={styles.imgRecipient} src={senderInfo?.profile_pics}/> */}
+            <Text style={styles.nameRecp}>
+              {senderInfo?.firstname} {senderInfo?.surname}
+            </Text>
+          </View>
+          <View style={styles.titleandResponse}>
+            <Text style={styles.Recipientname}>Recipient Name: </Text>
+            {/* <Image style={styles.imgRecipient} src={gottenDetails?.data?.offers?.player?.profile_pics} /> */}
+            <Text style={styles.nameRecp}>
+              {gottenDetails?.data?.offers?.player?.firstname}{" "}
+              {gottenDetails?.data?.offers?.player?.surname}
+            </Text>
+          </View>
+          <View style={styles.titleandResponse}>
+            <Text style={styles.Recipientname}>Negotiation Name: </Text>
+            <Text style={styles.nameRecp}>
+              {gottenDetails?.data?.offers?.name}
+            </Text>
+          </View>
+          <View style={styles.titleandResponse}>
+            <Text style={styles.Recipientname}>Negotiation Detail: </Text>
+            <Text style={styles.nameRecp}>
+              {gottenDetails?.data?.offers?.detail}
+            </Text>
+          </View>
+          <View style={styles.titleandResponse}>
+            <Text style={styles.Recipientname}>Negotiation Status: </Text>
+            <Text style={styles.nameRecp}>
+              {gottenDetails?.data?.offers?.status}
+            </Text>
+          </View>
+          <View style={styles.titleandResponse}>
+            <Text style={styles.Recipientname}>Duration: </Text>
+            <Text style={styles.nameRecp}>
+              {gottenDetails?.data?.offers?.duration}
+            </Text>
+          </View>
+          <View style={styles.titleandResponse}>
+            <Text style={styles.Recipientname}>Amount: </Text>
+            <Text style={styles.nameRecp}>
+              ${gottenDetails?.data?.offers?.recipient_earnings}
+            </Text>
+          </View>
+          <View style={styles.titleandResponse}>
+            <Text style={styles.Recipientname}>Expiring: </Text>
+            <Text style={styles.nameRecp}>{expireData}</Text>
+          </View>
+        </View>
+      </Page>
+    </Document>
+  );
+
+  const handleDownload = async () => {
+    const tokengot = localStorage.getItem("token");
+
+    try {
+      const response = await fetch(
+        "https://ko.bcodestech.com/api/talent-manager/offer/download/63/12",
+        {
+          headers: {
+            Authorization: `Bearer ${tokengot}`,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(new Blob([blob]));
+
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", "your-file-name.pdf");
+      document.body.appendChild(link);
+
+      link.click();
+
+      document.body.removeChild(link);
+    } catch (error) {
+      console.error("Error downloading file:", error);
+    }
+  };
   return (
     <div className="PlayersViewDeals_Container">
       <div className="PlayersDealsMade_Page">
@@ -421,10 +588,23 @@ const PlayerDealsMade = () => {
                 Details
                 {info?.payment_status === "paid" ? "(Paid)" : "(Not Paid)"}
               </p>
+
+              {/* <div style={{ display: "flex", alignItems: "center" }}>
+                <FaDownload style={{ color: "#3D413D", marginRight: "7px" }} />
+                <PDFDownloadLink
+                  document={<MyDocument />}
+                  fileName="example.pdf"
+                >
+                  {({ blob, url, loading, error }) =>
+                    loading ? "Loading document..." : "Download"
+                  }
+                </PDFDownloadLink>
+              </div> */}
               <div className="PlayerViewdetails_DownloadButtons">
                 <button
                   className="PlayerViewdetails_DownloadPdf"
                   onClick={() => Download_Mutation.mutate()}
+                  // onClick={() => handleDownload()}
                   // onClick={Download_pdf}
                   style={{ display: "flex", alignItems: "center" }}
                 >
