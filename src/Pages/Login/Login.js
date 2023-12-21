@@ -80,6 +80,22 @@ const Login = () => {
     // console.log(data)
     setShow(true);
     await dispatch(loginAuth(data));
+    const tokengot = await localStorage.getItem("token");
+    await fetch(`https://ko.bcodestech.com/api/validate-duration`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${tokengot}`,
+      },
+      body: JSON.stringify(data),
+    })
+            .then((res)=> res.json())
+            .then((response)=>{
+                console.log('response ',response)
+            })
+            .catch((error)=>{
+                console.log(error)
+            })
     setShow(false);
   };
 

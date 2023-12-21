@@ -61,6 +61,7 @@ useEffect(()=>{
   const initial = async () =>{
   setDuration('weekly')
   await dispatch(resetPaymentSlice())
+  setDurationPeriod('1')
   }
   initial()
 },[])
