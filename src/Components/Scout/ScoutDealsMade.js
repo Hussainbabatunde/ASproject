@@ -282,7 +282,7 @@ const getStripe = () => {
                               data-testid="loader"
                             /> :<span>Download</span>}
                     </button> */}
-                    <div style={{display:'flex', alignItems:"center"}}>
+                    <div style={{display:'flex', alignItems:"center", marginRight: '7px'}}>
                     <FaDownload style={{color:'#3D413D', marginRight: '7px'}} /> <PDFDownloadLink document={<MyDocument />} fileName="example.pdf">
       {({ blob, url, loading, error }) =>
         loading ? 'Loading document...' : 'Download'
@@ -290,7 +290,7 @@ const getStripe = () => {
     </PDFDownloadLink>
     </div>
                   {userType!= 'player' && <div style={{display:'flex', justifyContent:'center', alignItems:'center'}}>
-                  <button className='PlayerViewdetails_Updatebutton' onClick={handleShowUpdate}>Update</button>
+                  {gottenDetails?.data?.offers?.status == 'accepted' ? <div></div> : <button className='PlayerViewdetails_Updatebutton' onClick={handleShowUpdate}>Update</button>}
                   {gottenDetails?.data?.offers?.recipient_earnings != '0.00' && gottenDetails?.data?.offers?.status == 'accepted'  && <button className='PlayerViewdetails_Paynowbutton' onClick={async()=> {
                     // initializepayment(onSuccess, onClose)
       data.offer_id = gottenDetails?.data?.offers?.id;
