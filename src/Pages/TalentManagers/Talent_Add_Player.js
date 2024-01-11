@@ -16,6 +16,7 @@ import {
   reset_Talent_manager_details,
 } from "../../Slice/Talent_Manager/Talent_manager_slice";
 import { ToastContainer } from "react-toastify";
+import { TableWithPagination2 } from "../Admin/TableWithPagination";
 
 function Talent_Add_Player() {
   const { Talent_manager_details_Get_all_player } = useSelector(
@@ -128,7 +129,15 @@ function Talent_Add_Player() {
                   />
                 </div>
               ) : (
-                <UseTable
+                // <UseTable
+                //   handleEdit={handleEdit}
+                //   header={header}
+                //   data={
+                //     Talent_manager_details_Get_all_player?.All_Player_api?.data
+                //   }
+                // />
+
+                <TableWithPagination2
                   handleEdit={handleEdit}
                   header={header}
                   data={

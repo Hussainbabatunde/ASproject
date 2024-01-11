@@ -27,6 +27,7 @@ import axios from "axios";
 import { useMutation } from "react-query";
 import { ToastContainer, toast } from "react-toastify";
 import { RiSearchLine } from "react-icons/ri";
+import { TableWithPagination2 } from "../Admin/TableWithPagination";
 
 let baseURL = process.env.REACT_APP_AFRISPORTURL;
 
@@ -59,11 +60,11 @@ const TalentManagerDeal = () => {
       name: "Sender",
       case: "talent_DealSender",
     },
-    {
-      id: 4,
-      name: "Details",
-      case: "talent_DealDetails",
-    },
+    // {
+    //   id: 4,
+    //   name: "Details",
+    //   case: "talent_DealDetails",
+    // },
     {
       id: 5,
       name: "Amount",
@@ -301,7 +302,14 @@ const TalentManagerDeal = () => {
                 />
               </div>
             ) : (
-              <UseTable
+              // <UseTable
+              // header={header}
+              //   data={Talent_manager_Deals}
+              //   handleEdit={handleEdit}
+              //   handleDelete={handleDelete}
+              // />
+
+              <TableWithPagination2
                 header={header}
                 data={Talent_manager_Deals}
                 handleEdit={handleEdit}

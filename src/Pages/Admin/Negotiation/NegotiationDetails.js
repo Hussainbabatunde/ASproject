@@ -42,6 +42,8 @@ function NegotiationDetails() {
     state?.UserId;
 
   console.log(offer_id);
+  console.log({ from_id });
+  console.log("this is me");
 
   useEffect(() => {
     dispatch(Admin___Negotiations_detail_fun({ offer_id, from_id }));
