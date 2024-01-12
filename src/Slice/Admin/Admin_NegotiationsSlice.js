@@ -17,6 +17,12 @@ const initialState = {
   Admin___Negotiations_comment_isSuccess: false,
   Admin___Negotiations_comment_isLoading: false,
   Admin___Negotiations_comment_message: null,
+
+  Admin_TalentManager___Negotiations_detail: null,
+  Admin_TalentManager___Negotiations_detail_isError: false,
+  Admin_TalentManager___Negotiations_detail_isSuccess: false,
+  Admin_TalentManager___Negotiations_detail_isLoading: false,
+  Admin_TalentManager___Negotiations_detail_message: null,
 };
 
 let baseURL = process.env.REACT_APP_AFRISPORTURL;
@@ -91,8 +97,48 @@ export const Admin___Negotiations_detail_fun = createAsyncThunk(
   "Admin_NegotiationsSlice/Admin___Negotiations_detail_fun",
   async (data, thunkAPI) => {
     try {
+      console.log({
+        sssaaa: data,
+      });
       const token = thunkAPI.getState().reducer.LoginSlice.logindata.data.token;
       return await Admin___Negotiations_detail_fun_Service(data, token);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+const Admin__Talentmanager__Negotiations_detail_fun_Service = async (
+  id,
+  token
+) => {
+  let API_URL = `${baseURL}admin/talent-manager/negotiation-detail/${id}`;
+
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  const response = await axios.get(API_URL, config);
+
+  return response.data;
+};
+export const Admin__Talentmanager__Negotiations_detail_fun = createAsyncThunk(
+  "Admin_NegotiationsSlice/Admin__Talentmanager__Negotiations_detail_fun",
+  async (id, thunkAPI) => {
+    try {
+      const token = thunkAPI.getState().reducer.LoginSlice.logindata.data.token;
+      return await Admin__Talentmanager__Negotiations_detail_fun_Service(
+        id,
+        token
+      );
     } catch (error) {
       const message =
         (error.response &&
@@ -116,7 +162,7 @@ const Admin___Negotiations_comment_fun_Service = async (data, token) => {
 
   const response = await axios.get(API_URL, config);
 
-  console.log(response.data);
+  console.log({ aa: response.data });
 
   return response.data;
 };
@@ -219,7 +265,52 @@ export const Admin_NegotiationsSlice = createSlice({
           theme: "light",
           className: "Forbidden403",
         });
-      });
+      })
+
+      .addCase(
+        Admin__Talentmanager__Negotiations_detail_fun.pending,
+        (state) => {
+          state.Admin_TalentManager___Negotiations_detail_isLoading = true;
+        }
+      )
+
+      .addCase(
+        Admin__Talentmanager__Negotiations_detail_fun.fulfilled,
+        (state, action) => {
+          state.Admin_TalentManager___Negotiations_detail = action.payload;
+          console.log({
+            ronaldo: state.Admin_TalentManager___Negotiations_detail,
+          });
+          state.Admin_TalentManager___Negotiations_detail_isSuccess = true;
+          state.Admin_TalentManager___Negotiations_detail_isLoading = false;
+        }
+      )
+
+      .addCase(
+        Admin__Talentmanager__Negotiations_detail_fun.rejected,
+        (state, action) => {
+          state.Admin_TalentManager___Negotiations_detail_isError = true;
+          state.Admin_TalentManager___Negotiations_detail_message =
+            action.payload;
+          state.Admin_TalentManager___Negotiations_detail_isLoading = false;
+          state.Admin_TalentManager___Negotiations_detail = null;
+
+          toast.error(
+            `${state.Admin_TalentManager___Negotiations_detail_message}`,
+            {
+              position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+              className: "Forbidden403",
+            }
+          );
+        }
+      );
   },
 });
 

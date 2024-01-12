@@ -814,7 +814,7 @@ const AdminUseTable = ({
                         style={{ flex: 1 }}
                       >
                         <Link
-                          to="/admin/negotiations/negotiation-detail"
+                          to="/admin/talentManager/negotiation-detail"
                           state={each}
                           className="Admin_playersviewprofile"
                         >

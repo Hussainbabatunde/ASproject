@@ -150,13 +150,13 @@ const UseTable = ({
                         $ {each?.offer?.deal?.value}
                       </td>
                     );
-                  case "talent_DealDetails":
-                    return (
-                      <td className="useTable_tableDetails">
-                        {/* {each?.requests?.request?.detail} */}
-                        {each?.offer?.deal?.detail}
-                      </td>
-                    );
+                  // case "talent_DealDetails":
+                  //   return (
+                  //     <td className="useTable_tableDetails">
+                  //       {/* {each?.requests?.request?.detail} */}
+                  //       {each?.offer?.deal?.detail}
+                  //     </td>
+                  //   );
 
                   case "talent_DealSender":
                     return (

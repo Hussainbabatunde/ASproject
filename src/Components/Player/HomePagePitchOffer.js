@@ -32,35 +32,44 @@ const HomePagePitchOffer = ({
   title,
   handleHide,
 }) => {
+  const [payValue, setPayValue] = useState("");
+  const { id } = useParams();
+  const [data, setData] = useState({});
+  const [change, setChange] = useState(false);
+  const PlayerDetails = useSelector(
+    (state) => state?.reducer?.PlayerProfileSlice?.AllProfileDetailsData?.data
+  );
+  const userId = useSelector(
+    (state) => state?.reducer?.LoginSlice?.logindata?.data?.user?.id
+  );
+  const userType = useSelector(
+    (state) => state?.reducer?.LoginSlice?.logindata?.data?.user_type
+  );
+  const [loadingOffer, setLoadingOffer] = useState(false);
+  const dispatch = useDispatch();
 
-
-    const [payValue, setPayValue] = useState('')
-    const { id } = useParams();
-    const [data, setData] = useState({})
-    const [change, setChange] = useState(false)
-    const PlayerDetails = useSelector((state)=>state?.reducer?.PlayerProfileSlice?.AllProfileDetailsData?.data)
-    const userId = useSelector((state)=> state?.reducer?.LoginSlice?.logindata?.data?.user?.id)
-    const userType = useSelector((state)=> state?.reducer?.LoginSlice?.logindata?.data?.user_type)
-    const [loadingOffer, setLoadingOffer] = useState(false)
-    const dispatch = useDispatch()
-
-    useEffect(()=>{
-      if(PlayerDetails){
-        if(PlayerDetails?.price?.minimum == 'free' || PlayerDetails?.price?.minimum == 'open'){
-          setPayValue(0)
-        }else{
-      setPayValue(PlayerDetails?.price?.minimum)
-        }
+  useEffect(() => {
+    if (PlayerDetails) {
+      if (
+        PlayerDetails?.price?.minimum == "free" ||
+        PlayerDetails?.price?.minimum == "open"
+      ) {
+        setPayValue(0);
+      } else {
+        setPayValue(PlayerDetails?.price?.minimum);
+      }
     }
   }, [PlayerDetails]);
 
-  const gottenMarketfee= useSelector((state)=> state?.reducer?.GetPaymentSlice?.getMarketPriceData?.data)
+  const gottenMarketfee = useSelector(
+    (state) => state?.reducer?.GetPaymentSlice?.getMarketPriceData?.data
+  );
   // console.log('got market ',gottenMarketfee)
 
   const marketfee = Number(gottenMarketfee);
-  console.log(marketfee)
+  console.log(marketfee);
   const TotalFee = marketfee + Number(payValue);
-  console.log(marketfee)
+  console.log(marketfee);
 
   const handleChangePayValue = (e) => {
     setPayValue(e.target.value);
@@ -135,20 +144,20 @@ const HomePagePitchOffer = ({
               onChange={handleOfferChange}
               className="OfferModal_TitleTextarea"
             />
-            <p style={{ fontSize: "13px" }}>State Date</p>
+            {/* <p style={{ fontSize: "13px" }}>State Date</p>
             <input
               type="date"
               name="to_start"
               onChange={handleOfferChange}
               className="OfferModal_TitleInput"
-            />
-            <p style={{ fontSize: "13px" }}>End Date</p>
+            /> */}
+            {/* <p style={{ fontSize: "13px" }}>End Date</p>
             <input
               type="date"
               name="to_end"
               onChange={handleOfferChange}
               className="OfferModal_TitleInput"
-            />
+            /> */}
             <p style={{ fontSize: "13px" }}>Duration</p>
             <input
               type="text"

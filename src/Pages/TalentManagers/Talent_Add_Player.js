@@ -63,7 +63,6 @@ function Talent_Add_Player() {
     {
       id: 7,
       name: "",
-
       case: "talent_player_Add",
     },
   ];

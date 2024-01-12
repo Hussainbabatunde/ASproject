@@ -6,6 +6,7 @@ import { FaDownload } from "react-icons/fa";
 
 import imgRecipient from "../../../assets/imgRecipient.png";
 import {
+  Admin__Talentmanager__Negotiations_detail_fun,
   Admin___Negotiations_comment_fun,
   Admin___Negotiations_detail_fun,
 } from "../../../Slice/Admin/Admin_NegotiationsSlice";
@@ -17,24 +18,21 @@ import { PulseLoader } from "react-spinners";
 
 let baseURL = process.env.REACT_APP_AFRISPORTURL;
 
-function NegotiationDetails() {
-  const { Admin___Negotiations_detail, Admin___Negotiations_comment } =
-    useSelector((state) => state.reducer.Admin_NegotiationsSlice);
+function TalentNegotiationDetails() {
+  const {
+    Admin___Negotiations_detail,
+    Admin___Negotiations_comment,
+    Admin_TalentManager___Negotiations_detail,
+  } = useSelector((state) => state.reducer.Admin_NegotiationsSlice);
 
   const dispatch = useDispatch();
   let { state } = useLocation();
   // const {each} = Offer_data.state
   console.log(state);
   console.log(state?.OfferId);
-  console.log(state?.User);
 
-  console.log(Admin___Negotiations_detail);
+  let offer_id = state?.OfferId;
 
-  let offer_id =
-    state?.comments?.active_offers?.OfferId ||
-    state?.OfferId ||
-    state?.offerId ||
-    state?.id;
   let from_id =
     state?.comments?.active_offers?.from ||
     state?.from ||
@@ -42,15 +40,19 @@ function NegotiationDetails() {
     state?.UserId;
 
   useEffect(() => {
-    dispatch(Admin___Negotiations_detail_fun({ offer_id, from_id }));
+    dispatch(Admin__Talentmanager__Negotiations_detail_fun(offer_id));
     dispatch(Admin___Negotiations_comment_fun(offer_id));
 
     return () => {};
   }, [dispatch]);
 
   let comment_message = Admin___Negotiations_comment?.data[1];
+  console.log({
+    roro: comment_message,
+    roror: Admin___Negotiations_comment?.data,
+  });
 
-  let negotiation_data = Admin___Negotiations_detail;
+  let negotiation_data = Admin_TalentManager___Negotiations_detail[0];
 
   function calculateMonthDuration(startDate, endDate) {
     const start = new Date(startDate);
@@ -638,7 +640,7 @@ function NegotiationDetails() {
                       </label>
                       <p className="PlayerViewdetails_labelresponse">
                         {" "}
-                        ${negotiation_data?.value}
+                        ${negotiation_data?.currentOffer}
                       </p>
                     </div>
                     <div className="PlayerViewdetails_LabelAndAnswer">
@@ -647,7 +649,7 @@ function NegotiationDetails() {
                       </label>
                       <p className="PlayerViewdetails_labelresponse">
                         {" "}
-                        {negotiation_data?.name}
+                        {negotiation_data?.DealName}
                       </p>
                     </div>
                     <div className="PlayerViewdetails_LabelAndAnswer">
@@ -793,4 +795,4 @@ function NegotiationDetails() {
   );
 }
 
-export default NegotiationDetails;
+export default TalentNegotiationDetails;
