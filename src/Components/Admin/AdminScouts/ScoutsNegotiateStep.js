@@ -26,14 +26,8 @@ function ScoutsNegotiateStep() {
     useSelector((state) => state.reducer.Admin_Scouts_Slice);
   const [step, setStep] = useState(1);
 
-  console.log({
-    yaya: Single_Scout_Negotiations_Detail?.All_negotiations_data,
-  });
-
   let All_negotiations_data =
     Single_Scout_Negotiations_Detail?.All_negotiations_data?.data;
-
-  console.log({ jaja: All_negotiations_data });
 
   let active_negotiations_data =
     Single_Scout_Negotiations_Detail?.active_negotiations_data?.data;

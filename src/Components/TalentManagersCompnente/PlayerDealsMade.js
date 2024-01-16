@@ -50,104 +50,7 @@ const MyComponent = ({ player }) => {
 
   return (
     <div className="">
-      {Talent_manager_Interaction?.map((comment, index) => {
-        return (
-          <div key={index} className="">
-            {managerId == comment?.comments?.sent_by ? (
-              <div className=" flex justify-end  mb-5">
-                <div className="flex gap-1   w-[50%]">
-                  <div>
-                    <img
-                      src={Talent_manager_details?.data?.profile_pics}
-                      className="useTable_ImageRecipient"
-                    />
-                  </div>
-                  <div>
-                    <div className="flex gap-1">
-                      <p className="PlayerViewdetails_sendername">
-                        <span>{Talent_manager_details?.data?.firstname}</span>
-                        <span>{Talent_manager_details?.data?.surname}</span>
-                      </p>
-
-                      <div>
-                        <p>{formatDate(comment?.comments?.created_at)}</p>
-                      </div>
-                    </div>
-
-                    <div>
-                      <p className="break-words max-w-sm">
-                        {comment?.comments?.comment}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ) : (
-              <>
-                {player_id == comment?.comments?.sent_by ? (
-                  <div className=" flex justify-start mb-5  ">
-                    <div className="flex gap-1   w-[50%]">
-                      <div>
-                        <img
-                          src={player?.profile_pics}
-                          className="useTable_ImageRecipient"
-                        />
-                      </div>
-                      <div>
-                        <div className="flex gap-1">
-                          <p className="PlayerViewdetails_sendername">
-                            <span>{player?.firstname}</span>
-                            <span>{player?.surname}</span>
-                          </p>
-
-                          <div>
-                            <p>{formatDate(comment?.comments?.created_at)}</p>
-                          </div>
-                        </div>
-
-                        <div>
-                          <p className="break-words max-w-sm">
-                            {comment?.comments?.comment}
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                ) : (
-                  <div className=" flex justify-start  mb-5 ">
-                    <div className="flex gap-1   ">
-                      <div>
-                        <img
-                          src={comment?.comments?.others?.profile_pics}
-                          className="useTable_ImageRecipient"
-                        />
-                      </div>
-                      <div>
-                        <div className="flex gap-1">
-                          <p className="PlayerViewdetails_sendername">
-                            <span>{comment?.comments?.others?.firstname}</span>
-                            <span>{comment?.comments?.others?.surname}</span>
-                          </p>
-
-                          <div>
-                            <p>{formatDate(comment?.comments?.created_at)}</p>
-                          </div>
-                        </div>
-
-                        <div>
-                          <p className="break-words max-w-sm">
-                            <span>{comment?.comments?.comment}</span>
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                )}
-              </>
-            )}
-          </div>
-        );
-      })}
+      <ChatApp comment_message={Talent_manager_Interaction} />
     </div>
   );
 };
@@ -788,3 +691,204 @@ const PlayerDealsMade = () => {
 };
 
 export default PlayerDealsMade;
+
+const ChatComponent = ({ messages, data_comment }) => {
+  const { data } = useSelector((state) => state.reducer?.LoginSlice?.logindata);
+  function calculateRelativeTime(createdDate) {
+    const currentDate = new Date();
+    const date = new Date(createdDate);
+
+    const timeDifference = currentDate.getTime() - date.getTime();
+    const daysDifference = Math.floor(timeDifference / (1000 * 3600 * 24));
+
+    if (daysDifference === 0) {
+      return "Today";
+    } else if (daysDifference === 1) {
+      return "Yesterday";
+    } else {
+      return `${daysDifference} days ago`;
+    }
+  }
+
+  return (
+    <div className="max-w-md mx-auto">
+      {data_comment.map((message, index) => (
+        <>
+          <div
+            key={index}
+            className={`${
+              // Number(message?.comments?.sent_by) !==
+              //   Number(message?.comments?.others?.id) &&
+              // Number(message?.comments?.sent_by) !==
+              //   Number(message?.comments?.player?.id) &&
+              Number(message?.comments?.sent_by) ===
+              Number(message?.comments?.manager_id)
+                ? "bg-gray-300 text-black ml-auto"
+                : "bg-green-500 text-white mr-auto"
+            } p-4 my-2 rounded-md max-w-xs`}
+          >
+            <div className="flex">
+              <div>
+                {Number(message?.comments?.sent_by) !==
+                  Number(message?.comments?.others?.id) &&
+                Number(message?.comments?.sent_by) !==
+                  Number(message?.comments?.player?.id) &&
+                Number(message?.comments?.sent_by) !==
+                  Number(message?.comments?.manager?.id) ? (
+                  <img
+                    src="https://buffer.com/cdn-cgi/image/w=1000,fit=contain,q=90,f=auto/library/content/images/size/w1200/2023/10/free-images.jpg"
+                    className="useTable_ImageRecipient"
+                    alt=""
+                  />
+                ) : (
+                  <>
+                    {Number(message?.comments?.sent_by) ===
+                      Number(message?.comments?.others?.id) && (
+                      <>
+                        <img
+                          src={message?.comments?.others?.profile_pics}
+                          className="useTable_ImageRecipient"
+                          alt=""
+                        />
+                      </>
+                    )}
+
+                    {Number(message?.comments?.sent_by) ===
+                      Number(message?.comments?.player?.id) && (
+                      <>
+                        <img
+                          src={message?.comments?.player?.profile_pics}
+                          className="useTable_ImageRecipient"
+                          alt=""
+                        />
+                      </>
+                    )}
+
+                    {Number(message?.comments?.sent_by) ===
+                      Number(message?.comments?.manager?.id) && (
+                      <>
+                        <img
+                          src={message?.comments?.manager?.profile_pics}
+                          className="useTable_ImageRecipient"
+                          alt=""
+                        />
+                      </>
+                    )}
+                  </>
+                )}
+              </div>
+
+              <div>
+                {Number(message?.comments?.sent_by) !==
+                  Number(message?.comments?.others?.id) &&
+                Number(message?.comments?.sent_by) !==
+                  Number(message?.comments?.player?.id) &&
+                Number(message?.comments?.sent_by) !==
+                  Number(message?.comments?.manager_id) ? (
+                  <div>
+                    <p>
+                      {data?.user_type}
+
+                      <span className="PlayerViewDeals_DateDetails">
+                        {calculateRelativeTime(message?.comments?.created_at)}
+                      </span>
+                    </p>
+                    {message?.comments?.comment}
+                  </div>
+                ) : (
+                  <>
+                    <div className="PlayerViewDeals_CommentNameandDetails">
+                      {Number(message?.comments?.sent_by) ===
+                        Number(message?.comments?.others?.id) && (
+                        <p className="PlayerViewdetails_sendername">
+                          {`${message?.comments?.others?.firstname}
+                            ${message?.comments?.others?.surname}`}
+                          <span className="PlayerViewDeals_DateDetails">
+                            {calculateRelativeTime(
+                              message?.comments?.created_at
+                            )}
+                            :<>Scout</>
+                          </span>
+                        </p>
+                      )}
+
+                      {Number(message?.comments?.sent_by) ===
+                        Number(message?.comments?.player?.id) && (
+                        <p className="PlayerViewdetails_sendername">
+                          {`${message?.comments?.player?.firstname}
+                            ${message?.comments?.player?.surname}`}
+                          <span className="PlayerViewDeals_DateDetails">
+                            {calculateRelativeTime(
+                              message?.comments?.created_at
+                            )}{" "}
+                            :<>Player </>
+                          </span>
+                        </p>
+                      )}
+
+                      {Number(message?.comments?.sent_by) ===
+                        Number(message?.comments?.manager?.id) && (
+                        <p className="PlayerViewdetails_sendername">
+                          {`${message?.comments?.manager?.firstname}
+                            ${message?.comments?.manager?.surname}`}
+                          <span className="PlayerViewDeals_DateDetails">
+                            {calculateRelativeTime(
+                              message?.comments?.created_at
+                            )}
+                            :<>Talent Manger</>
+                          </span>
+                        </p>
+                      )}
+
+                      <div>
+                        {Number(message?.comments?.sent_by) ===
+                          Number(message?.comments?.others?.id) && (
+                          <p className="PlayerViewDeals_CommentDetails">
+                            {message?.comments?.comment}
+                          </p>
+                        )}
+
+                        {Number(message?.comments?.sent_by) ===
+                          Number(message?.comments?.player?.id) && (
+                          <p className="PlayerViewDeals_CommentDetails">
+                            {message?.comments?.comment}
+                          </p>
+                        )}
+
+                        {Number(message?.comments?.sent_by) ===
+                          Number(message?.comments?.manager_id) && (
+                          <p className="PlayerViewDeals_CommentDetails">
+                            {message?.comments?.comment}
+                          </p>
+                        )}
+                      </div>
+                    </div>
+                    {/* <div>{message?.comments?.comment}</div> */}
+                  </>
+                )}
+              </div>
+            </div>
+          </div>
+        </>
+      ))}
+    </div>
+  );
+};
+
+const ChatApp = ({ comment_message }) => {
+  const messages = [
+    { text: "Hello!", sender: "user" },
+    { text: "Hi there!", sender: "admin" },
+    { text: "How can I help you?", sender: "admin" },
+    // Add more messages as needed
+  ];
+  console.log({
+    comment_message,
+  });
+  return (
+    <div>
+      <h1 className=" t text-center">Chat Conversation</h1>
+      <ChatComponent messages={messages} data_comment={comment_message} />
+    </div>
+  );
+};

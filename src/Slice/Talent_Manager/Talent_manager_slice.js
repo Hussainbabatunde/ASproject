@@ -66,7 +66,6 @@ const Talent_manager_Interaction_fun_Service = async (data, token, id) => {
   };
 
   const response = await axios.get(API_URL, config);
-  console.log({ xx: response.data });
   return response.data;
 };
 
@@ -105,7 +104,6 @@ const Talent_manager_deal_details_fun_Service = async (data, token) => {
 
   const response = await axios.get(API_URL, config);
 
-  console.log({ dd: response.data });
   return response.data;
 };
 
@@ -138,7 +136,6 @@ const Talent_manager_requested_players_fun_Service = async (token) => {
   };
 
   const response = await axios.get(API_URL, config);
-  console.log({ data: response.data });
   return response.data;
 };
 
@@ -158,7 +155,6 @@ export const Talent_manager_requested_players_fun = createAsyncThunk(
         error.message ||
         error.toString();
 
-      console.log(message);
       return thunkAPI.rejectWithValue(message);
     }
   }
@@ -195,7 +191,6 @@ export const Talent_manager_Deals_fun = createAsyncThunk(
         error.message ||
         error.toString();
 
-      console.log(message);
       return thunkAPI.rejectWithValue(message);
     }
   }
@@ -211,7 +206,6 @@ const Talent_manager_Get_Single_player_fun_Service = async (data, token) => {
   };
 
   const response = await axios.get(API_URL, config);
-  console.log(response.data);
   return response.data;
 };
 
@@ -222,7 +216,6 @@ export const Talent_manager_Get_Single_player_fun = createAsyncThunk(
       const token = thunkAPI.getState().reducer.LoginSlice.logindata.data.token;
       const id =
         thunkAPI.getState().reducer.LoginSlice.logindata.data?.user?.id;
-      console.log(data);
       return await Talent_manager_Get_Single_player_fun_Service(data, token);
     } catch (error) {
       const message =
@@ -232,7 +225,6 @@ export const Talent_manager_Get_Single_player_fun = createAsyncThunk(
         error.message ||
         error.toString();
 
-      console.log(message);
       return thunkAPI.rejectWithValue(message);
     }
   }
