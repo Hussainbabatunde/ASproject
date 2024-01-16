@@ -177,7 +177,7 @@ const Single_Scout_Negotiations_Detail_fun_Service = async (data, token) => {
   const terminated = await axios.get(API_URL_terminated, config);
 
   // return response.data;
-  let All_negotiations_data = ALL.data;
+  let All_negotiations_data = ALL?.data;
 
   let active_negotiations_data = active.data;
   let close_negotiations_data = close.data;

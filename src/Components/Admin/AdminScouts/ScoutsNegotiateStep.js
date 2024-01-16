@@ -20,18 +20,20 @@ function ScoutsNegotiateStep() {
     dispatch(Single_Scout_Negotiations_Detail_fun(id));
 
     return () => {};
-  }, []);
+  }, [dispatch, id]);
 
   const { Admin_Get_ScoutsDetails, Single_Scout_Negotiations_Detail } =
     useSelector((state) => state.reducer.Admin_Scouts_Slice);
   const [step, setStep] = useState(1);
 
-  console.log(Single_Scout_Negotiations_Detail);
+  console.log({
+    yaya: Single_Scout_Negotiations_Detail?.All_negotiations_data,
+  });
 
   let All_negotiations_data =
     Single_Scout_Negotiations_Detail?.All_negotiations_data?.data;
 
-  console.log(All_negotiations_data);
+  console.log({ jaja: All_negotiations_data });
 
   let active_negotiations_data =
     Single_Scout_Negotiations_Detail?.active_negotiations_data?.data;
@@ -170,7 +172,10 @@ function ScoutsNegotiateStep() {
               />
             </div>
           ) : (
-            <AdminUseTable header={header} data={All_negotiations_data} />
+            <AdminUseTable
+              header={header}
+              data={Single_Scout_Negotiations_Detail?.All_negotiations_data}
+            />
           )}
         </div>
       )}

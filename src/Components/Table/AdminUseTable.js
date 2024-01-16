@@ -740,8 +740,8 @@ const AdminUseTable = ({
                   case "scout_ne_Payment":
                     return (
                       <td className="useTable_tableDetails">
-                        {/* {`${each?.Payment} ` || each?.payment_status} */}
-                        {each?.payment_status}
+                        {`${each?.Payment} ` || each?.payment_status}
+                        {/* {each?.payment_status} */}
                       </td>
                     );
 

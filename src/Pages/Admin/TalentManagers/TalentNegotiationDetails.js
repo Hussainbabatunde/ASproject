@@ -6,6 +6,7 @@ import { FaDownload } from "react-icons/fa";
 
 import imgRecipient from "../../../assets/imgRecipient.png";
 import {
+  Admin__Talent_Negotiations_comment_fun,
   Admin__Talentmanager__Negotiations_detail_fun,
   Admin___Negotiations_comment_fun,
   Admin___Negotiations_detail_fun,
@@ -15,6 +16,7 @@ import axios from "axios";
 import { useMutation } from "react-query";
 import { ToastContainer, toast } from "react-toastify";
 import { PulseLoader } from "react-spinners";
+import { CircularProgress, Skeleton } from "@mui/material";
 
 let baseURL = process.env.REACT_APP_AFRISPORTURL;
 
@@ -25,11 +27,11 @@ function TalentNegotiationDetails() {
     Admin_TalentManager___Negotiations_detail,
   } = useSelector((state) => state.reducer.Admin_NegotiationsSlice);
 
+  const { data } = useSelector((state) => state.reducer?.LoginSlice?.logindata);
+
   const dispatch = useDispatch();
   let { state } = useLocation();
   // const {each} = Offer_data.state
-  console.log(state);
-  console.log(state?.OfferId);
 
   let offer_id = state?.OfferId;
 
@@ -41,16 +43,21 @@ function TalentNegotiationDetails() {
 
   useEffect(() => {
     dispatch(Admin__Talentmanager__Negotiations_detail_fun(offer_id));
+    // dispatch(
+    //   Admin__Talent_Negotiations_comment_fun({
+    //     offer_id: state?.OfferId,
+    //     player: state?.to,
+    //     others: state?.from,
+    //   })
+    // );
+
     dispatch(Admin___Negotiations_comment_fun(offer_id));
 
     return () => {};
-  }, [dispatch]);
+  }, [dispatch, offer_id]);
 
   let comment_message = Admin___Negotiations_comment?.data[1];
-  console.log({
-    roro: comment_message,
-    roror: Admin___Negotiations_comment?.data,
-  });
+  let comment_messag = Admin___Negotiations_comment?.data[1];
 
   let negotiation_data = Admin_TalentManager___Negotiations_detail[0];
 
@@ -148,7 +155,6 @@ function TalentNegotiationDetails() {
 
         return response.data;
       } catch (error) {
-        console.error(error);
         throw new Error(error.message);
       }
     },
@@ -195,12 +201,9 @@ function TalentNegotiationDetails() {
         API_URL = `${baseURL}admin/negotiations/suspend-offer`;
       }
 
-      console.log(API_URL);
       let item = {
         offer_id: offer_id,
       };
-
-      console.log(item);
 
       const tokengot = localStorage.getItem("token");
 
@@ -217,7 +220,6 @@ function TalentNegotiationDetails() {
 
         return response;
       } catch (error) {
-        console.error(error);
         throw error;
       }
     },
@@ -323,11 +325,8 @@ function TalentNegotiationDetails() {
         offer_id: offer_id,
       };
 
-      console.log(offer_id);
-
       let API_URL = `${baseURL}admin/negotiations/${data}`;
 
-      console.log(API_URL);
       const tokengot = localStorage.getItem("token");
 
       const config = {
@@ -340,7 +339,6 @@ function TalentNegotiationDetails() {
 
       try {
         const response = await axios.post(API_URL, item, config);
-        console.log(response?.data);
         return response;
       } catch (error) {
         throw error;
@@ -387,23 +385,16 @@ function TalentNegotiationDetails() {
   const Commet_Mutation = useMutation(
     async (data) => {
       // Your API request code here
-      let API_URL = `${baseURL}admin/negotiations/offer-comments`;
-
-      console.log({
-        API_URL,
-        Admin___Negotiations_detail,
-      });
+      let API_URL = `${baseURL}admin/talent-manager/offer/comments`;
 
       const tokengot = localStorage.getItem("token");
 
       let item = {
-        offer_id: Admin___Negotiations_detail?.id,
-        player: Admin___Negotiations_detail?.to,
-        others: Admin___Negotiations_detail?.from,
+        offer_id: Admin_TalentManager___Negotiations_detail[0]?.OfferId,
+        player: Admin_TalentManager___Negotiations_detail[0]?.to,
+        others: Admin_TalentManager___Negotiations_detail[0]?.from,
         comment: admincomment,
       };
-
-      console.log({ qqqq: item });
 
       const config = {
         headers: {
@@ -414,19 +405,16 @@ function TalentNegotiationDetails() {
       };
 
       try {
-        // const response = await axios.post(API_URL, item, config);
-        // return response;
+        const response = await axios.post(API_URL, item, config);
+        return response;
       } catch (error) {
-        console.error(error);
         throw error;
       }
     },
     {
-      onSuccess: () => {
-        ///// dispatch(Talent_manager_Interaction_fun({ player, request, sender }));
-        // dispatch(Admin___Negotiations_comment_fun(offer_id));
+      onSuccess: (data) => {
+        dispatch(Admin___Negotiations_comment_fun(offer_id));
 
-        // Success toast notification
         toast.success("Form submitted successfully!", {
           position: "top-right",
           autoClose: 5000,
@@ -438,7 +426,7 @@ function TalentNegotiationDetails() {
           theme: "light",
         });
       },
-      onError: () => {
+      onError: (error) => {
         // Error toast notification
         toast.error("Error occurred while submitting the form.", {
           position: "top-right",
@@ -489,7 +477,6 @@ function TalentNegotiationDetails() {
                   </div>
 
                   <>
-                    {console.log(negotiation_data?.payment_status)}
                     {negotiation_data?.payment_status === "not paid" && (
                       <div className="flex gap-2">
                         {negotiation_data?.status === "suspended" ? (
@@ -608,6 +595,7 @@ function TalentNegotiationDetails() {
                         <img
                           src={negotiation_data?.profile_pics}
                           className="useTable_ImageRecipient"
+                          alt=""
                         />
                         <span className="PlayerViewdetails_sendername">
                           {`${negotiation_data?.firstname} -
@@ -615,25 +603,7 @@ function TalentNegotiationDetails() {
                         </span>
                       </p>
                     </div>
-                    <div className="PlayerViewdetails_LabelAndAnswer">
-                      <label className="PlayerViewdetails_LabelText">
-                        Duration:
-                      </label>
-                      <p className="PlayerViewdetails_labelresponse">
-                        {duration.months}{" "}
-                        {duration.months === 1 ? "month" : "months"} and{" "}
-                        {duration.days} {duration.days === 1 ? "day" : "days"}
-                      </p>
-                    </div>
-                    <div className="PlayerViewdetails_LabelAndAnswer">
-                      <label className="PlayerViewdetails_LabelText">
-                        Expiring:
-                      </label>
-                      <p className="PlayerViewdetails_labelresponse">
-                        {" "}
-                        {formattedExpirationDate}
-                      </p>
-                    </div>
+
                     <div className="PlayerViewdetails_LabelAndAnswer">
                       <label className="PlayerViewdetails_LabelText">
                         Amount:
@@ -672,101 +642,7 @@ function TalentNegotiationDetails() {
                     </div>
                   </div>
                   <div className="PlayerViewDeals_InfoSection_LowerSegment">
-                    {comment_message?.map((item) => {
-                      return (
-                        <div className="PlayerViewDeals_CommentImgName ">
-                          <div>
-                            {item?.comments?.sent_by ==
-                              item?.comments?.others?.id && (
-                              <img
-                                src={item?.comments?.others?.profile_pics}
-                                className="useTable_ImageRecipient"
-                              />
-                            )}
-
-                            {item?.comments?.sent_by ==
-                              item?.comments?.player?.id && (
-                              <img
-                                src={item?.comments?.player?.profile_pics}
-                                className="useTable_ImageRecipient"
-                              />
-                            )}
-
-                            {item?.comments?.sent_by ==
-                              item?.comments?.manager_id && (
-                              <img
-                                src={item?.comments?.manager?.profile_pics}
-                                className="useTable_ImageRecipient"
-                              />
-                            )}
-                          </div>
-
-                          <div className="PlayerViewDeals_CommentNameandDetails">
-                            {item?.comments?.sent_by ==
-                              item?.comments?.others?.id && (
-                              <p className="PlayerViewdetails_sendername">
-                                {`${item?.comments?.others?.firstname}
-                            ${item?.comments?.others?.surname}`}
-                                <span className="PlayerViewDeals_DateDetails">
-                                  {calculateRelativeTime(
-                                    item?.comments?.created_at
-                                  )}
-                                </span>
-                              </p>
-                            )}
-
-                            {item?.comments?.sent_by ==
-                              item?.comments?.player?.id && (
-                              <p className="PlayerViewdetails_sendername">
-                                {`${item?.comments?.player?.firstname}
-                            ${item?.comments?.player?.surname}`}
-                                <span className="PlayerViewDeals_DateDetails">
-                                  {calculateRelativeTime(
-                                    item?.comments?.created_at
-                                  )}
-                                </span>
-                              </p>
-                            )}
-
-                            {item?.comments?.sent_by ==
-                              item?.comments?.manager_id && (
-                              <p className="PlayerViewdetails_sendername">
-                                {`${item?.comments?.manager?.firstname}
-                            ${item?.comments?.manager?.surname}`}
-                                <span className="PlayerViewDeals_DateDetails">
-                                  {calculateRelativeTime(
-                                    item?.comments?.created_at
-                                  )}
-                                </span>
-                              </p>
-                            )}
-
-                            <div>
-                              {item?.comments?.sent_by ==
-                                item?.comments?.others?.id && (
-                                <p className="PlayerViewDeals_CommentDetails">
-                                  {item?.comments?.comment}
-                                </p>
-                              )}
-
-                              {item?.comments?.sent_by ==
-                                item?.comments?.player?.id && (
-                                <p className="PlayerViewDeals_CommentDetails">
-                                  {item?.comments?.comment}
-                                </p>
-                              )}
-
-                              {item?.comments?.sent_by ==
-                                item?.comments?.manager_id && (
-                                <p className="PlayerViewDeals_CommentDetails">
-                                  {item?.comments?.comment}
-                                </p>
-                              )}
-                            </div>
-                          </div>
-                        </div>
-                      );
-                    })}
+                    <ChatApp comment_message={comment_message} />
 
                     <div className="PlayerViewDeals_CommentSectionDiv">
                       <div className="PlayerViewDeals_CommentSectionInnerDiv">
@@ -776,12 +652,19 @@ function TalentNegotiationDetails() {
                           value={admincomment}
                           onChange={handleChange}
                         />
-                        <button
-                          className="PlayerViewDeals_CommentButton"
-                          onClick={() => Commet_Mutation.mutate()}
-                        >
-                          Comment
-                        </button>
+
+                        {Commet_Mutation?.isLoading ? (
+                          <button className="PlayerViewDeals_CommentButton">
+                            <CircularProgress size={15} />
+                          </button>
+                        ) : (
+                          <button
+                            className="PlayerViewDeals_CommentButton"
+                            onClick={() => Commet_Mutation.mutate()}
+                          >
+                            Comment
+                          </button>
+                        )}
                       </div>
                     </div>
                   </div>
@@ -796,3 +679,202 @@ function TalentNegotiationDetails() {
 }
 
 export default TalentNegotiationDetails;
+
+const ChatComponent = ({ messages, data_comment }) => {
+  const { data } = useSelector((state) => state.reducer?.LoginSlice?.logindata);
+  function calculateRelativeTime(createdDate) {
+    const currentDate = new Date();
+    const date = new Date(createdDate);
+
+    const timeDifference = currentDate.getTime() - date.getTime();
+    const daysDifference = Math.floor(timeDifference / (1000 * 3600 * 24));
+
+    if (daysDifference === 0) {
+      return "Today";
+    } else if (daysDifference === 1) {
+      return "Yesterday";
+    } else {
+      return `${daysDifference} days ago`;
+    }
+  }
+
+  return (
+    <div className="max-w-md mx-auto">
+      {data_comment.map((message, index) => (
+        <>
+          <div
+            key={index}
+            className={`${
+              Number(message?.comments?.sent_by) !==
+                Number(message?.comments?.others?.id) &&
+              Number(message?.comments?.sent_by) !==
+                Number(message?.comments?.player?.id) &&
+              Number(message?.comments?.sent_by) !==
+                Number(message?.comments?.manager_id)
+                ? "bg-gray-300 text-black ml-auto"
+                : "bg-green-500 text-white mr-auto"
+            } p-4 my-2 rounded-md max-w-xs`}
+          >
+            <div className="flex">
+              <div>
+                {Number(message?.comments?.sent_by) !==
+                  Number(message?.comments?.others?.id) &&
+                Number(message?.comments?.sent_by) !==
+                  Number(message?.comments?.player?.id) &&
+                Number(message?.comments?.sent_by) !==
+                  Number(message?.comments?.manager_id) ? (
+                  <img
+                    src="https://buffer.com/cdn-cgi/image/w=1000,fit=contain,q=90,f=auto/library/content/images/size/w1200/2023/10/free-images.jpg"
+                    className="useTable_ImageRecipient"
+                    alt=""
+                  />
+                ) : (
+                  <>
+                    {Number(message?.comments?.sent_by) ===
+                      Number(message?.comments?.others?.id) && (
+                      <>
+                        <img
+                          src={message?.comments?.others?.profile_pics}
+                          className="useTable_ImageRecipient"
+                          alt=""
+                        />
+                      </>
+                    )}
+
+                    {Number(message?.comments?.sent_by) ===
+                      Number(message?.comments?.player?.id) && (
+                      <>
+                        <img
+                          src={message?.comments?.player?.profile_pics}
+                          className="useTable_ImageRecipient"
+                          alt=""
+                        />
+                      </>
+                    )}
+
+                    {Number(message?.comments?.sent_by) ===
+                      Number(message?.comments?.manager?.id) && (
+                      <>
+                        <img
+                          src={message?.comments?.manager?.profile_pics}
+                          className="useTable_ImageRecipient"
+                          alt=""
+                        />
+                      </>
+                    )}
+                  </>
+                )}
+              </div>
+
+              <div>
+                {Number(message?.comments?.sent_by) !==
+                  Number(message?.comments?.others?.id) &&
+                Number(message?.comments?.sent_by) !==
+                  Number(message?.comments?.player?.id) &&
+                Number(message?.comments?.sent_by) !==
+                  Number(message?.comments?.manager_id) ? (
+                  <div>
+                    <p>
+                      {data?.user_type}
+
+                      <span className="PlayerViewDeals_DateDetails">
+                        {calculateRelativeTime(message?.comments?.created_at)}
+                      </span>
+                    </p>
+                    {message?.comments?.comment}
+                  </div>
+                ) : (
+                  <>
+                    <div className="PlayerViewDeals_CommentNameandDetails">
+                      {Number(message?.comments?.sent_by) ===
+                        Number(message?.comments?.others?.id) && (
+                        <p className="PlayerViewdetails_sendername">
+                          {`${message?.comments?.others?.firstname}
+                            ${message?.comments?.others?.surname}`}
+                          <span className="PlayerViewDeals_DateDetails">
+                            {calculateRelativeTime(
+                              message?.comments?.created_at
+                            )}
+                            :<>Scout</>
+                          </span>
+                        </p>
+                      )}
+
+                      {Number(message?.comments?.sent_by) ===
+                        Number(message?.comments?.player?.id) && (
+                        <p className="PlayerViewdetails_sendername">
+                          {`${message?.comments?.player?.firstname}
+                            ${message?.comments?.player?.surname}`}
+                          <span className="PlayerViewDeals_DateDetails">
+                            {calculateRelativeTime(
+                              message?.comments?.created_at
+                            )}{" "}
+                            :<>Player </>
+                          </span>
+                        </p>
+                      )}
+
+                      {Number(message?.comments?.sent_by) ===
+                        Number(message?.comments?.manager?.id) && (
+                        <p className="PlayerViewdetails_sendername">
+                          {`${message?.comments?.manager?.firstname}
+                            ${message?.comments?.manager?.surname}`}
+                          <span className="PlayerViewDeals_DateDetails">
+                            {calculateRelativeTime(
+                              message?.comments?.created_at
+                            )}
+                            :<>Talent Manger</>
+                          </span>
+                        </p>
+                      )}
+
+                      <div>
+                        {Number(message?.comments?.sent_by) ===
+                          Number(message?.comments?.others?.id) && (
+                          <p className="PlayerViewDeals_CommentDetails">
+                            {message?.comments?.comment}
+                          </p>
+                        )}
+
+                        {Number(message?.comments?.sent_by) ===
+                          Number(message?.comments?.player?.id) && (
+                          <p className="PlayerViewDeals_CommentDetails">
+                            {message?.comments?.comment}
+                          </p>
+                        )}
+
+                        {Number(message?.comments?.sent_by) ===
+                          Number(message?.comments?.manager_id) && (
+                          <p className="PlayerViewDeals_CommentDetails">
+                            {message?.comments?.comment}
+                          </p>
+                        )}
+                      </div>
+                    </div>
+                    {/* <div>{message?.comments?.comment}</div> */}
+                  </>
+                )}
+              </div>
+            </div>
+          </div>
+        </>
+      ))}
+    </div>
+  );
+};
+
+const ChatApp = ({ comment_message }) => {
+  const messages = [
+    { text: "Hello!", sender: "user" },
+    { text: "Hi there!", sender: "admin" },
+    { text: "How can I help you?", sender: "admin" },
+    // Add more messages as needed
+  ];
+
+  return (
+    <div>
+      <h1 className=" t text-center">Chat Conversation</h1>
+      <ChatComponent messages={messages} data_comment={comment_message} />
+    </div>
+  );
+};

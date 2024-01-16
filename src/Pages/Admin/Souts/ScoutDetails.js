@@ -28,13 +28,13 @@ function ScoutDetails() {
   const { id } = useParams();
   const navigate = useNavigate();
 
+  const akaka = useSelector((state) => state.reducer?.LoginSlice?.logindata);
   const { Admin_Get_ScoutsDetails, Single_Scout_Negotiations_Detail } =
     useSelector((state) => state.reducer.Admin_Scouts_Slice);
 
   let user_Data = Admin_Get_ScoutsDetails?.data;
-  let PlayerDetails = user_Data;
 
-  console.log(user_Data);
+  let PlayerDetails = user_Data;
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -59,13 +59,10 @@ function ScoutDetails() {
       API_URL = `${baseURL}admin/player/suspend`;
     }
 
-    console.log(API_URL);
-
     const tokengot = localStorage.getItem("token");
 
     try {
       // Set the loading state to true before sending the request
-      console.log("Sending POST request...");
       setLoading(true);
 
       const config = {
@@ -84,8 +81,6 @@ function ScoutDetails() {
 
       // Reset the loading state to false after receiving the response
       setLoading(false);
-      console.log("POST request successful");
-      console.log("Response:", response.data.message);
 
       toast.success(`${response.data.message} `, {
         position: "top-right",
@@ -98,10 +93,8 @@ function ScoutDetails() {
         theme: "light",
       });
     } catch (error) {
-      console.log(error);
       // Reset the loading state to false in case of an error
       setLoading(false);
-      console.error("Error:", error.message);
 
       toast.error(`${error.message}`, {
         position: "top-right",
@@ -114,6 +107,7 @@ function ScoutDetails() {
         theme: "light",
         className: "Forbidden403",
       });
+      return error;
     }
   };
 
@@ -130,8 +124,6 @@ function ScoutDetails() {
   const userId = useSelector(
     (state) => state?.reducer?.LoginSlice?.logindata?.message?.id
   );
-
-  // console.log('PlayerDetails ', PlayerDetails)
 
   const [isPlaying, setIsPlaying] = useState(false);
 

@@ -24,6 +24,9 @@ function TalentManagerDetail() {
     (state) => state.reducer.AdminTalentMangerSlice
   );
 
+  console.log({
+    Admin_talent_manager_single,
+  });
   let user_Data = Admin_talent_manager_single?.data;
   let PlayerDetails = user_Data;
   const dispatch = useDispatch();

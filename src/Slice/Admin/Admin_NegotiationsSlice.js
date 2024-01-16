@@ -162,7 +162,7 @@ const Admin___Negotiations_comment_fun_Service = async (data, token) => {
 
   const response = await axios.get(API_URL, config);
 
-  console.log({ aa: response.data });
+  console.log({ emeka: response.data });
 
   return response.data;
 };
@@ -173,6 +173,43 @@ export const Admin___Negotiations_comment_fun = createAsyncThunk(
     try {
       const token = thunkAPI.getState().reducer.LoginSlice.logindata.data.token;
       return await Admin___Negotiations_comment_fun_Service(data, token);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+const Admin__Talent_Negotiations_comment_fun_Service = async (data, token) => {
+  let API_URL = `${baseURL}admin/talent-manager/offer/interaction/${data}`;
+
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  // const response = await axios.get(API_URL, config);
+
+  // console.log({ aa: response.data });
+
+  // return response.data;
+};
+
+export const Admin__Talent_Negotiations_comment_fun = createAsyncThunk(
+  "Admin_NegotiationsSlice/Admin__Talent_Negotiations_comment_fun",
+  async (data, thunkAPI) => {
+    try {
+      const token = thunkAPI.getState().reducer.LoginSlice.logindata.data.token;
+      console.log({
+        xmx: data,
+      });
+      return await Admin__Talent_Negotiations_comment_fun_Service(data, token);
     } catch (error) {
       const message =
         (error.response &&
