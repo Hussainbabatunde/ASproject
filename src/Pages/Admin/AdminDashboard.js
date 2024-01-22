@@ -47,7 +47,10 @@ const AdminDashboard = () => {
   const last5Object_Admin_dashboard_active_negotiations =
     Admin_dashboard_active_negotiations?.plus.slice(-5);
 
-  // const last5Object_Transaction_list = Transaction_list?.slice(-5);
+  const last5Object_Transaction_list = Transaction_list?.slice(-5);
+  console.log({
+    last5Object_Transaction_list,
+  });
 
   const header = [
     {
@@ -108,6 +111,43 @@ const AdminDashboard = () => {
     {
       id: 6,
       name: "View Details",
+    },
+  ];
+
+  const Transactionheader = [
+    {
+      id: 1,
+      name: "Date",
+      case: "Admin_Transaction_Date",
+    },
+    {
+      id: 2,
+      name: "Amount",
+      case: "Admin_Transaction_Amount",
+    },
+    {
+      id: 3,
+      name: "Customer",
+      case: "Admin_Transaction_Customer",
+    },
+
+    ,
+    {
+      id: 4,
+      name: "Purpose",
+      case: "Admin_Transaction_Purpose",
+    },
+
+    {
+      id: 5,
+      name: "Reference",
+      case: "Admin_Transaction_Reference",
+    },
+
+    {
+      id: 6,
+      name: " ",
+      case: "Admin_Transaction_details",
     },
   ];
 
@@ -274,7 +314,7 @@ const AdminDashboard = () => {
               Recent transaction made on the platform
             </span>
           </div>
-          {/* {last5Object_Transaction_list?.length === 0 ? (
+          {last5Object_Transaction_list?.length === 0 ? (
             <div
               style={{
                 display: "flex",
@@ -292,11 +332,10 @@ const AdminDashboard = () => {
             <div className="max-w-full overflow-x-auto ">
               <AdminUseTable
                 header={Transactionheader}
-                data={last5Object_Transaction_list}
+                data={Transaction_list?.slice(-5)}
               />
-          
             </div>
-          )} */}
+          )}
         </div>
       </div>
     </div>

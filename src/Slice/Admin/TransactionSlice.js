@@ -49,7 +49,7 @@ export const Transaction_detail_fun = createAsyncThunk(
 );
 
 const Transaction_list_fun_Service = async (token) => {
-  let API_URL = `${baseURL}admin/dashboard/transactions`;
+  let API_URL = `${baseURL}admin/finance/transactions`;
 
   const config = {
     headers: {
@@ -60,7 +60,9 @@ const Transaction_list_fun_Service = async (token) => {
   const response = await axios.get(API_URL, config);
   console.log(token);
 
-  console.log(response.data);
+  console.log({
+    game: response.data,
+  });
 
   return response.data;
 };
