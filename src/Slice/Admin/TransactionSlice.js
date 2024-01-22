@@ -4,8 +4,6 @@ import { toast } from "react-toastify";
 
 let baseURL = process.env.REACT_APP_AFRISPORTURL;
 
-const tokengot = localStorage.getItem("token");
-
 const initialState = {
   Transaction_total_amount: null,
   Transaction_total_amount_isError: false,
@@ -51,7 +49,7 @@ export const Transaction_detail_fun = createAsyncThunk(
 );
 
 const Transaction_list_fun_Service = async (token) => {
-  let API_URL = `${baseURL}admin/finance/transactions`;
+  let API_URL = `${baseURL}admin/dashboard/transactions`;
 
   const config = {
     headers: {

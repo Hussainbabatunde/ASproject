@@ -2,59 +2,38 @@ import React, { useEffect } from "react";
 import "./AdminDashBoard.css";
 import { RiSearchLine } from "react-icons/ri";
 import { BsPeopleFill } from "react-icons/bs";
-import { GrNotes } from "react-icons/gr";
 import { PiNotePencilFill, PiHandshakeBold } from "react-icons/pi";
 import { BiSolidVolumeLow } from "react-icons/bi";
 
 // import people from "../../assets/UsersThree.png";
 
-import dash_people from "../../assets/dash1.png";
-import document from "../../assets/document.png";
-import volume from "../../assets/volume.png";
-import vector from "../../assets/Vector.png";
-import AdminHeader from "../../Components/Header/AdminHeader";
 import { AiOutlineInfoCircle } from "react-icons/ai";
 import { Link } from "react-router-dom";
-import UseTable from "../../Components/Table/UseTable";
 import Lottie from "lottie-react";
 import empty from "../../assets/lottie/emptyState.json";
-import imgRecipient from "../../assets/imgRecipient.png";
-import ChatCircle from "../../assets/ChatsCircle.png";
 import AdminUseTable from "../../Components/Table/AdminUseTable";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  Admin_Active_Negotiations_fun,
   Admin_Header_Summary_fun,
   Admin_dashboard_active_negotiations_fun,
   Admin_dashboard_approved_player_fun,
-  Players_Under_Review_fun,
-  reset__dashbord,
 } from "../../Slice/Admin/AdminDashboardSlice";
-import { BsDisplay } from "react-icons/bs";
 import { Transaction_list_fun } from "../../Slice/Admin/TransactionSlice";
 
 const AdminDashboard = () => {
   const dispatch = useDispatch();
-  const { Transaction_total_amount, Transaction_list } = useSelector(
+  const { Transaction_list } = useSelector(
     (state) => state.reducer.TransactionSlice
   );
-
-  console.log(Transaction_list);
-
-  let data = [1, 2, 3, 4];
 
   useEffect(() => {
     dispatch(Admin_Header_Summary_fun());
     dispatch(Admin_dashboard_approved_player_fun());
     dispatch(Admin_dashboard_active_negotiations_fun());
-    return () => {};
-  }, []);
-
-  useEffect(() => {
     dispatch(Transaction_list_fun());
 
     return () => {};
-  }, []);
+  }, [dispatch]);
 
   const {
     Admin_Header_Summary,
@@ -68,9 +47,7 @@ const AdminDashboard = () => {
   const last5Object_Admin_dashboard_active_negotiations =
     Admin_dashboard_active_negotiations?.plus.slice(-5);
 
-  const last5Object_Transaction_list = Transaction_list?.slice(-5);
-
-  console.log(last5Object_Transaction_list);
+  // const last5Object_Transaction_list = Transaction_list?.slice(-5);
 
   const header = [
     {
@@ -131,57 +108,6 @@ const AdminDashboard = () => {
     {
       id: 6,
       name: "View Details",
-    },
-  ];
-
-  const Transactionheader = [
-    {
-      id: 1,
-      name: "Date",
-      case: "Admin_Transaction_Date",
-    },
-    {
-      id: 2,
-      name: "Amount",
-      case: "Admin_Transaction_Amount",
-    },
-    {
-      id: 3,
-      name: "Customer",
-      case: "Admin_Transaction_Customer",
-    },
-
-    ,
-    {
-      id: 4,
-      name: "Purpose",
-      case: "Admin_Transaction_Purpose",
-    },
-
-    {
-      id: 5,
-      name: "Reference",
-      case: "Admin_Transaction_Reference",
-    },
-
-    {
-      id: 6,
-      name: " ",
-      case: "Admin_Transaction_details",
-    },
-  ];
-
-  const dataTable = [
-    {
-      id: 1,
-      dealname: "5 Season Deal",
-      imgRecip: imgRecipient,
-      scoutname: "David Dada",
-      InitialOffer: "$12,000",
-      CurrentOffer: "$15,000",
-      surname: "Not paid",
-      chat: ChatCircle,
-      number: "8",
     },
   ];
 
@@ -272,7 +198,6 @@ const AdminDashboard = () => {
               This is a table of recent Active negotiation on this platform
             </span>
           </div>
-          {console.log(last5Object_Admin_dashboard_active_negotiations)}
           {last5Object_Admin_dashboard_active_negotiations?.length === 0 ? (
             <div
               style={{
@@ -349,7 +274,7 @@ const AdminDashboard = () => {
               Recent transaction made on the platform
             </span>
           </div>
-          {last5Object_Transaction_list?.length === 0 ? (
+          {/* {last5Object_Transaction_list?.length === 0 ? (
             <div
               style={{
                 display: "flex",
@@ -369,8 +294,9 @@ const AdminDashboard = () => {
                 header={Transactionheader}
                 data={last5Object_Transaction_list}
               />
+          
             </div>
-          )}
+          )} */}
         </div>
       </div>
     </div>
