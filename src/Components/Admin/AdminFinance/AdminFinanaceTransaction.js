@@ -17,8 +17,6 @@ const AdminFinanaceTransaction = () => {
     (state) => state.reducer.TransactionSlice
   );
 
-  console.log({ Transaction_list, Transaction_total_amount });
-
   const reversedTransactionList = [...Transaction_list].reverse();
 
   const header = [

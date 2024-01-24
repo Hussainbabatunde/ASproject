@@ -65,22 +65,36 @@ const ScoutRoute = () => {
         <Route path="/scout/payment" element={<ScoutPayment />} />
         <Route path="/scout/viewprofile" element={<ScoutViewProfile />} />
         <Route path="/scout/dealsmade/:id" element={<ScoutDealsMade />} />
-        <Route path="/scout/payment_successful" element={<ScoutPaymentSuccess />} />
-
+        {/* <Route
+          path="/scout/payment_successful"
+          element={<ScoutPaymentSuccess />}
+        /> */}
+        <Route
+          path="/scout/payment_successful/*"
+          element={<ScoutPaymentSuccess />}
+        />
+        scout/payment_successful/*
         <Route path="/player/profile" element={<PlayerProfile />} />
         <Route path="/player/deal" element={<PlayerDeal />} />
         <Route path="/player/fandeal" element={<PlayerFanDeal />} />
-        <Route path="/player/managerdeal" element={<PlayerTalentManagerDeal />} />
+        <Route
+          path="/player/managerdeal"
+          element={<PlayerTalentManagerDeal />}
+        />
         <Route path="/player/views" element={<PlayerViews />} />
         <Route path="/player/payment" element={<PlayerPayment />} />
         <Route path="/player/viewprofile" element={<PlayerViewProfile />} />
         <Route path="/player/dealsmade/:id" element={<PlayerDealsMade />} />
         <Route path="/player/homepage" element={<PlayerHomePage />} />
-        <Route path="/player/fandealsmade/:id" element={<PlayerFanDealMade />} />
-        <Route path="/player/viewtransactions" element={<PlayerViewAllTransactions />} />
-        
+        <Route
+          path="/player/fandealsmade/:id"
+          element={<PlayerFanDealMade />}
+        />
+        <Route
+          path="/player/viewtransactions"
+          element={<PlayerViewAllTransactions />}
+        />
         <Route path="/notifications" element={<Notification />} />
-
         <Route path="/fan/profile" element={<FanProfile />} />
         <Route path="/fan/deal" element={<FanDeal />} />
         <Route path="/fan/viewprofile" element={<FanViewProfile />} />

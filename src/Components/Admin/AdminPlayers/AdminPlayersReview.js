@@ -24,7 +24,6 @@ const AdminPlayersReview = ({
     (state) => state.reducer.AdminUpdate_profileSlice
   );
 
-  console.log(Admin_Get_All_Review_Player);
   const dispatch = useDispatch();
 
   const header = [
@@ -61,7 +60,6 @@ const AdminPlayersReview = ({
   }, []);
 
   const [searchInput, setSearchInput] = useState("");
-  console.log(Admin_Get_All_Review_Player);
 
   const filteredArray = Admin_Get_All_Review_Player?.plus?.filter(
     (user) =>
@@ -72,8 +70,6 @@ const AdminPlayersReview = ({
   const handleInputChange = (event) => {
     setSearchInput(event.target.value);
   };
-
-  console.log(filteredArray);
 
   return (
     <div className="AdminPage_NegotiateTab">

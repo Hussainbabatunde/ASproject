@@ -32,8 +32,6 @@ const AdminScoutsAllScouts = ({
     (state) => state.reducer.Admin_Scouts_Slice
   );
 
-  console.log(Admin_Get_All_Scouts);
-
   const dispatch = useDispatch();
 
   const header = [
@@ -103,7 +101,6 @@ const AdminScoutsAllScouts = ({
 
     try {
       // Set the loading state to true before sending the request
-      console.log("Sending POST request...");
       setLoading(true);
 
       const config = {
@@ -122,8 +119,6 @@ const AdminScoutsAllScouts = ({
 
       // Reset the loading state to false after receiving the response
       setLoading(false);
-      console.log("POST request successful");
-      console.log("Response:", response.data.message);
 
       toast.success(`${response.data.message} `, {
         position: "top-right",
@@ -136,10 +131,8 @@ const AdminScoutsAllScouts = ({
         theme: "light",
       });
     } catch (error) {
-      console.log(error);
       // Reset the loading state to false in case of an error
       setLoading(false);
-      console.error("Error:", error.message);
 
       toast.error(`${error.message}`, {
         position: "top-right",
@@ -156,8 +149,6 @@ const AdminScoutsAllScouts = ({
   };
 
   const handleDelete = (data) => {
-    console.log(data?.user?.id);
-
     handleSuspend_Unsuspend(data?.user?.id);
   };
 

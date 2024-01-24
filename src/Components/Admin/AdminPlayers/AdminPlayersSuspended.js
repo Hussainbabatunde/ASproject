@@ -30,7 +30,6 @@ const AdminPlayersSuspended = ({
     (state) => state.reducer.AdminUpdate_profileSlice
   );
 
-  console.log(Admin_Get_All_Suspended_Player);
   const dispatch = useDispatch();
 
   const [loading, setLoading] = useState(false);
@@ -67,7 +66,6 @@ const AdminPlayersSuspended = ({
 
       let API_URL = `${baseURL}admin/player/unsuspend`;
 
-      console.log("Sending POST request...");
       setLoading(true);
 
       const config = {
@@ -86,8 +84,6 @@ const AdminPlayersSuspended = ({
 
       // Reset the loading state to false after receiving the response
       setLoading(false);
-      console.log("POST request successful");
-      console.log("Response:", response.data.message);
 
       toast.success(`${response.data.message} `, {
         position: "top-right",
@@ -100,7 +96,6 @@ const AdminPlayersSuspended = ({
         theme: "light",
       });
     } catch (error) {
-      console.log(error);
       // Reset the loading state to false in case of an error
       setLoading(false);
       console.error("Error:", error.message);

@@ -105,7 +105,6 @@ const AdminRoles = () => {
     });
   };
 
-  console.log("ww");
   const Role_modal = () => {
     const [role_data, setRole_data] = useState({
       id: formData.id,

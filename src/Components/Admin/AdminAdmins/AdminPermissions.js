@@ -104,7 +104,6 @@ const AdminPermissions = () => {
   };
 
   const handleDelete = async (id, index) => {
-    // console.log('delete id', id)
     setDeletingIndex(index);
     setDeleteInfo(true);
     await dispatch(AdminDeletePermissionsRequest(id));
@@ -120,7 +119,6 @@ const AdminPermissions = () => {
     setFetcher(true);
     await dispatch(AdminGetIndividualPermissionsRequest(id));
     setFetcher(false);
-    console.log("edit id ", id);
   };
   const handleHide = () => {
     setShow(false);

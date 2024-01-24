@@ -37,7 +37,6 @@ const Privilege = () => {
     Create__Admin__Privilage_message,
   } = useSelector((state) => state?.reducer?.AdminPrivilageSlice);
 
-  console.log(get_All_Admin_Admin_Privilage);
   const [modal, setModal] = useState(false);
 
   const [searchQuery, setSearchQuery] = useState("");
@@ -52,7 +51,6 @@ const Privilege = () => {
     row.name.toLowerCase().includes(searchQuery)
   );
 
-  console.log(filteredData);
   const header = [
     {
       id: 1,
@@ -151,8 +149,6 @@ const Privilege = () => {
       let data = role_data;
       setFormData(data);
       dispatch(Create__Admin_fun(data));
-
-      console.log(data);
     };
 
     return (

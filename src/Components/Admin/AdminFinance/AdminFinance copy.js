@@ -15,8 +15,6 @@ const AdminFinance = () => {
     (state) => state.reducer.TransactionSlice
   );
 
-  console.log(Transaction_list);
-
   const data = [
     { id: 1, date: "Feb 23, 2023", amt: "14,500" },
     { id: 2, date: "Feb 23, 2023", amt: "11,500" },

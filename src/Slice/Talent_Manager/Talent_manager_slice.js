@@ -51,13 +51,6 @@ const tokengot = localStorage.getItem("token");
 let baseURL = process.env.REACT_APP_AFRISPORTURL;
 
 const Talent_manager_Interaction_fun_Service = async (data, token, id) => {
-  // let request = data?.request?.id;
-  // let player = data?.player?.id;
-  // let sender = data?.sender?.id;
-
-  // let talent_manager = id;
-  // console.log(talent_manager);
-
   let API_URL = `${baseURL}talent-manager/offer/interaction/${data?.offer_id}/${data?.player_id}/${data?.sender_id}/${data?.manager_id}`;
   const config = {
     headers: {
@@ -238,8 +231,6 @@ const Talent_manager_Add_player_fun_Service = async (data, id, token) => {
     player_id: data?.id,
   };
 
-  console.log({ userData });
-
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -248,7 +239,6 @@ const Talent_manager_Add_player_fun_Service = async (data, id, token) => {
 
   const response = await axios.post(API_URL, userData, config);
 
-  console.log(response.data);
   return response.data;
 };
 
@@ -269,7 +259,6 @@ export const Talent_manager_Add_player_fun = createAsyncThunk(
         error.message ||
         error.toString();
 
-      console.log(message);
       return thunkAPI.rejectWithValue(message);
     }
   }
@@ -310,7 +299,6 @@ export const Talent_manager_details_Get_all_player_fun = createAsyncThunk(
       const token = thunkAPI.getState().reducer.LoginSlice.logindata.data.token;
       const data =
         thunkAPI.getState().reducer.LoginSlice.logindata.data?.user?.id;
-      console.log("thththh");
       return await Talent_manager_details_Get_all_player_fun_Service(
         data,
         token
@@ -348,7 +336,6 @@ export const Talent_manager_details_fun = createAsyncThunk(
       const token = thunkAPI.getState().reducer.LoginSlice.logindata.data.token;
       const data =
         thunkAPI.getState().reducer.LoginSlice.logindata.data?.user?.id;
-      console.log("thththh");
       return await Talent_manager_details_fun_Service(data, token);
     } catch (error) {
       const message =

@@ -31,10 +31,6 @@ const AdminScoutsSuspended = ({
   const { Admin_Get_All_Scouts_isSuccess, Admin_Get_All_Suspended_Scouts } =
     useSelector((state) => state.reducer.Admin_Scouts_Slice);
 
-  console.log(Admin_Get_All_Suspended_Scouts);
-  console.log(Admin_Get_All_Suspended_Scouts);
-  console.log(Admin_Get_All_Suspended_Scouts);
-
   const [loading, setLoading] = useState(false);
 
   const header = [
@@ -75,7 +71,6 @@ const AdminScoutsSuspended = ({
 
     try {
       // Set the loading state to true before sending the request
-      console.log("Sending POST request...");
       setLoading(true);
 
       const config = {
@@ -94,8 +89,6 @@ const AdminScoutsSuspended = ({
 
       // Reset the loading state to false after receiving the response
       setLoading(false);
-      console.log("POST request successful");
-      console.log("Response:", response.data.message);
 
       toast.success(`${response.data.message} `, {
         position: "top-right",
@@ -108,10 +101,8 @@ const AdminScoutsSuspended = ({
         theme: "light",
       });
     } catch (error) {
-      console.log(error);
       // Reset the loading state to false in case of an error
       setLoading(false);
-      console.error("Error:", error.message);
 
       toast.error(`${error.message}`, {
         position: "top-right",
@@ -141,8 +132,6 @@ const AdminScoutsSuspended = ({
   };
 
   const [searchInput, setSearchInput] = useState("");
-
-  console.log(Admin_Get_All_Suspended_Scouts);
 
   const filteredUsersArray = Admin_Get_All_Suspended_Scouts?.filter(
     (user) =>

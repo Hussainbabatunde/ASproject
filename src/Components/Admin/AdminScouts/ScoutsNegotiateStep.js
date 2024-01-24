@@ -14,8 +14,6 @@ function ScoutsNegotiateStep() {
   const dispatch = useDispatch();
   const { id } = useParams();
 
-  console.log(id);
-
   useEffect(() => {
     dispatch(Single_Scout_Negotiations_Detail_fun(id));
 
@@ -33,8 +31,6 @@ function ScoutsNegotiateStep() {
     Single_Scout_Negotiations_Detail?.active_negotiations_data?.data;
   let close_negotiations_data =
     Single_Scout_Negotiations_Detail?.close_negotiations_data;
-
-  console.log(close_negotiations_data);
 
   let suspended_negotiations_data =
     Single_Scout_Negotiations_Detail?.suspended_negotiations_data?.data;
