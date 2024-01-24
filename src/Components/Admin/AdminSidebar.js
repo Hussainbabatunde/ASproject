@@ -118,7 +118,7 @@ function AdminSidebar() {
   };
 
   return (
-    <div className="    py-3">
+    <div className="     ">
       {data.map((item, index) => (
         <div key={index} className="text-white">
           <NavLink
@@ -127,7 +127,7 @@ function AdminSidebar() {
             to={item.pathTo}
           >
             <div
-              className={`flex  items-center py-[14px] px-6 hover:bg-white hover:bg-opacity-1 border border-black hover:text-black ${
+              className={`flex  items-center py-[12px] px-6 hover:bg-white hover:bg-opacity-1 border border-black hover:text-black ${
                 selectedItem === index
                   ? "bg-white text-[#262626]"
                   : "bg-[#262626] text-white"

@@ -34,7 +34,7 @@ import Settings from "./Settings/Settings";
 function AdminRote() {
   let data = [1, 2, 3, 4, 5, 6];
   return (
-    <div className="h-screen w-screen bg-gray-200 overflow-hidden">
+    <div className="h-screen w-screen bg-gray-200 overflow-hidden ">
       <div className="h-[12%] ">
         <AdminHeader />
       </div>

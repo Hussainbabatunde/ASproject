@@ -6,21 +6,21 @@ import Player1 from "../../assets/Player1.png";
 import Player2 from "../../assets/Player2.png";
 import Player3 from "../../assets/Player3.png";
 import Player4 from "../../assets/Player4.png";
-import {TbPointFilled} from 'react-icons/tb'
+import { TbPointFilled } from "react-icons/tb";
 import easywhiteafrilogo from "../../assets/easywhiteafrilogo.svg";
-import PlayerEasyContract from '../../assets/playerFootballerEasyContract.svg';
+import PlayerEasyContract from "../../assets/playerFootballerEasyContract.svg";
 import AfriBallLogo from "../../assets/AfriRoundLogo.svg";
 import DownSort from "../../assets/DownSort.png";
 import FootballerInfo from "../../Components/Homepage/FootballerInfo";
 import { Link } from "react-router-dom";
 import { RxDotFilled } from "react-icons/rx";
-import playerFootballer from '../../assets/footballPlayer1.svg'
+import playerFootballer from "../../assets/footballPlayer1.svg";
 import Footer from "../../Components/Homepage/Footer";
 import { useDispatch, useSelector } from "react-redux";
 import { FadeLoader, ScaleLoader } from "react-spinners";
-import {GrLocation} from 'react-icons/gr'
-import {PiBarbellDuotone} from 'react-icons/pi'
-import {PiPersonArmsSpreadBold} from 'react-icons/pi'
+import { GrLocation } from "react-icons/gr";
+import { PiBarbellDuotone } from "react-icons/pi";
+import { PiPersonArmsSpreadBold } from "react-icons/pi";
 import {
   GetPlayersApi,
   GetRecommendedApi,
@@ -98,22 +98,21 @@ const HomePage = () => {
     "Wingers",
     "Strikers",
   ];
-  console.log('AllPlayersdata ', AllPlayersdata);
+  console.log("AllPlayersdata ", AllPlayersdata);
 
-  
-function shortenName(name, secname, maxLength) {
-  let x = name + " " + secname;
-  if (x.length <= maxLength) {
-    return x;
-  } else {
-    return x.substring(0, maxLength) + ".....";
+  function shortenName(name, secname, maxLength) {
+    let x = name + " " + secname;
+    if (x.length <= maxLength) {
+      return x;
+    } else {
+      return x.substring(0, maxLength) + ".....";
+    }
   }
-}
 
-// const fullName = AllPlayersdata?.firstname + " " + AllPlayersdata?.surname;
-const maxLength = 16; // Set the maximum length for the shortened name
+  // const fullName = AllPlayersdata?.firstname + " " + AllPlayersdata?.surname;
+  const maxLength = 16; // Set the maximum length for the shortened name
 
-// const shortenedName = shortenName(AllPlayersdata?.firstname, AllPlayersdata?.surname, maxLength);
+  // const shortenedName = shortenName(AllPlayersdata?.firstname, AllPlayersdata?.surname, maxLength);
 
   return (
     <div className="max-w-[1360px] shadow-lg mx-auto">
@@ -122,12 +121,25 @@ const maxLength = 16; // Set the maximum length for the shortened name
       <div>
         <HeroSection />
         <div className="verifiedBgDiv_Homepage flex flex-col lg:flex-row justify-center lg:justify-between items-center">
-          <p className="text-2xl md:text-3xl text-white w-[100%] md:w-[450px]"><span className="font-bold">We Strive</span> to Create the Best MarketPlace for Football Talents</p>
+          <p className="text-2xl md:text-3xl text-white w-[100%] md:w-[450px]">
+            <span className="font-bold">We Strive</span> to Create the Best
+            MarketPlace for Football Talents
+          </p>
           <div className="flex md:mt-4 lg:mt-0 justify-center lg:justify-start w-full lg:w-[40%]">
-            <img src={AfriBallLogo} width='150px' height='150px' />
-            <div className="text-white" style={{marginLeft:'20px'}}>
-              <p className="text-2xl md:text-4xl" style={{ lineHeight:'normal'}}>100%</p>
-              <p className='text-white' style={{fontSize:'22px', lineHeight:'normal'}}>VERIFIED</p>
+            <img src={AfriBallLogo} width="150px" height="150px" />
+            <div className="text-white" style={{ marginLeft: "20px" }}>
+              <p
+                className="text-2xl md:text-4xl"
+                style={{ lineHeight: "normal" }}
+              >
+                100%
+              </p>
+              <p
+                className="text-white"
+                style={{ fontSize: "22px", lineHeight: "normal" }}
+              >
+                VERIFIED
+              </p>
               <p className="text-white">All Players Skillsets and</p>
               <p className="text-white">Performances are Veted to</p>
               <p className="text-white">Reach International Standards</p>
@@ -161,116 +173,154 @@ const maxLength = 16; // Set the maximum length for the shortened name
           <img src={PlayerEasyContract} className="Homepage_EasyContractImg" />
           <div className="mt-2 md:mt-0">
             <img src={easywhiteafrilogo} />
-            <p className="text-white font-bold text-2xl pt-5">Easily Contract</p>
+            <p className="text-white font-bold text-2xl pt-5">
+              Easily Contract
+            </p>
             <p className="text-white text-2xl">the Best African</p>
             <p className="text-white text-2xl">Football Talents</p>
             <div className="flex mt-7 text-white">
               <TbPointFilled className="text-white text-2xl" />
-              <p className='ml-3 text-white'>Create an account</p>
+              <p className="ml-3 text-white">Create an account</p>
             </div>
             <div className="flex mt-2 text-white">
               <TbPointFilled className="text-white text-2xl" />
-              <p className='ml-3 text-white'>Send Your Proposal to Player</p>
+              <p className="ml-3 text-white">Send Your Proposal to Player</p>
             </div>
             <div className="flex mt-2 text-white">
               <TbPointFilled className="text-white text-2xl" />
-              <p className='ml-3 text-white'>Negotiate and Close the Deal</p>
+              <p className="ml-3 text-white">Negotiate and Close the Deal</p>
             </div>
-            <Link to='/signup' className="mt-9 bg-white flex justify-center items-center w-[250px] py-3 rounded">Sign up</Link>
-          </div>
-        </div>
-        <div className='HomePage_talentsSection px-3 md:px-20 py-3'>
-        <div className="Homepage_topTalents">
-          <p className="border-l-2 border-[#FF8D00] py-1 px-2  text-[#071A10] font-bold">EXPLORE TALENT</p>
-
-          <Link to="/filterPage" className="Homepage_topTalentsTopic">
-            VIEW ALL
-          </Link>
-        </div>
-        <div className="Homepage_SortCategory">
-          <div className="InnerHomeFilter_Screen">
-            {PositionSort.map((each, index) => (
-              <Link
-                to="/filterPage"
-                className="Homepage_SortPosition bg-white"
-                key={index}
-              >
-                {each}
-              </Link>
-            ))}
-          </div>
-        </div>
-        {loader ? (
-          <div className="flex justify-center align-items-center mt-7">
-            <ScaleLoader
-              color="#58DC53"
-              size={45}
-              aria-label="Loading Spinner"
-              data-testid="loader"
-            />
-          </div>
-        ) : (
-          // <div className="Homepage_Sortfootballers">
-          //   {AllPlayersdata?.map((each, index) => (
-          //     <Link
-          //       to={`/viewplayerprofile/${each?.user_id}`}
-          //       data-aos-easing="ease-in-out"
-          //       data-aos-duration="1000"
-          //       data-aos="flip-down"
-          //       className="Homepage_foorballersBriefInfo"
-          //       key={index}
-          //     >
-          //       <img src={each?.image_url} className="Homepage_PlayersImage" />
-          //       {each?.service_type == "open" ||
-          //       each?.price?.service_type == "open" ? (
-          //         <p className="Homepage_PlayerStatus">
-          //           {each?.minimum || each?.price?.minimum}
-          //         </p>
-          //       ) : each?.service_type == "free" ||
-          //         each?.price?.service_type == "free" ? (
-          //         <p className="Homepage_PlayerStatus">
-          //           {each?.minimum || each?.price?.minimum}
-          //         </p>
-          //       ) : each?.service_type == "actual" ||
-          //         each?.price?.service_type == "actual" ? (
-          //         <p className="Homepage_PlayerStatus">
-          //           ${each?.minimum || each?.price?.minimum}
-          //         </p>
-          //       ) : (
-          //         <p className="Homepage_PlayerStatus">
-          //           ${each?.minimum || each?.price?.minimum} - $
-          //           {each?.maximum || each?.price?.maximum}
-          //         </p>
-          //       )}
-          //       <p className="Homepage_PlayersName">
-          //         {each?.firstname} {each?.surname}
-          //       </p>
-          //       <div className="Homepage_playersPosition">
-          //         <p>{each?.position[0]?.position}</p>
-          //         <RxDotFilled />
-          //         <p>{each?.current_club}</p>
-          //       </div>
-          //     </Link>
-          //   ))}
-          // </div>
-          <div className='flex flex-wrap justify-center gap-3 lg:justify-start'>
-            {AllPlayersdata?.map((each, index) => (
             <Link
-                  to={`/viewplayerprofile/${each?.user_id}`} key={index} className='PlayerCardsInfo w-[390px] my-2'>
-              <img src={each?.image_url} className='ImgPlayerCard_infoDetails' />
-              <div className='playerCard_infoDetails px-2 py-4 w-full'>
-                <div className='flex justify-between w-full'>
-                  <p className='cardTextColor text-sm'>PLAYERS</p>
-                  <p className='cardTextColor text-sm'>Lang: {each?.language}</p>
-                  </div> 
-                  <p className='text-2xl font-bold  py-3'> {shortenName(each?.firstname, each?.surname, maxLength)}</p>    
-                  <p className='locationIconHomepage flex items-center'><TiLocationOutline className='text-md' /><span className='ml-2 text-sm'> Location: {each?.location}</span></p> 
-                  <p className=' flex items-center py-1'><PiBarbellDuotone className='text-md' /><span className='ml-2'> Strong foot: {each?.strong_foot}</span></p>
-                    <p className=' flex items-center py-1'><PiPersonArmsSpreadBold className='text-md' /><span className='ml-2 text-sm'> Weight: {each?.weight}kg</span></p>           
-              </div>
+              to="/signup"
+              className="mt-9 bg-white flex justify-center items-center w-[250px] py-3 rounded"
+            >
+              Sign up
             </Link>
-            ))}
-            {/* <div className='PlayerCardsInfo w-[390px] my-2 mr-2'>
+          </div>
+        </div>
+        <div className="HomePage_talentsSection px-3 md:px-20 py-3">
+          <div className="Homepage_topTalents">
+            <p className="border-l-2 border-[#FF8D00] py-1 px-2  text-[#071A10] font-bold">
+              EXPLORE TALENT
+            </p>
+
+            <Link to="/filterPage" className="Homepage_topTalentsTopic">
+              VIEW ALL
+            </Link>
+          </div>
+          <div className="Homepage_SortCategory">
+            <div className="InnerHomeFilter_Screen">
+              {PositionSort.map((each, index) => (
+                <Link
+                  to="/filterPage"
+                  className="Homepage_SortPosition bg-white"
+                  key={index}
+                >
+                  {each}
+                </Link>
+              ))}
+            </div>
+          </div>
+          {loader ? (
+            <div className="flex justify-center align-items-center mt-7">
+              <ScaleLoader
+                color="#58DC53"
+                size={45}
+                aria-label="Loading Spinner"
+                data-testid="loader"
+              />
+            </div>
+          ) : (
+            // <div className="Homepage_Sortfootballers">
+            //   {AllPlayersdata?.map((each, index) => (
+            //     <Link
+            //       to={`/viewplayerprofile/${each?.user_id}`}
+            //       data-aos-easing="ease-in-out"
+            //       data-aos-duration="1000"
+            //       data-aos="flip-down"
+            //       className="Homepage_foorballersBriefInfo"
+            //       key={index}
+            //     >
+            //       <img src={each?.image_url} className="Homepage_PlayersImage" />
+            //       {each?.service_type == "open" ||
+            //       each?.price?.service_type == "open" ? (
+            //         <p className="Homepage_PlayerStatus">
+            //           {each?.minimum || each?.price?.minimum}
+            //         </p>
+            //       ) : each?.service_type == "free" ||
+            //         each?.price?.service_type == "free" ? (
+            //         <p className="Homepage_PlayerStatus">
+            //           {each?.minimum || each?.price?.minimum}
+            //         </p>
+            //       ) : each?.service_type == "actual" ||
+            //         each?.price?.service_type == "actual" ? (
+            //         <p className="Homepage_PlayerStatus">
+            //           ${each?.minimum || each?.price?.minimum}
+            //         </p>
+            //       ) : (
+            //         <p className="Homepage_PlayerStatus">
+            //           ${each?.minimum || each?.price?.minimum} - $
+            //           {each?.maximum || each?.price?.maximum}
+            //         </p>
+            //       )}
+            //       <p className="Homepage_PlayersName">
+            //         {each?.firstname} {each?.surname}
+            //       </p>
+            //       <div className="Homepage_playersPosition">
+            //         <p>{each?.position[0]?.position}</p>
+            //         <RxDotFilled />
+            //         <p>{each?.current_club}</p>
+            //       </div>
+            //     </Link>
+            //   ))}
+            // </div>
+            <div className="flex flex-wrap justify-center lg:justify-start  gap-2 lg:gap-3">
+              {AllPlayersdata?.map((each, index) => (
+                <Link
+                  to={`/viewplayerprofile/${each?.user_id}`}
+                  key={index}
+                  className="PlayerCardsInfo w-[390px] xl:w-[30%] my-2 "
+                >
+                  <img
+                    src={each?.image_url}
+                    className="ImgPlayerCard_infoDetails"
+                  />
+                  <div className="playerCard_infoDetails px-2 py-4 w-full">
+                    <div className="flex justify-between w-full">
+                      <p className="cardTextColor text-sm">PLAYERS</p>
+                      <p className="cardTextColor text-sm">
+                        Lang: {each?.language}
+                      </p>
+                    </div>
+                    <p className="text-2xl font-bold  py-3">
+                      {" "}
+                      {shortenName(each?.firstname, each?.surname, maxLength)}
+                    </p>
+                    <p className="locationIconHomepage flex items-center">
+                      <TiLocationOutline className="text-md" />
+                      <span className="ml-2 text-sm">
+                        {" "}
+                        Location: {each?.location}
+                      </span>
+                    </p>
+                    <p className=" flex items-center py-1">
+                      <PiBarbellDuotone className="text-md" />
+                      <span className="ml-2">
+                        {" "}
+                        Strong foot: {each?.strong_foot}
+                      </span>
+                    </p>
+                    <p className=" flex items-center py-1">
+                      <PiPersonArmsSpreadBold className="text-md" />
+                      <span className="ml-2 text-sm">
+                        {" "}
+                        Weight: {each?.weight}kg
+                      </span>
+                    </p>
+                  </div>
+                </Link>
+              ))}
+              {/* <div className='PlayerCardsInfo w-[390px] my-2 mr-2'>
               <img src={playerFootballer} className='ImgPlayerCard_infoDetails' />
               <div className='playerCard_infoDetails px-2 py-4 w-full'>
                 <div className='flex justify-between w-full'>
@@ -297,13 +347,22 @@ const maxLength = 16; // Set the maximum length for the shortened name
               </div>
             </div> */}
             </div>
-        )}
-        
+          )}
         </div>
         <div className="world_classhomeplayers py-5 flex flex-col justify-center items-center">
-          <p className="text-white text-2xl md:text-4xl font-bold">World Class Talent</p>
-          <p className="text-white text-2xl md:text-4xl font-bold">only on Afri Sport</p>
-            <Link to='/signup' className="mt-3 font-bold bg-[#071A10] w-[150px] md:w-[250px] text-white py-3 rounded flex justify-center" > <p className="text-white">Sign up</p></Link>
+          <p className="text-white text-2xl md:text-4xl font-bold">
+            World Class Talent
+          </p>
+          <p className="text-white text-2xl md:text-4xl font-bold">
+            only on Afri Sport
+          </p>
+          <Link
+            to="/signup"
+            className="mt-3 font-bold bg-[#071A10] w-[150px] md:w-[250px] text-white py-3 rounded flex justify-center"
+          >
+            {" "}
+            <p className="text-white">Sign up</p>
+          </Link>
         </div>
       </div>
       <Footer />
