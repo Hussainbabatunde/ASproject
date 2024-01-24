@@ -288,7 +288,7 @@ const PlayerHomePage = () => {
                 <Link
                   to={`/viewplayerprofile/${each?.user_id}`}
                   key={index}
-                  className="PlayerCardsInfo w-[390px] xl:w-[30%] my-2 debug"
+                  className="PlayerCardsInfo w-[390px] xl:w-[30%] my-2 "
                 >
                   <img
                     src={each?.image_url}
