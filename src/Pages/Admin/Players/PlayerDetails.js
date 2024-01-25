@@ -29,6 +29,9 @@ function PlayerDetails() {
     Admin_update_user_image_isSuccess,
   } = useSelector((state) => state.reducer.AdminUpdate_profileSlice);
 
+  console.log({
+    Admin_Get_Players_Profile_details,
+  });
   let user_Data = Admin_Get_Players_Profile_details?.data;
   let PlayerDetails = user_Data;
 
@@ -41,8 +44,6 @@ function PlayerDetails() {
     return () => {};
   }, [Admin_update_user_image_isSuccess]);
 
-  console.log(Admin_Get_Players_Profile_details);
-
   const [loading, setLoading] = useState(false);
 
   const handleSuspend_Unsuspend = async (data, id) => {
@@ -54,13 +55,10 @@ function PlayerDetails() {
       API_URL = `${baseURL}admin/player/suspend`;
     }
 
-    console.log(API_URL);
-
     const tokengot = localStorage.getItem("token");
 
     try {
       // Set the loading state to true before sending the request
-      console.log("Sending POST request...");
       setLoading(true);
 
       const config = {
@@ -79,8 +77,6 @@ function PlayerDetails() {
 
       // Reset the loading state to false after receiving the response
       setLoading(false);
-      console.log("POST request successful");
-      console.log("Response:", response.data.message);
 
       toast.success(`${response.data.message} `, {
         position: "top-right",
@@ -93,10 +89,8 @@ function PlayerDetails() {
         theme: "light",
       });
     } catch (error) {
-      console.log(error);
       // Reset the loading state to false in case of an error
       setLoading(false);
-      console.error("Error:", error.message);
 
       toast.error(`${error.message}`, {
         position: "top-right",
@@ -130,8 +124,6 @@ function PlayerDetails() {
   const userId = useSelector(
     (state) => state?.reducer?.LoginSlice?.logindata?.message?.id
   );
-
-  // console.log('PlayerDetails ', PlayerDetails)
 
   useEffect(() => {
     const getInfo = async () => {
@@ -192,8 +184,7 @@ function PlayerDetails() {
                       ? "Unavailable"
                       : " Available"}{" "}
                   </p>
-                  {/* {user_Data?.bio?.position.toUpperCase()} */}
-                  {/* {console.log(user_Data?.position) */}
+
                   {user_Data?.position.map((item) => {
                     return (
                       <span className="bg-[#F4F4F4] font-normal text-sm py-2 px-2">
@@ -327,14 +318,14 @@ function PlayerDetails() {
                 <p className="ScoutViewProfile_AboutSectionIcon">
                   <RiDashboardLine />
                 </p>
-                <div>
+                {/* <div>
                   <p className="ScoutViewProfile_AboutSectionIconTopic">
                     Interest
                   </p>
                   <p className="ScoutViewProfile_AboutSectionIconText">
                     Gamming, Singing.
                   </p>
-                </div>
+                </div> */}
               </div>
               <p className="ScoutViewProfile_PhysicalStatsText">
                 Physical Stats
