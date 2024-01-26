@@ -42,7 +42,6 @@ export default function ScoutPaymentSuccess({}) {
     const getDetails = async () => {
       setLoading(true);
       await fetch(
-        // `https://ko.bcodestech.com/api/successful-payment/${user_id}/${payment}/${payment_type}`
         `${baseURL}successful-payment/${user_id}/${payment}/${payment_type}`
       )
         .then((res) => res.json())

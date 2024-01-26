@@ -27,6 +27,8 @@ const style = {
   p: 4,
 };
 
+let baseURL = process.env.REACT_APP_AFRISPORTURL;
+
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -81,7 +83,7 @@ const Login = () => {
     setShow(true);
     await dispatch(loginAuth(data));
     const tokengot = await localStorage.getItem("token");
-    await fetch(`https://ko.bcodestech.com/api/validate-duration`, {
+    await fetch(`${baseURL}validate-duration`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -89,13 +91,13 @@ const Login = () => {
       },
       body: JSON.stringify(data),
     })
-            .then((res)=> res.json())
-            .then((response)=>{
-                console.log('response ',response)
-            })
-            .catch((error)=>{
-                console.log(error)
-            })
+      .then((res) => res.json())
+      .then((response) => {
+        console.log("response ", response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
     setShow(false);
   };
 
@@ -117,7 +119,7 @@ const Login = () => {
       <ToastContainer />
       <p className="Loginpage_Companyname">
         <Link className="Loginpage_companyImg" to="/">
-          <img src={footballLogo} width='70px' />
+          <img src={footballLogo} width="70px" />
         </Link>
       </p>
       <form onSubmit={handleSubmit(onSubmit)} className="Loginpage_formSection">
@@ -170,14 +172,16 @@ const Login = () => {
           </Link>
         </p>
         <button className="Loginpage_formLoginButton" onClick={handleSubmit}>
-          {show? <ScaleLoader
-                                  color="white"
-                                  size={10}
-                                  aria-label="Loading Spinner"
-                                  data-testid="loader"
-                                /> 
-                                :  
-                                <span>Log in</span> }
+          {show ? (
+            <ScaleLoader
+              color="white"
+              size={10}
+              aria-label="Loading Spinner"
+              data-testid="loader"
+            />
+          ) : (
+            <span>Log in</span>
+          )}
         </button>
         <div className="Loginpage_formOrSection">
           <div className="Loginpage_formHrLine"></div>

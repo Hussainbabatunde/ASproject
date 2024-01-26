@@ -444,7 +444,7 @@ const PlayerDealsMade = () => {
 
     try {
       const response = await fetch(
-        "https://ko.bcodestech.com/api/talent-manager/offer/download/63/12",
+        `${baseURL}talent-manager/offer/download/63/12`,
         {
           headers: {
             Authorization: `Bearer ${tokengot}`,

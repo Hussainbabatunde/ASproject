@@ -82,21 +82,6 @@ function ScoutsNegotiateStep() {
     },
   ];
 
-  const dataTable = [
-    {
-      Amount: "54000.00",
-      DealName: "ahmed",
-      OfferId: "21",
-      Payment: "0",
-      User: "32",
-      firstname: "scout",
-      profile_pics:
-        "https://certificate.bcodestech.com/images/profile-picture/1684843109-603956709976634-editprofile.PNG",
-      status: "pending",
-      surname: "unknown",
-    },
-  ];
-
   return (
     <div className="AdminPage_NegotiateTab bg-white px-5 py-5">
       <div className="AdminPage_NegotiateTabTitle">

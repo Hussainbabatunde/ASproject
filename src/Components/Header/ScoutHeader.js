@@ -7,52 +7,52 @@ import { RxCross2 } from "react-icons/rx";
 import { MdNotifications } from "react-icons/md";
 import { BsFillPersonFill } from "react-icons/bs";
 import { useSelector } from "react-redux";
-import Echo from "laravel-echo"
-import axios from 'axios';
-import Pusher from 'pusher-js'
+import Echo from "laravel-echo";
+import axios from "axios";
+import Pusher from "pusher-js";
 import { useQuery } from "react-query";
 
+let baseurl = process.env.REACT_APP_AFRISPORTURL;
 
+const client = axios.create({ baseURL: baseurl });
 
-const client = axios.create({baseURL: 'https://ko.bcodestech.com/api/'})
-
-const getNotification = () => 
-{
-  let token = localStorage.getItem('token')
-    // return axios.get(`http://localhost:8000/api/get-offer-notification/${heroId}`) 
-    const options = { url: 'offer-notification', method: 'GET'   }
-    client.defaults.headers.common.Authorization = `Bearer ${token}`
-    const onSuccess = (response) => response
-    const onError = (error) => {
-        return error
-    }
-    return client(options).then(onSuccess).catch(onError)
-}
-
+const getNotification = () => {
+  let token = localStorage.getItem("token");
+  // return axios.get(`http://localhost:8000/api/get-offer-notification/${heroId}`)
+  const options = { url: "offer-notification", method: "GET" };
+  client.defaults.headers.common.Authorization = `Bearer ${token}`;
+  const onSuccess = (response) => response;
+  const onError = (error) => {
+    return error;
+  };
+  return client(options).then(onSuccess).catch(onError);
+};
 
 const ScoutHeader = () => {
   const [openNav, setOpenNav] = useState("HomePage_ShownDetails_NavMenu");
   const [iconOpen, setIconOpen] = useState(false);
   const navigate = useNavigate();
-  const userId = useSelector((state)=> state?.reducer?.LoginSlice?.logindata?.data?.user?.id)
+  const userId = useSelector(
+    (state) => state?.reducer?.LoginSlice?.logindata?.data?.user?.id
+  );
 
   const userData = useSelector((state) => state.reducer.LoginSlice?.logindata);
 
+  // useEffect (() =>{
+  //   echo.channel(`offer.${userId}`).listen('CommentNotificationEvent', function (data, err){
+  //     console. log('notification data ',data)
+  //   })
+  //   }, [])
 
-      // useEffect (() =>{
-      //   echo.channel(`offer.${userId}`).listen('CommentNotificationEvent', function (data, err){
-      //     console. log('notification data ',data)
-      //   })
-      //   }, [])
-
-      const { isLoading, data, isError, error, refetch, onSuccess, onError  } = useQuery('recent-offer', getNotification, { 
-        cacheTime: 0, 
-        refetchOnMount: true, 
-        refreshOnWindowFocus: true,  
-        refreshInterval: 300,
-        refreshIntervalInBackground: true,
-        enable: true,
-      })
+  const { isLoading, data, isError, error, refetch, onSuccess, onError } =
+    useQuery("recent-offer", getNotification, {
+      cacheTime: 0,
+      refetchOnMount: true,
+      refreshOnWindowFocus: true,
+      refreshInterval: 300,
+      refreshIntervalInBackground: true,
+      enable: true,
+    });
 
   const handleOpen = () => {
     setIconOpen(true);
@@ -80,15 +80,26 @@ const ScoutHeader = () => {
     <>
       <div className="Homepage_header">
         <Link to="/afrisport/player/homepage">
-          <img src={logo} alt="Afrisport logo" className="cursor-pointer sm:w-[61px] sm:h-[20px] lg:w-[122px] lg:h-[62px]" />
+          <img
+            src={logo}
+            alt="Afrisport logo"
+            className="cursor-pointer sm:w-[61px] sm:h-[20px] lg:w-[122px] lg:h-[62px]"
+          />
         </Link>
         <div className="flex">
-          <Link to='/filterPage' className="mx-4">Players</Link>
+          <Link to="/filterPage" className="mx-4">
+            Players
+          </Link>
           {/* <p className="mx-4">Terms & Conditions</p> */}
-          <Link to='/pricingpage' className="mx-4">Pricing</Link>
+          <Link to="/pricingpage" className="mx-4">
+            Pricing
+          </Link>
         </div>
         <div className="Admin_wholeNavigationBar">
-          <Link to='/afrisport/notifications' className="Admin_HeaderNotification_div">
+          <Link
+            to="/afrisport/notifications"
+            className="Admin_HeaderNotification_div"
+          >
             <MdNotifications className="Admin_headerNotification" />
             <div className="Admin_NotificationSign"></div>
           </Link>
@@ -100,8 +111,12 @@ const ScoutHeader = () => {
       <div className="Homepage_Menudisplay">
         <div className="Homepage_ShownMenuBar">
           <div className="Homepage_headerNavbar">
-        <Link to="/afrisport/player/homepage">
-            <img src={logo} alt="Afrisport logo"  className="w-[81px] h-[50px]" />
+            <Link to="/afrisport/player/homepage">
+              <img
+                src={logo}
+                alt="Afrisport logo"
+                className="w-[81px] h-[50px]"
+              />
             </Link>
             {iconOpen ? (
               <RxCross2 className="Homepage_MeniIcon" onClick={handleClose} />
@@ -110,19 +125,22 @@ const ScoutHeader = () => {
             )}
           </div>
           <div className={openNav}>
-          <Link to="/filterPage" className="Header_login">
-            Players
-          </Link>
-          <Link to="/pricingpage" className="Header_login">
-            Pricing
-          </Link>
-          <div className="Admin_HeaderNotification_div">
-            <MdNotifications className="Admin_headerNotification" />
-            <div className="Admin_NotificationSign"></div>
-          </div>
-            <p style={{ cursor: "pointer", marginTop:'10px' }} onClick={handleUserProfile}>
-            <BsFillPersonFill className="Admin_headerNotification" />
-          </p>
+            <Link to="/filterPage" className="Header_login">
+              Players
+            </Link>
+            <Link to="/pricingpage" className="Header_login">
+              Pricing
+            </Link>
+            <div className="Admin_HeaderNotification_div">
+              <MdNotifications className="Admin_headerNotification" />
+              <div className="Admin_NotificationSign"></div>
+            </div>
+            <p
+              style={{ cursor: "pointer", marginTop: "10px" }}
+              onClick={handleUserProfile}
+            >
+              <BsFillPersonFill className="Admin_headerNotification" />
+            </p>
           </div>
         </div>
       </div>
