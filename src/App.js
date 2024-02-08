@@ -29,7 +29,8 @@ import TalentmanagerRoute from "./Pages/TalentManagers/TalentmanagerRoute";
 import RecommendedFilterView from "./Pages/LandingHomepage/RecommendedFilterView";
 import TopratedPlayersFilterView from "./Pages/LandingHomepage/TopratedPlayersFilterView";
 import HomePricingScreen from "./Pages/LandingHomepage/HomePricingScreen";
-
+import MissonStatement from "./Pages/Policy/MissonStatement";
+import TermCondition from "./Pages/Policy/TermCondition";
 
 function App() {
   useEffect(() => {
@@ -49,7 +50,12 @@ function App() {
           <Route path="/setPassword" element={<ResetPassword />} />
           <Route path="/filterPage" element={<HomepageFilterView />} />
           <Route path="/recommendedPage" element={<RecommendedFilterView />} />
-          <Route path="/topRatedPlayerPage" element={<TopratedPlayersFilterView />} />
+          <Route
+            path="/topRatedPlayerPage"
+            element={<TopratedPlayersFilterView />}
+          />
+          <Route path="/mission" element={<MissonStatement />} />
+          <Route path="/terms" element={<TermCondition />} />
 
           <Route
             path="/viewplayerprofile/:id"

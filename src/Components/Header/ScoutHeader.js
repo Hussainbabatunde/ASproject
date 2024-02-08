@@ -94,6 +94,14 @@ const ScoutHeader = () => {
           <Link to="/pricingpage" className="mx-4">
             Pricing
           </Link>
+
+          <Link to="/mission" className="mx-4">
+            Mission
+          </Link>
+
+          <Link to="/terms" className="mx-4">
+            Terms & Conditions
+          </Link>
         </div>
         <div className="Admin_wholeNavigationBar">
           <Link

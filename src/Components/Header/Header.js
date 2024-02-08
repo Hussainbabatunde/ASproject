@@ -29,12 +29,21 @@ const Header = () => {
           onClick={() => navigate("/")}
         />
         <div className="flex">
-          <Link to='/filterPage' className="mx-4">Players</Link>
-          <p className="mx-4">Terms & Conditions</p>
-          <Link to='/pricingpage' className="mx-4">Pricing</Link>
+          <Link to="/filterPage" className="mx-4">
+            Players
+          </Link>
+          <Link to="/mission" className="mx-4">
+            Mission
+          </Link>
+
+          <Link to="/terms" className="mx-4">
+            Terms & Conditions
+          </Link>
+          <Link to="/pricingpage" className="mx-4">
+            Pricing
+          </Link>
         </div>
         <div>
-        
           <Link to="/login" className="Header_login">
             Login
           </Link>
@@ -46,7 +55,11 @@ const Header = () => {
       <div className="Homepage_Menudisplay">
         <div className="Homepage_ShownMenuBar">
           <div className="Homepage_headerNavbar">
-            <img src={logo} alt="Afrisport logo" className="w-[81px] h-[50px]" />
+            <img
+              src={logo}
+              alt="Afrisport logo"
+              className="w-[81px] h-[50px]"
+            />
             {iconOpen ? (
               <RxCross2 className="Homepage_MeniIcon" onClick={handleClose} />
             ) : (
@@ -54,15 +67,15 @@ const Header = () => {
             )}
           </div>
           <div className={openNav}>
-          <Link to="/filterPage" className="Header_login">
-            Players
-          </Link>
-          <Link to="/login" className="Header_login">
-          Terms & Conditions
-          </Link>
-          <Link to="/pricingpage" className="Header_login">
-            Pricing
-          </Link>
+            <Link to="/filterPage" className="Header_login">
+              Players
+            </Link>
+            <Link to="/login" className="Header_login">
+              Terms & Conditions
+            </Link>
+            <Link to="/pricingpage" className="Header_login">
+              Pricing
+            </Link>
             <Link to="/login" className="Header_login">
               Login
             </Link>
