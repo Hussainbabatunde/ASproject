@@ -62,10 +62,8 @@ const Footer = () => {
         <p className="flex items-center">
           <BiCopyright /> 2022AfriSport-Pro
         </p>
-        {/* <div className='Homepage_TermsandPolicy'>
-                <p style={{marginRight:'20px'}}>Terms of use</p>
-                <p>Privacy policy</p>
-            </div> */}
+
+        <p className="flex items-center ml-7">Email: Afrisportpro@gmail.com</p>
       </div>
     </div>
   );
